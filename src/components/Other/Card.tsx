@@ -1,4 +1,4 @@
-import { Box, Button, Center, ChakraProps, Flex, Image, Text } from "@chakra-ui/react";
+import { Box, Button, Center, ChakraProps, Flex, Image, Tag, Text } from "@chakra-ui/react";
 import { useCurrencyFormat } from "../../utils/CurrencyFormat";
 import { ImBoxAdd } from "react-icons/im";
 
@@ -35,8 +35,8 @@ export default function Card({ data, ...props }: { data: CardProps } & ChakraPro
           >Buy Now</Button>
         </Center>
         <Flex justifyContent={data.sold ? "space-between" : "flex-end"}>
-          {data.sold && <Text textAlign={"start"}>SOLD: {data.sold}</Text>}
-          <Text textAlign={"end"}>{format(data.salePrice ? data.salePrice : data.price)}</Text>
+          {data.sold && <Text textAlign={"start"}><Tag>SOLD: {data.sold}</Tag></Text>}
+          <Text fontWeight={"bold"} fontSize="21px" textAlign={"end"}>{format(data.salePrice ? data.salePrice : data.price)}</Text>
         </Flex>
       </Box>
     </Box>

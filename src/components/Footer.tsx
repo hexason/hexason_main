@@ -61,13 +61,13 @@ export default function Footer() {
           align={{ base: 'center', md: 'center' }}>
           <Text>© {new Date().getFullYear() } CubeZet. All rights reserved</Text>
           <Stack direction={'row'} spacing={6}>
-            <SocialButton label={'Twitter'} href={'#'}>
+            {/* <SocialButton label={'Twitter'} href={'#'}> // Twitter account neeh
               <FaTwitter />
-            </SocialButton>
-            <SocialButton label={'YouTube'} href={'#'}>
+            </SocialButton> */}
+            <SocialButton label={'YouTube'} href={'https://www.youtube.com/channel/UCPXB6-fAt_t-b12BSxEzjiA'}>
               <FaYoutube />
             </SocialButton>
-            <SocialButton label={'Instagram'} href={'#'}>
+            <SocialButton label={'Instagram'} href={'https://www.instagram.com/cubezet_/'}>
               <FaInstagram />
             </SocialButton>
           </Stack>

@@ -19,6 +19,8 @@ export default function Root({ children, ...props }: any) {
         <Container p={0} minH="100vh" maxW="container.lg" {...props}>
           <Navbar />
           {children}
+        </Container>
+        <Container p={0} maxW="container.lg" {...props}>
           <Footer />
         </Container>
       </Box>

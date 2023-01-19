@@ -14,6 +14,11 @@ import {
   useColorModeValue,
   useBreakpointValue,
   useDisclosure,
+  Avatar,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
 } from '@chakra-ui/react';
 import {
   HamburgerIcon,
@@ -22,12 +27,12 @@ import {
   ChevronRightIcon,
 } from '@chakra-ui/icons';
 import { useUser } from '../context/UserContext';
-import MiniAvatar from './Other/Avatar';
-
+import NLink from "next/link";
 
 export default function Navbar() {
   const { isOpen, onToggle } = useDisclosure();
-  const { user, logout, signIn, loading } = useUser();
+  const { user, signIn, loading } = useUser();
+
 
   return (
     <Box>
@@ -55,13 +60,15 @@ export default function Navbar() {
           />
         </Flex>
         <Flex fontSize={"21px"} flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
-          <Text
-            textAlign={useBreakpointValue({ base: 'center', md: 'left' })}
-            fontFamily={'heading'}
-            color={useColorModeValue('gray.800', 'white')}>
-            CUBE
-          </Text>
-          <Text color={"teal.400"}>ZET</Text>
+          <Flex as={NLink} href="/">
+            <Text
+              textAlign={useBreakpointValue({ base: 'center', md: 'left' })}
+              fontFamily={'heading'}
+              color={useColorModeValue('gray.800', 'white')}>
+              CUBE
+            </Text>
+            <Text color={"teal.400"}>ZET</Text>
+          </Flex>
           <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
             <DesktopNav />
           </Flex>
@@ -73,27 +80,50 @@ export default function Navbar() {
           direction={'row'}
           spacing={6}>
           {
-            loading ? "loading":
-            user.id ? <MiniAvatar src={user.user_metadata?.avatar_url} trigger={logout} />:
-            <Button
-              display={'inline-flex'}
-              fontSize={'sm'}
-              fontWeight={600}
-              color={'white'}
-              bg={'teal.400'}
-              onClick={signIn}
-              isLoading={loading}
-              _hover={{
-                bg: 'teal.300',
-              }}>
-              Get Start
-            </Button>
+            loading ? "loading" :
+              <Box display={{ base: "none", md: "inline-block" }}>
+                {user.id ? <Menu>
+                  <MenuButton
+                    as={Button}
+                    rounded={'full'}
+                    variant={'link'}
+                    cursor={'pointer'}
+                    minW={0}>
+                    <Avatar src={user.user_metadata?.avatar_url} size="sm" />
+                  </MenuButton>
+                  <MenuList>
+                    {PROFILE_MENU.children.map((link) => <MenuItem key={link.label} as={NLink} href={"/user/" + user.id}>{link.label}</MenuItem>)}
+                  </MenuList>
+                </Menu> :
+                  <Button
+                    display={'inline-flex'}
+                    fontSize={'sm'}
+                    fontWeight={600}
+                    color={'white'}
+                    bg={'teal.400'}
+                    onClick={signIn}
+                    isLoading={loading}
+                    _hover={{
+                      bg: 'teal.300',
+                    }}>
+                    Get Start
+                  </Button>
+                }
+              </Box>
           }
         </Stack>
       </Flex>
 
       <Collapse in={isOpen} animateOpacity>
-        <MobileNav />
+        <Stack
+          bg={useColorModeValue('white', 'gray.800')}
+          p={4}
+          display={{ md: 'none' }}>
+          <MobileNavItem globToggle={onToggle} {...PROFILE_MENU} />
+          {NAV_ITEMS.map((navItem) => (
+            <MobileNavItem globToggle={onToggle} key={navItem.label} {...navItem} />
+          ))}
+        </Stack>
       </Collapse>
     </Box>
   )
@@ -110,6 +140,7 @@ const DesktopNav = () => {
           <Popover trigger={'hover'} placement={'bottom-start'}>
             <PopoverTrigger>
               <Link
+                as={NLink}
                 p={2}
                 href={navItem.href ?? '#'}
                 fontSize={'sm'}
@@ -148,6 +179,7 @@ const DesktopNav = () => {
 const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
   return (
     <Link
+      as={NLink}
       href={href}
       role={'group'}
       display={'block'}
@@ -179,27 +211,17 @@ const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
   );
 };
 
-const MobileNav = () => {
-  return (
-    <Stack
-      bg={useColorModeValue('white', 'gray.800')}
-      p={4}
-      display={{ md: 'none' }}>
-      {NAV_ITEMS.map((navItem) => (
-        <MobileNavItem key={navItem.label} {...navItem} />
-      ))}
-    </Stack>
-  );
-};
-
-const MobileNavItem = ({ label, children, href }: NavItem) => {
+const MobileNavItem = ({ label, children, href, globToggle }: NavItem) => {
   const { isOpen, onToggle } = useDisclosure();
-
+  const toggler = () => {
+    if(children) onToggle()
+    else if(globToggle) globToggle();
+  }
   return (
-    <Stack spacing={4} onClick={children && onToggle}>
+    <Stack spacing={4} onClick={toggler}>
       <Flex
         py={2}
-        as={Link}
+        as={NLink}
         href={href ?? '#'}
         justify={'space-between'}
         align={'center'}
@@ -232,7 +254,7 @@ const MobileNavItem = ({ label, children, href }: NavItem) => {
           align={'start'}>
           {children &&
             children.map((child) => (
-              <Link key={child.label} py={2} href={child.href}>
+              <Link onClick={globToggle} as={NLink} key={child.label} py={2} href={child.href}>
                 {child.label}
               </Link>
             ))}
@@ -246,43 +268,38 @@ interface NavItem {
   label: string;
   subLabel?: string;
   children?: Array<NavItem>;
+  globToggle?: () => void;
   href?: string;
 }
-
+const PROFILE_MENU = {
+  label: 'Profile',
+  children: [
+    {
+      label: 'My Area',
+      subLabel: 'Up-and-coming Designers',
+      href: '#',
+    },
+    {
+      label: 'Logout',
+      subLabel: 'Trending Design to inspire you',
+      href: '#',
+    },
+  ],
+};
 const NAV_ITEMS: Array<NavItem> = [
   {
-    label: 'Inspiration',
-    children: [
-      {
-        label: 'Explore Design Work',
-        subLabel: 'Trending Design to inspire you',
-        href: '#',
-      },
-      {
-        label: 'New & Noteworthy',
-        subLabel: 'Up-and-coming Designers',
-        href: '#',
-      },
-    ],
+    label: 'Home',
+    href: "/",
   },
   {
-    label: 'Find Work',
-    children: [
-      {
-        label: 'Job Board',
-        subLabel: 'Find your dream design job',
-        href: '#',
-      },
-      {
-        label: 'Freelance Projects',
-        subLabel: 'An exclusive list for contract work',
-        href: '#',
-      },
-    ],
-  },
-  {
-    label: 'Learn Design',
-    href: '#',
-  },
-
+    label: 'How It Works',
+    href: "/how_it_works",
+    // children: [
+    //   {
+    //     label: 'Job Board',
+    //     subLabel: 'Find your dream design job',
+    //     href: '#',
+    //   },
+    // ],
+  }
 ];
