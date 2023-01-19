@@ -55,7 +55,7 @@ export default function Navbar() {
             textAlign={useBreakpointValue({ base: 'center', md: 'left' })}
             fontFamily={'heading'}
             color={useColorModeValue('gray.800', 'white')}>
-            Logo
+            CUBEZET
           </Text>
 
           <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
@@ -69,23 +69,15 @@ export default function Navbar() {
           direction={'row'}
           spacing={6}>
           <Button
-            as={'a'}
-            fontSize={'sm'}
-            fontWeight={400}
-            variant={'link'}
-            href={'#'}>
-            Sign In
-          </Button>
-          <Button
             display={{ base: 'none', md: 'inline-flex' }}
             fontSize={'sm'}
             fontWeight={600}
             color={'white'}
-            bg={'pink.400'}
+            bg={'teal.400'}
             _hover={{
-              bg: 'pink.300',
+              bg: 'teal.300',
             }}>
-            Sign Up
+             Connect Your Wallet
           </Button>
         </Stack>
       </Flex>
@@ -282,8 +274,5 @@ const NAV_ITEMS: Array<NavItem> = [
     label: 'Learn Design',
     href: '#',
   },
-  {
-    label: 'Hire Designers',
-    href: '#',
-  },
+ 
 ];
