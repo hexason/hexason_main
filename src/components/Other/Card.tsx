@@ -11,7 +11,6 @@ export type CardProps = {
   trigger: () => void;
 }
 
-
 export default function Card({data, ...props}: {data: CardProps} & ChakraProps) {
   const format = useCurrencyFormat();
 

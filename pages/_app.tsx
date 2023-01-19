@@ -1,9 +1,18 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
-import { ChakraProvider } from "@chakra-ui/react";
+import { ChakraProvider, extendTheme } from "@chakra-ui/react";
+import Root from "../src/Root";
 
 export default function App({ Component, pageProps }: AppProps) {
-  return <ChakraProvider>
-    <Component {...pageProps} />
+  return <ChakraProvider theme={extendTheme({
+      // theme dark mode
+      config: {
+        initialColorMode: "dark",
+        useSystemColorMode: false,
+      },
+    })}>
+      <Root>
+        <Component {...pageProps} />
+      </Root>
   </ChakraProvider>
 }
