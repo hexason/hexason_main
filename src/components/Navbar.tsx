@@ -14,6 +14,7 @@ import {
   useColorModeValue,
   useBreakpointValue,
   useDisclosure,
+  Image
 } from '@chakra-ui/react';
 import {
   HamburgerIcon,
@@ -21,10 +22,13 @@ import {
   ChevronDownIcon,
   ChevronRightIcon,
 } from '@chakra-ui/icons';
+import { useUser } from '../context/UserContext';
+import MiniAvatar from './Other/Avatar';
 
 
 export default function Navbar() {
   const { isOpen, onToggle } = useDisclosure();
+  const { user, loading } = useUser();
 
   return (
     <Box>
@@ -69,17 +73,20 @@ export default function Navbar() {
           justify={'flex-end'}
           direction={'row'}
           spacing={6}>
-          <Button
-            display={{ base: 'none', md: 'inline-flex' }}
-            fontSize={'sm'}
-            fontWeight={600}
-            color={'white'}
-            bg={'teal.400'}
-            _hover={{
-              bg: 'teal.300',
-            }}>
-            Connect Your Wallet
-          </Button>
+          {
+            user ? <MiniAvatar src={user.user_metadata?.avatar_url} />:
+            <Button
+              display={{ base: 'none', md: 'inline-flex' }}
+              fontSize={'sm'}
+              fontWeight={600}
+              color={'white'}
+              bg={'teal.400'}
+              _hover={{
+                bg: 'teal.300',
+              }}>
+              Get Start
+            </Button>
+          }
         </Stack>
       </Flex>
 

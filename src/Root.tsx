@@ -6,7 +6,6 @@ import Navbar from "./components/Navbar";
 export default function Root({ children, ...props }: any) {
   const { toggleColorMode, colorMode } = useColorMode();
   if (colorMode === "light") toggleColorMode();
-  console.log(colorMode)
 
   return (
     <>
