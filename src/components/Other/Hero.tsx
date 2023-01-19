@@ -13,6 +13,7 @@ import {
   IconProps,
   useColorModeValue,
 } from '@chakra-ui/react';
+import NLink from "next/link"
 
 export default function Hero() {
   return (
@@ -64,6 +65,8 @@ export default function Hero() {
               Get started
             </Button>
             <Button
+              as={NLink}
+              href="/how_it_works"
               rounded={'full'}
               size={'lg'}
               fontWeight={'normal'}

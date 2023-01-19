@@ -92,7 +92,7 @@ export default function Navbar() {
                     <Avatar src={user.user_metadata?.avatar_url} size="sm" />
                   </MenuButton>
                   <MenuList>
-                    {PROFILE_MENU.children.map((link) => <MenuItem key={link.label} as={NLink} href={"/user/" + user.id}>{link.label}</MenuItem>)}
+                    {PROFILE_MENU.children.map((link) => <MenuItem key={link.label} as={NLink} href={link.href}>{link.label}</MenuItem>)}
                   </MenuList>
                 </Menu> :
                   <Button
@@ -277,12 +277,12 @@ const PROFILE_MENU = {
     {
       label: 'My Area',
       subLabel: 'Up-and-coming Designers',
-      href: '#',
+      href: '/user',
     },
     {
       label: 'Logout',
       subLabel: 'Trending Design to inspire you',
-      href: '#',
+      href: '/logout',
     },
   ],
 };
