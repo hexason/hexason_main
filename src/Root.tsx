@@ -1,5 +1,6 @@
 import { Box, Container, useColorMode } from "@chakra-ui/react";
 import Head from "next/head";
+import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 
 export default function Root({ children, ...props }: any) {
@@ -19,6 +20,7 @@ export default function Root({ children, ...props }: any) {
         <Container p={0} minH="100vh" maxW="container.lg" {...props}>
           <Navbar />
           {children}
+          <Footer />
         </Container>
       </Box>
     </>

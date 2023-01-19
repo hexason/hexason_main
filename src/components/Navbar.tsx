@@ -51,14 +51,14 @@ export default function Navbar() {
             aria-label={'Toggle Navigation'}
           />
         </Flex>
-        <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
+        <Flex fontSize={"21px"} flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
           <Text
             textAlign={useBreakpointValue({ base: 'center', md: 'left' })}
             fontFamily={'heading'}
             color={useColorModeValue('gray.800', 'white')}>
-            CUBEZET
+            CUBE
           </Text>
-
+          <Text color={"teal.400"}>ZET</Text>
           <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
             <DesktopNav />
           </Flex>
@@ -78,7 +78,7 @@ export default function Navbar() {
             _hover={{
               bg: 'teal.300',
             }}>
-             Connect Your Wallet
+            Connect Your Wallet
           </Button>
         </Stack>
       </Flex>
@@ -275,5 +275,5 @@ const NAV_ITEMS: Array<NavItem> = [
     label: 'Learn Design',
     href: '#',
   },
- 
+
 ];
