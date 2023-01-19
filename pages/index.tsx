@@ -1,4 +1,4 @@
-import { Container, Wrap, Center, Grid } from '@chakra-ui/react'
+import { Container, Center, Grid } from '@chakra-ui/react'
 import Card from '../src/components/Other/Card'
 
 export default function Home() {
