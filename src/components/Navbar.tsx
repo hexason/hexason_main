@@ -14,7 +14,6 @@ import {
   useColorModeValue,
   useBreakpointValue,
   useDisclosure,
-  Image
 } from '@chakra-ui/react';
 import {
   HamburgerIcon,
@@ -28,7 +27,7 @@ import MiniAvatar from './Other/Avatar';
 
 export default function Navbar() {
   const { isOpen, onToggle } = useDisclosure();
-  const { user, loading } = useUser();
+  const { user, logout, signIn, loading } = useUser();
 
   return (
     <Box>
@@ -74,13 +73,16 @@ export default function Navbar() {
           direction={'row'}
           spacing={6}>
           {
-            user ? <MiniAvatar src={user.user_metadata?.avatar_url} />:
+            loading ? "loading":
+            user.id ? <MiniAvatar src={user.user_metadata?.avatar_url} trigger={logout} />:
             <Button
-              display={{ base: 'none', md: 'inline-flex' }}
+              display={'inline-flex'}
               fontSize={'sm'}
               fontWeight={600}
               color={'white'}
               bg={'teal.400'}
+              onClick={signIn}
+              isLoading={loading}
               _hover={{
                 bg: 'teal.300',
               }}>

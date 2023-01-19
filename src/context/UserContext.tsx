@@ -16,7 +16,14 @@ export type User = {
     picture: string;
   }
 }
-export const UserContext = createContext<{user?: User, loading?:boolean}>({});
+
+export type UserContextType = {
+  user: User;
+  loading?: boolean;
+  logout?: () => void;
+  signIn?: () => void;
+}
+export const UserContext = createContext<UserContextType>({ user: {}});
 export default function UserContextProvider({ children }:any) {
   const [user, setUser] = useState<User>({});
   const [loading, setLoading] = useState(true);
@@ -36,6 +43,24 @@ export default function UserContextProvider({ children }:any) {
       value={{
         user,
         loading,
+        logout: () => {
+          setLoading(true);
+          supabase.auth.signOut().catch(e=> console.log(e)).finally(() => {
+            setLoading(false);
+          });
+          setUser({});
+        },
+        signIn: () => {
+          setLoading(true);
+          supabase.auth.signInWithOAuth({ provider: "google" }).then(({ data, error }:any) => {
+            if(error) throw error;
+            setUser(data.user ? data.user : {});
+          }).catch((error) => {
+            console.log(error)
+          }).finally(() => {
+            setLoading(false);
+          });
+        }
       }}
     >
       {children}
@@ -43,7 +68,4 @@ export default function UserContextProvider({ children }:any) {
   );
 }
 
-export const useUser = () => {
-  const { user, loading } = useContext(UserContext);
-  return { user, loading };
-}
+export const useUser = () => useContext(UserContext)
