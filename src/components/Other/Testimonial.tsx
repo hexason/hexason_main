@@ -47,7 +47,7 @@ export default function Testimonial() {
       <Stack spacing={4} as={Container} maxW={'3xl'} textAlign={'center'}>
         <Heading fontSize={'3xl'}>Only Few Steps You Can Earn Like Pro Investor</Heading>
         <Text color={'gray.600'} fontSize={'xl'}>
-          It's important to note that the specific details of the investment opportunity, the terms and conditions, and any potential risks should be clarified by the company or organization offering it before making any investment decisions.
+         {"It's important to note that the specific details of the investment opportunity, the terms and conditions, and any potential risks should be clarified by the company or organization offering it before making any investment decisions."}
         </Text>
       </Stack>
 
