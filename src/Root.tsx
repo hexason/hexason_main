@@ -16,7 +16,7 @@ export default function Root({ children, ...props }: any) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Box>
-        <Container p={0} minH="100vh" maxW="container.lg" {...props}>
+        <Container p={0} minH="90vh" maxW="container.lg" {...props}>
           <Navbar />
           {children}
         </Container>

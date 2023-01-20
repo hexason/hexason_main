@@ -10,7 +10,7 @@ export type CardProps = {
   price: number;
   salePrice?: number;
   sold?: number;
-  trigger: () => void;
+  trigger?: () => void;
 }
 
 export default function Card({ data, ...props }: { data: CardProps } & ChakraProps) {
@@ -26,14 +26,17 @@ export default function Card({ data, ...props }: { data: CardProps } & ChakraPro
         <Text textAlign={"center"}>{data.title}</Text>
         <Text p="10px" className="content" overflow={"scroll"} height={"20px"} mt={5} visibility="hidden"
         >{data.description}</Text>
-        <Center>
+        {
+          data.trigger &&
+          <Center>
           <Button
             colorScheme={'teal'}
             bg={'teal.400'}
             _hover={{ bg: 'teal.500' }}
             onClick={data.trigger}
-          >Buy Now</Button>
+            >Buy Now</Button>
         </Center>
+          }
         <Flex justifyContent={data.sold ? "space-between" : "flex-end"}>
           {data.sold && <Text textAlign={"start"}><Tag>SOLD: {data.sold}</Tag></Text>}
           <Text fontWeight={"bold"} fontSize="21px" textAlign={"end"}>{format(data.salePrice ? data.salePrice : data.price)}</Text>
