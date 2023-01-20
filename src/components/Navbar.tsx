@@ -119,7 +119,24 @@ export default function Navbar() {
           bg={useColorModeValue('white', 'gray.800')}
           p={4}
           display={{ md: 'none' }}>
-          <MobileNavItem globToggle={onToggle} {...PROFILE_MENU} />
+          {
+            loading ? "loading" :
+              user.id ?
+                <MobileNavItem globToggle={onToggle} {...PROFILE_MENU} /> : <Button
+                  display={'inline-flex'}
+                  fontSize={'sm'}
+                  fontWeight={600}
+                  color={'white'}
+                  bg={'teal.400'}
+                  onClick={signIn}
+                  isLoading={loading}
+                  _hover={{
+                    bg: 'teal.300',
+                  }}>
+                  Get Start
+                </Button>
+
+          }
           {NAV_ITEMS.map((navItem) => (
             <MobileNavItem globToggle={onToggle} key={navItem.label} {...navItem} />
           ))}
@@ -214,8 +231,8 @@ const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
 const MobileNavItem = ({ label, children, href, globToggle }: NavItem) => {
   const { isOpen, onToggle } = useDisclosure();
   const toggler = () => {
-    if(children) onToggle()
-    else if(globToggle) globToggle();
+    if (children) onToggle()
+    else if (globToggle) globToggle();
   }
   return (
     <Stack spacing={4} onClick={toggler}>

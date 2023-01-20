@@ -9,26 +9,35 @@ export default function Projects() {
         <Box p={3} zIndex={"-2"} w="100%" h="100%" position={"absolute"}>
           <Box w="100%" h="200px">
             <Flex my="3" w="100%">
-              <Box borderRadius={"20px"} overflow="hidden" w="30%">
-                <Image src="https://bitcoin-trading.io/wp-content/uploads/2022/06/Af6q2az4.jpg" />
+              <Box minH="60px" borderRadius={"20px"} overflow="hidden" w="30%">
+                <Image h="100%" src="https://bitcoin-trading.io/wp-content/uploads/2022/06/Af6q2az4.jpg" />
               </Box>
               <Box pl="3" w="70%" position={"relative"}>
                 <Text ml="10px" fontWeight={"bold"} fontSize="21px">Walken.io</Text>
                 <Divider />
-                <Text ml="10px" fontSize="18px">A decentralized social media platform</Text>
-                <Box position={"absolute"} bottom="10px" right="10px">
-                  <Tag>Earned: $ 100</Tag> <Tag>Score: 6.4/10</Tag> <Tag>Give Feedback</Tag> 
-                </Box>
+                <Text minH={"60px"} ml="10px" fontSize="18px">Walk and Earn</Text>
+                <Flex w="100%" justifyContent={"end"} alignItems="end">
+                  <Tag>Earned: $ 100</Tag> {<Box pl="10px" display={["none", "block"]}>
+                    <Tag>Score: 6.4/10</Tag> <Tag>Give Feedback</Tag>
+                  </Box>
+                  }
+                </Flex>
               </Box>
             </Flex>
             <Flex my="3" w="100%">
-              <Box borderRadius={"20px"} overflow="hidden" w="30%">
-                <Image src="https://assets.polkastarter.gg/Axie_Infinity_2f1ec0f251/Axie_Infinity_2f1ec0f251.jpeg" />
+              <Box minH="60px" borderRadius={"20px"} overflow="hidden" w="30%">
+                <Image h="100%" src="https://bitcoin-trading.io/wp-content/uploads/2022/06/Af6q2az4.jpg" />
               </Box>
-              <Box pl="3" w="70%">
+              <Box pl="3" w="70%" position={"relative"}>
                 <Text ml="10px" fontWeight={"bold"} fontSize="21px">Axie Infinity</Text>
                 <Divider />
-                <Text ml="10px" fontSize="18px">A decentralized social media platform</Text>
+                <Text minH={"60px"} ml="10px" fontSize="18px">Walk and Earn</Text>
+                <Flex w="100%" justifyContent={"end"} alignItems="end">
+                  <Tag>Earned: $ 100</Tag> {<Box pl="10px" display={["none", "block"]}>
+                    <Tag>Score: 6.4/10</Tag> <Tag>Give Feedback</Tag>
+                  </Box>
+                  }
+                </Flex>
               </Box>
             </Flex>
           </Box>
