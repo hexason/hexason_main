@@ -32,9 +32,10 @@ export default function UserContextProvider({ children }:any) {
     supabase.auth.getUser().then(({ data, error }:any) => {
       if(error) throw error;
       setUser(data.user ? data.user : {});
-      setLoading(false);
     }).catch((error) => {
       console.log(error)
+    }).finally(() => {
+      setLoading(false);
     });
   }, []);
 
