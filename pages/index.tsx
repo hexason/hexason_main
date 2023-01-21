@@ -5,12 +5,14 @@ import Hero from '../src/components/Other/Hero'
 import axios from "axios"
 import BuyModal from '../src/components/Modals/BuyProductModal'
 import { IoCheckbox } from 'react-icons/io5'
+import { useUser } from '../src/context/UserContext'
 
 export default function Home() {
   const [products, setProducts] = useState([])
   const [isOpen, setIsOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<any>(null);
   const onClose = () => setIsOpen(false);
+  const {user} = useUser();
 
   useEffect(() => {
     axios({
@@ -37,7 +39,7 @@ export default function Home() {
   return (
     <>
       <Container mt="10px" minW="100%">
-        <Hero />
+        {user.id ? <></> : <Hero />}
         <Center>
           <Grid w="100%" templateColumns={["repeat(1, 1fr)", "repeat(2, 1fr)", "repeat(3, 1fr)"]} gap={6}>
             {products.map((item:any) => <Card w={"100%"} key={item.id} data={item} />)}
