@@ -11,6 +11,7 @@ import {
 import { ReactNode } from 'react';
 import { BsCurrencyDollar } from 'react-icons/bs';
 import { FaAccusoft, FaWallet } from 'react-icons/fa';
+import { useUser } from '../../context/UserContext';
 import { useCurrencyFormat } from '../../utils/CurrencyFormat';
 
 interface StatsCardProps {
@@ -20,6 +21,7 @@ interface StatsCardProps {
 }
 function StatsCard(props: StatsCardProps) {
   const { title, stat, icon } = props;
+ 
   return (
     <Stat
       px={{ base: 2, md: 4 }}
@@ -51,6 +53,7 @@ function StatsCard(props: StatsCardProps) {
 
 export default function Balance() {
   const formatter = useCurrencyFormat()
+  const {wallet} = useUser();
   return (
     <Box maxW="100%" mx={'auto'}>
       <chakra.h1
@@ -63,17 +66,17 @@ export default function Balance() {
       <SimpleGrid columns={{ base: 1, md: 3 }} spacing={{ base: 5, lg: 8 }}>
         <StatsCard
           title={'Total Balance'}
-          stat={formatter(100, "short")}
+          stat={formatter(wallet.balance, "short")}
           icon={<FaWallet size={'3em'} />}
         />
         <StatsCard
           title={'Investor Card'}
-          stat={'1'}
+          stat={wallet.investor_card?.toString()}
           icon={<FaAccusoft size={'3em'} />}
         />
         <StatsCard
           title={'Total Earnings'}
-          stat={formatter(100, "short")}
+          stat={formatter(wallet.total_earned, "short")}
           icon={<BsCurrencyDollar size={'3em'} />}
         />
       </SimpleGrid>
