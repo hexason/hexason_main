@@ -23,7 +23,7 @@ export default function StepProgress({ totalSteps, acitveSteps, data, ...props }
 
   useEffect(() => {
     handleStep(acitveSteps || 0)
-  }, [])
+  }, [acitveSteps])
 
   return (
     <Box width="100%" {...props}>
