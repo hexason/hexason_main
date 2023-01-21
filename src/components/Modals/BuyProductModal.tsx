@@ -10,7 +10,7 @@ export default function BuyModal({ isOpen, onClose, children }:any) {
           {children}
         </ModalBody>
         <ModalFooter>
-          <p>Modal Footer</p>
+          {/* <p>Modal Footer</p> */}
         </ModalFooter>
       </ModalContent>
     </Modal>

@@ -1,9 +1,10 @@
-import { Container, Center, Grid } from '@chakra-ui/react'
+import { Container, Center, Grid, Image, List, ListItem, ListIcon, Button } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 import Card from '../src/components/Other/Card'
 import Hero from '../src/components/Other/Hero'
 import axios from "axios"
 import BuyModal from '../src/components/Modals/BuyProductModal'
+import { IoCheckbox } from 'react-icons/io5'
 
 export default function Home() {
   const [products, setProducts] = useState([])
@@ -42,7 +43,27 @@ export default function Home() {
             {products.map((item:any) => <Card w={"100%"} key={item.id} data={item} />)}
           </Grid>
           <BuyModal isOpen={isOpen} onClose={onClose} >
-            <Card data={selectedProduct} />
+            <Image src={selectedProduct?.image} />
+            <List>
+              <ListItem>
+                 <ListIcon as={IoCheckbox} color="teal" />
+                 PME: {selectedProduct?.price*0.01}$ - {selectedProduct?.price*0.1}$ 
+              </ListItem>
+              <ListItem>
+                 <ListIcon as={IoCheckbox} color="teal" />
+                 Duration: Unlimited 
+              </ListItem>
+              <ListItem>
+                 <ListIcon as={IoCheckbox} color="teal" />
+                 Potential: 100% verified 
+              </ListItem>
+              <ListItem>
+                 <ListIcon as={IoCheckbox} color="teal" />
+                 Field: Space 
+              </ListItem>
+            </List>
+            <Button colorScheme={"green"} onClick={() => {alert("ok")}}>Buy now</Button>
+            {/* <Card data={selectedProduct} /> */}
           </BuyModal>
         </Center>
       </Container>
