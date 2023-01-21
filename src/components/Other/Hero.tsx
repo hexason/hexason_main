@@ -14,8 +14,11 @@ import {
   useColorModeValue,
 } from '@chakra-ui/react';
 import NLink from "next/link"
+import { IoLogoGoogle } from 'react-icons/io5';
+import { useUser } from '../../context/UserContext';
 
 export default function Hero() {
+  const {signIn} = useUser()
   return (
     <Container maxW={'container.fill'}>
       <Stack
@@ -55,6 +58,7 @@ export default function Hero() {
             spacing={{ base: 4, sm: 6 }}
             direction={{ base: 'column', sm: 'row' }}>
             <Button
+              onClick={signIn}
               rounded={'full'}
               size={'lg'}
               fontWeight={'normal'}
@@ -62,7 +66,7 @@ export default function Hero() {
               colorScheme={'red'}
               bg={'teal.400'}
               _hover={{ bg: 'teal.500' }}>
-              Get started
+              <Icon as={IoLogoGoogle} mr="3"></Icon> Get started with Google
             </Button>
             <Button
               as={NLink}

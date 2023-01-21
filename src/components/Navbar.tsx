@@ -28,6 +28,7 @@ import {
 } from '@chakra-ui/icons';
 import { useUser } from '../context/UserContext';
 import NLink from "next/link";
+import { IoLogoGoogle } from 'react-icons/io5';
 
 export default function Navbar() {
   const { isOpen, onToggle } = useDisclosure();
@@ -99,14 +100,13 @@ export default function Navbar() {
                     display={'inline-flex'}
                     fontSize={'sm'}
                     fontWeight={600}
-                    color={'white'}
                     bg={'teal.400'}
                     onClick={signIn}
                     isLoading={loading}
                     _hover={{
                       bg: 'teal.300',
                     }}>
-                    Get Start
+                    <Icon color="google" as={IoLogoGoogle} mr="3"></Icon> Get started with Google
                   </Button>
                 }
               </Box>
@@ -126,14 +126,13 @@ export default function Navbar() {
                   display={'inline-flex'}
                   fontSize={'sm'}
                   fontWeight={600}
-                  color={'white'}
                   bg={'teal.400'}
                   onClick={signIn}
                   isLoading={loading}
                   _hover={{
                     bg: 'teal.300',
                   }}>
-                  Get Start
+                  <Icon as={IoLogoGoogle} mr="3"></Icon> Get started with Google
                 </Button>
 
           }
