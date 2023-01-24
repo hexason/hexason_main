@@ -14,8 +14,8 @@ export default function Home() {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<any>(null);
   const onClose = () => setIsOpen(false);
-  const { user } = useUser();
-  const formatter = useCurrencyFormat()
+  const formatter = useCurrencyFormat();
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
     axios({
@@ -37,6 +37,9 @@ export default function Home() {
           }
         }
       }));
+      setTimeout(() => {
+        setIsLoaded(true);
+      }, 1000);
     })
   }, [])
   return (
@@ -45,7 +48,18 @@ export default function Home() {
         <Hero />
         <Center>
           <Grid w="100%" templateColumns={["repeat(1, 1fr)", "repeat(2, 1fr)", "repeat(3, 1fr)"]} gap={6}>
-            {products.map((item: any) => <Card w={"100%"} key={item.id} data={item} />)}
+            {products.length === 0 ?
+              Array.from({ length: 3 }, () => null).map((_, i) => (
+                <Card key={"s" + i} w={"100%"} isLoaded={false} data={{
+                  price: 0,
+                  title: "...",
+                  image: "...",
+                  description: "...",
+                  id: "...",
+                }} />
+              ))
+              : products.map((item: any) => <Card isLoaded={isLoaded} w={"100%"} key={item.id} data={item} />)
+            }
           </Grid>
           <BuyModal isOpen={isOpen} onClose={onClose} price={selectedProduct?.price} title={selectedProduct?.title} >
             <Image src={selectedProduct?.image} />

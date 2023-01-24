@@ -1,4 +1,5 @@
-import { Box, Button, Center, ChakraProps, Flex, Image, Tag, Text } from "@chakra-ui/react";
+import { Box, Button, Center, ChakraProps, Flex, Image, Skeleton, Tag, Text } from "@chakra-ui/react";
+import { useEffect } from "react";
 import { useCurrencyFormat } from "../../utils/CurrencyFormat";
 
 export type CardProps = {
@@ -12,14 +13,17 @@ export type CardProps = {
   trigger?: () => void;
 }
 
-export default function Card({ data, ...props }: { data: CardProps } & ChakraProps) {
+export default function Card({ data, isLoaded, ...props }: { data: CardProps, isLoaded?:boolean } & ChakraProps) {
   const format = useCurrencyFormat();
 
   return (
     <Box className="card" position={"relative"} height={"300px"} w={"300px"} borderRadius={"20px"} overflow="hidden" {...props}>
-      <Box zIndex={1} position={"absolute"} w="100%" h="100%" background={"linear-gradient(0deg, rgba(7,23,0) 2%, rgba(0,0,0,0.5) 29%, rgba(0,212,255,0.19091386554621848) 100%)"}></Box>
+      <Box zIndex={1} position={"absolute"} w="100%" h="100%" background={"linear-gradient(0deg, rgba(7,23,0) 2%, rgba(0,0,0,0.5) 29%, rgba(0,212,255,0.19091386554621848) 100%)"}>
+      </Box>
       <Box h="100%" w="100%" overflow={"hidden"} position={"absolute"}>
-        <Image w="100%" src={data.image} />
+        <Skeleton w="100%" h="100%" isLoaded={isLoaded}>
+          <Image w="100%" src={data.image} />
+        </Skeleton>
       </Box>
       <Box w="100%" p="10px" bottom={"10px"} zIndex={2} position={"absolute"}>
         <Text textAlign={"center"}>{data.title}</Text>
@@ -28,14 +32,14 @@ export default function Card({ data, ...props }: { data: CardProps } & ChakraPro
         {
           data.trigger &&
           <Center>
-          <Button
-            colorScheme={'teal'}
-            bg={'teal.400'}
-            _hover={{ bg: 'teal.500' }}
-            onClick={data.trigger}
+            <Button
+              colorScheme={'teal'}
+              bg={'teal.400'}
+              _hover={{ bg: 'teal.500' }}
+              onClick={data.trigger}
             >Buy Now</Button>
-        </Center>
-          }
+          </Center>
+        }
         <Flex justifyContent={data.sold ? "space-between" : "flex-end"}>
           {data.sold && <Text textAlign={"start"}><Tag>SOLD: {data.sold}</Tag></Text>}
           <Text fontWeight={"bold"} fontSize="21px" textAlign={"end"}>{format(data.salePrice ? data.salePrice : data.price)}</Text>
