@@ -42,7 +42,7 @@ export default function Home() {
   return (
     <>
       <Container mt="10px" minW="100%">
-        {user.id ? <></> : <Hero />}
+        <Hero />
         <Center>
           <Grid w="100%" templateColumns={["repeat(1, 1fr)", "repeat(2, 1fr)", "repeat(3, 1fr)"]} gap={6}>
             {products.map((item: any) => <Card w={"100%"} key={item.id} data={item} />)}

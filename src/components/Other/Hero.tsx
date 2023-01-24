@@ -18,7 +18,7 @@ import { IoLogoGoogle } from 'react-icons/io5';
 import { useUser } from '../../context/UserContext';
 
 export default function Hero() {
-  const {signIn} = useUser()
+  const { user, signIn } = useUser()
   return (
     <Container maxW={'container.fill'}>
       <Stack
@@ -57,7 +57,7 @@ export default function Hero() {
           <Stack
             spacing={{ base: 4, sm: 6 }}
             direction={{ base: 'column', sm: 'row' }}>
-            <Button
+            {user?.id ? <></> :<Button
               onClick={signIn}
               rounded={'full'}
               size={'lg'}
@@ -67,7 +67,7 @@ export default function Hero() {
               bg={'teal.400'}
               _hover={{ bg: 'teal.500' }}>
               <Icon as={IoLogoGoogle} mr="3"></Icon> Get started with Google
-            </Button>
+            </Button>}
             <Button
               as={NLink}
               href="/how_it_works"
