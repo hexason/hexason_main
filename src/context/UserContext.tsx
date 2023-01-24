@@ -22,7 +22,8 @@ export type Wallet = {
   investor_card: number;
   total_earned: number;
   balance: number,
-  isConnected: boolean
+  isConnected: boolean,
+  address: string
 }
 
 export type UserContextType = {
@@ -35,6 +36,7 @@ export type UserContextType = {
 }
 export const UserContext = createContext<UserContextType>({
   user: {}, wallet: {
+    address: "Not Connected",
     balance: 0,
     total_earned: 0,
     isConnected: false,
@@ -45,6 +47,7 @@ export default function UserContextProvider({ children }: any) {
   const [user, setUser] = useState<User>({});
   const [wallet, setWallet] = useState<Wallet>({
     balance: 0,
+    address: "Not Connected",
     isConnected: false,
     total_earned: 0,
     investor_card: 0
@@ -63,6 +66,7 @@ export default function UserContextProvider({ children }: any) {
       setUser(data.user ? data.user : {});
       setWallet({
         balance: userCube.data.wallet.balance,
+        address: userCube.data.wallet.address,
         isConnected: true,
         total_earned: 0,
         investor_card: 0
