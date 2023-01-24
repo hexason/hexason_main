@@ -121,7 +121,7 @@ export default function Hero() {
               w={'100%'}
               h={'100%'}
               src={
-                'https://cdn.midjourney.com/7f800228-9afc-4016-b31d-519c17942a8b/grid_0.png'
+                'https://cdn.midjourney.com/d94a3aa1-ffc6-4b63-8bba-da407b8b1ea3/grid_0.png'
               }
             />
           </Box>
