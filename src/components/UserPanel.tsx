@@ -1,4 +1,4 @@
-import { Grid, GridItem, Flex, List, ListItem, ListIcon, Divider, Box, Button, useDisclosure, Center, HStack, Input, Text, InputGroup, InputLeftAddon, InputRightAddon, Stack, useClipboard } from "@chakra-ui/react";
+import { Grid, GridItem, Flex, List, ListItem, ListIcon, Divider, Box, Button, useDisclosure, Center, HStack, Input, Text, InputGroup, InputLeftAddon, InputRightAddon, Stack, useClipboard, Link } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { BsCardChecklist, BsFillArrowDownSquareFill, BsFillArrowUpSquareFill } from "react-icons/bs";
 import { FaWallet } from "react-icons/fa";
@@ -26,7 +26,7 @@ export default function UserPanel() {
   const handleDeposit = () => {
     onOpen();
     if (refreshSession) refreshSession();
-    setModal(<DepositContent {...{onCopy, value, hasCopied, wallet}}  />)
+    setModal(<DepositContent {...{ onCopy, value, hasCopied, wallet }} />)
   }
 
   const handleWithdraw = () => {
@@ -116,11 +116,11 @@ const ListButton = ({ children, active, trigger, ...props }: any) => {
   )
 }
 
-const DepositContent = ({onCopy, value, hasCopied, wallet}:any) => {
+const DepositContent = ({ onCopy, value, hasCopied, wallet }: any) => {
   const formatter = useCurrencyFormat();
   return (
     <Center>
-      <Stack spacing={"3px"}>
+      <Stack spacing={"3"}>
         <Center>
           <HStack>
             <Text color="white" fontSize={"18px"}>Your balance: </Text>
@@ -136,6 +136,11 @@ const DepositContent = ({onCopy, value, hasCopied, wallet}:any) => {
             {hasCopied ? "Done" : "Copy"}
           </InputRightAddon>
         </InputGroup>
+        <Box p="3">
+          <Text color="gray.400" textAlign={"center"}>
+            {'We apologize for any inconvenience, currently, we only accept TRC20 USDT for withdrawals. We suggest using'} <Link target={"_blank"} color={"orange"} href="https://binance.com">Binance</Link> {'to charge your wallet. We understand the need for more withdrawal options and assure you that we are working on adding more methods as quickly as possible. Thank you for your patience.'}
+          </Text>
+        </Box>
       </Stack>
     </Center>
   )
@@ -144,7 +149,7 @@ const DepositContent = ({onCopy, value, hasCopied, wallet}:any) => {
 const WithdrawContent = () => {
   return (
     <Center>
-      <Text>Withdraw will open Feb 15, Minimum will be 5$</Text>
+      <Text textAlign={"center"}>We are excited to announce that withdrawals will be available starting <strong color="orange">February 15th!</strong> The minimum withdrawal amount will be <strong>$5</strong>. We want to take this opportunity to thank you for your smart investment with us.</Text>
     </Center>
   )
 }
