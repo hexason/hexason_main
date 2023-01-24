@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useState, useEffect, createContext, useContext } from "react";
 import { supabase } from "../../lib/Store";
 
@@ -28,6 +29,7 @@ export type UserContextType = {
   user: User;
   wallet: Wallet
   loading?: boolean;
+  refreshSession?: () => void;
   logout?: () => void;
   signIn?: () => void;
 }
@@ -49,13 +51,19 @@ export default function UserContextProvider({ children }: any) {
   });
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    supabase.auth.getUser().then(({ data, error }: any) => {
+  const refreshSession = async () => {
+    supabase.auth.getUser().then(async ({ data, error }: any) => {
       if (error) throw error;
+      const token =  await supabase.auth.getSession()
+      const userCube = await axios.get("https://cubezet-hfnf.vercel.app/user/init", {
+        headers: {
+          Authorization: `Bearer ${token.data.session?.access_token}`
+        }
+      });
       setUser(data.user ? data.user : {});
       setWallet({
-        balance: 0,
-        isConnected: false,
+        balance: userCube.data.wallet.balance,
+        isConnected: true,
         total_earned: 0,
         investor_card: 0
       })
@@ -64,6 +72,10 @@ export default function UserContextProvider({ children }: any) {
     }).finally(() => {
       setLoading(false);
     });
+  }
+
+  useEffect(() => {
+    refreshSession();
   }, []);
 
   return (
@@ -72,6 +84,7 @@ export default function UserContextProvider({ children }: any) {
         user,
         wallet,
         loading,
+        refreshSession,
         logout: () => {
           setLoading(true);
           supabase.auth.signOut().catch(e => console.log(e)).finally(() => {

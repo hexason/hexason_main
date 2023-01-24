@@ -16,7 +16,7 @@ export default function User() {
   }, [])
   return (
     <Box>
-      <h1>User</h1>
+      <h1>Loading...</h1>
     </Box>
   )
 }
