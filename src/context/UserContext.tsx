@@ -19,38 +19,50 @@ export type User = {
 }
 export type Wallet = {
   id?: string;
-  investor_card: number;
   total_earned: number;
   balance: number,
   isConnected: boolean,
-  address: string
+  address: string,
+}
+
+export type Product = {
+  id: string;
+  title: string;
+  price: number;
+  sold: number;
+  image: string;
+  status: string;
 }
 
 export type UserContextType = {
   user: User;
-  wallet: Wallet
+  wallet: Wallet;
+  products: {
+    product: Product;
+  }[];
   loading?: boolean;
   refreshSession?: () => void;
   logout?: () => void;
   signIn?: () => void;
 }
 export const UserContext = createContext<UserContextType>({
-  user: {}, wallet: {
+  user: {}, 
+  wallet: {
     address: "Not Connected",
     balance: 0,
     total_earned: 0,
     isConnected: false,
-    investor_card: 0
-  }
+  },
+  products: []
 });
 export default function UserContextProvider({ children }: any) {
   const [user, setUser] = useState<User>({});
+  const [products, setProducts] = useState<{product: Product}[]>([]);
   const [wallet, setWallet] = useState<Wallet>({
     balance: 0,
     address: "Not Connected",
     isConnected: false,
     total_earned: 0,
-    investor_card: 0
   });
   const [loading, setLoading] = useState(true);
 
@@ -69,8 +81,8 @@ export default function UserContextProvider({ children }: any) {
         address: userCube.data.wallet.address,
         isConnected: true,
         total_earned: 0,
-        investor_card: 0
       })
+      setProducts(userCube.data.products);
     }).catch((error) => {
       console.log(error)
     }).finally(() => {
@@ -88,6 +100,7 @@ export default function UserContextProvider({ children }: any) {
         user,
         wallet,
         loading,
+        products,
         refreshSession,
         logout: () => {
           setLoading(true);

@@ -53,7 +53,7 @@ function StatsCard(props: StatsCardProps) {
 
 export default function Balance() {
   const formatter = useCurrencyFormat()
-  const {wallet} = useUser();
+  const {wallet, products} = useUser();
   return (
     <Box maxW="100%" mx={'auto'}>
       <chakra.h1
@@ -71,7 +71,7 @@ export default function Balance() {
         />
         <StatsCard
           title={'Investor Card'}
-          stat={wallet.investor_card?.toString()}
+          stat={products.length.toString()}
           icon={<FaAccusoft size={'3em'} />}
         />
         <StatsCard

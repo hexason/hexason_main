@@ -5,9 +5,10 @@ import Hero from '../src/components/Other/Hero'
 import axios from "axios"
 import BuyModal from '../src/components/Modals/BuyProductModal'
 import { IoCheckbox, IoMap, IoTime } from 'react-icons/io5'
-import { useUser } from '../src/context/UserContext'
 import { BsCurrencyDollar } from 'react-icons/bs'
 import { useCurrencyFormat } from '../src/utils/CurrencyFormat'
+import { supabase } from '../lib/Store'
+import { useUser } from '../src/context/UserContext'
 
 export default function Home() {
   const [products, setProducts] = useState([])
@@ -16,6 +17,25 @@ export default function Home() {
   const onClose = () => setIsOpen(false);
   const formatter = useCurrencyFormat();
   const [isLoaded, setIsLoaded] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const {refreshSession} = useUser();
+
+  const handleBuyButton = async (id: string) => {
+    
+    setLoading(true);
+    const token =  await supabase.auth.getSession()
+    axios.post(`https://cubezet-hfnf.vercel.app/product/${id}/buy`, {}, {
+      headers: {
+        Authorization: `Bearer ${token.data.session?.access_token}`
+      }
+    })
+    .then(() => {
+      if(refreshSession) refreshSession();
+      alert("Product bought successfully!");
+    }).catch(() => {
+      alert("Error")
+    }).finally(() => setLoading(false));
+  }
 
   useEffect(() => {
     axios({
@@ -85,7 +105,7 @@ export default function Home() {
             <Center>
               <Stack spacing={3}>
                 <Text fontWeight={"bold"} fontSize="24px" textAlign={"center"}>{formatter(selectedProduct?.price)}</Text>
-                <Button colorScheme={"green"} onClick={() => { alert("ok") }}>Buy now</Button>
+                <Button isLoading={loading} colorScheme={"green"} onClick={() => handleBuyButton(selectedProduct?.id)}>Buy now</Button>
               </Stack>
             </Center>
             {/* <Card data={selectedProduct} /> */}

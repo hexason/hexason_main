@@ -41,7 +41,7 @@ export default function Card({ data, isLoaded, ...props }: { data: CardProps, is
           </Center>
         }
         <Flex justifyContent={data.sold ? "space-between" : "flex-end"}>
-          {data.sold && <Text textAlign={"start"}><Tag>SOLD: {data.sold}</Tag></Text>}
+          {data.sold ? <Text textAlign={"start"}><Tag>SOLD: {data.sold}</Tag></Text> : <></>}
           <Text fontWeight={"bold"} fontSize="21px" textAlign={"end"}>{format(data.salePrice ? data.salePrice : data.price)}</Text>
         </Flex>
       </Box>
