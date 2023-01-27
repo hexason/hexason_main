@@ -1,4 +1,4 @@
-import { Box, Button, Center, Divider, Heading } from "@chakra-ui/react";
+import { Box, Button, Center, Divider, Heading, useToast } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import FeaturedDetail from "../src/components/Other/FeaturedDetail";
@@ -27,11 +27,22 @@ export default function HowItWorks() {
   const { user, signIn, products } = useUser();
   const [activeStep, setActiveStep] = useState(0);
   const [handlerFunction, setHandlerFunction] = useState(() => () => { });
+  const toast = useToast()
 
   useEffect(() => {
     if (user.id) setActiveStep(1);
     if(products.length > 0) setActiveStep(4); 
-    if(activeStep === 1) setHandlerFunction(() => () => router.push("/"));
+    if(activeStep === 1) setHandlerFunction(() => () => {
+      toast({
+        position: "top",
+        title: "Purchase a card",
+        description: "Now you can purchase a card to start earning",
+        status: "success",
+        duration: 9000,
+        isClosable: true,
+      })
+      router.push("/")
+    });
     if(activeStep === 4) setHandlerFunction(() => () => router.push("/user"));
 
   }, [user, activeStep]);
