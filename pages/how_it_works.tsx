@@ -24,13 +24,16 @@ const data = [
 ]
 export default function HowItWorks() {
   const router = useRouter();
-  const { user, signIn } = useUser();
+  const { user, signIn, products } = useUser();
   const [activeStep, setActiveStep] = useState(0);
   const [handlerFunction, setHandlerFunction] = useState(() => () => { });
 
   useEffect(() => {
     if (user.id) setActiveStep(1);
+    if(products.length > 0) setActiveStep(4); 
     if(activeStep === 1) setHandlerFunction(() => () => router.push("/"));
+    if(activeStep === 4) setHandlerFunction(() => () => router.push("/user"));
+
   }, [user, activeStep]);
 
   return (
@@ -45,7 +48,7 @@ export default function HowItWorks() {
       <StepProgress totalSteps={data.length} acitveSteps={activeStep} data={data} my="5" />
 
       <Center>
-        {user.id ? <Button onClick={handlerFunction} colorScheme={"teal"}>Contiune Your Progress</Button> : <Button colorScheme={"teal"} onClick={signIn}>Get Start with Google</Button>}
+        {activeStep > 0 ? <Button onClick={handlerFunction} colorScheme={"teal"}>{activeStep === 1 ? ' Contiune Your Progress' : 'Go to Your Profile'}</Button> : <Button colorScheme={"teal"} onClick={signIn}>Get Start with Google</Button>}
         
       </Center>
     </Box>
