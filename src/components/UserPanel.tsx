@@ -34,7 +34,7 @@ export default function UserPanel() {
   const handleWithdraw = () => {
     onOpen();
     if (refreshSession) refreshSession();
-    setModal(<WithdrawContent {...{ wallet }} />)
+    setModal(<WithdrawContent {...{ wallet, onClose }} />)
   }
 
   useEffect(() => {
@@ -128,7 +128,7 @@ const DepositContent = ({ onCopy, value, hasCopied, wallet }: any) => {
       if (error) console.error(error)
       console.log('success!');
     })
-  }, [])
+  }, [value])
   return (
     <Center>
       <Stack spacing={"3"}>
@@ -169,7 +169,6 @@ const WithdrawContent = ({ wallet, onClose }: any) => {
   const [recive, setRecive] = useState("");
   const [loading, setLoading] = useState(false);
   const toast = useToast();
-  const router = useRouter();
   const { withdrawal } = useUser();
   const formatter = useCurrencyFormat();
 
