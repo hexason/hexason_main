@@ -40,10 +40,15 @@ export type UserContextType = {
   products: {
     product: Product;
   }[];
+  earnedDays: {
+    date: string;
+    value: string;
+  }[];
   loading?: boolean;
   refreshSession?: () => void;
   logout?: () => void;
   signIn?: () => void;
+  withdrawal?: (address:string, amount:number) => Promise<any>;
 }
 export const UserContext = createContext<UserContextType>({
   user: {}, 
@@ -53,11 +58,13 @@ export const UserContext = createContext<UserContextType>({
     total_earned: 0,
     isConnected: false,
   },
-  products: []
+  products: [],
+  earnedDays: []
 });
 export default function UserContextProvider({ children }: any) {
   const [user, setUser] = useState<User>({});
   const [products, setProducts] = useState<{product: Product}[]>([]);
+  const [earnedDays, setEarnedDays] = useState<{date:string, value:string}[]>([]);
   const [wallet, setWallet] = useState<Wallet>({
     balance: 0,
     address: "Not Connected",
@@ -75,19 +82,38 @@ export default function UserContextProvider({ children }: any) {
           Authorization: `Bearer ${token.data.session?.access_token}`
         }
       });
+      const status = await axios.get("https://cubezet-hfnf.vercel.app/user/status", {
+        headers: {
+          Authorization: `Bearer ${token.data.session?.access_token}`
+        }
+      }).then(({data}) => data).catch(() => {});
       setUser(data.user ? data.user : {});
-      setWallet({
+      setWallet(((prev) => ({
+        ...prev,
         balance: userCube.data.wallet.balance,
         address: userCube.data.wallet.address,
         isConnected: true,
-        total_earned: 0,
-      })
+        total_earned: status?.totalEarning,
+      })))
+      setEarnedDays(status?.lastSevenDays);
       setProducts(userCube.data.products);
     }).catch((error) => {
       console.log(error)
     }).finally(() => {
       setLoading(false);
     });
+  }
+  const withdrawal = async (address:string, amount: number) => {
+    const token =  await supabase.auth.getSession()
+    const res = await axios.post("https://cubezet-hfnf.vercel.app/user/withdraw", {
+      address,
+      amount,
+    }, {
+      headers: {
+        Authorization: `Bearer ${token.data.session?.access_token}`
+      }
+    });
+    return res
   }
 
   useEffect(() => {
@@ -101,6 +127,8 @@ export default function UserContextProvider({ children }: any) {
         wallet,
         loading,
         products,
+        earnedDays: earnedDays.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()),
+        withdrawal,
         refreshSession,
         logout: () => {
           setLoading(true);
