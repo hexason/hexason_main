@@ -1,5 +1,4 @@
 import { Grid, GridItem, Flex, List, ListItem, ListIcon, Divider, Box, Button, useDisclosure, Center, HStack, Input, Text, InputGroup, InputLeftAddon, InputRightAddon, Stack, useClipboard, Link, Icon, useToast } from "@chakra-ui/react";
-import axios from "axios";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { BsCardChecklist, BsFillArrowDownSquareFill, BsFillArrowUpSquareFill } from "react-icons/bs";
@@ -12,6 +11,7 @@ import Balance from "./User/Balance";
 import Products from "./User/Products";
 import Projects from "./User/Projects";
 import Status from "./User/Status";
+import QRCode from "qrcode"
 
 export default function UserPanel() {
   const [page, setPage] = useState("status");
@@ -121,6 +121,14 @@ const ListButton = ({ children, active, trigger, ...props }: any) => {
 
 const DepositContent = ({ onCopy, value, hasCopied, wallet }: any) => {
   const formatter = useCurrencyFormat();
+  useEffect(() => {
+    var canvas = document.getElementById('qrcode')
+
+    QRCode.toCanvas(canvas, value, function (error) {
+      if (error) console.error(error)
+      console.log('success!');
+    })
+  }, [])
   return (
     <Center>
       <Stack spacing={"3"}>
@@ -139,6 +147,9 @@ const DepositContent = ({ onCopy, value, hasCopied, wallet }: any) => {
             {hasCopied ? "Done" : "Copy"}
           </InputRightAddon>
         </InputGroup>
+        <Center>
+          <canvas id="qrcode" />
+        </Center>
         <Box p="3">
           <Text color="gray.400" textAlign={"center"}>
             {'We apologize for any inconvenience, currently, we only accept TRC20 USDT for withdrawals. We suggest using'} <Link target={"_blank"} color={"orange"} href="https://binance.com">Binance</Link> {'to charge your wallet. We understand the need for more withdrawal options and assure you that we are working on adding more methods as quickly as possible. Thank you for your patience.'}
@@ -159,12 +170,12 @@ const WithdrawContent = ({ wallet, onClose }: any) => {
   const [loading, setLoading] = useState(false);
   const toast = useToast();
   const router = useRouter();
-  const {withdrawal} = useUser();
+  const { withdrawal } = useUser();
   const formatter = useCurrencyFormat();
 
   const handleWithdraw = () => {
     setLoading(true);
-    if(withdrawal) withdrawal(address, +amount).then(({data}) => {
+    if (withdrawal) withdrawal(address, +amount).then(({ data }) => {
       toast({
         position: "top",
         title: "Withdrawal request sent",

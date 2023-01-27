@@ -1,4 +1,4 @@
-import { Container, Center, Grid, Image, List, ListItem, ListIcon, Button, Text, Flex, Stack, Divider } from '@chakra-ui/react'
+import { Container, Center, Grid, Image, List, ListItem, ListIcon, Button, Text,  Stack, Divider, useToast } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 import Card from '../src/components/Other/Card'
 import Hero from '../src/components/Other/Hero'
@@ -9,6 +9,7 @@ import { BsCurrencyDollar } from 'react-icons/bs'
 import { useCurrencyFormat } from '../src/utils/CurrencyFormat'
 import { supabase } from '../lib/Store'
 import { useUser } from '../src/context/UserContext'
+import Link from 'next/link'
 
 export default function Home() {
   const [products, setProducts] = useState([])
@@ -19,21 +20,36 @@ export default function Home() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [loading, setLoading] = useState(false);
   const {refreshSession} = useUser();
+  const toast = useToast();
 
   const handleBuyButton = async (id: string) => {
     
     setLoading(true);
-    const token =  await supabase.auth.getSession()
+    const token =  await supabase.auth.getSession();
     axios.post(`https://cubezet-hfnf.vercel.app/product/${id}/buy`, {}, {
       headers: {
         Authorization: `Bearer ${token.data.session?.access_token}`
       }
     })
-    .then(() => {
+    .then(({data}) => {
       if(refreshSession) refreshSession();
-      alert("Product bought successfully!");
-    }).catch(() => {
-      alert("Error")
+      toast({
+        title: "Product purchased",
+        description: <Text>You have successfully purchased the product. Now you can see it in your <Text textDecoration={"underline"} cursor={"pointer"} color="blue" as={Link} href="/user">Profile</Text></Text>,
+        status: "success",
+        duration: 9000,
+        isClosable: true,
+        position: "top"
+      })
+    }).catch((err) => {
+      toast({
+        title: "Error",
+        description: err.response ? err.response.data.message : "Something went wrong",
+        status: "error",
+        duration: 9000,
+        isClosable: true,
+        position: "top"
+      })
     }).finally(() => setLoading(false));
   }
 

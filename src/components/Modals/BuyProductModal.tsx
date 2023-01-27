@@ -11,8 +11,8 @@ export default function BuyModal({ isOpen, onClose, children, price, title }: an
   const { balance } = wallet;
 
   useEffect(() => {
-    setValue("0x8d3DcAe6fEFcCB1966941c09F9d9385d492e4fC1")
-  }, [])
+    setValue(wallet.address)
+  }, [wallet])
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalContent>
