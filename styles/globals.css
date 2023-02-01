@@ -106,10 +106,6 @@ a {
   user-select: none;
 }
 
-* {
-  transition: 0.5s;
-}
-
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;

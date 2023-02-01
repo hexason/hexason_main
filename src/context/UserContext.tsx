@@ -77,12 +77,12 @@ export default function UserContextProvider({ children }: any) {
     supabase.auth.getUser().then(async ({ data, error }: any) => {
       if (error) throw error;
       const token =  await supabase.auth.getSession()
-      const userCube = await axios.get("https://cubezet-hfnf.vercel.app/user/init", {
+      const userCube = await axios.get(process.env.NEXT_PUBLIC_API_URL+"/user/init", {
         headers: {
           Authorization: `Bearer ${token.data.session?.access_token}`
         }
       });
-      const status = await axios.get("https://cubezet-hfnf.vercel.app/user/status", {
+      const status = await axios.get(process.env.NEXT_PUBLIC_API_URL+"/user/status", {
         headers: {
           Authorization: `Bearer ${token.data.session?.access_token}`
         }

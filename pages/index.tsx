@@ -26,7 +26,7 @@ export default function Home() {
     
     setLoading(true);
     const token =  await supabase.auth.getSession();
-    axios.post(`https://cubezet-hfnf.vercel.app/product/${id}/buy`, {}, {
+    axios.post(`${process.env.NEXT_PUBLIC_API_URL}/product/${id}/buy`, {}, {
       headers: {
         Authorization: `Bearer ${token.data.session?.access_token}`
       }
@@ -56,7 +56,7 @@ export default function Home() {
   useEffect(() => {
     axios({
       method: 'get',
-      url: 'https://cubezet-hfnf.vercel.app/product',
+      url: process.env.NEXT_PUBLIC_API_URL+'/product',
     }).then(({ data }) => {
       setProducts(data.map((product: any) => {
         return {
