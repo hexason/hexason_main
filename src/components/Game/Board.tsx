@@ -24,13 +24,11 @@ export default function Board() {
     socket.emit("game:join", {
       key: "test"
     })
-    console.log(socket.id)
     socket.on("connect", () => {
       socket.emit("game:join", {key:"test"});
 
     })
     socket.on("game:ongoing", (data) => {
-      console.log("game:ongoing")
       console.log(data)
       game.loadPgn(data.pgn);
       forceUpdate();
@@ -163,11 +161,13 @@ export default function Board() {
   return (
     <Chessboard
       position={game.fen()}
+      animationDuration={200}
       onPieceDragBegin={onPieceDragBegin}
       onPieceDragEnd={onPieceDragEnd}
       onPieceDrop={onDrop}
       onSquareClick={onSquareClick}
       onSquareRightClick={onSquareRightClick}
+      boardOrientation={side === "b" ? "black" : "white"}
       customSquareStyles={{
         ...optionSquares,
         ...rightClickedSquares
