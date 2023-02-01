@@ -20,20 +20,15 @@ export default function Board() {
 
   useEffect(() => {
     if (!socket) return;
-
-    let auth = localStorage.getItem("auth");
-    if (!auth) {
-      localStorage.setItem("auth", new Date().getTime().toString());
-    }
-    socket.auth = { token: localStorage.getItem("auth") };
     
-    socket.on("connect", () => {
-      socket.emit("game:join", {key:"test"});
-    })
     socket.emit("game:join", {
       key: "test"
     })
+    console.log(socket.id)
+    socket.on("connect", () => {
+      socket.emit("game:join", {key:"test"});
 
+    })
     socket.on("game:ongoing", (data) => {
       console.log("game:ongoing")
       console.log(data)
@@ -41,14 +36,14 @@ export default function Board() {
       forceUpdate();
     });
 
-    socket.on("game:side", (data) => {
+    socket.on("game:joined", (data) => {
       setSide(data.side);
       console.log(data.side)
     })
 
     return () => {
       socket.off("game:ongoing");
-      socket.off("game:side");
+      socket.off("game:joined");
     }
   }, [])
 
