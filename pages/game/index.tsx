@@ -36,11 +36,11 @@ export default function ChessGame() {
     if (!socket) return;
     setIsMatching(true);
     socket.emit("match", { bet });
-    socket.on("match:found", () => {
+    socket.on("match:found", (data) => {
       setMatchFound(true);
       setIsMatching(false);
       setTimeout(() => {
-        router.push("/game/match");
+        router.push("/game/"+data.key);
       }, 1500)
     });
   }
