@@ -3,7 +3,7 @@ import { Chess, Move, Square } from "chess.js";
 import { useContext, useEffect, useReducer, useState } from "react";
 import { SocketContext } from "../../context/socket";
 
-export default function Board() {
+export default function Board({gameId}: {gameId:string}) {
   const socket = useContext(SocketContext);
 
   const [side, setSide] = useState<"b" | "w" | "s">("s");
@@ -22,10 +22,10 @@ export default function Board() {
     if (!socket) return;
     
     socket.emit("game:join", {
-      key: "test"
+      key: gameId
     })
     socket.on("connect", () => {
-      socket.emit("game:join", {key:"test"});
+      socket.emit("game:join", {key:gameId});
 
     })
     socket.on("game:ongoing", (data) => {
@@ -80,7 +80,7 @@ export default function Board() {
     console.log(moveDetails)
     const move = makeMove(moveDetails);
     if (!move) return false; // illegal move
-    socket?.emit("game:ongoing", { m: moveDetails, pgn: game.pgn(), key: "test" });
+    socket?.emit("game:ongoing", { m: moveDetails, pgn: game.pgn(), key: gameId });
     return true;
   }
 
@@ -143,7 +143,7 @@ export default function Board() {
       resetFirstMove(square);
     } else {
       setMoveFrom("");
-      socket?.emit("game:ongoing", { m: moveDetails, pgn: game.pgn(), key: "test" });
+      socket?.emit("game:ongoing", { m: moveDetails, pgn: game.pgn(), key: gameId });
     }
   }
 

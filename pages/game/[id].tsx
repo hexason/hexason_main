@@ -24,7 +24,7 @@ export default function ChessGame() {
   return (
     <Grid templateColumns={["repeat(1,1fr)", "repeat(2,1fr)"]} gap="6">
       <Box bg="white" p="6">
-        <Board />
+        <Board gameId={gameId} />
       </Box>
       <Box>
         <Input readOnly value={"Placed: 500$"} />
