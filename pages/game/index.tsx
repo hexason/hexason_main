@@ -1,53 +1,70 @@
-import { Text, Button, Center, CircularProgress, Heading, Input, Select, Stack, Box, useToast } from "@chakra-ui/react"
+import { Text, Button, Center, CircularProgress, Heading, Input, Select, Stack, Box, useToast, Flex } from "@chakra-ui/react"
 import { useRouter } from "next/router";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { SocketContext } from "../../src/context/socket";
 import { useUser } from "../../src/context/UserContext"
 
 export default function ChessGame() {
-  const { wallet } = useUser();
+  const { wallet, refreshSession } = useUser();
   const toast = useToast();
-  const [bet, setBet] = useState("10");
+  const [bet, setBet] = useState("1");
   const [isMatching, setIsMatching] = useState(false);
   const router = useRouter();
   const socket = useContext(SocketContext);
+  const [matchFound, setMatchFound] = useState(false);
 
+
+  useEffect(() => {
+    if(refreshSession) refreshSession();
+  }, []);
   const handleBet = (e: any) => {
     console.log(e.target.value)
     setBet(Math.ceil(+e.target.value).toString());
   }
 
   const handleMatch = () => {
-    // if(wallet.balance < +bet) {
-    //   return toast({
-    //     title: "Not enough balance",
-    //     description: "You don't have enough balance to place this bet",
-    //     status: "error",
-    //     duration: 5000,
-    //     isClosable: true,
-    //     position: "top"
-    //   })
-    // }
-    if(!socket) return;
+    if (wallet.balance < +bet) {
+      return toast({
+        title: "Not enough balance",
+        description: "You don't have enough balance to place this bet",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "top"
+      })
+    }
+    if (!socket) return;
     setIsMatching(true);
     socket.emit("match", { bet });
     socket.on("match:found", () => {
-      router.push("/game/match");
+      setMatchFound(true);
+      setIsMatching(false);
+      setTimeout(() => {
+        router.push("/game/match");
+      }, 1500)
     });
   }
 
   const handleCancel = () => {
-    if(!socket) return;
+    if (!socket) return;
     setIsMatching(false);
-    socket.emit("cancel");
+    socket.emit("match:cancel");
     socket.off("match:found");
   }
 
   return (
-    <Stack mt={6} spacing={6}>
+    <Stack mt={6} spacing={6} p={3}>
       <Center>
         <Heading>Earn Big, Play Smart</Heading>
       </Center>
+
+      {matchFound ? <Flex transition={".5ms"} flexDirection={"column"} justifyContent={"center"} alignItems="center" w="100%" height={"100vh"} top="0" left="0" bg="rgba(0,0,0,0.5)" position={"absolute"}>
+        <CircularProgress isIndeterminate />
+        <Text>
+          Match Found
+        </Text>
+      </Flex> : <></>
+      }
 
       <Input readOnly value={"Your Balance: " + wallet.balance} />
       <Input readOnly value={"Address: " + wallet.address} />
@@ -57,7 +74,7 @@ export default function ChessGame() {
         <option value={10}>10 $</option>
       </Select>
 
-      <Input readOnly value={"Prize: " + +bet*2*0.9 + "$"} />
+      <Input readOnly value={"Prize: " + +bet * 2 * 0.9 + "$"} />
       <Input readOnly value={"Duration: 20 min"} />
 
       <Center>

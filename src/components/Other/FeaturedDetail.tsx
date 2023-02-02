@@ -59,9 +59,9 @@ export default function FeaturedDetail() {
           </Text>
           <Heading>A digital DeFi and Investment advisor</Heading>
           <Text fontSize={'lg'}>
-            We are a team of experienced developers and financial experts who
+            {` We are a team of experienced developers and financial experts who
             have come together to create a platform that will help you make
-            informed decisions about your investments.
+            informed decisions about your investments.`}
           </Text>
           <Stack
             spacing={4}
@@ -105,7 +105,7 @@ export default function FeaturedDetail() {
             src={
               '/how_works.png'
             }
-            // objectFit={'fit'}
+          // objectFit={'fit'}
           />
         </Flex>
       </SimpleGrid>
