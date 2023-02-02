@@ -5,7 +5,7 @@ import { SocketContext } from "../../src/context/socket";
 import { useUser } from "../../src/context/UserContext"
 
 export default function ChessGame() {
-  const { wallet, refreshSession } = useUser();
+  const { user, wallet, refreshSession } = useUser();
   const toast = useToast();
   const [bet, setBet] = useState("1");
   const [isMatching, setIsMatching] = useState(false);
@@ -15,6 +15,17 @@ export default function ChessGame() {
 
 
   useEffect(() => {
+    if(!user.id) {
+      toast({
+        title: "You must be logged in to play",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "top"
+      })
+      router.replace("/")
+      return
+    } 
     if(refreshSession) refreshSession();
   }, []);
   const handleBet = (e: any) => {
