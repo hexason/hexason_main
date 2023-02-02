@@ -103,9 +103,9 @@ export default function FeaturedDetail() {
             rounded={'md'}
             alt={'feature image'}
             src={
-              'https://media.istockphoto.com/id/1146733917/vector/financial-consultant-leaning-on-a-stack-of-coins-smiles-friendly-and-waves-with-hand.jpg?s=612x612&w=0&k=20&c=WuZzNzWIQtAlmayV72tsMNzNzW6wWlyvyNvybyMzyOQ='
+              '/how_works.png'
             }
-            objectFit={'cover'}
+            // objectFit={'fit'}
           />
         </Flex>
       </SimpleGrid>

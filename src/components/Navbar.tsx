@@ -308,6 +308,10 @@ const NAV_ITEMS: Array<NavItem> = [
     href: "/",
   },
   {
+    label: 'Play Earn',
+    href: "/game",
+  },
+  {
     label: 'How It Works',
     href: "/how_it_works",
     // children: [
@@ -317,5 +321,5 @@ const NAV_ITEMS: Array<NavItem> = [
     //     href: '#',
     //   },
     // ],
-  }
+  },
 ];
