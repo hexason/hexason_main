@@ -4,8 +4,16 @@ import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import Root from "../src/Root";
 import UserContextProvider from '../src/context/UserContext';
 import { socket, SocketContext } from '../src/context/socket';
+import ReactGA from "react-ga4"
+import { useEffect } from 'react';
 
 export default function App({ Component, pageProps }: AppProps) {
+  
+  useEffect(() => {
+    ReactGA.initialize("G-S2JLTKX9TL");
+  }, []
+  )
+
   return <ChakraProvider theme={extendTheme({
     config: {
       initialColorMode: "dark",
