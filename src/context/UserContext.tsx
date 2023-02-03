@@ -1,7 +1,7 @@
 import axios from "axios";
+import { useRouter } from "next/router";
 import { useState, useEffect, createContext, useContext } from "react";
 import { supabase } from "../../lib/Store";
-
 
 export type User = {
   id?: string;
@@ -48,10 +48,10 @@ export type UserContextType = {
   refreshSession?: () => void;
   logout?: () => void;
   signIn?: () => void;
-  withdrawal?: (address:string, amount:number) => Promise<any>;
+  withdrawal?: (address: string, amount: number) => Promise<any>;
 }
 export const UserContext = createContext<UserContextType>({
-  user: {}, 
+  user: {},
   wallet: {
     address: "Not Connected",
     balance: 0,
@@ -63,8 +63,9 @@ export const UserContext = createContext<UserContextType>({
 });
 export default function UserContextProvider({ children }: any) {
   const [user, setUser] = useState<User>({});
-  const [products, setProducts] = useState<{product: Product}[]>([]);
-  const [earnedDays, setEarnedDays] = useState<{date:string, value:string}[]>([]);
+  const [products, setProducts] = useState<{ product: Product }[]>([]);
+  const [earnedDays, setEarnedDays] = useState<{ date: string, value: string }[]>([]);
+  const [redirectTo, setRedirectTo] = useState<string>("https://cubezet.com");
   const [wallet, setWallet] = useState<Wallet>({
     balance: 0,
     address: "Not Connected",
@@ -72,21 +73,22 @@ export default function UserContextProvider({ children }: any) {
     total_earned: 0,
   });
   const [loading, setLoading] = useState(true);
+  const router = useRouter();
 
   const refreshSession = async () => {
     supabase.auth.getUser().then(async ({ data, error }: any) => {
       if (error) throw error;
-      const token =  await supabase.auth.getSession()
-      const userCube = await axios.get(process.env.NEXT_PUBLIC_API_URL+"/user/init", {
+      const token = await supabase.auth.getSession()
+      const userCube = await axios.get(process.env.NEXT_PUBLIC_API_URL + "/user/init", {
         headers: {
           Authorization: `Bearer ${token.data.session?.access_token}`
         }
       });
-      const status = await axios.get(process.env.NEXT_PUBLIC_API_URL+"/user/status", {
+      const status = await axios.get(process.env.NEXT_PUBLIC_API_URL + "/user/status", {
         headers: {
           Authorization: `Bearer ${token.data.session?.access_token}`
         }
-      }).then(({data}) => data).catch(() => {});
+      }).then(({ data }) => data).catch(() => { });
       setUser(data.user ? data.user : {});
       setWallet(((prev) => ({
         ...prev,
@@ -103,9 +105,9 @@ export default function UserContextProvider({ children }: any) {
       setLoading(false);
     });
   }
-  const withdrawal = async (address:string, amount: number) => {
-    const token =  await supabase.auth.getSession()
-    const res = await axios.post("https://cubezet-hfnf.vercel.app/user/withdraw", {
+  const withdrawal = async (address: string, amount: number) => {
+    const token = await supabase.auth.getSession()
+    const res = await axios.post(process.env.NEXT_PUBLIC_API_URL + "/user/withdraw", {
       address,
       amount,
     }, {
@@ -118,7 +120,9 @@ export default function UserContextProvider({ children }: any) {
 
   useEffect(() => {
     refreshSession();
-  }, []);
+    console.log(window.location.href)
+    setRedirectTo(window.location.href);
+  }, [router]);
 
   return (
     <UserContext.Provider
@@ -139,7 +143,13 @@ export default function UserContextProvider({ children }: any) {
         },
         signIn: () => {
           setLoading(true);
-          supabase.auth.signInWithOAuth({ provider: "google" }).then(({ data, error }: any) => {
+          console.log(redirectTo)
+          supabase.auth.signInWithOAuth({
+            provider: "google",
+            options: {
+              redirectTo
+            }
+          }).then(({ data, error }: any) => {
             if (error) throw error;
             setUser(data.user ? data.user : {});
           }).catch((error) => {

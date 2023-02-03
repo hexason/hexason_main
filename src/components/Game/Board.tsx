@@ -20,13 +20,9 @@ export default function Board({gameId}: {gameId:string}) {
 
   useEffect(() => {
     if (!socket) return;
-    
-    socket.emit("game:join", {
-      key: gameId
-    })
+
     socket.on("connect", () => {
       socket.emit("game:join", {key:gameId});
-
     })
     socket.on("game:ongoing", (data) => {
       console.log(data)
@@ -42,8 +38,9 @@ export default function Board({gameId}: {gameId:string}) {
     return () => {
       socket.off("game:ongoing");
       socket.off("game:joined");
+      socket.off("connect")
     }
-  }, [])
+  }, [socket])
 
   function onPieceDragBegin(_piece: string, sourceSquare: Square) {
     if (side !== game.turn()) return;
