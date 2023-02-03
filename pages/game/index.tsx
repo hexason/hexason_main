@@ -50,9 +50,7 @@ export default function ChessGame() {
     socket.on("match:found", (data) => {
       setMatchFound(true);
       setIsMatching(false);
-      setTimeout(() => {
-        router.push("/game/"+data.key);
-      }, 1500)
+      router.push("/game/"+data.key);
     });
   }
 

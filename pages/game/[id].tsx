@@ -45,7 +45,7 @@ export default function ChessGame() {
         <Board gameId={gameId} />
       </Box>
       <Box w="100%">
-        <Input readOnly value={"Placed: 500$"} />
+        {/* <Input readOnly value={"Placed: 500$"} /> */}
         <ChatArea gameId={gameId} />
       </Box>
     </Grid>

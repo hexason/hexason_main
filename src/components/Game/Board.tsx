@@ -2,8 +2,9 @@ import { Chessboard } from "react-chessboard"
 import { Chess, Move, Square } from "chess.js";
 import { useContext, useEffect, useReducer, useState } from "react";
 import { SocketContext } from "../../context/socket";
+import { Box } from "@chakra-ui/react";
 
-export default function Board({gameId}: {gameId:string}) {
+export default function Board({ gameId }: { gameId: string }) {
   const socket = useContext(SocketContext);
 
   const [side, setSide] = useState<"b" | "w" | "s">("s");
@@ -16,14 +17,11 @@ export default function Board({gameId}: {gameId:string}) {
     [square: string]: { backgroundColor: string } | undefined;
   }>({});
   const [_, forceUpdate] = useReducer((x) => x + 1, 0);
-
+  const [timer, setTimer] = useState(300);
 
   useEffect(() => {
     if (!socket) return;
 
-    socket.on("connect", () => {
-      socket.emit("game:join", {key:gameId});
-    })
     socket.on("game:ongoing", (data) => {
       console.log(data)
       game.loadPgn(data.pgn);
@@ -32,15 +30,18 @@ export default function Board({gameId}: {gameId:string}) {
 
     socket.on("game:joined", (data) => {
       setSide(data.side);
-      console.log(data.side)
+      forceUpdate();
     })
+    socket.on("game:timer", (data) => {
+      setTimer(data.time);
+    })
+    socket.emit("game:join", { key: gameId });
 
     return () => {
       socket.off("game:ongoing");
       socket.off("game:joined");
-      socket.off("connect")
     }
-  }, [socket])
+  }, [])
 
   function onPieceDragBegin(_piece: string, sourceSquare: Square) {
     if (side !== game.turn()) return;
@@ -156,19 +157,22 @@ export default function Board({gameId}: {gameId:string}) {
   }
 
   return (
-    <Chessboard
-      position={game.fen()}
-      animationDuration={200}
-      onPieceDragBegin={onPieceDragBegin}
-      onPieceDragEnd={onPieceDragEnd}
-      onPieceDrop={onDrop}
-      onSquareClick={onSquareClick}
-      onSquareRightClick={onSquareRightClick}
-      boardOrientation={side === "b" ? "black" : "white"}
-      customSquareStyles={{
-        ...optionSquares,
-        ...rightClickedSquares
-      }}
-    />
+    <Box w="100%">
+      <Box color={"black"}>Time: {timer}</Box>
+      <Chessboard
+        position={game.fen()}
+        animationDuration={200}
+        onPieceDragBegin={onPieceDragBegin}
+        onPieceDragEnd={onPieceDragEnd}
+        onPieceDrop={onDrop}
+        onSquareClick={onSquareClick}
+        onSquareRightClick={onSquareRightClick}
+        boardOrientation={side === "b" ? "black" : "white"}
+        customSquareStyles={{
+          ...optionSquares,
+          ...rightClickedSquares
+        }}
+      />
+    </Box>
   )
 }

@@ -62,11 +62,9 @@ export default function Footer() {
           align={{ base: 'center', md: 'center' }}>
           <Text>© {new Date().getFullYear()} CubeZet. All rights reserved</Text>
           <Stack direction={'row'} spacing={6}>
-            <Tooltip placement='top' label="Submit Feedback" aria-label="Feedback">
-              <SocialButton label={'Feedback'} href={'https://forms.gle/hbrt1mg6omYtW25s6'}>
-                <FaEdit />
-              </SocialButton>
-            </Tooltip>
+            <SocialButton label={'Feedback'} href={'https://forms.gle/hbrt1mg6omYtW25s6'}>
+              <FaEdit />
+            </SocialButton>
             <SocialButton label={'YouTube'} href={'https://www.youtube.com/channel/UCPXB6-fAt_t-b12BSxEzjiA'}>
               <FaYoutube />
             </SocialButton>
