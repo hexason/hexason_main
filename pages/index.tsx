@@ -81,7 +81,7 @@ export default function Home() {
   return (
     <>
       <Container mt="10px" minW="100%">
-        <Hero />
+        {/* <Hero /> */}
         <Center>
           <Grid w="100%" templateColumns={["repeat(1, 1fr)", "repeat(2, 1fr)", "repeat(3, 1fr)"]} gap={6}>
             {products.length === 0 ?
