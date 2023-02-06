@@ -25,7 +25,7 @@ const features = [
   },
   {
     id: 3,
-    title: 'Include Your IDEA',
+    title: 'Work on your idea',
     text: 'Customers to provide feedback on their investment, related to performance or other aspects.',
   },
   {

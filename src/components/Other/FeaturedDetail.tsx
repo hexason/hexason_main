@@ -59,9 +59,7 @@ export default function FeaturedDetail() {
           </Text>
           <Heading>A digital DeFi and Investment advisor</Heading>
           <Text fontSize={'lg'}>
-            {` We are a team of experienced developers and financial experts who
-            have come together to create a platform that will help you make
-            informed decisions about your investments.`}
+            {`Cubezet Asset Management was established in 2022 and provides investment management and consulting services. We are risk-managed, long-term investors focused on sustainable and strategic investment opportunities. There is no centrelazed authority to control our operations. We are a decentralized autonomous organization (DAO) that is governed by our community of token holders.`}
           </Text>
           <Stack
             spacing={4}

@@ -10,6 +10,7 @@ import { useCurrencyFormat } from '../src/utils/CurrencyFormat'
 import { supabase } from '../lib/Store'
 import { useUser } from '../src/context/UserContext'
 import Link from 'next/link'
+import InvestorPartners from '../src/components/Other/InvestorPartners'
 
 export default function Home() {
   const [products, setProducts] = useState([])
@@ -127,6 +128,7 @@ export default function Home() {
             {/* <Card data={selectedProduct} /> */}
           </BuyModal>
         </Center>
+        <InvestorPartners />
       </Container>
     </>
   )
