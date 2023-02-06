@@ -24,7 +24,7 @@ const data = [
 ]
 export default function HowItWorks() {
   const router = useRouter();
-  const { user, signIn, products } = useUser();
+  const { user, onOpen, products } = useUser();
   const [activeStep, setActiveStep] = useState(0);
   const [handlerFunction, setHandlerFunction] = useState(() => () => { });
   const toast = useToast()
@@ -59,7 +59,7 @@ export default function HowItWorks() {
       <StepProgress totalSteps={data.length} acitveSteps={activeStep} data={data} my="5" />
 
       <Center>
-        {activeStep > 0 ? <Button onClick={handlerFunction} colorScheme={"teal"}>{activeStep === 1 ? ' Contiune Your Progress' : 'Go to Your Profile'}</Button> : <Button colorScheme={"teal"} onClick={signIn}>Get Start with Google</Button>}
+        {activeStep > 0 ? <Button onClick={handlerFunction} colorScheme={"teal"}>{activeStep === 1 ? ' Contiune Your Progress' : 'Go to Your Profile'}</Button> : <Button colorScheme={"teal"} onClick={onOpen}>Get Start</Button>}
         
       </Center>
     </Box>

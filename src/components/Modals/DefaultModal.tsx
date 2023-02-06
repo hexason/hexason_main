@@ -1,9 +1,8 @@
 import { Modal, ModalHeader, ModalCloseButton, ModalBody, ModalContent, ModalFooter, useClipboard } from "@chakra-ui/react"
 import { useEffect } from "react";
 import { useUser } from "../../context/UserContext";
-import { useCurrencyFormat } from "../../utils/CurrencyFormat"
 
-export default function DefaulModal({ isOpen, onClose, children, title }: any) {
+export default function DefaulModal({ isOpen, onClose, children, title, ...props }: any) {
   const { setValue } = useClipboard("");
   const { wallet } = useUser();
 
@@ -11,7 +10,7 @@ export default function DefaulModal({ isOpen, onClose, children, title }: any) {
     setValue(wallet.address);
   }, [])
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
+    <Modal isOpen={isOpen} onClose={onClose} {...props}>
       <ModalContent>
         <ModalHeader>{title || ""}</ModalHeader>
         <ModalCloseButton />

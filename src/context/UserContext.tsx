@@ -1,7 +1,9 @@
+import { useDisclosure } from "@chakra-ui/react";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useState, useEffect, createContext, useContext } from "react";
 import { supabase } from "../../lib/Store";
+import LoginModal from "../components/Modals/LoginModal";
 
 export type User = {
   id?: string;
@@ -45,6 +47,7 @@ export type UserContextType = {
     value: string;
   }[];
   loading?: boolean;
+  onOpen: () => void;
   refreshSession?: () => void;
   logout?: () => void;
   signIn?: () => void;
@@ -52,6 +55,7 @@ export type UserContextType = {
 }
 export const UserContext = createContext<UserContextType>({
   user: {},
+  onOpen: () => {},
   wallet: {
     address: "Not Connected",
     balance: 0,
@@ -72,6 +76,7 @@ export default function UserContextProvider({ children }: any) {
     isConnected: false,
     total_earned: 0,
   });
+  const {isOpen, onClose, onOpen} = useDisclosure()
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
@@ -131,6 +136,7 @@ export default function UserContextProvider({ children }: any) {
         wallet,
         loading,
         products,
+        onOpen,
         earnedDays: earnedDays.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()),
         withdrawal,
         refreshSession,
@@ -161,6 +167,7 @@ export default function UserContextProvider({ children }: any) {
       }}
     >
       {children}
+      <LoginModal {...{isOpen, onClose}} />
     </UserContext.Provider>
   );
 }

@@ -28,11 +28,11 @@ import {
 } from '@chakra-ui/icons';
 import { useUser } from '../context/UserContext';
 import NLink from "next/link";
-import { IoLogoGoogle } from 'react-icons/io5';
+import { IoLogIn } from 'react-icons/io5';
 
 export default function Navbar() {
   const { isOpen, onToggle } = useDisclosure();
-  const { user, signIn, loading } = useUser();
+  const { user, onOpen, loading } = useUser();
 
 
   return (
@@ -60,7 +60,7 @@ export default function Navbar() {
             aria-label={'Toggle Navigation'}
           />
         </Flex>
-        <Flex fontSize={"21px"} flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
+        <Flex w="100%" fontSize={"21px"} flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
           <Flex as={NLink} href="/">
             <Text
               textAlign={useBreakpointValue({ base: 'center', md: 'left' })}
@@ -74,7 +74,6 @@ export default function Navbar() {
             <DesktopNav />
           </Flex>
         </Flex>
-
         <Stack
           flex={{ base: 1, md: 0 }}
           justify={'flex-end'}
@@ -82,7 +81,7 @@ export default function Navbar() {
           spacing={6}>
           {
             loading ? "loading" :
-              <Box display={{ base: "none", md: "inline-block" }}>
+              <Box>
                 {user.id ? <Menu>
                   <MenuButton
                     as={Button}
@@ -101,12 +100,12 @@ export default function Navbar() {
                     fontSize={'sm'}
                     fontWeight={600}
                     bg={'teal.400'}
-                    onClick={signIn}
+                    onClick={onOpen}
                     isLoading={loading}
                     _hover={{
                       bg: 'teal.300',
                     }}>
-                    <Icon color="google" as={IoLogoGoogle} mr="3"></Icon> Get started with Google
+                    <IoLogIn size={"20px"} /> <Text display={{ base: "none", md: "inline-block" }} ml={1}>Login Register</Text>
                   </Button>
                 }
               </Box>
@@ -127,12 +126,12 @@ export default function Navbar() {
                   fontSize={'sm'}
                   fontWeight={600}
                   bg={'teal.400'}
-                  onClick={signIn}
+                  onClick={onOpen}
                   isLoading={loading}
                   _hover={{
                     bg: 'teal.300',
                   }}>
-                  <Icon as={IoLogoGoogle} mr="3"></Icon> Get started with Google
+                  Login / Register
                 </Button>
 
           }
@@ -306,10 +305,6 @@ const NAV_ITEMS: Array<NavItem> = [
   {
     label: 'Home',
     href: "/",
-  },
-  {
-    label: 'Play Earn',
-    href: "/game",
   },
   {
     label: 'How It Works',
