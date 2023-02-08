@@ -21,16 +21,22 @@ export class User {
   @Column()
   email: string;
 
-  @Column()
-  avatar_url: string;
+  @Column({ nullable: true })
+  phoneNumber: string;
 
   @Column({ nullable: true })
-  session: string;
+  city: string;
 
-  @Column({ nullable: true, default: '' })
+  @Column({ nullable: true })
+  state: string;
+
+  @Column({ nullable: true })
+  address: string;
+
+  @Column({ default: 'auth' })
   profileLvl: string;
 
-  @Column({ nullable: true, default: '' })
+  @Column()
   refer: string;
 
   @OneToOne(() => Wallet)
@@ -40,9 +46,9 @@ export class User {
   @OneToMany(() => UserProduct, (product) => product.user)
   products: UserProduct;
 
-  @CreateDateColumn({default: () => 'CURRENT_TIMESTAMP'})
+  @CreateDateColumn({ default: () => 'CURRENT_TIMESTAMP' })
   createdAt: Date;
 
-  @CreateDateColumn({default: () => 'CURRENT_TIMESTAMP'})
+  @CreateDateColumn({ default: () => 'CURRENT_TIMESTAMP' })
   updatedAt: Date;
 }

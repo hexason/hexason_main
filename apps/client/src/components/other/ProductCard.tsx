@@ -1,6 +1,6 @@
 import { Product } from "@/src/interface/product";
 import { useCurrencyFormat } from "@/src/utils/CurrencyFormat";
-import { Box, ChakraProps, Heading, HStack, Image, Input, NumberDecrementStepper, NumberIncrementStepper, NumberInput, NumberInputField, NumberInputStepper, Stack, Text, useColorModeValue } from "@chakra-ui/react";
+import { Box, Button, ChakraProps, Heading, HStack, Image, Input, NumberDecrementStepper, NumberIncrementStepper, NumberInput, NumberInputField, NumberInputStepper, Stack, Text, useColorModeValue } from "@chakra-ui/react";
 import { useState } from "react";
 
 
@@ -66,6 +66,9 @@ export default function ProductCard({ data, ...props }: { data: Product } & Chak
             <Text textDecoration={'line-through'} color={'gray.600'}>
               {format(data.oldPrice || 0)}
             </Text>
+            <Button onClick={() => { }} colorScheme="pink">
+              Сагслах
+            </Button>
           </Stack>
         </Stack>
       </Box>
@@ -76,7 +79,7 @@ export default function ProductCard({ data, ...props }: { data: Product } & Chak
 export const BasketProductCard = ({ data, ...props }: { data: Product } & ChakraProps) => {
   const format = useCurrencyFormat();
   const [count, setCount] = useState(1);
-  
+
 
   return (
     <Box w="100%" py={12}>
