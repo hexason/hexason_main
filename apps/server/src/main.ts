@@ -9,7 +9,7 @@ async function bootstrap() {
   app.useWebSocketAdapter(new IoCustomAdapter(app));
   if (process.env.SWAGGER === 'true') {
     const config = new DocumentBuilder()
-      .setTitle('Cubezet API')
+      .setTitle('Api Documentation')
       .setDescription('The cats API description')
       .setVersion('1.0')
       .addBearerAuth(

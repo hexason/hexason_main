@@ -82,6 +82,5 @@
     ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
-  },
-  "repository": "https://github.com/cybinon/cubezet-api"
+  }
 }
