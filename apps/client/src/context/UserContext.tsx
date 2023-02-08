@@ -5,12 +5,15 @@ import LoginModal from "../components/modals/LoginModal";
 import { UserContextType } from "../interface/user";
 import { User } from "@supabase/supabase-js";
 import { useModal } from "./ModalContext";
+import ShopBasketDrawer from "../components/other/ShopBasketDrawer";
+import { useDisclosure } from "@chakra-ui/react";
 
 export const UserContext = createContext<UserContextType>({ loading: true });
 export default function UserContextProvider({ children }: any) {
   const [user, setUser] = useState<User | undefined>();
   const [accessToken, setAccessToken] = useState<string | undefined>();
-  const { onOpen } = useModal()
+  const { onOpen } = useModal();
+  const basketDrawerController = useDisclosure();
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
@@ -60,6 +63,7 @@ export default function UserContextProvider({ children }: any) {
         loading,
         accessToken,
         actions: {
+          openBasket: basketDrawerController.onOpen || (() => {}),
           signInOpen: onOpen || (() => { }),
           refreshSession,
           logout,
@@ -69,6 +73,7 @@ export default function UserContextProvider({ children }: any) {
     >
       {children}
       <LoginModal />
+      <ShopBasketDrawer onClose={basketDrawerController.onClose} isOpen={basketDrawerController.isOpen} />
     </UserContext.Provider>
   );
 }

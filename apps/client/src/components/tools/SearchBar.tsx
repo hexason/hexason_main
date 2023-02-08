@@ -1,10 +1,10 @@
 import { InputGroup, Input, InputRightAddon, Button } from "@chakra-ui/react";
 import { FaSearch } from "react-icons/fa";
 
-export default function SearchBar() {
+export default function SearchBar(props:any) {
 
   return (
-    <InputGroup>
+    <InputGroup {...props}>
       <Input
         placeholder="Search"
         _focus={{ borderColor: "none", boxShadow: "none" }}

@@ -5,6 +5,7 @@ export type UserContextType = {
   accessToken?: string;
   loading: boolean;
   actions?: {
+    openBasket: () => void;
     signInOpen: () => void;
     refreshSession: () => void;
     signIn: (provider: "google" | "facebook") => void;

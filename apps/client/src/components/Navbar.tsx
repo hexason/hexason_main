@@ -12,13 +12,7 @@ import {
   PopoverTrigger,
   PopoverContent,
   useColorModeValue,
-  useBreakpointValue,
   useDisclosure,
-  Avatar,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuList,
   Container,
   Image,
 } from '@chakra-ui/react';
@@ -33,107 +27,113 @@ import NLink from "next/link";
 import { IoLogIn } from 'react-icons/io5';
 import SearchBar from './tools/SearchBar';
 import { useApp } from '../context/AppContext';
+import UserActions from './header/UserAction';
+import { PROFILE_MENU } from '../constant/navbar_const';
 
 export default function Navbar() {
   const { isOpen, onToggle } = useDisclosure();
   const { user, loading, actions } = useUser();
-  const { logo } = useApp();
+  const { logo, settings } = useApp();
+
+  console.log(settings)
 
 
   return (
-    <Box
-      borderBottom={`1px solid ${useColorModeValue('gray', 'white')}`}
-    >
-      <Container
-        as={Flex}
-        maxWidth={"container.lg"}
-        minH={'60px'}
-        py={{ base: 2 }}
-        px={{ base: "30px" }}
-        align={'center'}
+    <Box>
+      <Box
+        borderBottom={`1px solid ${useColorModeValue('gray', 'white')}`}
       >
-        <Flex
-          flex={{ base: 1, md: 'auto' }}
-          ml={{ base: -2 }}
-          display={{ base: 'flex', md: 'none' }}>
-          <IconButton
-            onClick={onToggle}
-            icon={
-              isOpen ? <CloseIcon w={3} h={3} /> : <HamburgerIcon w={5} h={5} />
+        <Container
+          as={Flex}
+          maxWidth={"container.lg"}
+          minH={'60px'}
+          py={{ base: 2 }}
+          px={{ base: "30px" }}
+          align={'center'}
+        >
+          <Flex
+            flex={{ base: 1, md: 'auto' }}
+            ml={{ base: -2 }}
+            display={{ base: 'flex', md: 'none' }}>
+            <IconButton
+              onClick={onToggle}
+              icon={
+                isOpen ? <CloseIcon w={3} h={3} /> : <HamburgerIcon w={5} h={5} />
+              }
+              variant={'ghost'}
+              aria-label={'Toggle Navigation'}
+            />
+          </Flex>
+          <Flex fontSize={"21px"} flex={{ base: 1 }} display={{ base: 'none', md: 'flex' }} justify={{ base: 'center', md: 'start' }}>
+            <Flex as={NLink} href="/">
+              <Box minH="50px" minW="100px">
+                <Image h="100%" src={logo} />
+              </Box>
+            </Flex>
+          </Flex>
+          <Flex px="10" w="100%" display={{ base: 'none', md: 'flex' }}>
+            <SearchBar />
+          </Flex>
+          <Stack
+            flex={{ base: 1, md: 0 }}
+            justify={'flex-end'}
+            direction={'row'}
+            ml={5}
+            spacing={6}>
+            {
+              loading ? "loading" :
+                <Box>
+                  {user ? <UserActions user={user} /> :
+                    <Button
+                      display={'inline-flex'}
+                      fontSize={'sm'}
+                      fontWeight={600}
+                      onClick={actions?.signInOpen}
+                      isLoading={loading}
+                      color="white"
+                      bg={'pink.300'}
+                      _hover={{
+                        bg: 'pink.400',
+                      }}>
+                      <IoLogIn size={"20px"} /> <Text display={{ base: "none", md: "inline-block" }} ml={1}>Нэвтрэх</Text>
+                    </Button>
+                  }
+                </Box>
             }
-            variant={'ghost'}
-            aria-label={'Toggle Navigation'}
-          />
-        </Flex>
-        <Flex fontSize={"21px"} flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
-          <Flex as={NLink} href="/">
-            <Box minH="50px" minW="100px">
-              <Image h="100%" src={logo} />
-            </Box>
-          </Flex>
-          <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
-            {/* <Desk topNav /> */}
-          </Flex>
-        </Flex>
-        <Flex w="100%" display={{ base: 'none', md: 'flex' }}>
-          <SearchBar />
-        </Flex>
-        <Stack
-          flex={{ base: 1, md: 0 }}
-          justify={'flex-end'}
-          direction={'row'}
-          ml={5}
-          spacing={6}>
-          {
-            loading ? "loading" :
-              <Box>
-                {user ? <UserActions user={user} /> :
-                  <Button
+          </Stack>
+        </Container>
+
+        <Collapse in={isOpen} animateOpacity>
+          <Stack
+            bg={useColorModeValue('white', 'gray.800')}
+            p={4}
+            display={{ md: 'none' }}>
+            {
+              loading ? "loading" :
+                user ?
+                  <MobileNavItem globToggle={onToggle} {...PROFILE_MENU} /> : <Button
                     display={'inline-flex'}
                     fontSize={'sm'}
                     fontWeight={600}
+                    bg={'teal.400'}
                     onClick={actions?.signInOpen}
                     isLoading={loading}
-                    color="white"
-                    bg={'pink.300'}
                     _hover={{
-                      bg: 'pink.400',
+                      bg: 'teal.300',
                     }}>
-                    <IoLogIn size={"20px"} /> <Text display={{ base: "none", md: "inline-block" }} ml={1}>Login Register</Text>
+                    Login / Register
                   </Button>
-                }
-              </Box>
-          }
-        </Stack>
-      </Container>
 
-      <Collapse in={isOpen} animateOpacity>
-        <Stack
-          bg={useColorModeValue('white', 'gray.800')}
-          p={4}
-          display={{ md: 'none' }}>
-          {
-            loading ? "loading" :
-              user ?
-                <MobileNavItem globToggle={onToggle} {...PROFILE_MENU} /> : <Button
-                  display={'inline-flex'}
-                  fontSize={'sm'}
-                  fontWeight={600}
-                  bg={'teal.400'}
-                  onClick={actions?.signInOpen}
-                  isLoading={loading}
-                  _hover={{
-                    bg: 'teal.300',
-                  }}>
-                  Login / Register
-                </Button>
-
-          }
-          {NAV_ITEMS.map((navItem) => (
-            <MobileNavItem globToggle={onToggle} key={navItem.label} {...navItem} />
-          ))}
-        </Stack>
-      </Collapse>
+            }
+            {NAV_ITEMS.map((navItem) => (
+              <MobileNavItem globToggle={onToggle} key={navItem.label} {...navItem} />
+            ))}
+          </Stack>
+        </Collapse>
+      </Box>
+      <Box display={{ base: 'block', md: 'none  ' }} >
+        <SearchBar borderRadius={0} mt="1" />
+      </Box>
     </Box>
   )
 }
@@ -273,24 +273,6 @@ const MobileNavItem = ({ label, children, href, globToggle }: NavItem) => {
   );
 };
 
-const UserActions = ({ user }: any) => {
-  return (
-    <Menu>
-      <MenuButton
-        as={Button}
-        rounded={'full'}
-        variant={'link'}
-        cursor={'pointer'}
-        minW={0}>
-        <Avatar src={user.user_metadata?.avatar_url} size="sm" />
-      </MenuButton>
-      <MenuList>
-        {PROFILE_MENU.children.map((link) => <MenuItem key={link.label} as={NLink} href={link.href}>{link.label}</MenuItem>)}
-      </MenuList>
-    </Menu>
-  )
-}
-
 interface NavItem {
   label: string;
   subLabel?: string;
@@ -298,21 +280,8 @@ interface NavItem {
   globToggle?: () => void;
   href?: string;
 }
-const PROFILE_MENU = {
-  label: 'Profile',
-  children: [
-    // {
-    //   label: 'My Area',
-    //   subLabel: 'Up-and-coming Designers',
-    //   href: '/user',
-    // },
-    {
-      label: 'Logout',
-      subLabel: 'Trending Design to inspire you',
-      href: '/logout',
-    },
-  ],
-};
+
+
 const NAV_ITEMS: Array<NavItem> = [
   {
     label: 'Home',
