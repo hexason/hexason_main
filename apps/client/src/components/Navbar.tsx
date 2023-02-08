@@ -83,7 +83,7 @@ export default function Navbar() {
             {
               loading ? "loading" :
                 <Box>
-                  {user ? <UserActions user={user} /> :
+                  {user ? <UserActions /> :
                     <Button
                       display={'inline-flex'}
                       fontSize={'sm'}
@@ -132,7 +132,7 @@ export default function Navbar() {
         </Collapse>
       </Box>
       <Box display={{ base: 'block', md: 'none  ' }} >
-        <SearchBar borderRadius={0} mt="1" />
+        <SearchBar />
       </Box>
     </Box>
   )

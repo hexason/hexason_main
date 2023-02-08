@@ -8,7 +8,7 @@ export default function User() {
   const router = useRouter();
   
   useEffect(() => {
-    if (!user.id) {
+    if (!user) {
       router.replace("/");
     } else {
       router.replace("/user/"+user.id);
