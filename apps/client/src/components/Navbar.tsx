@@ -19,6 +19,9 @@ import {
   MenuButton,
   MenuItem,
   MenuList,
+  Input,
+  InputGroup,
+  InputRightAddon,
 } from '@chakra-ui/react';
 import {
   HamburgerIcon,
@@ -29,6 +32,7 @@ import {
 import { useUser } from '../context/UserContext';
 import NLink from "next/link";
 import { IoLogIn } from 'react-icons/io5';
+import { FaSearch } from 'react-icons/fa';
 
 export default function Navbar() {
   const { isOpen, onToggle } = useDisclosure();
@@ -65,12 +69,18 @@ export default function Navbar() {
             <Text
               textAlign={useBreakpointValue({ base: 'center', md: 'left' })}
               fontFamily={'heading'}
-              color={useColorModeValue('gray.800', 'white')}>
-              CUBE
+              color={useColorModeValue('black', 'white')}>
+              LOVE
             </Text>
-            <Text color={"teal.400"}>ZET</Text>
+            <Text color={"red.400"}>BOX</Text>
           </Flex>
           <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
+            <InputGroup>
+              <Input placeholder="Search Something..." />
+              <InputRightAddon as={Button}>
+                <FaSearch />
+              </InputRightAddon>
+            </InputGroup>
             <DesktopNav />
           </Flex>
         </Flex>
@@ -99,11 +109,12 @@ export default function Navbar() {
                     display={'inline-flex'}
                     fontSize={'sm'}
                     fontWeight={600}
-                    bg={'teal.400'}
                     onClick={onOpen}
                     isLoading={loading}
+                    color="white"
+                    bg={'red.300'}
                     _hover={{
-                      bg: 'teal.300',
+                      bg: 'red.400',
                     }}>
                     <IoLogIn size={"20px"} /> <Text display={{ base: "none", md: "inline-block" }} ml={1}>Login Register</Text>
                   </Button>
@@ -289,11 +300,11 @@ interface NavItem {
 const PROFILE_MENU = {
   label: 'Profile',
   children: [
-    {
-      label: 'My Area',
-      subLabel: 'Up-and-coming Designers',
-      href: '/user',
-    },
+    // {
+    //   label: 'My Area',
+    //   subLabel: 'Up-and-coming Designers',
+    //   href: '/user',
+    // },
     {
       label: 'Logout',
       subLabel: 'Trending Design to inspire you',
@@ -302,19 +313,19 @@ const PROFILE_MENU = {
   ],
 };
 const NAV_ITEMS: Array<NavItem> = [
-  {
-    label: 'Home',
-    href: "/",
-  },
-  {
-    label: 'How It Works',
-    href: "/how_it_works",
-    // children: [
-    //   {
-    //     label: 'Job Board',
-    //     subLabel: 'Find your dream design job',
-    //     href: '#',
-    //   },
-    // ],
-  },
+  // {
+  //   label: 'Home',
+  //   href: "/",
+  // },
+  // {
+  //   label: 'How It Works',
+  //   href: "/how_it_works",
+  //   // children: [
+  //   //   {
+  //   //     label: 'Job Board',
+  //   //     subLabel: 'Find your dream design job',
+  //   //     href: '#',
+  //   //   },
+  //   // ],
+  // },
 ];
