@@ -20,8 +20,8 @@ export class UserProduct {
   product: Product;
 
   @UpdateDateColumn()
-  updated_at: any;
+  updatedAt: any;
 
   @CreateDateColumn()
-  created_at: any;
+  createdAt: any;
 }

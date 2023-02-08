@@ -3,6 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { TerminusModule } from '@nestjs/terminus';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
+import { controllers } from './controller/inext';
 import { HealthController } from './health.controller';
 import { Product } from './models/product.model';
 import { Transaction } from './models/transaction.model';
@@ -31,6 +32,6 @@ import { Wallet } from './models/wallet.model';
     }),
     TerminusModule,
   ],
-  controllers: [AppController, HealthController],
+  controllers: [AppController, HealthController, ...controllers],
 })
-export class AppModule {}
+export class AppModule { }

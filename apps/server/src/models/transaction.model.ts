@@ -6,35 +6,33 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
+// Transaction user to user, buy product, refund etc...
 @Entity()
 export class Transaction {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()
-  address: string;
-
-  @Column()
   userId: string;
 
-  @Column()
-  amount: string;
+  @Column({nullable:true})
+  productId?: string;
+
+  @Column({nullable:true})
+  description?: string;
 
   @Column()
-  type: 'deposit' | 'withdraw' | 'transfer' | 'earn';
+  amount: number;
 
   @Column()
-  status: 'pending' | 'failed' | 'success';
+  type: string;
 
-  @Column({ nullable: true })
-  message?: string;
-
-  @Column({ nullable: true })
-  txId?: string;
+  @Column()
+  status: string;
 
   @CreateDateColumn()
-  created_at: Date; // Creation date
+  createdAt: Date; // Creation date
 
   @UpdateDateColumn()
-  updated_at: Date; // Last updated date
+  updatedAt: Date; // Last updated date
 }

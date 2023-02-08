@@ -4,6 +4,7 @@ import {
   Entity,
   OneToMany,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 import { UserProduct } from './userProduct.model';
 
@@ -16,26 +17,35 @@ export class Product {
   title: string;
 
   @Column()
-  description: string;
-
-  @Column()
-  price: number;
-
-  @Column()
-  salePrice: number;
-
-  @Column()
-  sold: number;
-
+  description?: string;
+  
+  @Column({nullable: true})
+  brand?: string;
+  
   @Column()
   image: string;
 
-  @Column()
-  status: string;
+  @Column({type: 'decimal', precision: 10, scale: 2})
+  price: number;
 
-  @OneToMany(() => UserProduct, (user) => user.product)
-  users: UserProduct;
+  @Column({type: 'decimal', precision: 10, scale: 2, nullable: true})
+  oldPrice?: number;
+
+  @Column({type: 'int', default: 0})
+  sold: number;
+
+  @Column({type: 'int', default: 0})
+  quantity: number;
+
+  @Column({enum: ['active', 'inactive']})
+  status: string;
 
   @CreateDateColumn()
   createdAt: Date;
+
+  @UpdateDateColumn()
+  updatedAt: Date;
+
+  @OneToMany(() => UserProduct, (user) => user.product)
+  users: UserProduct;
 }

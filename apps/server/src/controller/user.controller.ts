@@ -3,19 +3,10 @@ import {
   Logger,
   UseGuards,
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiProperty, ApiTags } from '@nestjs/swagger';
-import { IsNumber, IsString } from 'class-validator';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { UserJWTGuard } from '../middleware/user_jwt.guard';
 
-class WithdrawDTO {
-  @ApiProperty()
-  @IsNumber()
-  amount: number;
 
-  @ApiProperty()
-  @IsString()
-  address: string;
-}
 const logger = new Logger('UserController');
 @ApiBearerAuth('user-jwt-token')
 @ApiTags('User')

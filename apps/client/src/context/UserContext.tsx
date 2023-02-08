@@ -18,6 +18,7 @@ export default function UserContextProvider({ children }: any) {
     supabase.auth.getUser().then(async ({ data, error }: any) => {
       if (error) throw error;
       const token = await supabase.auth.getSession();
+      localStorage.setItem("a_token", token.data?.session?.access_token || "");
       setAccessToken(token.data?.session?.access_token);
       setUser(data.user ? data.user : {});
     }).catch((error) => {

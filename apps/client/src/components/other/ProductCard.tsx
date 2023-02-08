@@ -1,6 +1,6 @@
 import { Product } from "@/src/interface/product";
 import { useCurrencyFormat } from "@/src/utils/CurrencyFormat";
-import { Box, Center, ChakraProps, Heading, Image, Stack, Text, useColorModeValue } from "@chakra-ui/react";
+import { Box, ChakraProps, Heading, Image, Stack, Text, useColorModeValue } from "@chakra-ui/react";
 
 
 export default function ProductCard({ data, ...props }: { data: Product } & ChakraProps) {

@@ -41,5 +41,8 @@ export class User {
   products: UserProduct;
 
   @CreateDateColumn({default: () => 'CURRENT_TIMESTAMP'})
-  created_at: Date;
+  createdAt: Date;
+
+  @CreateDateColumn({default: () => 'CURRENT_TIMESTAMP'})
+  updatedAt: Date;
 }
