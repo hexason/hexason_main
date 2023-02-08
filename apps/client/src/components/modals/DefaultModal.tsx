@@ -1,14 +1,8 @@
-import { Modal, ModalHeader, ModalCloseButton, ModalBody, ModalContent, ModalFooter, useClipboard } from "@chakra-ui/react"
-import { useEffect } from "react";
-import { useUser } from "../../context/UserContext";
+import { useModal } from "@/src/context/ModalContext";
+import { Modal, ModalHeader, ModalCloseButton, ModalBody, ModalContent, ModalFooter } from "@chakra-ui/react"
 
-export default function DefaulModal({ isOpen, onClose, children, title, ...props }: any) {
-  const { setValue } = useClipboard("");
-  const { wallet } = useUser();
-
-  useEffect(() => {
-    setValue(wallet.address);
-  }, [])
+export default function DefaulModal({ children, title, ...props }: any) {
+  const { isOpen, onClose } = useModal()
   return (
     <Modal isOpen={isOpen} onClose={onClose} {...props}>
       <ModalContent>

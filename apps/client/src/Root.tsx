@@ -14,7 +14,7 @@ export default function Root({ children, ...props }: any) {
   return (
     <>
       <Head>
-        <title>LoveBox</title>
+        <title>Lovebox</title>
         <meta name="description" content="Дэско" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
@@ -24,9 +24,7 @@ export default function Root({ children, ...props }: any) {
         <Container p={0} minH="80vh" maxW="container.lg" {...props}>
           {children}
         </Container>
-        <Container p={0} maxW="container.lg" {...props}>
-          <Footer />
-        </Container>
+        <Footer />
       </Box>
     </>
   )

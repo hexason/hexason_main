@@ -19,9 +19,6 @@ import {
   MenuButton,
   MenuItem,
   MenuList,
-  Input,
-  InputGroup,
-  InputRightAddon,
   Container,
 } from '@chakra-ui/react';
 import {
@@ -33,12 +30,11 @@ import {
 import { useUser } from '../context/UserContext';
 import NLink from "next/link";
 import { IoLogIn } from 'react-icons/io5';
-import { FaSearch } from 'react-icons/fa';
 import SearchBar from './tools/SearchBar';
 
 export default function Navbar() {
   const { isOpen, onToggle } = useDisclosure();
-  const { user, onOpen, loading } = useUser();
+  const { user, loading, actions } = useUser();
 
 
   return (
@@ -92,12 +88,12 @@ export default function Navbar() {
           {
             loading ? "loading" :
               <Box>
-                {user.id ? <UserActions user={user} /> :
+                {user ? <UserActions user={user} /> :
                   <Button
                     display={'inline-flex'}
                     fontSize={'sm'}
                     fontWeight={600}
-                    onClick={onOpen}
+                    onClick={actions?.signInOpen}
                     isLoading={loading}
                     color="white"
                     bg={'red.300'}
@@ -119,13 +115,13 @@ export default function Navbar() {
           display={{ md: 'none' }}>
           {
             loading ? "loading" :
-              user.id ?
+              user ?
                 <MobileNavItem globToggle={onToggle} {...PROFILE_MENU} /> : <Button
                   display={'inline-flex'}
                   fontSize={'sm'}
                   fontWeight={600}
                   bg={'teal.400'}
-                  onClick={onOpen}
+                  onClick={actions?.signInOpen}
                   isLoading={loading}
                   _hover={{
                     bg: 'teal.300',

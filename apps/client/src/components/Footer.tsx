@@ -4,11 +4,10 @@ import {
   Container,
   Stack,
   Text,
-  Tooltip,
   useColorModeValue,
   VisuallyHidden,
 } from '@chakra-ui/react';
-import { FaEdit, FaInstagram, FaTwitter, FaYoutube } from 'react-icons/fa';
+import { FaInstagram } from 'react-icons/fa';
 import { ReactNode } from 'react';
 
 
@@ -60,15 +59,9 @@ export default function Footer() {
           spacing={4}
           justify={{ base: 'center', md: 'space-between' }}
           align={{ base: 'center', md: 'center' }}>
-          <Text>© {new Date().getFullYear()} CubeZet. All rights reserved</Text>
+          <Text>© {new Date().getFullYear()}  All rights reserved</Text>
           <Stack direction={'row'} spacing={6}>
-            <SocialButton label={'Feedback'} href={'https://forms.gle/hbrt1mg6omYtW25s6'}>
-              <FaEdit />
-            </SocialButton>
-            <SocialButton label={'YouTube'} href={'https://www.youtube.com/channel/UCPXB6-fAt_t-b12BSxEzjiA'}>
-              <FaYoutube />
-            </SocialButton>
-            <SocialButton label={'Instagram'} href={'https://www.instagram.com/cubezet_/'}>
+            <SocialButton label={'Instagram'} href={'#'}>
               <FaInstagram />
             </SocialButton>
           </Stack>

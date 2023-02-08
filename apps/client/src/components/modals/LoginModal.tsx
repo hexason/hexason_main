@@ -9,11 +9,11 @@ import {
 import { useUser } from '@/context/UserContext';
 import DefaulModal from './DefaultModal';
 
-export default function LoginModal({isOpen, onClose}:any) {
+export default function LoginModal() {
   const {actions} = useUser();
 
   return (
-    <DefaulModal isOpen={isOpen} onClose={onClose}>
+    <DefaulModal>
       <Flex
         align={'center'}
         justify={'center'}

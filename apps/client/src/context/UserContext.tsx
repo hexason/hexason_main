@@ -1,16 +1,16 @@
-import { useDisclosure } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { useState, useEffect, createContext, useContext } from "react";
 import { supabase } from "../lib/Store";
 import LoginModal from "../components/modals/LoginModal";
 import { UserContextType } from "../interface/user";
 import { User } from "@supabase/supabase-js";
+import { useModal } from "./ModalContext";
 
 export const UserContext = createContext<UserContextType>({ loading: true });
 export default function UserContextProvider({ children }: any) {
   const [user, setUser] = useState<User | undefined>();
   const [accessToken, setAccessToken] = useState<string | undefined>();
-  const { isOpen, onClose, onOpen } = useDisclosure()
+  const { onOpen } = useModal()
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
@@ -59,7 +59,7 @@ export default function UserContextProvider({ children }: any) {
         loading,
         accessToken,
         actions: {
-          signInOpen: onOpen,
+          signInOpen: onOpen || (() => { }),
           refreshSession,
           logout,
           signIn
@@ -67,7 +67,7 @@ export default function UserContextProvider({ children }: any) {
       }}
     >
       {children}
-      <LoginModal {...{ isOpen, onClose }} />
+      <LoginModal />
     </UserContext.Provider>
   );
 }
