@@ -27,11 +27,11 @@ export default function UserContextProvider({ children }: any) {
     });
   }
 
-  const logout = () => {
+  const logout = async () => {
     setLoading(true);
-    supabase.auth.signOut().catch(e => console.log(e)).finally(() => {
-      setLoading(false);
-    });
+    await supabase.auth.signOut().catch(e => console.log(e))
+    setUser(undefined);
+    setLoading(false);
   }
 
   const signIn = (provider: "google" | "facebook") => {

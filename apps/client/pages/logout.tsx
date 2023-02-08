@@ -4,12 +4,11 @@ import { useUser } from "../src/context/UserContext";
 import { useRouter } from "next/router";
 
 export default function Logout() {
-  const { logout } = useUser();
+  const { actions } = useUser();
   const router = useRouter();
 
   useEffect(() => {
-   if(logout) logout();
-   router.replace("/");
+   if(actions) actions.logout().then(() => router.push("/"));
   }, []);
 
   return (

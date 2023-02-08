@@ -20,6 +20,7 @@ import {
   MenuItem,
   MenuList,
   Container,
+  Image,
 } from '@chakra-ui/react';
 import {
   HamburgerIcon,
@@ -31,10 +32,12 @@ import { useUser } from '../context/UserContext';
 import NLink from "next/link";
 import { IoLogIn } from 'react-icons/io5';
 import SearchBar from './tools/SearchBar';
+import { useApp } from '../context/AppContext';
 
 export default function Navbar() {
   const { isOpen, onToggle } = useDisclosure();
   const { user, loading, actions } = useUser();
+  const { logo } = useApp();
 
 
   return (
@@ -62,21 +65,17 @@ export default function Navbar() {
             aria-label={'Toggle Navigation'}
           />
         </Flex>
-        <Flex w="100%" fontSize={"21px"} flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
+        <Flex fontSize={"21px"} flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
           <Flex as={NLink} href="/">
-            <Text
-              textAlign={useBreakpointValue({ base: 'center', md: 'left' })}
-              fontFamily={'heading'}
-              color={useColorModeValue('black', 'white')}>
-              {process.env.REACT_APP_PUBLIC_APP_NAME}
-            </Text>
-            <Text color={"red.400"}>BOX</Text>
+            <Box minH="50px" minW="100px">
+              <Image h="100%" src={logo} />
+            </Box>
           </Flex>
           <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
-            {/* <DesktopNav /> */}
+            {/* <Desk topNav /> */}
           </Flex>
         </Flex>
-        <Flex display={{ base: 'none', md: 'flex' }} w="100%">
+        <Flex w="100%" display={{ base: 'none', md: 'flex' }}>
           <SearchBar />
         </Flex>
         <Stack
@@ -96,9 +95,9 @@ export default function Navbar() {
                     onClick={actions?.signInOpen}
                     isLoading={loading}
                     color="white"
-                    bg={'red.300'}
+                    bg={'pink.300'}
                     _hover={{
-                      bg: 'red.400',
+                      bg: 'pink.400',
                     }}>
                     <IoLogIn size={"20px"} /> <Text display={{ base: "none", md: "inline-block" }} ml={1}>Login Register</Text>
                   </Button>

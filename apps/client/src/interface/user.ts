@@ -8,6 +8,6 @@ export type UserContextType = {
     signInOpen: () => void;
     refreshSession: () => void;
     signIn: (provider: "google" | "facebook") => void;
-    logout: () => void;
+    logout: () => Promise<void>;
   }
 }

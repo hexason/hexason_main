@@ -30,7 +30,6 @@ export default function LoginModal() {
             <Button
               colorScheme={"teal"}
               onClick={() => actions?.signIn("facebook")}
-              isDisabled={true}
               >
               <Image h="20px" src="https://www.edigitalagency.com.au/wp-content/uploads/Facebook-logo-blue-circle-large-white-f.png" mr="3" /> 
               <Text>Sign in With Facebook</Text>

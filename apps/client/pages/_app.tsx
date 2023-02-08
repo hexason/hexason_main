@@ -7,6 +7,7 @@ import ReactGA from "react-ga4"
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import ModalContextProvider from '@/src/context/ModalContext';
+import AppContextProvider from '@/src/context/AppContext';
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -30,12 +31,14 @@ export default function App({ Component, pageProps }: AppProps) {
       },
     },
   })}>
-    <ModalContextProvider>
-      <UserContextProvider>
-        <Root>
-          <Component {...pageProps} />
-        </Root>
-      </UserContextProvider>
-    </ModalContextProvider>
+    <AppContextProvider>
+      <ModalContextProvider>
+        <UserContextProvider>
+          <Root>
+            <Component {...pageProps} />
+          </Root>
+        </UserContextProvider>
+      </ModalContextProvider>
+    </AppContextProvider>
   </ChakraProvider>
 }
