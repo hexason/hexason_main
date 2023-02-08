@@ -2,7 +2,7 @@
 export const useCurrencyFormat = () => {
   const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
-    currency: 'USD',
+    currency: 'MNT',
   });
 
   function nFormatter(num:number, digits:number) {
