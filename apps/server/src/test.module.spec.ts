@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppModule } from './app.module';
-import { UserService } from './user/user.service';
-import { WalletService } from './user/wallet.service';
+import { UserService } from './controller/user.service';
+import { WalletService } from './controller/wallet.service';
 
 describe('Define Check', () => {
   let moduleRef: TestingModule;

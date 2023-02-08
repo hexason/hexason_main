@@ -1,16 +1,16 @@
 import { Container, Center, Grid, Image, List, ListItem, ListIcon, Button, Text, Stack, Divider, useToast } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
-import Card from '../src/components/Other/Card'
-import Hero from '../src/components/Other/Hero'
+import Card from '../src/components/other/Card'
+import Hero from '../src/components/other/Hero'
 import axios from "axios"
-import BuyModal from '../src/components/Modals/BuyProductModal'
+import BuyModal from '../src/components/modals/BuyProductModal'
 import { IoCheckbox, IoMap, IoTime } from 'react-icons/io5'
 import { BsCurrencyDollar } from 'react-icons/bs'
 import { useCurrencyFormat } from '../src/utils/CurrencyFormat'
 import { supabase } from '../src/lib/Store'
 import { useUser } from '../src/context/UserContext'
 import Link from 'next/link'
-import InvestorPartners from '../src/components/Other/InvestorPartners'
+import InvestorPartners from '../src/components/other/InvestorPartners'
 
 export default function Home() {
   const [products, setProducts] = useState([])

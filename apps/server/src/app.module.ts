@@ -4,14 +4,17 @@ import { TerminusModule } from '@nestjs/terminus';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { HealthController } from './health.controller';
-import { ProductModule } from './product/product.module';
-import { UserModule } from './user/user.module';
+import { Product } from './models/product.model';
+import { Transaction } from './models/transaction.model';
+import { User } from './models/user.model';
+import { UserProduct } from './models/userProduct.model';
+import { Wallet } from './models/wallet.model';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: '.env.local',
+      envFilePath: ['.env.local'],
     }),
     TypeOrmModule.forRootAsync({
       useFactory: () => ({
@@ -23,11 +26,10 @@ import { UserModule } from './user/user.module';
         database: process.env.DB_NAME,
         autoLoadEntities: true,
         synchronize: process.env.DB_SYNC === 'true',
+        entities: [User, Wallet, Transaction, Product, UserProduct]
       }),
     }),
     TerminusModule,
-    ProductModule,
-    UserModule,
   ],
   controllers: [AppController, HealthController],
 })

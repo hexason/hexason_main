@@ -13,5 +13,8 @@
     "test:ci": {
       "cache": false
     }
-  }
+  },
+  "globalDependencies": [
+    ".env"
+  ]
 }

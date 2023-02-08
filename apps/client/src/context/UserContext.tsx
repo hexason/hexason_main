@@ -3,7 +3,7 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import { useState, useEffect, createContext, useContext } from "react";
 import { supabase } from "../lib/Store";
-import LoginModal from "../components/Modals/LoginModal";
+import LoginModal from "../components/modals/LoginModal";
 
 export type User = {
   id?: string;

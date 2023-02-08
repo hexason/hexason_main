@@ -22,6 +22,7 @@ import {
   Input,
   InputGroup,
   InputRightAddon,
+  Container,
 } from '@chakra-ui/react';
 import {
   HamburgerIcon,
@@ -33,6 +34,7 @@ import { useUser } from '../context/UserContext';
 import NLink from "next/link";
 import { IoLogIn } from 'react-icons/io5';
 import { FaSearch } from 'react-icons/fa';
+import SearchBar from './tools/SearchBar';
 
 export default function Navbar() {
   const { isOpen, onToggle } = useDisclosure();
@@ -40,17 +42,17 @@ export default function Navbar() {
 
 
   return (
-    <Box>
-      <Flex
-        bg={useColorModeValue('white', 'gray.800')}
-        color={useColorModeValue('gray.600', 'white')}
+    <Box
+      borderBottom={`1px solid ${useColorModeValue('gray', 'white')}`}
+    >
+      <Container
+        as={Flex}
+        maxWidth={"container.lg"}
         minH={'60px'}
         py={{ base: 2 }}
         px={{ base: "30px" }}
-        borderBottom={1}
-        borderStyle={'solid'}
-        borderColor={useColorModeValue('gray.200', 'gray.900')}
-        align={'center'}>
+        align={'center'}
+      >
         <Flex
           flex={{ base: 1, md: 'auto' }}
           ml={{ base: -2 }}
@@ -70,41 +72,27 @@ export default function Navbar() {
               textAlign={useBreakpointValue({ base: 'center', md: 'left' })}
               fontFamily={'heading'}
               color={useColorModeValue('black', 'white')}>
-              LOVE
+              {process.env.REACT_APP_PUBLIC_APP_NAME}
             </Text>
             <Text color={"red.400"}>BOX</Text>
           </Flex>
           <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
-            <InputGroup>
-              <Input placeholder="Search Something..." />
-              <InputRightAddon as={Button}>
-                <FaSearch />
-              </InputRightAddon>
-            </InputGroup>
-            <DesktopNav />
+            {/* <DesktopNav /> */}
           </Flex>
+        </Flex>
+        <Flex display={{ base: 'none', md: 'flex' }} w="100%">
+          <SearchBar />
         </Flex>
         <Stack
           flex={{ base: 1, md: 0 }}
           justify={'flex-end'}
           direction={'row'}
+          ml={5}
           spacing={6}>
           {
             loading ? "loading" :
               <Box>
-                {user.id ? <Menu>
-                  <MenuButton
-                    as={Button}
-                    rounded={'full'}
-                    variant={'link'}
-                    cursor={'pointer'}
-                    minW={0}>
-                    <Avatar src={user.user_metadata?.avatar_url} size="sm" />
-                  </MenuButton>
-                  <MenuList>
-                    {PROFILE_MENU.children.map((link) => <MenuItem key={link.label} as={NLink} href={link.href}>{link.label}</MenuItem>)}
-                  </MenuList>
-                </Menu> :
+                {user.id ? <UserActions user={user} /> :
                   <Button
                     display={'inline-flex'}
                     fontSize={'sm'}
@@ -122,7 +110,7 @@ export default function Navbar() {
               </Box>
           }
         </Stack>
-      </Flex>
+      </Container>
 
       <Collapse in={isOpen} animateOpacity>
         <Stack
@@ -290,6 +278,24 @@ const MobileNavItem = ({ label, children, href, globToggle }: NavItem) => {
   );
 };
 
+const UserActions = ({ user }: any) => {
+  return (
+    <Menu>
+      <MenuButton
+        as={Button}
+        rounded={'full'}
+        variant={'link'}
+        cursor={'pointer'}
+        minW={0}>
+        <Avatar src={user.user_metadata?.avatar_url} size="sm" />
+      </MenuButton>
+      <MenuList>
+        {PROFILE_MENU.children.map((link) => <MenuItem key={link.label} as={NLink} href={link.href}>{link.label}</MenuItem>)}
+      </MenuList>
+    </Menu>
+  )
+}
+
 interface NavItem {
   label: string;
   subLabel?: string;
@@ -313,10 +319,10 @@ const PROFILE_MENU = {
   ],
 };
 const NAV_ITEMS: Array<NavItem> = [
-  // {
-  //   label: 'Home',
-  //   href: "/",
-  // },
+  {
+    label: 'Home',
+    href: "/",
+  },
   // {
   //   label: 'How It Works',
   //   href: "/how_it_works",

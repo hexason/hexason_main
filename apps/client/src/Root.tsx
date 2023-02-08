@@ -21,12 +21,12 @@ export default function Root({ children, ...props }: any) {
       </Head>
       <Box>
         <Navbar />
-        <Container p={0} minH="90vh" maxW="container.lg" {...props}>
+        <Container p={0} minH="80vh" maxW="container.lg" {...props}>
           {children}
         </Container>
         <Container p={0} maxW="container.lg" {...props}>
+          <Footer />
         </Container>
-        <Footer />
       </Box>
     </>
   )

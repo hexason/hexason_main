@@ -7,7 +7,6 @@ import {
   OneToOne,
   PrimaryColumn,
 } from 'typeorm';
-import { Session } from './session.model';
 import { UserProduct } from './userProduct.model';
 import { Wallet } from './wallet.model';
 
@@ -33,9 +32,6 @@ export class User {
 
   @Column({ nullable: true, default: '' })
   refer: string;
-
-  @OneToMany(() => Session, (session) => session.user)
-  sessions: Session[];
 
   @OneToOne(() => Wallet)
   @JoinColumn()

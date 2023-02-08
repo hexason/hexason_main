@@ -6,16 +6,7 @@ export class Wallet {
   id: string;
 
   @Column()
-  mnemonic: string;
-
-  @Column()
-  xpub: string;
-
-  @Column()
   address: string;
-
-  @Column()
-  network: string;
 
   @Column({
     type: 'decimal',
@@ -23,6 +14,6 @@ export class Wallet {
   })
   balance: number;
 
-  @Column()
-  user_id: string;
+  @Column({nullable: true})
+  userId: string;
 }
