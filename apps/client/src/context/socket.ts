@@ -1,6 +1,6 @@
 import { createContext } from "react";
 import { io, Socket } from "socket.io-client";
-import { supabase } from "../../lib/Store";
+import { supabase } from "../lib/Store";
 
 export const socket: Socket = io(process.env.NEXT_PUBLIC_API_URL as string);
 

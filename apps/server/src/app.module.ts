@@ -3,7 +3,6 @@ import { ConfigModule } from '@nestjs/config';
 import { TerminusModule } from '@nestjs/terminus';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
-import { ChessModule } from './chess/chess.module';
 import { HealthController } from './health.controller';
 import { ProductModule } from './product/product.module';
 import { UserModule } from './user/user.module';
@@ -26,7 +25,6 @@ import { UserModule } from './user/user.module';
         synchronize: process.env.DB_SYNC === 'true',
       }),
     }),
-    ChessModule,
     TerminusModule,
     ProductModule,
     UserModule,

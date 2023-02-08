@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "workspaces": [
-    "client", "server"
+    "apps/*", "packages/*"
   ],
   "scripts": {
     "build": "turbo run build",

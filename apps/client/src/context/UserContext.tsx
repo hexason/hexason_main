@@ -2,7 +2,7 @@ import { useDisclosure } from "@chakra-ui/react";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useState, useEffect, createContext, useContext } from "react";
-import { supabase } from "../../lib/Store";
+import { supabase } from "../lib/Store";
 import LoginModal from "../components/Modals/LoginModal";
 
 export type User = {
