@@ -6,11 +6,11 @@ import {
   Image,
   Text,
 } from '@chakra-ui/react';
-import { useUser } from '../../context/UserContext';
+import { useUser } from '@/context/UserContext';
 import DefaulModal from './DefaultModal';
 
 export default function LoginModal({isOpen, onClose}:any) {
-  const {signIn} = useUser();
+  const {actions} = useUser();
 
   return (
     <DefaulModal isOpen={isOpen} onClose={onClose}>
@@ -22,14 +22,14 @@ export default function LoginModal({isOpen, onClose}:any) {
           <Stack spacing={4}>
             <Button
               colorScheme={"teal"}
-              onClick={signIn}
+              onClick={() => actions?.signIn("google")}
               >
               <Image h="20px" src="https://img.freepik.com/free-icon/search_318-265146.jpg" mr="3" /> 
               <Text>Sign In With Google</Text>
             </Button>
             <Button
               colorScheme={"teal"}
-              onClick={signIn}
+              onClick={() => actions?.signIn("facebook")}
               isDisabled={true}
               >
               <Image h="20px" src="https://www.edigitalagency.com.au/wp-content/uploads/Facebook-logo-blue-circle-large-white-f.png" mr="3" /> 
