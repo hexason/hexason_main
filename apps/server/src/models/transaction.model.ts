@@ -15,10 +15,10 @@ export class Transaction {
   @Column()
   userId: string;
 
-  @Column({nullable:true})
+  @Column({ nullable: true })
   productId?: string;
 
-  @Column({nullable:true})
+  @Column({ nullable: true })
   description?: string;
 
   @Column()

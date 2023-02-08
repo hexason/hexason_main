@@ -25,7 +25,7 @@ async function bootstrap() {
     SwaggerModule.setup('api', app, document);
   }
 
-  console.log(process.env.APP_NAME)
+  console.log(process.env.APP_NAME);
 
   await app.listen(4000);
 }

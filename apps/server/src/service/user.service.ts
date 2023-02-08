@@ -1,6 +1,6 @@
 export class UserService {
-  constructor() { }
-  
+  constructor() {}
+
   hello() {
     console.log('Hello from UserService');
   }

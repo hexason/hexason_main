@@ -27,11 +27,11 @@ import { Wallet } from './models/wallet.model';
         database: process.env.DB_NAME,
         autoLoadEntities: true,
         synchronize: process.env.DB_SYNC === 'true',
-        entities: [User, Wallet, Transaction, Product, UserProduct]
+        entities: [User, Wallet, Transaction, Product, UserProduct],
       }),
     }),
     TerminusModule,
   ],
   controllers: [AppController, HealthController, ...controllers],
 })
-export class AppModule { }
+export class AppModule {}

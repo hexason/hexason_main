@@ -29,19 +29,32 @@ export class UserProduct {
   @Column()
   totalPrice: number;
 
-  @Column({ default: 'inbasket', enum: ['inbasket', 'pending', 'paid', 'prepare', 'shipping', 'delivered', 'closed', 'cancel', 'done'] })
+  @Column({
+    default: 'inbasket',
+    enum: [
+      'inbasket',
+      'pending',
+      'paid',
+      'prepare',
+      'shipping',
+      'delivered',
+      'closed',
+      'cancel',
+      'done',
+    ],
+  })
   status: string;
 
-  @Column({nullable: true})
+  @Column({ nullable: true })
   paymentRef: string;
 
-  @Column({nullable: true})
+  @Column({ nullable: true })
   paymentStatus: string;
 
-  @Column({nullable: true})
+  @Column({ nullable: true })
   paymentMessage: string;
 
-  @Column({nullable: true})
+  @Column({ nullable: true })
   paymentDate: Date;
 
   @UpdateDateColumn()

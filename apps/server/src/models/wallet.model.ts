@@ -14,6 +14,6 @@ export class Wallet {
   })
   balance: number;
 
-  @Column({nullable: true})
+  @Column({ nullable: true })
   userId: string;
 }
