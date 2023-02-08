@@ -1,0 +1,39 @@
+{
+  "npmClient": "pnpm",
+  "pipeline": {
+    "build": {
+      "dependsOn": [
+        "^build"
+      ],
+      "outputs": [
+        "dist/**",
+        ".next/**"
+      ]
+    },
+    "web#build": {
+      "dependsOn": [
+        "^build"
+      ],
+      "outputs": [
+        ".next/**"
+      ]
+    },
+    "studio#build": {
+      "dependsOn": [
+        "^build"
+      ],
+      "outputs": [
+        "public/**"
+      ]
+    },
+    "lint": {
+      "outputs": []
+    },
+    "dev": {
+      "cache": false
+    }
+  },
+  "globalDependencies": [
+    ".env"
+  ]
+}
