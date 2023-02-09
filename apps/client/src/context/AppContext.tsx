@@ -1,16 +1,17 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
+import { useAxios } from "../utils/axiosHook";
 
 const AppContext = createContext<any>({})
 export default function AppContextProvider({ children }: any) {
   const [app, setApp] = useState<any>({});
+  const { loaded, data } = useAxios("/init", {}, "GET");
 
   useEffect(() => {
-    axios.get("http://localhost:4000/init").then((res) => {
-      console.log(res.data);
-      setApp(res.data);
-    })
-  }, [])
+    if (loaded) {
+      setApp(data);
+    }
+  }, [loaded]);
 
   return (
     <AppContext.Provider value={app}>
