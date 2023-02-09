@@ -1,3 +1,4 @@
+import { useUser } from "@/src/context/UserContext";
 import { Product } from "@/src/interface/product";
 import { useCurrencyFormat } from "@/src/utils/CurrencyFormat";
 import { Box, Button, ChakraProps, Heading, HStack, Image, Input, NumberDecrementStepper, NumberIncrementStepper, NumberInput, NumberInputField, NumberInputStepper, Stack, Text, useColorModeValue } from "@chakra-ui/react";
@@ -6,6 +7,7 @@ import { useState } from "react";
 
 export default function ProductCard({ data, ...props }: { data: Product } & ChakraProps) {
   const format = useCurrencyFormat();
+  const {actions} = useUser()
 
   return (
     <Box w="100%" py={12}>
@@ -66,7 +68,7 @@ export default function ProductCard({ data, ...props }: { data: Product } & Chak
             <Text textDecoration={'line-through'} color={'gray.600'}>
               {format(data.oldPrice || 0)}
             </Text>
-            <Button onClick={() => { }} colorScheme="pink">
+            <Button onClick={() => { actions?.addToBasket(data)}} colorScheme="pink">
               Сагслах
             </Button>
           </Stack>
@@ -76,9 +78,9 @@ export default function ProductCard({ data, ...props }: { data: Product } & Chak
   )
 }
 
-export const BasketProductCard = ({ data, ...props }: { data: Product } & ChakraProps) => {
+export const BasketProductCard = ({ data, quantity,...props }: { data: Product, quantity:number } & ChakraProps) => {
   const format = useCurrencyFormat();
-  const [count, setCount] = useState(1);
+  const {actions} = useUser();
 
 
   return (
@@ -132,10 +134,10 @@ export const BasketProductCard = ({ data, ...props }: { data: Product } & Chakra
             {data.title}
           </Heading>
           <NumberInput
-            defaultValue={count}
-            max={10}
+            value={quantity}
+            max={data.quantity}
             min={1}
-            onChange={(value) => setCount(+value)}
+            onChange={(value) => actions?.addToBasket(data, +value)}
             // keepWithinRange={false}
             clampValueOnBlur={false}
           >
@@ -147,9 +149,12 @@ export const BasketProductCard = ({ data, ...props }: { data: Product } & Chakra
           </NumberInput>
           <Stack direction={'column'} align={'center'}>
             <Text fontWeight={800} fontSize={'md'}>
-              {format(data.price * count)}
+              {format(data.price * quantity)}
             </Text>
           </Stack>
+          <Button w="100%" onClick={() => { actions?.removeFromBasket(data)}} colorScheme="pink">
+            Хасах
+          </Button>
         </Stack>
       </HStack>
     </Box>

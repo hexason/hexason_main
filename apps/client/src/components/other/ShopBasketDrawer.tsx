@@ -1,13 +1,13 @@
+import { useUser } from "@/src/context/UserContext";
 import { Product } from "@/src/interface/product";
-import { useAxios } from "@/src/utils/axiosHook";
-import { Button, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerFooter, DrawerOverlay, Input } from "@chakra-ui/react";
+import { Button, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerFooter, DrawerOverlay } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import { BasketProductCard } from "./ProductCard";
 
 export default function ShopBasketDrawer({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }) {
-  const [products, setProducts] = useState<Product[]>([]);
-  const { data, loaded } = useAxios<{ count: 0, items: Product[] }>("/product", {}, "get");
+  const [products, setProducts] = useState<{info: Product, quantity: number}[]>([]);
+  const {basket} = useUser()
   const router = useRouter();
   
   const handleCheckout = () => {
@@ -15,8 +15,9 @@ export default function ShopBasketDrawer({ isOpen, onClose }: { isOpen: boolean,
     router.push("/order");
   }
   useEffect(() => {
-    if (data) setProducts(data.items);
-  }, [data]);
+    setProducts(basket);
+    // if (data) setProducts(data.items);
+  }, [basket]);
 
 
   return (
@@ -31,7 +32,7 @@ export default function ShopBasketDrawer({ isOpen, onClose }: { isOpen: boolean,
         <DrawerCloseButton />
         <DrawerBody>
           {
-            loaded ? products.map((item: any) => <BasketProductCard w={"100%"} key={item.id} data={item} />) : null
+            products.map((item: any) => <BasketProductCard w={"100%"} key={item.id} data={item.info} quantity={item.quantity} />)
           }
         </DrawerBody>
         <DrawerFooter>

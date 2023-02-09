@@ -7,10 +7,12 @@ import { User } from "@supabase/supabase-js";
 import { useModal } from "./ModalContext";
 import ShopBasketDrawer from "../components/other/ShopBasketDrawer";
 import { useDisclosure } from "@chakra-ui/react";
+import { Product } from "../interface/product";
 
-export const UserContext = createContext<UserContextType>({ loading: true });
+export const UserContext = createContext<UserContextType>({ loading: true, basket: [] });
 export default function UserContextProvider({ children }: any) {
   const [user, setUser] = useState<User | undefined>();
+  const [basket, setBasket] = useState<{ info: Product, quantity: number }[]>([]);
   const [accessToken, setAccessToken] = useState<string | undefined>();
   const { onOpen } = useModal();
   const basketDrawerController = useDisclosure();
@@ -52,8 +54,32 @@ export default function UserContextProvider({ children }: any) {
     });
   }
 
+  const addToBasket = (item: Product, quant?: number) => {
+    let index = 0;
+    let bItem = basket.find((i, ind) => {
+      index = ind;
+      return i.info.id === item.id
+    });
+    if (!bItem) {
+      bItem = { info: item, quantity: 0 };
+      index = basket.length;
+      basket[index] = bItem;
+    }
+    bItem.quantity = quant ? quant : bItem.quantity + 1;
+    setBasket([...basket]);
+    localStorage.setItem("lb_basket", JSON.stringify(basket));
+    basketDrawerController.onOpen();
+  }
+
+  const removeFromBasket = (item: Product) => {
+    setBasket(basket.filter((i: any) => i.info.id !== item.id));
+    localStorage.setItem("lb_basket", JSON.stringify(basket));
+  }
+
   useEffect(() => {
     refreshSession();
+    const basket = localStorage.getItem("lb_basket");
+    if (basket) setBasket(JSON.parse(basket));
   }, [router]);
 
   return (
@@ -62,8 +88,11 @@ export default function UserContextProvider({ children }: any) {
         user,
         loading,
         accessToken,
+        basket,
         actions: {
-          openBasket: basketDrawerController.onOpen || (() => {}),
+          openBasket: basketDrawerController.onOpen || (() => { }),
+          addToBasket,
+          removeFromBasket,
           signInOpen: onOpen || (() => { }),
           refreshSession,
           logout,
