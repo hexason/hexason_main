@@ -7,10 +7,14 @@ import { BasketProductCard } from "./ProductCard";
 
 export default function ShopBasketDrawer({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }) {
   const [products, setProducts] = useState<{info: Product, quantity: number}[]>([]);
-  const {basket} = useUser()
+  const {user, basket, actions} = useUser()
   const router = useRouter();
   
   const handleCheckout = () => {
+    if(!user) {
+      actions?.signInOpen();
+      return;
+    } 
     onClose();
     router.push("/order");
   }
