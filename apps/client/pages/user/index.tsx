@@ -49,6 +49,7 @@ const Order = () => {
       </h2>
       <AccordionPanel pb={4}>
         <Stack spacing={5}>
+          <Button w="100%" colorScheme={"blue"} onClick={() => { }}>Төлөх {"(10000₮)"}</Button>
           <OrderItem />
           <OrderItem />
           <OrderItem />
@@ -61,13 +62,13 @@ const Order = () => {
 
 const OrderItem = () => {
   return (
-    <Grid templateColumns={["repeat(1,1fr)", "repeat(3,1fr)"]} gap="5">
+    <Grid borderBottom={"1px solid gray"} templateColumns={["repeat(1,1fr)", "repeat(3,1fr)"]} gap="5">
       <Image w="100%" src="https://bit.ly/sage-adebayo" alt="Segun Adebayo" />
       <Stack>
-        <Box>Price: 10</Box>
-        <Box>Quantity: 10</Box>
-        <Box>State: 10</Box>
-        <Button onClick={() => { }}><FaTrash /> ХАСАХ</Button>
+        <Box>Үнэ: 10</Box>
+        <Box>Тоо ширхэг: 10</Box>
+        <Box>Төлөв: 10</Box>
+        <Button colorScheme={"red"} onClick={() => { }}><FaTrash /> ХАСАХ</Button>
       </Stack>
       <Box>
         <Text>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad rem et voluptate fugit praesentium nobis magnam, debitis cum iure, quis illo. Cum, temporibus ut ipsam architecto eos dolores quod doloremque.</Text>
