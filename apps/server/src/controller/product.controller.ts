@@ -1,9 +1,11 @@
 import { Controller, Get } from '@nestjs/common';
+import { InjectDataSource } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
 
 @Controller('product')
 export class ProductController {
-  constructor(private readonly dataSource: DataSource) { }
+  constructor(
+    @InjectDataSource() private readonly dataSource: DataSource) { }
 
   @Get('')
   async getProducts() {
