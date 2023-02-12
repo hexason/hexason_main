@@ -10,7 +10,7 @@ import { UserProduct } from './userProduct.model';
 
 @Entity()
 export class Product {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn('increment')
   id: string;
 
   @Column()
