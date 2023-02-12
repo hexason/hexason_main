@@ -63,7 +63,7 @@ const Order = () => {
 const OrderItem = () => {
   return (
     <Grid borderBottom={"1px solid gray"} templateColumns={["repeat(1,1fr)", "repeat(3,1fr)"]} gap="5">
-      <Image w="100%" src="https://bit.ly/sage-adebayo" alt="Segun Adebayo" />
+      <Image w="100%" src="https://cdn.shopify.com/s/files/1/0014/2648/9388/products/ultra-tokyo-connection-pvc-scale-figures-chainsaw-man-power-prize-figure-32504714756140_360x.jpg?v=1669223937" alt="Segun Adebayo" />
       <Stack>
         <Box>Үнэ: 10</Box>
         <Box>Тоо ширхэг: 10</Box>
