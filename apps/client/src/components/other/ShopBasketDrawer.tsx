@@ -1,22 +1,30 @@
+import { useModal } from "@/src/context/ModalContext";
 import { useUser } from "@/src/context/UserContext";
 import { Product } from "@/src/interface/product";
 import { Button, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerFooter, DrawerOverlay } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
+import AddressLine from "./AddressLine";
 import { BasketProductCard } from "./ProductCard";
 
 export default function ShopBasketDrawer({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }) {
-  const [products, setProducts] = useState<{info: Product, quantity: number}[]>([]);
-  const {user, basket, actions} = useUser()
+  const [products, setProducts] = useState<{ info: Product, quantity: number }[]>([]);
+  const { user, basket, actions, address } = useUser()
+  const { onOpen, setChild } = useModal();
   const router = useRouter();
-  
+
   const handleCheckout = () => {
-    if(!user) {
+    if (!user) {
       actions?.signInOpen();
       return;
-    } 
+    }
+    if (!address) {
+      setChild(<AddressLine />);
+      onOpen();
+      return;
+    }
+    router.push("/user");
     onClose();
-    router.push("/order");
   }
   useEffect(() => {
     setProducts(basket);
@@ -36,7 +44,7 @@ export default function ShopBasketDrawer({ isOpen, onClose }: { isOpen: boolean,
         <DrawerCloseButton />
         <DrawerBody>
           {
-            products.map((item: any) => <BasketProductCard w={"100%"} key={item.id} data={item.info} quantity={item.quantity} />)
+            products.map((item: any, index) => <BasketProductCard w={"100%"} key={item.id + index} data={item.info} quantity={item.quantity} />)
           }
         </DrawerBody>
         <DrawerFooter>

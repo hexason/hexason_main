@@ -5,6 +5,7 @@ export type UserContextType = {
   user?: User;
   accessToken?: string;
   loading: boolean;
+  address?: string;
   basket: {info: Product, quantity: number}[];
   actions?: {
     openBasket: () => void;
@@ -14,5 +15,6 @@ export type UserContextType = {
     refreshSession: () => void;
     signIn: (provider: "google" | "facebook") => void;
     logout: () => Promise<void>;
+    setAddress: (value:string) => void;
   }
 }

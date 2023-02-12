@@ -8,15 +8,18 @@ import { useModal } from "./ModalContext";
 import ShopBasketDrawer from "../components/other/ShopBasketDrawer";
 import { useDisclosure } from "@chakra-ui/react";
 import { Product } from "../interface/product";
+import DefaulModal from "../components/modals/DefaultModal";
+
 
 export const UserContext = createContext<UserContextType>({ loading: true, basket: [] });
 export default function UserContextProvider({ children }: any) {
   const [user, setUser] = useState<User | undefined>();
   const [basket, setBasket] = useState<{ info: Product, quantity: number }[]>([]);
   const [accessToken, setAccessToken] = useState<string | undefined>();
-  const { onOpen } = useModal();
+  const { onOpen, setChild, child } = useModal();
   const basketDrawerController = useDisclosure();
   const [loading, setLoading] = useState(true);
+  const [address, setAddress] = useState<string | undefined>();
   const router = useRouter();
 
   const refreshSession = async () => {
@@ -89,11 +92,16 @@ export default function UserContextProvider({ children }: any) {
         loading,
         accessToken,
         basket,
+        address,
         actions: {
           openBasket: basketDrawerController.onOpen || (() => { }),
           addToBasket,
           removeFromBasket,
-          signInOpen: onOpen || (() => { }),
+          signInOpen: () => {
+            setChild(<LoginModal signIn={signIn} />);
+            onOpen();
+          },
+          setAddress,
           refreshSession,
           logout,
           signIn
@@ -101,7 +109,9 @@ export default function UserContextProvider({ children }: any) {
       }}
     >
       {children}
-      <LoginModal />
+      <DefaulModal>
+        {child}
+      </DefaulModal>
       <ShopBasketDrawer onClose={basketDrawerController.onClose} isOpen={basketDrawerController.isOpen} />
     </UserContext.Provider>
   );
