@@ -19,6 +19,13 @@ export class UserController {
   ) {}
 
 
+  @Get("orders")
+  async getOrders(@Request() req: any, @Query() query: any) {
+    const { user } = req;
+    const { page, limit } = query;
+    const orders = await this.orderService.getOrders(user.sub, page, limit);
+    return orders;
+  }
   
   @Post("order/create")
   async createOrder(@Body() body: any, @Request() req: any) {

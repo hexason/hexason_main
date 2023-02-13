@@ -1,16 +1,25 @@
+import { useAxios } from "@/src/utils/axiosHook";
 import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box, Divider, Flex, Heading, HStack, Stack, Tag, Text, Image, Grid, Button } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { FaTrash } from "react-icons/fa";
 import { useUser } from "../../src/context/UserContext";
 
 export default function User() {
   const { user, loading } = useUser();
+  const [orders, setOrders] = useState([]);
   const router = useRouter();
+  const { fetch } = useAxios("/user/orders", { page: 1, limit: 10 }, "get");
 
   useEffect(() => {
     if (loading) return;
     if (!user) router.replace("/");
+
+    fetch().then((res) => {
+      setOrders(res);
+
+      console.log(res);
+    });
   }, [user]);
   if (loading) return <Box>Loading...</Box>
 
@@ -21,10 +30,7 @@ export default function User() {
         <Divider />
         <Box>
           <Accordion allowToggle>
-            <Order />
-            <Order />
-            <Order />
-            <Order />
+            {orders.map((order: any) => <Order key={order.id} order={order} />)}
           </Accordion>
         </Box>
       </Stack>
@@ -32,7 +38,7 @@ export default function User() {
   )
 }
 
-const Order = () => {
+const Order = ({order}:any) => {
   return (
     <AccordionItem>
       <h2>
@@ -40,38 +46,35 @@ const Order = () => {
           <Flex w="100%" justifyContent={"space-between"}>
             <HStack>
               <Text display={["none", "block"]}>Захиалгын дугаар: </Text>
-              <Text fontWeight={"bold"}>ORD123</Text>
+              <Text fontWeight={"bold"}>{order.id}</Text>
             </HStack>
-            <Tag colorScheme={"orange"}>Хүлээгдэж байна</Tag>
+            <Tag colorScheme={"orange"}>{order.status}</Tag>
           </Flex>
           <AccordionIcon />
         </AccordionButton>
       </h2>
       <AccordionPanel pb={4}>
         <Stack spacing={5}>
-          <Button w="100%" colorScheme={"blue"} onClick={() => { }}>Төлөх {"(10000₮)"}</Button>
-          <OrderItem />
-          <OrderItem />
-          <OrderItem />
-          <OrderItem />
+          <Button w="100%" colorScheme={"blue"} onClick={() => { }}>Төлөх {`(${order.totalPrice}₮)`}</Button>
+          {order.items.map((item: any) => <OrderItem key={item.id} item={item} />)}
         </Stack>
       </AccordionPanel>
     </AccordionItem>
   )
 }
 
-const OrderItem = () => {
+const OrderItem = ({item}:any) => {
   return (
     <Grid borderBottom={"1px solid gray"} templateColumns={["repeat(1,1fr)", "repeat(3,1fr)"]} gap="5">
-      <Image w="100%" src="https://cdn.shopify.com/s/files/1/0014/2648/9388/products/ultra-tokyo-connection-pvc-scale-figures-chainsaw-man-power-prize-figure-32504714756140_360x.jpg?v=1669223937" alt="Segun Adebayo" />
+      <Image w="100%" src={item.product.image} />
       <Stack>
-        <Box>Үнэ: 10</Box>
-        <Box>Тоо ширхэг: 10</Box>
-        <Box>Төлөв: 10</Box>
+        <Box>Үнэ: {item.totalPrice}</Box>
+        <Box>Тоо ширхэг: {item.quantity}</Box>
+        <Box>Төлөв: {item.status}</Box>
         <Button colorScheme={"red"} onClick={() => { }}><FaTrash /> ХАСАХ</Button>
       </Stack>
       <Box>
-        <Text>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad rem et voluptate fugit praesentium nobis magnam, debitis cum iure, quis illo. Cum, temporibus ut ipsam architecto eos dolores quod doloremque.</Text>
+        <Text>{item.description}</Text>
       </Box>
     </Grid>
   )

@@ -1,16 +1,31 @@
 import { InjectDataSource } from "@nestjs/typeorm";
-import { Order } from "src/models/order";
-import { OrderItem } from "src/models/order_item";
+import { Order } from "../models/order";
+import { OrderItem } from "../models/order_item";
 import { DataSource } from "typeorm";
 
 export class OrderService {
-  constructor(@InjectDataSource() private readonly dataSource: DataSource) {}
+  constructor(@InjectDataSource() private readonly dataSource: DataSource) { }
 
-  createOrder(userId:string, addressData: {city:string, district:string, address:string}, products: {id:string, price:number, quantity:number}[]) {
+  async getOrders(userId: string, page: number, limit: number) {
+    const repoOrder = this.dataSource.getRepository(Order);
+    const orders = await repoOrder.find({
+      relations: ['user', 'items', 'items.product'],
+      where: {
+        user: {
+          id: userId
+        }
+      },
+      skip: (page - 1) * limit,
+      take: limit,
+    });
+    return orders;
+  }
+
+  createOrder(userId: string, addressData: { city: string, district: string, address: string }, products: { id: string, price: number, quantity: number }[]) {
     const repoOrder = this.dataSource.getRepository(Order);
     const repoOrderItem = this.dataSource.getRepository(OrderItem);
     return this.dataSource.transaction(async (manager) => {
-      const {city, address, district} = addressData
+      const { city, address, district } = addressData
       const order = repoOrder.create({
         user: userId as any,
         paymentMessage: "waiting",
@@ -18,7 +33,7 @@ export class OrderService {
         city,
         district,
         address,
-      });      
+      });
       await manager.save(order);
 
       const orderItems = products.map((product) => {
@@ -30,7 +45,6 @@ export class OrderService {
         })
       });
       order.items = orderItems;
-
       await manager.save(orderItems);
 
       for (const product of products) {
@@ -38,7 +52,6 @@ export class OrderService {
           quantity: () => `"quantity" - ${product.quantity}`,
         });
       }
-
       return orderItems;
     });
   }
