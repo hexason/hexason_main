@@ -38,13 +38,14 @@ export class UserService {
       balance: 0,
       userId: id
     });
-    const user = await connection.manager.insert('user', {
+    await connection.manager.insert('user', {
       id,
       full_name,
       email,
       wallet
     });
-    return user;
+    
+    return await connection.manager.findOne('user', { where: { id } });
   }
 
 

@@ -6,7 +6,7 @@ import { UserContextType } from "../interface/user";
 import { User } from "@supabase/supabase-js";
 import { useModal } from "./ModalContext";
 import ShopBasketDrawer from "../components/other/ShopBasketDrawer";
-import { useDisclosure } from "@chakra-ui/react";
+import { useDisclosure, useToast } from "@chakra-ui/react";
 import { Product } from "../interface/product";
 import DefaulModal from "../components/modals/DefaultModal";
 import { useAxios } from "../utils/axiosHook";
@@ -14,6 +14,7 @@ import { useAxios } from "../utils/axiosHook";
 
 export const UserContext = createContext<UserContextType>({ loading: true, basket: [] });
 export default function UserContextProvider({ children }: any) {
+  const toast = useToast();
   const [user, setUser] = useState<User | undefined>();
   const [basket, setBasket] = useState<{ info: Product, quantity: number }[]>([]);
   const [accessToken, setAccessToken] = useState<string | undefined>();
@@ -22,15 +23,15 @@ export default function UserContextProvider({ children }: any) {
   const [loading, setLoading] = useState(true);
   const [address, setAddress] = useState<string | undefined>();
   const router = useRouter();
-  const {data, fetch} = useAxios("/user/info/update", {}, "POST");
+  const { data, fetch } = useAxios("/user/info/update", {}, "POST");
 
   const refreshSession = async () => {
-    supabase.auth.getUser().then(async ({ data, error }: any) => {
+    supabase.auth.getUser().then(async ({ data, error }) => {
       if (error) throw error;
       const token = await supabase.auth.getSession();
       localStorage.setItem("a_token", token.data?.session?.access_token || "");
       setAccessToken(token.data?.session?.access_token);
-      setUser(data.user ? data.user : {});
+      setUser(data.user ? data.user : undefined);
     }).catch((error) => {
       console.log(error)
     }).finally(() => {
@@ -81,14 +82,30 @@ export default function UserContextProvider({ children }: any) {
     localStorage.setItem("lb_basket", JSON.stringify(basket));
   }
 
-  const addressSet = (address: string) => {
+  const addressSet = async (address: string) => {
+    setLoading(true);
     const data = JSON.parse(address);
-    fetch({
+    await fetch({
       city: data.city,
       district: data.district,
-      address: `${data.street} | ${data.house} | ${data.apartment}`,
-    })
-    setAddress(address);
+      address: data.address,
+      phone: data.phone,
+    }).then(() => {
+      toast({
+        title: "Хаяг амжилттай шинэчлэгдлээ.",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      })
+      setAddress(address);
+    }).catch(() => {
+      toast({
+        title: "Хаяг шинэчлэхэд алдаа гарлаа.",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      })
+    }).finally(() => setLoading(false));
   }
 
   useEffect(() => {

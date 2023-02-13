@@ -10,7 +10,7 @@ import { BasketProductCard } from "./ProductCard";
 
 export default function ShopBasketDrawer({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }) {
   const [products, setProducts] = useState<{ info: Product, quantity: number }[]>([]);
-  const { user, basket, actions, address } = useUser()
+  const { user, basket, actions, address, loading } = useUser()
   const { onOpen, setChild } = useModal();
   const router = useRouter();
   const {fetch} = useAxios("/user/order/create", {}, "POST")
@@ -54,7 +54,7 @@ export default function ShopBasketDrawer({ isOpen, onClose }: { isOpen: boolean,
           }
         </DrawerBody>
         <DrawerFooter>
-          <Button onClick={handleCheckout} w="100%" colorScheme='green'>Захиалга хийх {">>"}</Button>
+          <Button isLoading={loading} onClick={handleCheckout} w="100%" colorScheme='green'>Захиалга хийх {">>"}</Button>
         </DrawerFooter>
       </DrawerContent>
     </Drawer>
