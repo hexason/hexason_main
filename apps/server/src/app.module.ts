@@ -8,8 +8,10 @@ import { HealthController } from './health.controller';
 import { Product } from './models/product.model';
 import { Transaction } from './models/transaction.model';
 import { User } from './models/user.model';
-import { UserProduct } from './models/userProduct.model';
+import { OrderItem } from './models/order_item';
 import { Wallet } from './models/wallet.model';
+import { Order } from './models/order';
+import { UserService } from './service/user.service';
 
 @Module({
   imports: [
@@ -27,11 +29,12 @@ import { Wallet } from './models/wallet.model';
         database: process.env.DB_NAME,
         autoLoadEntities: true,
         synchronize: process.env.DB_SYNC === 'true',
-        entities: [User, Wallet, Transaction, Product, UserProduct],
+        entities: [User, Wallet, Transaction, Product, OrderItem, Order],
       }),
     }),
     TerminusModule,
   ],
+  providers: [UserService],
   controllers: [AppController, HealthController, ...controllers],
 })
 export class AppModule {}

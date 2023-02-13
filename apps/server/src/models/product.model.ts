@@ -2,11 +2,9 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { UserProduct } from './userProduct.model';
 
 @Entity()
 export class Product {
@@ -45,7 +43,4 @@ export class Product {
 
   @UpdateDateColumn()
   updatedAt: Date;
-
-  @OneToMany(() => UserProduct, (user) => user.product)
-  users: UserProduct;
 }

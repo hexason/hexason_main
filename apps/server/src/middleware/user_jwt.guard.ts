@@ -4,12 +4,10 @@ import { verify } from 'jsonwebtoken';
 
 @Injectable()
 export class UserJWTGuard implements CanActivate {
-  constructor(private reflector: Reflector) {}
+  constructor(private reflector: Reflector) { }
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
-    if (this.reflector.get('isPublic', context.getHandler()) === true)
-      return true;
 
     try {
       const { authorization } = request.headers;
@@ -19,6 +17,8 @@ export class UserJWTGuard implements CanActivate {
       request.user = payload;
       return true;
     } catch (e) {
+      if (this.reflector.get('isPublic', context.getHandler()) === true)
+        return true;
       return false;
     }
   }

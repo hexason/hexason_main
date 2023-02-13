@@ -7,7 +7,7 @@ import {
   OneToOne,
   PrimaryColumn,
 } from 'typeorm';
-import { UserProduct } from './userProduct.model';
+import { Order } from './order';
 import { Wallet } from './wallet.model';
 
 @Entity()
@@ -15,10 +15,10 @@ export class User {
   @PrimaryColumn()
   id: string;
 
-  @Column()
+  @Column({nullable:true})
   full_name: string;
 
-  @Column()
+  @Column({nullable:true})
   email: string;
 
   @Column({ nullable: true })
@@ -28,7 +28,7 @@ export class User {
   city: string;
 
   @Column({ nullable: true })
-  state: string;
+  district: string;
 
   @Column({ nullable: true })
   address: string;
@@ -36,15 +36,15 @@ export class User {
   @Column({ default: 'auth' })
   profileLvl: string;
 
-  @Column()
+  @Column({nullable:true})
   refer: string;
 
   @OneToOne(() => Wallet)
   @JoinColumn()
   wallet: Wallet;
 
-  @OneToMany(() => UserProduct, (product) => product.user)
-  products: UserProduct;
+  @OneToMany(() => Order, (order) => order.user)
+  orders: Order;
 
   @CreateDateColumn({ default: () => 'CURRENT_TIMESTAMP' })
   createdAt: Date;

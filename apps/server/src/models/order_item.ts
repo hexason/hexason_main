@@ -6,29 +6,26 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { Order } from './order';
 import { Product } from './product.model';
-import { User } from './user.model';
 
 @Entity()
-export class UserProduct {
+export class OrderItem {
   @PrimaryGeneratedColumn()
   id: string;
 
-  @ManyToOne(() => User, (user) => user.products)
-  user: User;
-
-  @ManyToOne(() => Product, (product) => product.users)
+  @ManyToOne(() => Product)
   product: Product;
 
-  @Column()
-  shortCode: string;
+  @ManyToOne(() => Order, (order) => order.items)
+  order: Order;
 
   @Column()
   quantity: number;
 
   @Column()
   totalPrice: number;
-
+  
   @Column({
     default: 'pending',
     enum: [
@@ -44,18 +41,6 @@ export class UserProduct {
     ],
   })
   status: string;
-
-  @Column({ nullable: true })
-  paymentRef: string;
-
-  @Column({ nullable: true })
-  paymentStatus: string;
-
-  @Column({ nullable: true })
-  paymentMessage: string;
-
-  @Column({ nullable: true })
-  paymentDate: Date;
 
   @UpdateDateColumn()
   updatedAt: any;

@@ -6,13 +6,13 @@ export const useAxios = <T>(url:string, payload:Object, method: Method) => {
   const [error, setError] = useState("");
   const [loaded, setLoaded] = useState(false);
 
-  const fetch = async () => {
+  const fetch = async (data?:any) => {
     const accessToken = localStorage.getItem("a_token");
     return await axios({
       method: method,
       baseURL: process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000",
       url,
-      [(method === "get" || method==="GET") ? "params" : "data"]: payload,
+      [(method === "get" || method==="GET") ? "params" : "data"]: data || payload,
       headers: {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${accessToken}`

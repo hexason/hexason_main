@@ -9,6 +9,7 @@ import ShopBasketDrawer from "../components/other/ShopBasketDrawer";
 import { useDisclosure } from "@chakra-ui/react";
 import { Product } from "../interface/product";
 import DefaulModal from "../components/modals/DefaultModal";
+import { useAxios } from "../utils/axiosHook";
 
 
 export const UserContext = createContext<UserContextType>({ loading: true, basket: [] });
@@ -21,6 +22,7 @@ export default function UserContextProvider({ children }: any) {
   const [loading, setLoading] = useState(true);
   const [address, setAddress] = useState<string | undefined>();
   const router = useRouter();
+  const {data, fetch} = useAxios("/user/info/update", {}, "POST");
 
   const refreshSession = async () => {
     supabase.auth.getUser().then(async ({ data, error }: any) => {
@@ -79,6 +81,16 @@ export default function UserContextProvider({ children }: any) {
     localStorage.setItem("lb_basket", JSON.stringify(basket));
   }
 
+  const addressSet = (address: string) => {
+    const data = JSON.parse(address);
+    fetch({
+      city: data.city,
+      district: data.district,
+      address: `${data.street} | ${data.house} | ${data.apartment}`,
+    })
+    setAddress(address);
+  }
+
   useEffect(() => {
     refreshSession();
     const basket = localStorage.getItem("lb_basket");
@@ -101,7 +113,7 @@ export default function UserContextProvider({ children }: any) {
             setChild(<LoginModal signIn={signIn} />);
             onOpen();
           },
-          setAddress,
+          setAddress: addressSet,
           refreshSession,
           logout,
           signIn
