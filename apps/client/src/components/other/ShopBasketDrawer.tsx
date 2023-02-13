@@ -1,7 +1,6 @@
 import { useModal } from "@/src/context/ModalContext";
 import { useUser } from "@/src/context/UserContext";
 import { Product } from "@/src/interface/product";
-import { useAxios } from "@/src/utils/axiosHook";
 import { Button, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerFooter, DrawerOverlay } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
@@ -25,8 +24,8 @@ export default function ShopBasketDrawer({ isOpen, onClose }: { isOpen: boolean,
       return;
     }
     actions?.createOrder();
-    // router.push("/user");
-    // onClose();
+    router.push("/user");
+    onClose();
   }
   useEffect(() => {
     setProducts(basket);
@@ -50,7 +49,11 @@ export default function ShopBasketDrawer({ isOpen, onClose }: { isOpen: boolean,
           }
         </DrawerBody>
         <DrawerFooter>
-          <Button isLoading={loading} onClick={handleCheckout} w="100%" colorScheme='green'>Захиалга хийх {">>"}</Button>
+          <Button isLoading={loading} onClick={handleCheckout} w="100%" colorScheme='green'>
+            {
+              address ? "Захиалга үүсгэх" : "Хаяг оруулах"
+            }
+          </Button>
         </DrawerFooter>
       </DrawerContent>
     </Drawer>

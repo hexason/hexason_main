@@ -29,7 +29,7 @@ export default function User() {
         <Heading>Таны захиалга</Heading>
         <Divider />
         <Box>
-          <Accordion allowToggle>
+          <Accordion allowToggle defaultIndex={[0]}>
             {orders.map((order: any) => <Order key={order.id} order={order} />)}
           </Accordion>
         </Box>
