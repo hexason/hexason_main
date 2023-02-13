@@ -5,10 +5,10 @@ export const useAxios = <T>(url:string, payload:Object, method: Method) => {
   const [data, setData] = useState<T>();
   const [error, setError] = useState("");
   const [loaded, setLoaded] = useState(false);
-  
-  useEffect(() => {
+
+  const fetch = async () => {
     const accessToken = localStorage.getItem("a_token");
-    axios({
+    return await axios({
       method: method,
       baseURL: process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000",
       url,
@@ -18,10 +18,16 @@ export const useAxios = <T>(url:string, payload:Object, method: Method) => {
         "Authorization": `Bearer ${accessToken}`
       },
     })
-      .then((response) => setData(response.data))
-      .catch((error) => setError(error.message))
+      .then((response) => {
+        setData(response.data)
+        return response.data;
+      })
+      .catch((error) => {
+        setError(error.message)
+        throw error
+      })
       .finally(() => setLoaded(true));
-  }, []);
-
-  return { data, error, loaded };
+  }
+  
+  return { data, error, loaded, fetch };
 };

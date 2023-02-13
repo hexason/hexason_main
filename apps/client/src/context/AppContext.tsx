@@ -4,13 +4,11 @@ import { useAxios } from "../utils/axiosHook";
 const AppContext = createContext<any>({})
 export default function AppContextProvider({ children }: any) {
   const [app, setApp] = useState<any>({});
-  const { loaded, data } = useAxios("/init", {}, "GET");
+  const { fetch } = useAxios("/init", {}, "GET");
 
   useEffect(() => {
-    if (loaded) {
-      setApp(data);
-    }
-  }, [loaded]);
+    fetch().then((data) => setApp(data));
+  }, []);
 
   return (
     <AppContext.Provider value={app}>

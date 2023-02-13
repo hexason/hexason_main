@@ -1,4 +1,4 @@
-import { Controller, Logger, UseGuards } from '@nestjs/common';
+import { Body, Controller, Logger, Post, Request, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { UserJWTGuard } from '../middleware/user_jwt.guard';
 
@@ -9,4 +9,10 @@ const logger = new Logger('UserController');
 @Controller('user')
 export class UserController {
   constructor() {}
+
+  @Post("order/create")
+  async createOrder(@Body() body: any, @Request() req: any) {
+    
+    
+  }
 }

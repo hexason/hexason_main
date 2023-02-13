@@ -1,6 +1,7 @@
 import { useModal } from "@/src/context/ModalContext";
 import { useUser } from "@/src/context/UserContext";
 import { Product } from "@/src/interface/product";
+import { useAxios } from "@/src/utils/axiosHook";
 import { Button, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerFooter, DrawerOverlay } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
@@ -12,6 +13,11 @@ export default function ShopBasketDrawer({ isOpen, onClose }: { isOpen: boolean,
   const { user, basket, actions, address } = useUser()
   const { onOpen, setChild } = useModal();
   const router = useRouter();
+  const {fetch} = useAxios("/user/order/create", {}, "POST")
+
+  const createOrder = () => {
+    // if()
+  }
 
   const handleCheckout = () => {
     if (!user) {

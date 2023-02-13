@@ -3,9 +3,11 @@ import Head from "next/head";
 import { useEffect } from "react";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
+import { useUser } from "./context/UserContext";
 
 export default function Root({ children, ...props }: any) {
   const { toggleColorMode, colorMode } = useColorMode();
+  const {loading} = useUser()
 
   useEffect(() => {
     if (colorMode === "dark") toggleColorMode();

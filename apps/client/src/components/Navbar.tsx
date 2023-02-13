@@ -121,7 +121,7 @@ export default function Navbar() {
                     _hover={{
                       bg: 'teal.300',
                     }}>
-                    Login / Register
+                   Нэвтрэх
                   </Button>
 
             }

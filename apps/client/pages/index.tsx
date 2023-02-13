@@ -6,11 +6,11 @@ import { useAxios } from '@/src/utils/axiosHook';
 
 export default function Home() {
   const [products, setProducts] = useState<Product[]>([]);
-  const {data, loaded} = useAxios<{count: 0, items: Product[]}>("/product", {}, "get");
+  const {loaded, fetch} = useAxios<{count: 0, items: Product[]}>("/product", {}, "get");
 
   useEffect(() => {
-    if (data) setProducts(data.items);
-  }, [data]);
+    fetch().then((data) => setProducts(data.items));
+  }, []);
 
   return (
     <>

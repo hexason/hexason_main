@@ -30,7 +30,7 @@ export class UserProduct {
   totalPrice: number;
 
   @Column({
-    default: 'inbasket',
+    default: 'pending',
     enum: [
       'inbasket',
       'pending',
