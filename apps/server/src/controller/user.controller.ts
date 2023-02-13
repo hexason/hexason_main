@@ -2,7 +2,7 @@ import { Body, Controller, Get, Logger, Post, Query, Request, UseGuards } from '
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { UserService } from '../service/user.service';
 import { UserJWTGuard } from '../middleware/user_jwt.guard';
-import { OrderService } from 'src/service/order.service';
+import { OrderService } from '../service/order.service';
 import { InjectDataSource } from '@nestjs/typeorm';
 import { DataSource, In } from 'typeorm';
 
