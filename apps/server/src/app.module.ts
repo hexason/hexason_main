@@ -12,6 +12,7 @@ import { OrderItem } from './models/order_item';
 import { Wallet } from './models/wallet.model';
 import { Order } from './models/order';
 import { UserService } from './service/user.service';
+import { OrderService } from './service/order.service';
 
 @Module({
   imports: [
@@ -29,12 +30,12 @@ import { UserService } from './service/user.service';
         database: process.env.DB_NAME,
         autoLoadEntities: true,
         synchronize: process.env.DB_SYNC === 'true',
-        entities: [User, Wallet, Transaction, Product, OrderItem, Order],
+        entities: [User, Wallet, Transaction, Product, Order, OrderItem],
       }),
     }),
     TerminusModule,
   ],
-  providers: [UserService],
+  providers: [UserService, OrderService],
   controllers: [AppController, HealthController, ...controllers],
 })
 export class AppModule {}

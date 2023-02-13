@@ -23,7 +23,8 @@ export default function UserContextProvider({ children }: any) {
   const [loading, setLoading] = useState(true);
   const [address, setAddress] = useState<string | undefined>();
   const router = useRouter();
-  const { data, fetch } = useAxios("/user/info/update", {}, "POST");
+  const { fetch } = useAxios("/user/info/update", {}, "POST");
+  const { fetch: fetchAddress } = useAxios("/user/order/create", {}, "POST");
 
   const refreshSession = async () => {
     supabase.auth.getUser().then(async ({ data, error }) => {
@@ -108,6 +109,32 @@ export default function UserContextProvider({ children }: any) {
     }).finally(() => setLoading(false));
   }
 
+  const createOrder = async () => {
+    setLoading(true);
+    await fetchAddress({
+      address: address ? JSON.parse(address) : undefined,
+      products: basket.map(i => ({ id: i.info.id, quantity: i.quantity }))
+    }).then(() => {
+      toast({
+        title: "Захиалга амжилттай бүртгэгдлээ.",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      })
+      // setBasket([]);
+      // localStorage.setItem("lb_basket", JSON.stringify(basket));
+      // router.push("/user/orders");
+    }).catch(() => {
+      toast({
+        title: "Захиалга бүртгэхэд алдаа гарлаа.",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      })
+    }).finally(() => setLoading(false));
+  
+  }
+
   useEffect(() => {
     refreshSession();
     const basket = localStorage.getItem("lb_basket");
@@ -126,6 +153,7 @@ export default function UserContextProvider({ children }: any) {
           openBasket: basketDrawerController.onOpen || (() => { }),
           addToBasket,
           removeFromBasket,
+          createOrder,
           signInOpen: () => {
             setChild(<LoginModal signIn={signIn} />);
             onOpen();

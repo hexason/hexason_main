@@ -13,6 +13,7 @@ export type UserContextType = {
     removeFromBasket: (item: Product) => void;
     signInOpen: () => void;
     refreshSession: () => void;
+    createOrder: () => void;
     signIn: (provider: "google" | "facebook") => void;
     logout: () => Promise<void>;
     setAddress: (value:string) => void;

@@ -18,8 +18,8 @@ export default function AddressLine() {
   useEffect(() => {
     fetch().then((res) => {
       setAddress({
-        city: res.city,
-        district: res.district,
+        city: res.city || "Улаанбаатар",
+        district: res.district || "Хан-Уул",
         address: res.address || "",
         phone: res.phone || "",
       });

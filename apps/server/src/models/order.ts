@@ -23,11 +23,23 @@ export class Order {
   })
   status: string;
 
+  @Column({type: "varchar", nullable: true})
+  city: string;
+
+  @Column({type: "varchar", nullable: true})
+  district: string;
+  
+  @Column({type: "varchar", nullable: true})
+  address: string;
+
   @OneToMany(() => OrderItem, (orderItem) => orderItem.order)
-  items: OrderItem;
+  items: OrderItem[];
 
   @ManyToOne(() => User, (user) => user.orders)
   user: User
+
+  @Column({default: 0})
+  totalPrice: number;
 
   @Column({ nullable: true })
   paymentRef: string;

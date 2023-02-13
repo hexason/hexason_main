@@ -13,11 +13,6 @@ export default function ShopBasketDrawer({ isOpen, onClose }: { isOpen: boolean,
   const { user, basket, actions, address, loading } = useUser()
   const { onOpen, setChild } = useModal();
   const router = useRouter();
-  const {fetch} = useAxios("/user/order/create", {}, "POST")
-
-  const createOrder = () => {
-    // if()
-  }
 
   const handleCheckout = () => {
     if (!user) {
@@ -29,8 +24,9 @@ export default function ShopBasketDrawer({ isOpen, onClose }: { isOpen: boolean,
       onOpen();
       return;
     }
-    router.push("/user");
-    onClose();
+    actions?.createOrder();
+    // router.push("/user");
+    // onClose();
   }
   useEffect(() => {
     setProducts(basket);
