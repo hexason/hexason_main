@@ -25,7 +25,6 @@ import {
 import { useUser } from '../context/UserContext';
 import NLink from "next/link";
 import { IoLogIn } from 'react-icons/io5';
-import SearchBar from './tools/SearchBar';
 import { useApp } from '../context/AppContext';
 import UserActions from './header/UserAction';
 import { PROFILE_MENU } from '../constant/navbar_const';
@@ -72,7 +71,7 @@ export default function Navbar() {
             </Flex>
           </Flex>
           <Flex px="10" w="100%" display={{ base: 'none', md: 'flex' }}>
-            <SearchBar />
+            {/* <SearchBar /> */}
           </Flex>
           <Stack
             flex={{ base: 1, md: 0 }}
@@ -91,9 +90,9 @@ export default function Navbar() {
                       onClick={actions?.signInOpen}
                       isLoading={loading}
                       color="white"
-                      bg={'pink.300'}
+                      bg={'primary.300'}
                       _hover={{
-                        bg: 'pink.400',
+                        bg: 'primary.400',
                       }}>
                       <IoLogIn size={"20px"} /> <Text display={{ base: "none", md: "inline-block" }} ml={1}>Нэвтрэх</Text>
                     </Button>
@@ -132,7 +131,7 @@ export default function Navbar() {
         </Collapse>
       </Box>
       <Box display={{ base: 'block', md: 'none  ' }} >
-        <SearchBar />
+        {/* <SearchBar /> */}
       </Box>
     </Box>
   )
@@ -194,12 +193,12 @@ const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
       display={'block'}
       p={2}
       rounded={'md'}
-      _hover={{ bg: useColorModeValue('pink.50', 'gray.900') }}>
+      _hover={{ bg: useColorModeValue('primary.50', 'gray.900') }}>
       <Stack direction={'row'} align={'center'}>
         <Box>
           <Text
             transition={'all .3s ease'}
-            _groupHover={{ color: 'pink.400' }}
+            _groupHover={{ color: 'primary.400' }}
             fontWeight={500}>
             {label}
           </Text>
@@ -213,7 +212,7 @@ const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
           justify={'flex-end'}
           align={'center'}
           flex={1}>
-          <Icon color={'pink.400'} w={5} h={5} as={ChevronRightIcon} />
+          <Icon color={'primary.400'} w={5} h={5} as={ChevronRightIcon} />
         </Flex>
       </Stack>
     </Link>

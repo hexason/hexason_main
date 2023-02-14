@@ -11,10 +11,10 @@ export default function SearchBar() {
       />
       <InputRightAddon
         as={Button}
-        bg={"pink.400"}
+        bg={"primary.400"}
         color={"white"}
         _hover={{
-          bg: "pink.500",
+          bg: "primary.500",
         }}
       ><FaSearch /></InputRightAddon>
     </InputGroup>

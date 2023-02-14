@@ -10,6 +10,7 @@ import { useDisclosure, useToast } from "@chakra-ui/react";
 import { Product } from "../interface/product";
 import DefaulModal from "../components/modals/DefaultModal";
 import { useAxios } from "../utils/axiosHook";
+import EmailPasswordModal from "../components/modals/EmailPasswordModal";
 
 
 export const UserContext = createContext<UserContextType>({ loading: true, basket: [] });
@@ -155,7 +156,7 @@ export default function UserContextProvider({ children }: any) {
           removeFromBasket,
           createOrder,
           signInOpen: () => {
-            setChild(<LoginModal signIn={signIn} />);
+            setChild(<EmailPasswordModal refreshSession={refreshSession} />);
             onOpen();
           },
           setAddress: addressSet,

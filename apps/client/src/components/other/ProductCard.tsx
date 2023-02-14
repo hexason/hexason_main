@@ -68,7 +68,7 @@ export default function ProductCard({ data, ...props }: { data: Product } & Chak
             <Text textDecoration={'line-through'} color={'gray.600'}>
               {format(data.oldPrice || 0)}
             </Text>
-            <Button onClick={() => { actions?.addToBasket(data)}} colorScheme="pink">
+            <Button onClick={() => { actions?.addToBasket(data)}} colorScheme="primary">
               Сагслах
             </Button>
           </Stack>
@@ -152,7 +152,7 @@ export const BasketProductCard = ({ data, quantity,...props }: { data: Product, 
               {format(data.price * quantity)}
             </Text>
           </Stack>
-          <Button w="100%" onClick={() => { actions?.removeFromBasket(data)}} colorScheme="pink">
+          <Button w="100%" onClick={() => { actions?.removeFromBasket(data)}} colorScheme="primary">
             Хасах
           </Button>
         </Stack>
