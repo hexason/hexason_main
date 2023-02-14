@@ -124,7 +124,7 @@ export default function UserContextProvider({ children }: any) {
       })
       setBasket([]);
       localStorage.setItem("lb_basket", JSON.stringify([]));
-      router.push("/user/orders");
+      router.push("/user");
     }).catch(() => {
       toast({
         title: "Захиалга бүртгэхэд алдаа гарлаа.",
