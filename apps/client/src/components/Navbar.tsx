@@ -32,7 +32,7 @@ import { PROFILE_MENU } from '../constant/navbar_const';
 export default function Navbar() {
   const { isOpen, onToggle } = useDisclosure();
   const { user, loading, actions } = useUser();
-  const { logo, settings } = useApp();
+  const { logo, settings, title } = useApp();
 
   console.log(settings)
 
@@ -66,7 +66,7 @@ export default function Navbar() {
           <Flex fontSize={"21px"} flex={{ base: 1 }} display={{ base: 'none', md: 'flex' }} justify={{ base: 'center', md: 'start' }}>
             <Flex as={NLink} href="/">
               <Box minH="50px" minW="100px">
-                <Image h="100%" src={logo} />
+                {logo ? <Image h="100%" src={logo} /> : title}
               </Box>
             </Flex>
           </Flex>
