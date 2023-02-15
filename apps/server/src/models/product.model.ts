@@ -20,6 +20,9 @@ export class Product {
   @Column({ nullable: true })
   brand?: string;
 
+  @Column({ nullable: true })
+  itemType?: string;
+
   @Column()
   image: string;
 

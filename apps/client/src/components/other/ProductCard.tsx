@@ -79,11 +79,11 @@ export default function ProductCard({
             <Text textDecoration={'line-through'} color={'gray.600'}>
               {format(data.oldPrice || 0)}
             </Text>
-            {feature ? <Button onClick={() => { onFeatureClick ? onFeatureClick(data) : null }} colorScheme="orange">
+            {data.type=="stack" ? <Button onClick={() => { onFeatureClick ? onFeatureClick(data) : null }} colorScheme="orange">
               ХАДГАЛААД АВАХ 🤩
             </Button> : null}
-            <Tooltip label={feature ? "Тусгай бүтээгдэхүүн учир шууд авах боломжгүй байна" : null}>
-              <Button isDisabled={feature ? true : false} onClick={() => { onBasketAddClick ? onBasketAddClick(data) : actions?.addToBasket(data) }} colorScheme="primary">
+            <Tooltip label={data.type=="stack" ? "Тусгай бүтээгдэхүүн учир шууд авах боломжгүй байна" : null}>
+              <Button isDisabled={data.type=="stack" ? true : false} onClick={() => { onBasketAddClick ? onBasketAddClick(data) : actions?.addToBasket(data) }} colorScheme="primary">
                 <FaShoppingCart /> <Text ml="2">Шууд авах</Text>
               </Button>
             </Tooltip>
