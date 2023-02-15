@@ -2,12 +2,12 @@ export const PROFILE_MENU = {
   label: 'Profile',
   children: [
     {
-      label: 'My Orders',
+      label: 'Миний захиалга',
       subLabel: 'Up-and-coming Designers',
       href: '/user',
     },
     {
-      label: 'Logout',
+      label: 'Гарах',
       subLabel: 'Trending Design to inspire you',
       href: '/logout',
     },
