@@ -65,9 +65,11 @@ export default function Navbar() {
           </Flex>
           <Flex fontSize={"21px"} flex={{ base: 1 }} display={{ base: 'none', md: 'flex' }} justify={{ base: 'center', md: 'start' }}>
             <Flex as={NLink} href="/">
-              <Box minH="50px" minW="100px">
-                {logo ? <Image h="100%" src={logo} /> : title}
-              </Box>
+              {logo ?
+                <Box minH="50px" minW="100px">
+                  <Image h="100%" src={logo} />
+                </Box>
+                : title}
             </Flex>
           </Flex>
           <Flex px="10" w="100%" display={{ base: 'none', md: 'flex' }}>
@@ -120,7 +122,7 @@ export default function Navbar() {
                     _hover={{
                       bg: 'teal.300',
                     }}>
-                   Нэвтрэх
+                    Нэвтрэх
                   </Button>
 
             }

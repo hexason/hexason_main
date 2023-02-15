@@ -1,16 +1,27 @@
 import { useUser } from "@/src/context/UserContext";
 import { Product } from "@/src/interface/product";
 import { useCurrencyFormat } from "@/src/utils/CurrencyFormat";
-import { Box, Button, ChakraProps, Heading, HStack, Image, Input, NumberDecrementStepper, NumberIncrementStepper, NumberInput, NumberInputField, NumberInputStepper, Stack, Text, useColorModeValue } from "@chakra-ui/react";
-import { useState } from "react";
+import { Box, Button, ChakraProps, Heading, HStack, Image, NumberDecrementStepper, NumberIncrementStepper, NumberInput, NumberInputField, NumberInputStepper, Stack, Text, Tooltip, useColorModeValue } from "@chakra-ui/react";
+import { FaShoppingCart } from "react-icons/fa";
 
-
-export default function ProductCard({ data, ...props }: { data: Product } & ChakraProps) {
+export type ProductCardType = {
+  data: Product,
+  feature?: "stake" | "basket",
+  onFeatureClick?: (data: Product) => void,
+  onBasketAddClick?: (data: Product) => void,
+} & ChakraProps
+export default function ProductCard({ 
+  data, 
+  feature,
+  onBasketAddClick,
+  onFeatureClick,
+   ...props
+ }: ProductCardType) {
   const format = useCurrencyFormat();
-  const {actions} = useUser()
+  const { actions } = useUser()
 
   return (
-    <Box w="100%" py={12} className="fade-in ">
+    <Box w="100%" py={12} className="fade-in">
       <Box
         role={'group'}
         p={6}
@@ -68,9 +79,14 @@ export default function ProductCard({ data, ...props }: { data: Product } & Chak
             <Text textDecoration={'line-through'} color={'gray.600'}>
               {format(data.oldPrice || 0)}
             </Text>
-            <Button onClick={() => { actions?.addToBasket(data)}} colorScheme="primary">
-              Сагслах
+            <Button onClick={() => { onFeatureClick ? onFeatureClick(data) : null }} colorScheme="orange">
+              ХАДГАЛААД АВАХ 🤩
             </Button>
+            <Tooltip label="Тусгай бүтээгдэхүүн учир шууд авах боломжгүй байна">
+              <Button isDisabled={feature ? true : false} onClick={() => { onBasketAddClick ? onBasketAddClick(data) : actions?.addToBasket(data) }} colorScheme="primary">
+                <FaShoppingCart /> <Text ml="2">Шууд авах</Text>
+              </Button>
+            </Tooltip>
           </Stack>
         </Stack>
       </Box>
@@ -78,10 +94,9 @@ export default function ProductCard({ data, ...props }: { data: Product } & Chak
   )
 }
 
-export const BasketProductCard = ({ data, quantity,...props }: { data: Product, quantity:number } & ChakraProps) => {
+export const BasketProductCard = ({ data, quantity, ...props }: { data: Product, quantity: number } & ChakraProps) => {
   const format = useCurrencyFormat();
-  const {actions} = useUser();
-
+  const { actions } = useUser();
 
   return (
     <Box w="100%" py={12}>
@@ -152,7 +167,7 @@ export const BasketProductCard = ({ data, quantity,...props }: { data: Product, 
               {format(data.price * quantity)}
             </Text>
           </Stack>
-          <Button w="100%" onClick={() => { actions?.removeFromBasket(data)}} colorScheme="primary">
+          <Button w="100%" onClick={() => { actions?.removeFromBasket(data) }} colorScheme="primary">
             Хасах
           </Button>
         </Stack>

@@ -1,17 +1,18 @@
-import { Button, Input, InputGroup, InputLeftAddon, Stack, useToast } from "@chakra-ui/react";
-import { FaInbox, FaKey } from "react-icons/fa";
+import { Button, Input, InputGroup, InputLeftAddon, Stack, Text, useToast } from "@chakra-ui/react";
+import { FaInbox, FaKey, FaSignature } from "react-icons/fa";
 import { supabase } from "@/src/lib/Store";
 import { useState } from "react";
 import { useModal } from "@/src/context/ModalContext";
+import { IoLogIn } from "react-icons/io5";
 
-export default function EmailPasswordModal({refreshSession}:any) {
+export default function EmailPasswordModal({ refreshSession }: any) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [password_again, setPasswordAgain] = useState("");
   const [pwdHide, setPwdHide] = useState(true);
   const toast = useToast();
   const [loading, setLoading] = useState(false);
-  const {onClose} = useModal();
+  const { onClose } = useModal();
   const signIn = async () => {
     setLoading(true);
     const { error } = await supabase.auth.signInWithPassword({
@@ -101,8 +102,12 @@ export default function EmailPasswordModal({refreshSession}:any) {
           <Input onChange={handleChange} value={password_again} name="password_again" type="password" placeholder="Нууц үг дахин" />
         </InputGroup>
         : null}
-      <Button isLoading={loading} onClick={signIn} colorScheme="primary" variant="solid">
-        Нэвтрэх
+      <Button isLoading={loading} onClick={signIn}
+        bg="primary.500"
+        _hover={{ bg: "primary.600" }}
+        color="white"
+        variant="solid">
+        <IoLogIn /><Text ml="2">Нэвтрэх</Text>
       </Button>
       <Button isLoading={loading} onClick={() => {
         if (pwdHide) {
@@ -110,8 +115,16 @@ export default function EmailPasswordModal({refreshSession}:any) {
         } else {
           signUp();
         }
-      }} colorScheme="primary" variant="solid">
-        Бүртгүүлэх
+      }}
+        bg="none"
+        _hover={{ bg: "blackAlpha.100" }}
+        color="black"
+        variant="solid"
+      >
+        <FaSignature />
+        <Text ml="2">
+          Бүртгүүлэх
+        </Text>
       </Button>
     </Stack>
   )
