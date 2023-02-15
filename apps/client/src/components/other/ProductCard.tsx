@@ -10,13 +10,13 @@ export type ProductCardType = {
   onFeatureClick?: (data: Product) => void,
   onBasketAddClick?: (data: Product) => void,
 } & ChakraProps
-export default function ProductCard({ 
-  data, 
+export default function ProductCard({
+  data,
   feature,
   onBasketAddClick,
   onFeatureClick,
-   ...props
- }: ProductCardType) {
+  ...props
+}: ProductCardType) {
   const format = useCurrencyFormat();
   const { actions } = useUser()
 
@@ -79,10 +79,10 @@ export default function ProductCard({
             <Text textDecoration={'line-through'} color={'gray.600'}>
               {format(data.oldPrice || 0)}
             </Text>
-            <Button onClick={() => { onFeatureClick ? onFeatureClick(data) : null }} colorScheme="orange">
+            {feature ? <Button onClick={() => { onFeatureClick ? onFeatureClick(data) : null }} colorScheme="orange">
               ХАДГАЛААД АВАХ 🤩
-            </Button>
-            <Tooltip label="Тусгай бүтээгдэхүүн учир шууд авах боломжгүй байна">
+            </Button> : null}
+            <Tooltip label={feature ? "Тусгай бүтээгдэхүүн учир шууд авах боломжгүй байна" : null}>
               <Button isDisabled={feature ? true : false} onClick={() => { onBasketAddClick ? onBasketAddClick(data) : actions?.addToBasket(data) }} colorScheme="primary">
                 <FaShoppingCart /> <Text ml="2">Шууд авах</Text>
               </Button>
