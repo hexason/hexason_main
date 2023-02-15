@@ -27,7 +27,6 @@ import NLink from "next/link";
 import { IoLogIn } from 'react-icons/io5';
 import { useApp } from '../context/AppContext';
 import UserActions from './header/UserAction';
-import { PROFILE_MENU } from '../constant/navbar_const';
 
 export default function Navbar() {
   const { isOpen, onToggle } = useDisclosure();
@@ -83,7 +82,8 @@ export default function Navbar() {
             spacing={6}>
             {
               loading ? "loading" :
-                <Box>
+                <Flex>
+                  <Button as={NLink} href="/laptop" mr="4">Үнийн боломж</Button>
                   {user ? <UserActions /> :
                     <Button
                       display={'inline-flex'}
@@ -99,33 +99,15 @@ export default function Navbar() {
                       <IoLogIn size={"20px"} /> <Text display={{ base: "none", md: "inline-block" }} ml={1}>Нэвтрэх</Text>
                     </Button>
                   }
-                </Box>
+                </Flex>
             }
           </Stack>
         </Container>
-
         <Collapse in={isOpen} animateOpacity>
           <Stack
             bg={useColorModeValue('white', 'gray.800')}
             p={4}
             display={{ md: 'none' }}>
-            {
-              loading ? "loading" :
-                user ?
-                  <MobileNavItem globToggle={onToggle} {...PROFILE_MENU} /> : <Button
-                    display={'inline-flex'}
-                    fontSize={'sm'}
-                    fontWeight={600}
-                    bg={'teal.400'}
-                    onClick={actions?.signInOpen}
-                    isLoading={loading}
-                    _hover={{
-                      bg: 'teal.300',
-                    }}>
-                    Нэвтрэх
-                  </Button>
-
-            }
             {NAV_ITEMS.map((navItem) => (
               <MobileNavItem globToggle={onToggle} key={navItem.label} {...navItem} />
             ))}
