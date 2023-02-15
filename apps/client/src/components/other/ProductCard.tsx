@@ -10,7 +10,7 @@ export default function ProductCard({ data, ...props }: { data: Product } & Chak
   const {actions} = useUser()
 
   return (
-    <Box w="100%" py={12}>
+    <Box w="100%" py={12} className="fade-in ">
       <Box
         role={'group'}
         p={6}
