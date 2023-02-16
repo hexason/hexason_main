@@ -12,7 +12,7 @@ export class ProductController {
     const queryRunner = this.dataSource.createQueryRunner();
     await queryRunner.connect();
 
-    const products = await queryRunner.query('SELECT * FROM product WHERE status = $1', ['active']);
+    const products = await queryRunner.query('SELECT * FROM product WHERE status = $1 ORDER BY "createdAt" DESC', ['active']);
     const count = await queryRunner.query('SELECT COUNT(*) FROM product WHERE status = $1', ['active']);
 
     return {
