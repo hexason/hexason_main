@@ -9,10 +9,10 @@ export default function Root({ children, ...props }: any) {
   return (
     <>
       <Head>
-        <title>{title || "MyApp"}</title>
+        <title>{title || "Hexason"}</title>
         <meta property="og:url" content="https://hexason.com" />
         <meta property="og:type" content="article" />
-        <meta property="og:title" content={title || "Creative Agency"} />
+        <meta property="og:title" content={title || "Hexason Game Agency"} />
         <meta property="og:description" content={description || "This is your area. Create something amazing."} />
         <meta property="og:image" content="https://i.ibb.co/zm50vN2/vecteezy-shopping-online-on-smartphone-and-new-buy-sale-promotion-7153463.jpg" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
