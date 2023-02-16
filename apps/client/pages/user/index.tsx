@@ -95,7 +95,7 @@ const PaymentModal = ({ order }: any) => {
     <Text>Захиалгын дугаар: {order.id}</Text>
     <Divider my="3" />
     <Text>
-      Банк: <Text fontWeight={"bold"} as="span">Голомт</Text>
+      Банк: <Text fontWeight={"bold"} as="span">2015118480 Голомт</Text>
     </Text>
     <Text>Хүлээн авагч: <Text as="span" fontWeight={"bold"}>Чингүн</Text></Text>
     <Text>Шилжүүлэх дүн:<Text as="span" fontWeight={"bold"}>{format(order.totalPrice)}</Text></Text>
