@@ -14,7 +14,7 @@ export default function Root({ children, ...props }: any) {
         <meta property="og:type" content="article" />
         <meta property="og:title" content={title || "Hexason Game Agency"} />
         <meta property="og:description" content={description || "This is your area. Create something amazing."} />
-        <meta property="og:image" content="https://i.ibb.co/zm50vN2/vecteezy-shopping-online-on-smartphone-and-new-buy-sale-promotion-7153463.jpg" />
+        <meta property="og:image" content="http://file.firebat.com.cn/FtGLwoPAAjEhy9IB43xcSdVxi6bE" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
