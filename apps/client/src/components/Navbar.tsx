@@ -83,7 +83,7 @@ export default function Navbar() {
             {
               loading ? "loading" :
                 <Flex>
-                  <Button as={NLink} href="/laptop" mr="4">Үнийн боломж</Button>
+                  {/* <Button as={NLink} href="/laptop" mr="4">Үнийн боломж</Button> */}
                   {user ? <UserActions /> :
                     <Button
                       display={'inline-flex'}
