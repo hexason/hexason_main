@@ -49,6 +49,26 @@ export default class UserSeeder implements Seeder {
         config: '#234E52',
         type: 'config.color',
       },
+      {
+        name: "primary.color.900",
+        config: '#1D4044',
+        type: 'config.color',
+      },
+      {
+        name: "app.title",
+        config: 'My App',
+        type: 'config.info',
+      },
+      {
+        name: "app.description",
+        config: 'My App Description',
+        type: 'config.info',
+      },
+      {
+        name: "app.version",
+        config: '1.0.0',
+        type: 'config.info',
+      }
     ]);
   }
 }
