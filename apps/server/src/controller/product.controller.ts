@@ -25,7 +25,12 @@ export class ProductController {
   @Get(":id")
   async getProduct(@Param('id') id: string) {
     const prodRepo = this.dataSource.getRepository(Product);
-    const product = await prodRepo.findOneBy({id: id.toString()});
+    const product = await prodRepo.findOne({
+      where: {
+        id: id.toString()
+      },
+      relations: ['images']
+    });
     if(!product) throw new HttpException('Product not found', 404);
     return product;
   }

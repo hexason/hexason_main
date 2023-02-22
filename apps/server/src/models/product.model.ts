@@ -2,9 +2,11 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { ProductImages } from './product_images.model';
 
 @Entity()
 export class Product {
@@ -40,6 +42,9 @@ export class Product {
 
   @Column({ enum: ['active', 'inactive'] })
   status: string;
+
+  @OneToMany(() => ProductImages, (productImages) => productImages.product)
+  images: ProductImages[]
 
   @CreateDateColumn()
   createdAt: Date;

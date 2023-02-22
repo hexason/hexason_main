@@ -2,7 +2,6 @@ import { useUser } from "@/src/context/UserContext";
 import { Product } from "@/src/interface/product";
 import { useCurrencyFormat } from "@/src/utils/CurrencyFormat";
 import { Box, Button, ChakraProps, Heading, HStack, Image, NumberDecrementStepper, NumberIncrementStepper, NumberInput, NumberInputField, NumberInputStepper, Stack, Text, Tooltip, useColorModeValue } from "@chakra-ui/react";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import { FaShoppingCart } from "react-icons/fa";
 

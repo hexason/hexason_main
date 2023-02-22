@@ -15,6 +15,7 @@ import { UserService } from './service/user.service';
 import { OrderService } from './service/order.service';
 import { App } from './models/app.model';
 import { AppService } from './service/app.service';
+import { ProductImages } from './models/product_images.model';
 
 @Module({
   imports: [
@@ -32,7 +33,7 @@ import { AppService } from './service/app.service';
         database: process.env.DB_NAME,
         autoLoadEntities: true,
         synchronize: process.env.DB_SYNC === 'true',
-        entities: [User, Wallet, Transaction, Product, Order, OrderItem, App],
+        entities: [User, Wallet, Transaction, Product, Order, OrderItem, App, ProductImages],
 
         seeds: [__dirname + '/models/seeder/*.seeder{.ts,.js}'],
         factories: [__dirname + '/models/factory/*.factory{.ts,.js}'],
