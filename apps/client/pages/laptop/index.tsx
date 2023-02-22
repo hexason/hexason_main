@@ -49,6 +49,7 @@ export default function Laptop() {
           sold: 0,
           quantity: 10,
           status: 'active',
+          images: [],
           airedAt: "2021-01-01T00:00:00.000Z",
           createdAt: "2021-01-01T00:00:00.000Z",
           updatedAt: "2021-01-01T00:00:00.000Z"
