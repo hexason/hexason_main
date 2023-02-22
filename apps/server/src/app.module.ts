@@ -16,10 +16,10 @@ import { OrderService } from './service/order.service';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({
-      isGlobal: true,
-      envFilePath: ['.env.local'],
-    }),
+    // ConfigModule.forRoot({
+    //   isGlobal: true,
+    //   // envFilePath: ['.env.local'],
+    // }),
     TypeOrmModule.forRootAsync({
       useFactory: () => ({
         type: 'postgres',

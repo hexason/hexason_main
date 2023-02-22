@@ -1,6 +1,6 @@
 import '@/src/styles/globals.css'
 import type { AppProps } from 'next/app'
-import { ChakraProvider, extendTheme, useColorModeValue } from "@chakra-ui/react";
+import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import Root from "@/src/Root";
 import UserContextProvider from '../src/context/UserContext';
 import ReactGA from "react-ga4"
@@ -11,9 +11,11 @@ import AppContextProvider from '@/src/context/AppContext';
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
+  const {app} = pageProps;
 
   useEffect(() => {
     ReactGA.initialize("G-S2JLTKX9TL");
+    console.log("App is here",app)
     if (router.isReady) ReactGA.send({ hitType: "pageview", page: router.pathname });
   }, [router.isReady]
   )
@@ -25,15 +27,14 @@ export default function App({ Component, pageProps }: AppProps) {
     },
     colors: {
       primary: {
-        100:"#B2F5EA",
-        200: "#81E6D9",
-        300: "#4FD1C5",
-        400: "#38B2AC",
-        500: "#319795",
-        600: "#2C7A7B",
-        700: "#285E61",
-        800: "#234E52",
-        900: "#1D4044",
+        100: "#FED7E2",
+        200: "#FBB6CE",
+        300: "#F687B3",
+        400: "#ED64A6",
+        500: "#D53F8C",
+        600: "#B83280",
+        700: "#97266D",
+        800: "#702459",
       }
     },
     styles: {

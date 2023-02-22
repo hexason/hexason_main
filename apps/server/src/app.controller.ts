@@ -12,7 +12,7 @@ export class AppController {
   @Get('init')
   appInit() {
     return {
-      title: 'Hexason',
+      title: process.env.APP_NAME,
       logo: null,
       description:
         'NestJS is a progressive Node.js framework for building efficient, reliable and scalable server-side applications.',

@@ -5,16 +5,20 @@
   "main": "index.js",
   "private": true,
   "workspaces": [
-    "apps/*", "packages/*"
+    "apps/*",
+    "packages/*"
   ],
   "scripts": {
-    "build": "turbo run build",
-    "dev": "turbo run dev --parallel",
+    "build": "turbo run build --global-deps='.env.*'",
+    "dev": "dotenv -- turbo run dev --parallel",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "config:env": "node packages/utils/generate.environment.js"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "dotenv-cli": "^7.0.0"
+  }
 }

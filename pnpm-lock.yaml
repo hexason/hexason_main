@@ -3,7 +3,10 @@ lockfileVersion: 5.4
 importers:
 
   .:
-    specifiers: {}
+    specifiers:
+      dotenv-cli: ^7.0.0
+    devDependencies:
+      dotenv-cli: 7.0.0
 
   apps/client:
     specifiers:
@@ -22,6 +25,7 @@ importers:
       axios: ^1.2.3
       chart.js: ^4.2.0
       chess.js: ^1.0.0-beta.2
+      dotenv-mono: ^1.3.10
       eslint: 8.31.0
       eslint-config-next: 13.1.1
       framer-motion: ^8.4.2
@@ -49,6 +53,7 @@ importers:
       axios: 1.3.2
       chart.js: 4.2.0
       chess.js: 1.0.0-beta.3
+      dotenv-mono: 1.3.10
       eslint: 8.31.0
       eslint-config-next: 13.1.1_iukboom6ndih5an6iafl45j2fe
       framer-motion: 8.5.5_biqbaboplfbrettd7655fr4n2y
@@ -167,8 +172,6 @@ importers:
       eslint-config-prettier: 8.6.0_eslint@8.33.0
       eslint-plugin-react: 7.29.3_eslint@8.33.0
 
-<<<<<<< HEAD
-=======
   packages/utils:
     specifiers:
       eslint-config-next: ^12.1.0
@@ -179,7 +182,6 @@ importers:
       eslint-config-prettier: 8.6.0_eslint@8.33.0
       eslint-plugin-react: 7.29.3_eslint@8.33.0
 
->>>>>>> 1b52f7fff8166f8d0a27f96c41fa804097b5bc85
 packages:
 
   /@ampproject/remapping/2.2.0:
@@ -4543,15 +4545,30 @@ packages:
     dependencies:
       esutils: 2.0.3
 
+  /dotenv-cli/7.0.0:
+    resolution: {integrity: sha512-XfMzVdpdDTRnlcgvFLg3lSyiLXqFxS4tH7RbK5IxkC4XIUuxPyrGoDufkfLjy/dA28EILzEu+mros6h8aQmyGg==}
+    hasBin: true
+    dependencies:
+      cross-spawn: 7.0.3
+      dotenv: 16.0.3
+      dotenv-expand: 10.0.0
+      minimist: 1.2.7
+    dev: true
+
   /dotenv-expand/10.0.0:
     resolution: {integrity: sha512-GopVGCpVS1UKH75VKHGuQFqS1Gusej0z4FyQkPdwjil2gNIv+LNsqBlboOzpJFZKVT95GkCyWJbBSdFEFUWI2A==}
     engines: {node: '>=12'}
+
+  /dotenv-mono/1.3.10:
+    resolution: {integrity: sha512-xKsO4AdiQsZZWtPQeVYlD1r1oFgWemesbibykeD3I9PAcp6yEhdfIw5rc8uwxQONr1yEAcW+Q0656LpziDzwcg==}
+    dependencies:
+      dotenv: 16.0.3
+      dotenv-expand: 10.0.0
     dev: false
 
   /dotenv/16.0.3:
     resolution: {integrity: sha512-7GO6HghkA5fYG9TYnNxi14/7K9f5occMlp3zXAuSxn7CKCxt9xbNWG7yF8hTCSUchlfWSe3uLmlPfigevRItzQ==}
     engines: {node: '>=12'}
-    dev: false
 
   /ecdsa-sig-formatter/1.0.11:
     resolution: {integrity: sha512-nagl3RYrbNv6kQkeJIpt6NJZy8twLB/2vtz6yN9Z4vRKHN4/QZJIEbqohALSgwKdnksuY3k5Addp5lg8sVoVcQ==}

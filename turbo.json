@@ -9,9 +9,6 @@
     },
     "dev": {
       "cache": false
-    },
-    "test:ci": {
-      "cache": false
     }
   },
   "globalDependencies": [
