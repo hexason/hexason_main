@@ -14,7 +14,6 @@ export class IoCustomAdapter extends IoAdapter {
       // Authenticate the socket
       // socket.handshake.auth.authorization
       // socket.handshake.headers['authorization'];
-
       next();
     });
 

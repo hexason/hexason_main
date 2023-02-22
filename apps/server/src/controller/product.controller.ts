@@ -1,5 +1,6 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, HttpException, Param } from '@nestjs/common';
 import { InjectDataSource } from '@nestjs/typeorm';
+import { Product } from '../models/product.model';
 import { DataSource } from 'typeorm';
 
 @Controller('product')
@@ -19,5 +20,13 @@ export class ProductController {
       count,
       items: products,
     };
+  }
+
+  @Get(":id")
+  async getProduct(@Param('id') id: string) {
+    const prodRepo = this.dataSource.getRepository(Product);
+    const product = await prodRepo.findOneBy({id: id.toString()});
+    if(!product) throw new HttpException('Product not found', 404);
+    return product;
   }
 }

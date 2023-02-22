@@ -2,6 +2,8 @@ import { useUser } from "@/src/context/UserContext";
 import { Product } from "@/src/interface/product";
 import { useCurrencyFormat } from "@/src/utils/CurrencyFormat";
 import { Box, Button, ChakraProps, Heading, HStack, Image, NumberDecrementStepper, NumberIncrementStepper, NumberInput, NumberInputField, NumberInputStepper, Stack, Text, Tooltip, useColorModeValue } from "@chakra-ui/react";
+import Link from "next/link";
+import { useRouter } from "next/router";
 import { FaShoppingCart } from "react-icons/fa";
 
 export type ProductCardType = {
@@ -18,10 +20,11 @@ export default function ProductCard({
   ...props
 }: ProductCardType) {
   const format = useCurrencyFormat();
-  const { actions } = useUser()
+  const router = useRouter();
 
   return (
-    <Box w="100%" py={12} className="fade-in">
+    <Box
+      w="100%" py={12} className="fade-in">
       <Box
         role={'group'}
         p={6}
@@ -79,12 +82,12 @@ export default function ProductCard({
             <Text textDecoration={'line-through'} color={'gray.600'}>
               {format(data.oldPrice || 0)}
             </Text>
-            {data.type=="stack" ? <Button onClick={() => { onFeatureClick ? onFeatureClick(data) : null }} colorScheme="orange">
+            {data.type == "stack" ? <Button onClick={() => { onFeatureClick ? onFeatureClick(data) : null }} colorScheme="orange">
               ХАДГАЛААД АВАХ 🤩
             </Button> : null}
-            <Tooltip label={data.type=="stack" ? "Тусгай бүтээгдэхүүн учир шууд авах боломжгүй байна" : null}>
-              <Button isDisabled={data.type=="stack" ? true : false} onClick={() => { onBasketAddClick ? onBasketAddClick(data) : actions?.addToBasket(data) }} colorScheme="primary">
-                <FaShoppingCart /> <Text ml="2">Шууд авах</Text>
+            <Tooltip label={data.type == "stack" ? "Тусгай бүтээгдэхүүн учир шууд авах боломжгүй байна" : null}>
+              <Button isDisabled={data.type == "stack" ? true : false} onClick={() => {router.push("/product/"+data.id)}} colorScheme="primary">
+                <FaShoppingCart /> <Text ml="2">ҮЗЭХ</Text>
               </Button>
             </Tooltip>
           </Stack>
