@@ -1,7 +1,7 @@
 import { useUser } from "@/src/context/UserContext";
 import { Product } from "@/src/interface/product";
 import { useCurrencyFormat } from "@/src/utils/CurrencyFormat";
-import { Box, Button, Divider, Flex, Grid, GridItem, HStack, Image, NumberDecrementStepper, NumberIncrementStepper, NumberInput, NumberInputField, NumberInputStepper, Stack, Text, Wrap } from "@chakra-ui/react";
+import { Box, Button, Divider, Grid, HStack, Image, NumberDecrementStepper, NumberIncrementStepper, NumberInput, NumberInputField, NumberInputStepper, Stack, Text } from "@chakra-ui/react";
 import axios from "axios";
 import { useState } from "react";
 
@@ -21,7 +21,7 @@ export default function Page({ data }: { data: Product }) {
     }}>
       <Stack p="6" boxShadow={"md"} borderRadius="20px">
         <Image w="100%" src={data?.image} />
-        <Wrap w="100%">
+        {/* <Wrap w="100%">
           <Image src={data.image} w="45px" />
           <Image src={data.image} w="45px" />
           <Image src={data.image} w="45px" />
@@ -29,7 +29,7 @@ export default function Page({ data }: { data: Product }) {
           <Image src={data.image} w="45px" />
           <Image src={data.image} w="45px" />
           <Image src={data.image} w="45px" />
-        </Wrap>
+        </Wrap> */}
       </Stack>
       <Stack h="100%" boxShadow={"md"} borderRadius="20px" p="3">
         <Box h="80%">
