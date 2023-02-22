@@ -11,7 +11,7 @@ export default function UserActions() {
     <HStack spacing={5}>
       <IconButton
         bg="none"
-        color="pink.400"
+        color="primary.400"
         borderRadius="50%"
         icon={<FaShoppingCart />}
         onClick={actions?.openBasket}

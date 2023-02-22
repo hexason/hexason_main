@@ -10,6 +10,7 @@ import { useDisclosure, useToast } from "@chakra-ui/react";
 import { Product } from "../interface/product";
 import DefaulModal from "../components/modals/DefaultModal";
 import { useAxios } from "../utils/axiosHook";
+import EmailPasswordModal from "../components/modals/EmailPasswordModal";
 
 
 export const UserContext = createContext<UserContextType>({ loading: true, basket: [] });
@@ -80,7 +81,7 @@ export default function UserContextProvider({ children }: any) {
 
   const removeFromBasket = (item: Product) => {
     setBasket(basket.filter((i: any) => i.info.id !== item.id));
-    localStorage.setItem("lb_basket", JSON.stringify(basket));
+    localStorage.setItem("lb_basket", JSON.stringify(basket.filter((i: any) => i.info.id !== item.id)));
   }
 
   const addressSet = async (address: string) => {
@@ -121,9 +122,9 @@ export default function UserContextProvider({ children }: any) {
         duration: 3000,
         isClosable: true,
       })
-      // setBasket([]);
-      // localStorage.setItem("lb_basket", JSON.stringify(basket));
-      // router.push("/user/orders");
+      setBasket([]);
+      localStorage.setItem("lb_basket", JSON.stringify([]));
+      router.push("/user");
     }).catch(() => {
       toast({
         title: "Захиалга бүртгэхэд алдаа гарлаа.",
@@ -155,7 +156,7 @@ export default function UserContextProvider({ children }: any) {
           removeFromBasket,
           createOrder,
           signInOpen: () => {
-            setChild(<LoginModal signIn={signIn} />);
+            setChild(<EmailPasswordModal refreshSession={refreshSession} />);
             onOpen();
           },
           setAddress: addressSet,

@@ -13,6 +13,7 @@ export interface Product {
   
   category?: string;
   subCategory?: string;
+  type?: string;
   
   status: string;
   airedAt: string;

@@ -25,15 +25,13 @@ import {
 import { useUser } from '../context/UserContext';
 import NLink from "next/link";
 import { IoLogIn } from 'react-icons/io5';
-import SearchBar from './tools/SearchBar';
 import { useApp } from '../context/AppContext';
 import UserActions from './header/UserAction';
-import { PROFILE_MENU } from '../constant/navbar_const';
 
 export default function Navbar() {
   const { isOpen, onToggle } = useDisclosure();
   const { user, loading, actions } = useUser();
-  const { logo, settings } = useApp();
+  const { logo, settings, title } = useApp();
 
   console.log(settings)
 
@@ -66,13 +64,15 @@ export default function Navbar() {
           </Flex>
           <Flex fontSize={"21px"} flex={{ base: 1 }} display={{ base: 'none', md: 'flex' }} justify={{ base: 'center', md: 'start' }}>
             <Flex as={NLink} href="/">
-              <Box minH="50px" minW="100px">
-                <Image h="100%" src={logo} />
-              </Box>
+              {logo ?
+                <Box minH="50px" minW="100px">
+                  <Image h="100%" src={logo} />
+                </Box>
+                : title}
             </Flex>
           </Flex>
           <Flex px="10" w="100%" display={{ base: 'none', md: 'flex' }}>
-            <SearchBar />
+            {/* <SearchBar /> */}
           </Flex>
           <Stack
             flex={{ base: 1, md: 0 }}
@@ -82,7 +82,8 @@ export default function Navbar() {
             spacing={6}>
             {
               loading ? "loading" :
-                <Box>
+                <Flex>
+                  {/* <Button as={NLink} href="/laptop" mr="4">Үнийн боломж</Button> */}
                   {user ? <UserActions /> :
                     <Button
                       display={'inline-flex'}
@@ -91,40 +92,22 @@ export default function Navbar() {
                       onClick={actions?.signInOpen}
                       isLoading={loading}
                       color="white"
-                      bg={'pink.300'}
+                      bg={'primary.300'}
                       _hover={{
-                        bg: 'pink.400',
+                        bg: 'primary.400',
                       }}>
                       <IoLogIn size={"20px"} /> <Text display={{ base: "none", md: "inline-block" }} ml={1}>Нэвтрэх</Text>
                     </Button>
                   }
-                </Box>
+                </Flex>
             }
           </Stack>
         </Container>
-
         <Collapse in={isOpen} animateOpacity>
           <Stack
             bg={useColorModeValue('white', 'gray.800')}
             p={4}
             display={{ md: 'none' }}>
-            {
-              loading ? "loading" :
-                user ?
-                  <MobileNavItem globToggle={onToggle} {...PROFILE_MENU} /> : <Button
-                    display={'inline-flex'}
-                    fontSize={'sm'}
-                    fontWeight={600}
-                    bg={'teal.400'}
-                    onClick={actions?.signInOpen}
-                    isLoading={loading}
-                    _hover={{
-                      bg: 'teal.300',
-                    }}>
-                   Нэвтрэх
-                  </Button>
-
-            }
             {NAV_ITEMS.map((navItem) => (
               <MobileNavItem globToggle={onToggle} key={navItem.label} {...navItem} />
             ))}
@@ -132,7 +115,7 @@ export default function Navbar() {
         </Collapse>
       </Box>
       <Box display={{ base: 'block', md: 'none  ' }} >
-        <SearchBar />
+        {/* <SearchBar /> */}
       </Box>
     </Box>
   )
@@ -194,12 +177,12 @@ const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
       display={'block'}
       p={2}
       rounded={'md'}
-      _hover={{ bg: useColorModeValue('pink.50', 'gray.900') }}>
+      _hover={{ bg: useColorModeValue('primary.50', 'gray.900') }}>
       <Stack direction={'row'} align={'center'}>
         <Box>
           <Text
             transition={'all .3s ease'}
-            _groupHover={{ color: 'pink.400' }}
+            _groupHover={{ color: 'primary.400' }}
             fontWeight={500}>
             {label}
           </Text>
@@ -213,7 +196,7 @@ const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
           justify={'flex-end'}
           align={'center'}
           flex={1}>
-          <Icon color={'pink.400'} w={5} h={5} as={ChevronRightIcon} />
+          <Icon color={'primary.400'} w={5} h={5} as={ChevronRightIcon} />
         </Flex>
       </Stack>
     </Link>

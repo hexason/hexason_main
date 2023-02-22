@@ -51,7 +51,7 @@ export default function ShopBasketDrawer({ isOpen, onClose }: { isOpen: boolean,
         <DrawerFooter>
           <Button isLoading={loading} onClick={handleCheckout} w="100%" colorScheme='green'>
             {
-              "Захиалга үүсгэх"
+              address ? "Захиалга үүсгэх" : "Хаяг оруулах"
             }
           </Button>
         </DrawerFooter>

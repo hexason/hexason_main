@@ -7,8 +7,9 @@ import {
   useColorModeValue,
   VisuallyHidden,
 } from '@chakra-ui/react';
-import { FaInstagram } from 'react-icons/fa';
+import { FaFacebook, FaInstagram } from 'react-icons/fa';
 import { ReactNode } from 'react';
+import Link from 'next/link';
 
 
 const SocialButton = ({
@@ -59,10 +60,11 @@ export default function Footer() {
           spacing={4}
           justify={{ base: 'center', md: 'space-between' }}
           align={{ base: 'center', md: 'center' }}>
-          <Text>© {new Date().getFullYear()}  All rights reserved</Text>
+          <Text>© {new Date().getFullYear()}  Та яг ийм сайт хийлгэмээр байна уу? <Text as="span" color="blue.400"><Link target={"_blank"} href={"https://www.facebook.com/profile.php?id=100090518070093"}>
+            ЭНД ДАРЖ</Link></Text> холбогдоорой</Text>
           <Stack direction={'row'} spacing={6}>
-            <SocialButton label={'Instagram'} href={'#'}>
-              <FaInstagram />
+            <SocialButton label={'Facebook'} href={'https://www.facebook.com/profile.php?id=100090518070093'}>
+              <FaFacebook />
             </SocialButton>
           </Stack>
         </Container>

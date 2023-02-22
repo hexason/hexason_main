@@ -1,23 +1,20 @@
-import { Box, Container, useColorMode } from "@chakra-ui/react";
+import { Box, Container } from "@chakra-ui/react";
 import Head from "next/head";
-import { useEffect } from "react";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
-import { useUser } from "./context/UserContext";
+import { useApp } from "./context/AppContext";
 
 export default function Root({ children, ...props }: any) {
-  const { toggleColorMode, colorMode } = useColorMode();
-  const {loading} = useUser()
-
-  useEffect(() => {
-    if (colorMode === "dark") toggleColorMode();
-  }, [colorMode]);
-
+  const { title, description } = useApp();
   return (
     <>
       <Head>
-        <title>Lovebox</title>
-        <meta name="description" content="Дэско" />
+        <title>{title || "Hexason"}</title>
+        <meta property="og:url" content="https://hexason.com" />
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content={title || "Hexason Game Agency"} />
+        <meta property="og:description" content={description || "This is your area. Create something amazing."} />
+        <meta property="og:image" content="http://file.firebat.com.cn/FtGLwoPAAjEhy9IB43xcSdVxi6bE" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>

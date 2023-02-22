@@ -32,7 +32,6 @@ export default function AddressLine() {
 
   const handleSave = () => {
     user?.actions?.setAddress(JSON.stringify(address));
-    user.actions?.createOrder();
     onClose();
   };
 
