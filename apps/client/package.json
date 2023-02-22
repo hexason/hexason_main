@@ -27,6 +27,7 @@
     "eslint-config-next": "13.1.1",
     "framer-motion": "^8.4.2",
     "next": "13.1.1",
+    "nextjs-progressbar": "^0.0.16",
     "qrcode": "^1.5.1",
     "react": "18.2.0",
     "react-chessboard": "^2.0.8",
