@@ -1,8 +1,7 @@
 import { Controller, Get } from '@nestjs/common';
-
 @Controller()
 export class AppController {
-  constructor() {}
+  constructor() { }
 
   @Get()
   getHello(): string {
@@ -15,7 +14,7 @@ export class AppController {
       title: process.env.APP_NAME,
       logo: null,
       description:
-        'NestJS is a progressive Node.js framework for building efficient, reliable and scalable server-side applications.',
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nisl nec aliquam aliquam, nunc nisl aliquam massa, eget aliquam ni',
     };
   }
 }

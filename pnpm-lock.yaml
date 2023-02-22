@@ -115,6 +115,7 @@ importers:
       ts-node: ^10.0.0
       tsconfig-paths: 4.1.1
       typeorm: ^0.3.11
+      typeorm-extension: ^2.5.2
       typescript: ^4.7.4
     dependencies:
       '@nestjs/common': 9.3.5_welcnyot5bzd5wa2aovbkxpi4i
@@ -138,6 +139,7 @@ importers:
       rxjs: 7.8.0
       socket.io: 4.6.0
       typeorm: 0.3.12_pg@8.9.0+ts-node@10.9.1
+      typeorm-extension: 2.5.2_typeorm@0.3.12
     devDependencies:
       '@nestjs/cli': 9.2.0
       '@nestjs/schematics': 9.0.4_typescript@4.9.5
@@ -1887,6 +1889,11 @@ packages:
       strip-json-comments: 3.1.1
     transitivePeerDependencies:
       - supports-color
+
+  /@faker-js/faker/7.6.0:
+    resolution: {integrity: sha512-XK6BTq1NDMo9Xqw/YkYyGjSsg44fbNwYRx7QK2CuoQgyy+f1rrTDHoExVM5PsyXCtfl2vs2vVJ0MN0yN6LppRw==}
+    engines: {node: '>=14.0.0', npm: '>=6.0.0'}
+    dev: false
 
   /@graphql-typed-document-node/core/3.1.1_graphql@16.6.0:
     resolution: {integrity: sha512-NQ17ii0rK1b34VZonlmT2QMJFI70m0TRwbknO/ihlbatXyaktDhN/98vBiUU6kNBPljqGqyIrl2T4nY2RpFANg==}
@@ -4570,6 +4577,12 @@ packages:
     resolution: {integrity: sha512-7GO6HghkA5fYG9TYnNxi14/7K9f5occMlp3zXAuSxn7CKCxt9xbNWG7yF8hTCSUchlfWSe3uLmlPfigevRItzQ==}
     engines: {node: '>=12'}
 
+  /ebec/0.2.1:
+    resolution: {integrity: sha512-JFYoMVXROnfl0k53pir1/I1OyEtObxObz5og62aIiiCzlIK82lQLq80fJS8hHyFr0Xh5p4ZsBBn+iyk8Tt0H1A==}
+    dependencies:
+      smob: 0.1.0
+    dev: false
+
   /ecdsa-sig-formatter/1.0.11:
     resolution: {integrity: sha512-nagl3RYrbNv6kQkeJIpt6NJZy8twLB/2vtz6yN9Z4vRKHN4/QZJIEbqohALSgwKdnksuY3k5Addp5lg8sVoVcQ==}
     dependencies:
@@ -6725,6 +6738,11 @@ packages:
       - ts-node
     dev: true
 
+  /jiti/1.17.1:
+    resolution: {integrity: sha512-NZIITw8uZQFuzQimqjUxIrIcEdxYDFIe/0xYfIlVXTkiBjjyBEvgasj5bb0/cHtPRD/NziPbT312sFrkI5ALpw==}
+    hasBin: true
+    dev: false
+
   /js-sdsl/4.3.0:
     resolution: {integrity: sha512-mifzlm2+5nZ+lEcLJMoBK0/IH/bDg8XnJfd/Wq6IP+xoCjLZsTOnV2QpxlVbX9bMnkl5PdEjNtBJ9Cj1NjifhQ==}
 
@@ -6869,6 +6887,14 @@ packages:
     engines: {node: '>=10'}
     dependencies:
       p-locate: 5.0.0
+
+  /locter/1.0.5:
+    resolution: {integrity: sha512-SJtebyq1QP6FwttESZtPklTbt9vM9k/1+xx+TlGR2OFPrnJFa2q541TdBc8Jq591fNds6NUEDgyajOROdiEorA==}
+    dependencies:
+      ebec: 0.2.1
+      glob: 8.1.0
+      jiti: 1.17.1
+    dev: false
 
   /lodash.memoize/4.1.2:
     resolution: {integrity: sha512-t7j+NzmgnQzTAYXcsHYLgimltOV1MXHtlOWf6GjL9Kj8GK5FInw5JotxvbOs+IvV1/Dzo04/fCGfLVs7aXb4Ag==}
@@ -7634,6 +7660,12 @@ packages:
     resolution: {integrity: sha512-Hrgsx+orqoygnmhFbKaHE6c296J+HTAQXoxEF6gNupROmmGJRoyzfG3ccAveqCBrwr/2yxQ5BVd/GTl5agOwSg==}
     engines: {node: '>= 0.6'}
 
+  /rapiq/0.8.0:
+    resolution: {integrity: sha512-qAWUHJP++IDKE9ul9mwXoix45a6Hne3wDiqTd7BhoRNVOQv2gQvAlCOWCQCNTbQA/Ia9jW5ugcOmbd4eRGklSQ==}
+    dependencies:
+      smob: 0.1.0
+    dev: false
+
   /raw-body/2.5.1:
     resolution: {integrity: sha512-qqJBtEyVgS0ZmPGdCFPWJ3FreoqvG4MVQln/kCgF7Olq95IbOp0/BWyMwbdtn4VTvkM8Y7khCQ2Xgk/tcrCXig==}
     engines: {node: '>= 0.8'}
@@ -8122,6 +8154,10 @@ packages:
   /slash/4.0.0:
     resolution: {integrity: sha512-3dOsAHXXUkQTpOYcoAxLIorMTp4gIQr5IW3iVb7A7lFIp0VHhnynm9izx6TssdrIcVIESAlVjtnO2K8bg+Coew==}
     engines: {node: '>=12'}
+    dev: false
+
+  /smob/0.1.0:
+    resolution: {integrity: sha512-u6ezVF7hN3AxA1onkbMsl46XZr1HYrtMksmckSVpkLI8bYJ5I34kHMvDZk8qNCfA0y54VnhWqCoU6DQMMStzpw==}
     dev: false
 
   /socket.io-adapter/2.5.2:
@@ -8731,6 +8767,21 @@ packages:
 
   /typedarray/0.0.6:
     resolution: {integrity: sha512-/aCDEGatGvZ2BIk+HmLf4ifCJFwvKFNb9/JeZPMulfgFracn9QFcAf5GO8B/mweUjSoblS5In0cWhqpfs/5PQA==}
+
+  /typeorm-extension/2.5.2_typeorm@0.3.12:
+    resolution: {integrity: sha512-r7WAFFG00Zu3L/FiE3697w4PLjzfGpkelq5geQJE27do2Deja9UwdyqVIWT3owL8IbEPpqk1O2x1dJynoEumOw==}
+    engines: {node: '>=14.0.0'}
+    hasBin: true
+    peerDependencies:
+      typeorm: ~0.3.0
+    dependencies:
+      '@faker-js/faker': 7.6.0
+      locter: 1.0.5
+      rapiq: 0.8.0
+      reflect-metadata: 0.1.13
+      typeorm: 0.3.12_pg@8.9.0+ts-node@10.9.1
+      yargs: 17.6.2
+    dev: false
 
   /typeorm/0.3.12_pg@8.9.0+ts-node@10.9.1:
     resolution: {integrity: sha512-sYSxBmCf1nJLLTcYtwqZ+lQIRtLPyUoO93rHTOKk9vJCyT4UfRtU7oRsJvfvKP3nnZTD1hzz2SEy2zwPEN6OyA==}

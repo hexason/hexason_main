@@ -13,13 +13,15 @@ import { Wallet } from './models/wallet.model';
 import { Order } from './models/order';
 import { UserService } from './service/user.service';
 import { OrderService } from './service/order.service';
+import { App } from './models/app.model';
+import { AppService } from './service/app.service';
 
 @Module({
   imports: [
-    // ConfigModule.forRoot({
-    //   isGlobal: true,
-    //   // envFilePath: ['.env.local'],
-    // }),
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: ['.env.local'],
+    }),
     TypeOrmModule.forRootAsync({
       useFactory: () => ({
         type: 'postgres',
@@ -30,12 +32,15 @@ import { OrderService } from './service/order.service';
         database: process.env.DB_NAME,
         autoLoadEntities: true,
         synchronize: process.env.DB_SYNC === 'true',
-        entities: [User, Wallet, Transaction, Product, Order, OrderItem],
+        entities: [User, Wallet, Transaction, Product, Order, OrderItem, App],
+
+        seeds: [__dirname + '/models/seeder/*.seeder{.ts,.js}'],
+        factories: [__dirname + '/models/factory/*.factory{.ts,.js}'],
       }),
     }),
     TerminusModule,
   ],
-  providers: [UserService, OrderService],
+  providers: [UserService, OrderService, AppService],
   controllers: [AppController, HealthController, ...controllers],
 })
 export class AppModule {}
