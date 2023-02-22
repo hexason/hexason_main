@@ -1,7 +1,10 @@
 import { Controller, Get } from '@nestjs/common';
+import { AppService } from './service/app.service';
 @Controller()
 export class AppController {
-  constructor() { }
+  constructor(
+    private readonly appService: AppService,
+  ) { }
 
   @Get()
   getHello(): string {
@@ -9,12 +12,13 @@ export class AppController {
   }
 
   @Get('init')
-  appInit() {
+  async appInit() {
+    const app = await this.appService.initApp();
     return {
-      title: process.env.APP_NAME,
-      logo: null,
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nisl nec aliquam aliquam, nunc nisl aliquam massa, eget aliquam ni',
+      title: app['config.info']['app.title'],
+      logo: app['config.info']['app.logo'],
+      description:app['config.info']['app.description'],
+      colors: app['config.color'],
     };
   }
 }

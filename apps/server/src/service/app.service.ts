@@ -5,11 +5,7 @@ import { runSeeders } from "typeorm-extension";
 export class AppService {
   constructor(
     @InjectDataSource() private readonly dataSource: DataSource,
-  ) {
-    this.initApp().then((appConfigs) => {
-      console.log(appConfigs);
-    });
-  }
+  ) { }
 
   async runSeeds() {
     await runSeeders(this.dataSource);

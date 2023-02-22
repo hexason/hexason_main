@@ -4,19 +4,36 @@ import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import Root from "@/src/Root";
 import UserContextProvider from '../src/context/UserContext';
 import ReactGA from "react-ga4"
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import ModalContextProvider from '@/src/context/ModalContext';
 import AppContextProvider from '@/src/context/AppContext';
+import { CONFIG_CONST } from '@/src/constant/config_const';
+import { useAxios } from '@/src/utils/axiosHook';
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
-  const {app} = pageProps;
+  const { fetch } = useAxios("/init", {}, "get");
+  const [colors, setColors] = useState(CONFIG_CONST.colors);
 
   useEffect(() => {
     ReactGA.initialize("G-S2JLTKX9TL");
-    console.log("App is here",app)
     if (router.isReady) ReactGA.send({ hitType: "pageview", page: router.pathname });
+
+    fetch().then((data) => {
+      setColors({
+        primary: {
+          100: data.colors['primary.color.100'],
+          200: data.colors['primary.color.200'],
+          300: data.colors['primary.color.300'],
+          400: data.colors['primary.color.400'],
+          500: data.colors['primary.color.500'],
+          600: data.colors['primary.color.600'],
+          700: data.colors['primary.color.700'],
+          800: data.colors['primary.color.800'],
+        }
+      } as any);
+    })
   }, [router.isReady]
   )
 
@@ -25,18 +42,7 @@ export default function App({ Component, pageProps }: AppProps) {
       initialColorMode: "light",
       useSystemColorMode: false,
     },
-    colors: {
-      primary: {
-        100: "#FED7E2",
-        200: "#FBB6CE",
-        300: "#F687B3",
-        400: "#ED64A6",
-        500: "#D53F8C",
-        600: "#B83280",
-        700: "#97266D",
-        800: "#702459",
-      }
-    },
+    colors,
     styles: {
       global: {
         body: {
