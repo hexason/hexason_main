@@ -7,6 +7,7 @@ export default class UserSeeder implements Seeder {
     dataSource: DataSource,
   ): Promise<any> {
     const repository = dataSource.getRepository(App);
+    if(await repository.count() > 0) return;
     await repository.insert([
       {
         name: "primary.color.100",
