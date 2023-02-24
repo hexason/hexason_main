@@ -1,6 +1,8 @@
 import { useAuth } from "@/hooks/useAuth"
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { Button, Input } from 'antd';
+import { FaUser } from "react-icons/fa";
 
 export default function Login() {
   const { user, login, loading } = useAuth();
@@ -22,15 +24,16 @@ export default function Login() {
   }
 
   useEffect(() => {
-    if(user) router.replace("/")
+    if (user) router.replace("/")
   }, [user]);
 
 
   return <div>
-    <input name="username" value={inputValue.username} onChange={handleInputValue} />
-    <input name="password" value={inputValue.password} onChange={handleInputValue} />
-    <button disabled={loading} onClick={handleLogin}>
+    <Input placeholder="username" name="username" type={"text"} value={inputValue.username} onChange={handleInputValue} prefix={<FaUser />} />
+
+    <Input placeholder="password" name="password" type={"password"} value={inputValue.password} onChange={handleInputValue} prefix={<FaUser />} />
+    <Button loading={loading} onClick={handleLogin}>
       Login
-    </button>
+    </Button>
   </div>
 }

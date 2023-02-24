@@ -1,22 +1,35 @@
-import Head from 'next/head'
 import type { MenuProps } from 'antd';
 import { Layout, Menu, theme } from 'antd';
+import { useRouter } from 'next/router';
 import { createElement } from 'react';
 import { FaFacebook } from "react-icons/fa"
 
 const { Header, Content, Footer, Sider } = Layout;
-const items: MenuProps['items'] = [
-  FaFacebook,
-].map((icon, index) => ({
-  key: String(index + 1),
-  icon: createElement(icon),
-  label: `nav ${index + 1}`,
-}));
 
-export default function LayoutBuilder({children}:any) {
+export default function LayoutBuilder({ children }: any) {
   const {
     token: { colorBgContainer },
   } = theme.useToken();
+  const router = useRouter()
+
+  const items: MenuProps['items'] = [
+    {
+      key: "nav_1",
+      icon: createElement(FaFacebook),
+      label: "Нүүр",
+      onClick: () => {
+        router.push("/")
+      }
+    },
+    {
+      key: "nav_2",
+      icon: createElement(FaFacebook),
+      label: "Бараа нэмэх",
+      onClick: () => {
+        router.push("/product/add")
+      }
+    },
+  ];
   return (
     <Layout hasSider>
       <Sider
@@ -35,11 +48,11 @@ export default function LayoutBuilder({children}:any) {
       <Layout className="site-layout" style={{ marginLeft: 200 }}>
         <Header style={{ padding: 0, background: colorBgContainer }} />
         <Content style={{ margin: '24px 16px 0', overflow: 'initial' }}>
-          <div style={{ padding: 24, textAlign: 'center', background: colorBgContainer }}>
+          <div style={{ padding: 24, textAlign: 'center', background: colorBgContainer, minHeight: "80vh" }}>
             {children}
           </div>
         </Content>
-        <Footer style={{ textAlign: 'center' }}>Ant Design ©2023 Created by Ant UED</Footer>
+        <Footer style={{ textAlign: 'center' }}>Powered By Hexason with Ant Design</Footer>
       </Layout>
     </Layout>
   )
