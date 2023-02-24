@@ -45,7 +45,8 @@ export default function App({ Component, pageProps }: AppProps) {
     <AuthContext.Provider value={{ user, setUser }}>
       {user ? <LayoutBuilder>
         <Component {...pageProps} />
-      </LayoutBuilder> : "Түр хүлээнэ үү..."
+      </LayoutBuilder> :
+        <Component {...pageProps} />
       }
     </AuthContext.Provider>
   )
