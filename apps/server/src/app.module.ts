@@ -5,17 +5,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { controllers } from './controller/inext';
 import { HealthController } from './health.controller';
-import { Product } from './models/product.model';
-import { Transaction } from './models/transaction.model';
-import { User } from './models/user.model';
-import { OrderItem } from './models/order_item';
-import { Wallet } from './models/wallet.model';
-import { Order } from './models/order';
 import { UserService } from './service/user.service';
 import { OrderService } from './service/order.service';
-import { App } from './models/app.model';
 import { AppService } from './service/app.service';
-import { ProductImages } from './models/product_images.model';
+import * as entities from "./models"
 
 @Module({
   imports: [
@@ -33,8 +26,7 @@ import { ProductImages } from './models/product_images.model';
         database: process.env.DB_NAME,
         autoLoadEntities: true,
         synchronize: process.env.DB_SYNC === 'true',
-        entities: [User, Wallet, Transaction, Product, Order, OrderItem, App, ProductImages],
-
+        entities: Object.values(entities),
         seeds: [__dirname + '/models/seeder/*.seeder{.ts,.js}'],
         factories: [__dirname + '/models/factory/*.factory{.ts,.js}'],
       }),

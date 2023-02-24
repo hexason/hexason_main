@@ -6,7 +6,6 @@ import { OrderService } from '../service/order.service';
 import { InjectDataSource } from '@nestjs/typeorm';
 import { DataSource, In } from 'typeorm';
 
-const logger = new Logger('UserController');
 @ApiBearerAuth('user-jwt-token')
 @ApiTags('User')
 @UseGuards(UserJWTGuard)
