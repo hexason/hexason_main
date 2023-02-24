@@ -1,4 +1,4 @@
-import { Body, Controller, HttpException, Post, Request, UseGuards } from "@nestjs/common";
+import { Body, Controller, Get, HttpException, Post, Request, UseGuards } from "@nestjs/common";
 import { InjectDataSource } from "@nestjs/typeorm";
 import { DataSource } from "typeorm";
 import { AdminAddDTO, AdminLoginDTO, AdminTokenRefreshDTO } from "./dto/AdminControllerDto";
@@ -31,6 +31,9 @@ export class AdminController {
       admin.refreshToken = refresh_token;
       await adminRepo.save(admin);
       return {
+        id: admin.id,
+        username: admin.username,
+        name: admin.name,
         access_token,
         refresh_token
       }
@@ -45,24 +48,48 @@ export class AdminController {
       refreshToken: refresh_token
     })
     if (!admin) throw new HttpException("FORBIDDEN_ERROR", 403);
-    const access_token = sign({}, "something", { expiresIn: "15m" })
+    const access_token = sign({}, process.env.SUPER_SECRET, { expiresIn: "15m" })
     refresh_token = Date.now().toString(32) + Math.random().toString(32).replace("0.", "");
     admin.refreshToken = refresh_token;
     await adminRepo.save(admin);
     return {
+      id: admin.id,
+      username: admin.username,
+      name: admin.name,
       access_token,
       refresh_token
     }
   }
 
+  @UseGuards(AdminJWTGuard)
+  @ApiBearerAuth("admin-access")
+  @Get("me")
+  async getMe(@Request() { user }) {
+    const adminRepo = this.datasource.getRepository(Admin);
+    const admin = await adminRepo.findOneBy({
+      id: user.sub
+    })
+    if (!admin) throw new HttpException("FORBIDDEN_ERROR", 403);
+    const access_token = sign({}, process.env.SUPER_SECRET, { expiresIn: "15m" })
+    const refresh_token = Date.now().toString(32) + Math.random().toString(32).replace("0.", "");
+    admin.refreshToken = refresh_token;
+    await adminRepo.save(admin);
+    return {
+      id: admin.id,
+      username: admin.username,
+      name: admin.name,
+      access_token,
+      refresh_token
+    }
+  }
 
   @UseGuards(AdminJWTGuard)
   @ApiBearerAuth("admin-access")
   @Post("logout")
-  async logout(@Request() {user}:any) {
+  async logout(@Request() { user }: any) {
     const adminRepo = this.datasource.getRepository(Admin);
-    const admin = await adminRepo.findOneBy({id: user.sub});
-    if(!admin) throw new HttpException("SOMETHING_WENT_WRONG", 500);
+    const admin = await adminRepo.findOneBy({ id: user.sub });
+    if (!admin) throw new HttpException("SOMETHING_WENT_WRONG", 500);
     admin.refreshToken = null;
     await adminRepo.save(admin);
     return true;
