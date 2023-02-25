@@ -18,7 +18,7 @@ import { Admin } from '../models';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { hash, compare } from 'bcrypt';
 import { sign } from 'jsonwebtoken';
-import { AdminJWTGuard } from 'src/middleware/admin_jwt.guard';
+import { AdminJWTGuard } from '@/middleware/admin_jwt.guard';
 
 @ApiTags('Admin')
 @Controller('admin')
