@@ -31,6 +31,14 @@ export default function LayoutBuilder({ children }: any) {
         router.push("/product/add")
       }
     },
+    {
+      key: "nav_3",
+      icon: createElement(FaFacebook),
+      label: "Барааны жагсаалт",
+      onClick: () => {
+        router.push("/product/list")
+      }
+    },
   ];
 
   if (loading) return <>Loading...</>
