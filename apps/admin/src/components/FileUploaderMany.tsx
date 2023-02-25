@@ -24,7 +24,7 @@ export default function FileUploaderMany({ images, setImages }: FileUploadManyPr
     <>
       <Button onClick={addImage}>Add Image</Button>
       <Space direction="horizontal">
-        {images.map((el, i) => <div>
+        {images.map((el, i) => <div key={el+i}>
           <FileUploader url={el} setUrl={(url: string) => setUrl(url, i)} />
           <Button onClick={() => (removeImage(i))}>Remove Image</Button>
         </div>)}
