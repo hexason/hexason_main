@@ -1,5 +1,5 @@
-import { ApiProperty } from "@nestjs/swagger";
-import { IsIn, IsString, Max } from "class-validator";
+import { ApiProperty } from '@nestjs/swagger';
+import { IsIn, IsString, Max } from 'class-validator';
 
 export class AdminLoginDTO {
   @ApiProperty()
@@ -10,7 +10,7 @@ export class AdminLoginDTO {
   @ApiProperty()
   @IsString()
   @Max(32)
-  password:string;
+  password: string;
 }
 
 export class AdminAddDTO {
@@ -29,9 +29,9 @@ export class AdminAddDTO {
   @Max(32)
   name: string;
 
-  @ApiProperty({example: "super"})
+  @ApiProperty({ example: 'super' })
   @IsString()
-  @IsIn(["op", "super"])
+  @IsIn(['op', 'super'])
   @Max(32)
   role: string;
 }
@@ -39,5 +39,5 @@ export class AdminAddDTO {
 export class AdminTokenRefreshDTO {
   @ApiProperty()
   @IsString()
-  refresh_token: string
+  refresh_token: string;
 }

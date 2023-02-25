@@ -2,9 +2,7 @@ import { Controller, Get } from '@nestjs/common';
 import { AppService } from './service/app.service';
 @Controller()
 export class AppController {
-  constructor(
-    private readonly appService: AppService,
-  ) { }
+  constructor(private readonly appService: AppService) {}
 
   @Get()
   getHello(): string {
@@ -17,7 +15,7 @@ export class AppController {
     return {
       title: app['config.info']['app.title'],
       logo: app['config.info']['app.logo'],
-      description:app['config.info']['app.description'],
+      description: app['config.info']['app.description'],
       colors: app['config.color'],
     };
   }

@@ -1,33 +1,50 @@
-import { Body, Controller, Get, HttpException, Post, Request, UseGuards } from "@nestjs/common";
-import { InjectDataSource } from "@nestjs/typeorm";
-import { DataSource } from "typeorm";
-import { AdminAddDTO, AdminLoginDTO, AdminTokenRefreshDTO } from "./dto/AdminControllerDto";
-import { Admin } from "../models"
-import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
-import { hash, compare } from "bcrypt";
-import { sign } from "jsonwebtoken";
-import { AdminJWTGuard } from "src/middleware/admin_jwt.guard";
+import {
+  Body,
+  Controller,
+  Get,
+  HttpException,
+  Post,
+  Request,
+  UseGuards,
+} from '@nestjs/common';
+import { InjectDataSource } from '@nestjs/typeorm';
+import { DataSource } from 'typeorm';
+import {
+  AdminAddDTO,
+  AdminLoginDTO,
+  AdminTokenRefreshDTO,
+} from './dto/AdminControllerDto';
+import { Admin } from '../models';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { hash, compare } from 'bcrypt';
+import { sign } from 'jsonwebtoken';
+import { AdminJWTGuard } from 'src/middleware/admin_jwt.guard';
 
-@ApiTags("Admin")
-@Controller("admin")
+@ApiTags('Admin')
+@Controller('admin')
 export class AdminController {
-  constructor(@InjectDataSource() private readonly datasource: DataSource) { }
+  constructor(@InjectDataSource() private readonly datasource: DataSource) {}
 
-  @Post("login")
+  @Post('login')
   async adminLogin(@Body() { username, password }: AdminLoginDTO) {
     const adminRepo = this.datasource.getRepository(Admin);
     const admin = await adminRepo.findOneBy({
-      username
+      username,
     });
-    if (!admin) throw new HttpException("ADMIN_NOT_FOUND", 404);
+    if (!admin) throw new HttpException('ADMIN_NOT_FOUND', 404);
     const isPassValid = await compare(password, admin.credential);
     if (isPassValid) {
-      const access_token = sign({
-        sub: admin.id,
-        role: admin.role,
-        name: admin.name
-      }, process.env.SUPER_SECRET, { expiresIn: "15m" })
-      const refresh_token = Date.now().toString(32) + Math.random().toString(32).replace("0.", "");
+      const access_token = sign(
+        {
+          sub: admin.id,
+          role: admin.role,
+          name: admin.name,
+        },
+        process.env.SUPER_SECRET,
+        { expiresIn: '15m' },
+      );
+      const refresh_token =
+        Date.now().toString(32) + Math.random().toString(32).replace('0.', '');
       admin.refreshToken = refresh_token;
       await adminRepo.save(admin);
       return {
@@ -35,21 +52,24 @@ export class AdminController {
         username: admin.username,
         name: admin.name,
         access_token,
-        refresh_token
-      }
+        refresh_token,
+      };
     }
-    throw new HttpException("CREDENTIAL_ERROR", 403)
+    throw new HttpException('CREDENTIAL_ERROR', 403);
   }
 
-  @Post("refresh")
+  @Post('refresh')
   async refreshToken(@Body() { refresh_token }: AdminTokenRefreshDTO) {
     const adminRepo = this.datasource.getRepository(Admin);
     const admin = await adminRepo.findOneBy({
-      refreshToken: refresh_token
-    })
-    if (!admin) throw new HttpException("FORBIDDEN_ERROR", 403);
-    const access_token = sign({}, process.env.SUPER_SECRET, { expiresIn: "15m" })
-    refresh_token = Date.now().toString(32) + Math.random().toString(32).replace("0.", "");
+      refreshToken: refresh_token,
+    });
+    if (!admin) throw new HttpException('FORBIDDEN_ERROR', 403);
+    const access_token = sign({}, process.env.SUPER_SECRET, {
+      expiresIn: '15m',
+    });
+    refresh_token =
+      Date.now().toString(32) + Math.random().toString(32).replace('0.', '');
     admin.refreshToken = refresh_token;
     await adminRepo.save(admin);
     return {
@@ -57,21 +77,24 @@ export class AdminController {
       username: admin.username,
       name: admin.name,
       access_token,
-      refresh_token
-    }
+      refresh_token,
+    };
   }
 
   @UseGuards(AdminJWTGuard)
-  @ApiBearerAuth("admin-access")
-  @Get("me")
+  @ApiBearerAuth('admin-access')
+  @Get('me')
   async getMe(@Request() { user }) {
     const adminRepo = this.datasource.getRepository(Admin);
     const admin = await adminRepo.findOneBy({
-      id: user.sub
-    })
-    if (!admin) throw new HttpException("FORBIDDEN_ERROR", 403);
-    const access_token = sign({}, process.env.SUPER_SECRET, { expiresIn: "15m" })
-    const refresh_token = Date.now().toString(32) + Math.random().toString(32).replace("0.", "");
+      id: user.sub,
+    });
+    if (!admin) throw new HttpException('FORBIDDEN_ERROR', 403);
+    const access_token = sign({}, process.env.SUPER_SECRET, {
+      expiresIn: '15m',
+    });
+    const refresh_token =
+      Date.now().toString(32) + Math.random().toString(32).replace('0.', '');
     admin.refreshToken = refresh_token;
     await adminRepo.save(admin);
     return {
@@ -79,43 +102,44 @@ export class AdminController {
       username: admin.username,
       name: admin.name,
       access_token,
-      refresh_token
-    }
+      refresh_token,
+    };
   }
 
   @UseGuards(AdminJWTGuard)
-  @ApiBearerAuth("admin-access")
-  @Post("logout")
+  @ApiBearerAuth('admin-access')
+  @Post('logout')
   async logout(@Request() { user }: any) {
     const adminRepo = this.datasource.getRepository(Admin);
     const admin = await adminRepo.findOneBy({ id: user.sub });
-    if (!admin) throw new HttpException("SOMETHING_WENT_WRONG", 500);
+    if (!admin) throw new HttpException('SOMETHING_WENT_WRONG', 500);
     admin.refreshToken = null;
     await adminRepo.save(admin);
     return true;
   }
 
   @UseGuards(AdminJWTGuard)
-  @ApiBearerAuth("admin-access")
-  @Post("add")
+  @ApiBearerAuth('admin-access')
+  @Post('add')
   async adminAdd(@Body() { username, name, password, role }: AdminAddDTO) {
     const adminRepo = this.datasource.getRepository(Admin);
     const haveUsername = await adminRepo.findOneBy({ username });
-    if (haveUsername) throw new HttpException("ADMIN_ALREADY_REGISTER_ERROR", 400);
+    if (haveUsername)
+      throw new HttpException('ADMIN_ALREADY_REGISTER_ERROR', 400);
 
     try {
-      const hashingBcrypt = await hash(password, 10)
+      const hashingBcrypt = await hash(password, 10);
       const prepare = adminRepo.create({
         username,
         name,
         credential: hashingBcrypt,
-        role
+        role,
       });
       await adminRepo.save(prepare);
-      delete prepare.credential
+      delete prepare.credential;
       return prepare;
     } catch (e) {
-      throw new HttpException("SOMETHING_WENT_WRONG", 500)
+      throw new HttpException('SOMETHING_WENT_WRONG', 500);
     }
   }
 }

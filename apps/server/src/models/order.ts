@@ -1,11 +1,19 @@
-import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
-import { OrderItem } from "./order_item";
-import { User } from "./user.model";
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
+import { OrderItem } from './order_item';
+import { User } from './user.model';
 
 @Entity()
 export class Order {
   @PrimaryGeneratedColumn()
-  id: string
+  id: string;
 
   @Column({
     default: 'pending',
@@ -23,31 +31,31 @@ export class Order {
   })
   status: string;
 
-  @Column({type: "varchar", nullable: true})
+  @Column({ type: 'varchar', nullable: true })
   city: string;
 
-  @Column({type: "varchar", nullable: true})
+  @Column({ type: 'varchar', nullable: true })
   district: string;
-  
-  @Column({type: "varchar", nullable: true})
+
+  @Column({ type: 'varchar', nullable: true })
   address: string;
 
   @OneToMany(() => OrderItem, (orderItem) => orderItem.order)
   items: OrderItem[];
 
   @ManyToOne(() => User, (user) => user.orders)
-  user: User
+  user: User;
 
-  @Column({default: 0})
+  @Column({ default: 0 })
   totalPrice: number;
 
   @Column({ nullable: true })
   paymentRef: string;
 
-  @Column({ default: "waiting", enum: ["waiting", "bank", "cash"] })
+  @Column({ default: 'waiting', enum: ['waiting', 'bank', 'cash'] })
   paymentStatus: string;
 
-  @Column({ default: "" })
+  @Column({ default: '' })
   paymentMessage: string;
 
   @Column({ nullable: true })

@@ -43,11 +43,9 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <AuthContext.Provider value={{ user, setUser }}>
-      {user ? <LayoutBuilder>
+      <LayoutBuilder>
         <Component {...pageProps} />
       </LayoutBuilder> :
-        <Component {...pageProps} />
-      }
     </AuthContext.Provider>
   )
 }

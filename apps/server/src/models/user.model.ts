@@ -15,10 +15,10 @@ export class User {
   @PrimaryColumn()
   id: string;
 
-  @Column({nullable:true})
+  @Column({ nullable: true })
   full_name: string;
 
-  @Column({nullable:true})
+  @Column({ nullable: true })
   email: string;
 
   @Column({ nullable: true })
@@ -36,7 +36,7 @@ export class User {
   @Column({ default: 'auth' })
   profileLvl: string;
 
-  @Column({nullable:true})
+  @Column({ nullable: true })
   refer: string;
 
   @OneToOne(() => Wallet)

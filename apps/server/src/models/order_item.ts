@@ -25,7 +25,7 @@ export class OrderItem {
 
   @Column()
   totalPrice: number;
-  
+
   @Column({
     default: 'pending',
     enum: [

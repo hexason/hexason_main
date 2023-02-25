@@ -25,7 +25,7 @@ export default function Login() {
 
   useEffect(() => {
     if (user) router.replace("/")
-  }, [user]);
+  }, [user, router]);
 
 
   return (

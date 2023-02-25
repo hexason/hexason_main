@@ -44,7 +44,7 @@ export class Product {
   status: string;
 
   @OneToMany(() => ProductImages, (productImages) => productImages.product)
-  images: ProductImages[]
+  images: ProductImages[];
 
   @CreateDateColumn()
   createdAt: Date;

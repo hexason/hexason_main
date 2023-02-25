@@ -1,16 +1,18 @@
+import { useAuth } from '@/hooks/useAuth';
 import type { MenuProps } from 'antd';
 import { Layout, Menu, theme } from 'antd';
 import { useRouter } from 'next/router';
 import { createElement } from 'react';
 import { FaFacebook } from "react-icons/fa"
 
-const { Header, Content, Footer, Sider } = Layout;
+const { Content, Footer, Sider } = Layout;
 
 export default function LayoutBuilder({ children }: any) {
   const {
     token: { colorBgContainer },
   } = theme.useToken();
   const router = useRouter()
+  const { user, loading } = useAuth();
 
   const items: MenuProps['items'] = [
     {
@@ -30,6 +32,9 @@ export default function LayoutBuilder({ children }: any) {
       }
     },
   ];
+
+  if (loading) return <>Loading...</>
+  if (!user) return children;
   return (
     <Layout hasSider>
       <Sider
@@ -46,13 +51,13 @@ export default function LayoutBuilder({ children }: any) {
         <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']} items={items} />
       </Sider>
       <Layout className="site-layout" style={{ marginLeft: 200 }}>
-        <Header style={{ padding: 0, background: colorBgContainer }} />
+        {/* <Header style={{ padding: 0, background: colorBgContainer }} /> */}
         <Content style={{ margin: '24px 16px 0', overflow: 'initial' }}>
-          <div style={{ padding: 24, textAlign: 'center', background: colorBgContainer, minHeight: "80vh" }}>
+          <div style={{ padding: 24, background: colorBgContainer, minHeight: "80vh" }}>
             {children}
           </div>
         </Content>
-        <Footer style={{ textAlign: 'center' }}>Powered By Hexason with Ant Design</Footer>
+        <Footer style={{ textAlign: 'center' }}>Powered By Hexason</Footer>
       </Layout>
     </Layout>
   )

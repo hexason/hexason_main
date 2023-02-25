@@ -1,5 +1,5 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import { Product } from "./product.model";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Product } from './product.model';
 
 @Entity()
 export class ProductImages {
@@ -8,10 +8,10 @@ export class ProductImages {
 
   @Column()
   image: string;
- 
-  @Column({nullable: true})
+
+  @Column({ nullable: true })
   blurhash: string;
 
   @ManyToOne(() => Product, (product) => product.images)
-  product: Product
+  product: Product;
 }

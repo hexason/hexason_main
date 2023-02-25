@@ -8,7 +8,7 @@ import { HealthController } from './health.controller';
 import { UserService } from './service/user.service';
 import { OrderService } from './service/order.service';
 import { AppService } from './service/app.service';
-import * as entities from "./models"
+import * as entities from './models';
 
 @Module({
   imports: [

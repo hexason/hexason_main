@@ -6,10 +6,10 @@ import { AppService } from './service/app.service';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const appService = app.get(AppService);
-  await appService.runSeeds()
+  await appService.runSeeds();
   const logger = new Logger('bootstrap');
 
-  logger.log("Successfully seeded database");
-  return
+  logger.log('Successfully seeded database');
+  return;
 }
 bootstrap();

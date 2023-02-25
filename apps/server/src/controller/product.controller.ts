@@ -5,16 +5,21 @@ import { DataSource } from 'typeorm';
 
 @Controller('product')
 export class ProductController {
-  constructor(
-    @InjectDataSource() private readonly dataSource: DataSource) { }
+  constructor(@InjectDataSource() private readonly dataSource: DataSource) {}
 
   @Get('')
   async getProducts() {
     const queryRunner = this.dataSource.createQueryRunner();
     await queryRunner.connect();
 
-    const products = await queryRunner.query('SELECT * FROM product WHERE status = $1 ORDER BY "createdAt" DESC', ['active']);
-    const count = await queryRunner.query('SELECT COUNT(*) FROM product WHERE status = $1', ['active']);
+    const products = await queryRunner.query(
+      'SELECT * FROM product WHERE status = $1 ORDER BY "createdAt" DESC',
+      ['active'],
+    );
+    const count = await queryRunner.query(
+      'SELECT COUNT(*) FROM product WHERE status = $1',
+      ['active'],
+    );
 
     return {
       count,
@@ -22,16 +27,16 @@ export class ProductController {
     };
   }
 
-  @Get(":id")
+  @Get(':id')
   async getProduct(@Param('id') id: string) {
     const prodRepo = this.dataSource.getRepository(Product);
     const product = await prodRepo.findOne({
       where: {
-        id: id.toString()
+        id: id.toString(),
       },
-      relations: ['images']
+      relations: ['images'],
     });
-    if(!product) throw new HttpException('Product not found', 404);
+    if (!product) throw new HttpException('Product not found', 404);
     return product;
   }
 }

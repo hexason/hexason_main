@@ -1,17 +1,15 @@
-import { InjectDataSource } from "@nestjs/typeorm";
-import { DataSource } from "typeorm";
-import { runSeeders } from "typeorm-extension";
+import { InjectDataSource } from '@nestjs/typeorm';
+import { DataSource } from 'typeorm';
+import { runSeeders } from 'typeorm-extension';
 
 export class AppService {
-  constructor(
-    @InjectDataSource() private readonly dataSource: DataSource,
-  ) { }
+  constructor(@InjectDataSource() private readonly dataSource: DataSource) {}
 
   async runSeeds() {
     await runSeeders(this.dataSource);
   }
   async initApp() {
-    const app = this.dataSource.getRepository("App");
+    const app = this.dataSource.getRepository('App');
     const appConfigs = await app.find();
 
     const appInit = appConfigs.reduce((acc: any, config: any) => {
@@ -20,6 +18,6 @@ export class AppService {
       return acc;
     }, {});
 
-    return appInit
+    return appInit;
   }
 }
