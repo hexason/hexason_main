@@ -1,3 +1,4 @@
+import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
@@ -7,6 +8,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule, { cors: true });
 
   app.useWebSocketAdapter(new IoCustomAdapter(app));
+  app.useGlobalPipes(new ValidationPipe());
   if (process.env.SWAGGER === 'true') {
     const config = new DocumentBuilder()
       .setTitle('Api Documentation')

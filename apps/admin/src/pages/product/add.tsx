@@ -1,6 +1,8 @@
 import FileUploader from "@/components/FileUploader";
 import FileUploaderMany from "@/components/FileUploaderMany";
-import { Button, Divider, Input, Space } from "antd";
+import { useAuth } from "@/hooks/useAuth";
+import { Button, Divider, Input, message, Select, Space } from "antd";
+import axios from "axios";
 import { useState } from "react";
 
 export default function Home() {
@@ -14,11 +16,34 @@ export default function Home() {
     oldPrice: "",
     brand: "",
     type: "",
-    status: "active",
   })
+  const [status, setStatus] = useState("active")
+  const { user } = useAuth();
 
   const handleSubmit = () => {
-    console.log(inputs, imageUrl, images)
+    const result = {
+      "title": inputs.title,
+      "description": inputs.description,
+      "brand": inputs.brand,
+      "itemType": inputs.type,
+      "image": imageUrl,
+      "price": +inputs.price.replaceAll(",", ""),
+      "oldPrice": +inputs.oldPrice.replaceAll(",", ""),
+      "quantity": +inputs.quantity,
+      "status": status,
+      "images": images.filter((url) => url)
+    }
+    axios({
+      baseURL: process.env.NEXT_PUBLIC_API_URL,
+      url: "product/create",
+      data: result,
+      method: "post",
+      headers: {
+        Authorization: "Bearer " + user?.access_token
+      }
+    }).then(() => {
+      message.success("success")
+    }).catch((e) => message.error(e.message))
   }
 
   const handleInputChange = (e: any) => {
@@ -37,6 +62,9 @@ export default function Home() {
       [key]: value
     })
   }
+  const handleSelectChange = (value: string) => {
+    setStatus(value);
+  }
 
   return (<Space direction="vertical" size={"middle"}>
     <Input onChange={handleInputChange} type="text" value={inputs.title} name="title" placeholder="Нэр" />
@@ -46,7 +74,15 @@ export default function Home() {
     <Input onChange={handleInputChange} type="text" value={inputs.oldPrice} name="oldPrice" placeholder="Хуучин үнэ" />
     <Input onChange={handleInputChange} type="text" value={inputs.brand} name="brand" placeholder="Бренд" />
     <Input onChange={handleInputChange} type="text" value={inputs.type} name="type" placeholder="Бүтээгдэхүүний төрөл" />
-    <Input onChange={handleInputChange} type="text" value={inputs.status} name="status" placeholder="Нийтлэх" />
+    <Select
+      defaultValue={status}
+      onChange={handleSelectChange}
+      style={{ width: 120 }}
+      options={[
+        { value: 'active', label: 'Идэвхитэй' },
+        { value: 'draft', label: 'Хадгалах' },
+        { value: 'inactive', label: 'Идэвхигүй' },
+      ]} />
     <Divider />
     <FileUploader url={imageUrl} setUrl={setImageUrl} />
     <Divider />

@@ -18,12 +18,12 @@ import { Admin } from '../models';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { hash, compare } from 'bcrypt';
 import { sign } from 'jsonwebtoken';
-import { AdminJWTGuard } from '@/middleware/admin_jwt.guard';
+import { AdminJWTGuard } from '../middleware/admin_jwt.guard';
 
 @ApiTags('Admin')
 @Controller('admin')
 export class AdminController {
-  constructor(@InjectDataSource() private readonly datasource: DataSource) {}
+  constructor(@InjectDataSource() private readonly datasource: DataSource) { }
 
   @Post('login')
   async adminLogin(@Body() { username, password }: AdminLoginDTO) {

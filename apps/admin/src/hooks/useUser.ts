@@ -5,8 +5,7 @@ import { useLocalStorage } from './useLocalStorage';
 export interface User {
   id: string;
   name: string;
-  email: string;
-  authToken?: string;
+  access_token?: string;
 }
 
 export const useUser = () => {
