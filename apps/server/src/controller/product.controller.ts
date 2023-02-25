@@ -75,9 +75,55 @@ export class ProductController {
     }));
     const queryRunner = this.dataSource.createQueryRunner();
     queryRunner.startTransaction();
+
     try {
       await queryRunner.manager.save(prodImages);
       prod.images = prodImages;
+      await queryRunner.manager.save(prod);
+      await queryRunner.commitTransaction();
+      return prod;
+    } catch (e) {
+      await queryRunner.rollbackTransaction();
+      console.log(e);
+      throw new HttpException("SOMETHING_WENT_WRONG", 500)
+    }
+  }
+
+  @UseGuards(AdminJWTGuard)
+  @ApiBearerAuth('admin-access')
+  @Post('edit/:id')
+  async productUpdate(@Param("id") id: string, @Body() {
+    title,
+    description,
+    oldPrice,
+    price,
+    image,
+    itemType,
+    status,
+    brand,
+    images
+  }: ProductAddDTO) {
+    const prodRepo = this.dataSource.getRepository(Product)
+    const prodImageRepo = this.dataSource.getRepository(ProductImages)
+    const prod = await prodRepo.findOneBy({ id });
+    if (!prod) throw new HttpException("NOT_FOUND_PROD", 404);
+    const prodImages = images.map(url => prodImageRepo.create({
+      image: url
+    }));
+    const queryRunner = this.dataSource.createQueryRunner();
+    queryRunner.startTransaction();
+
+    try {
+      await queryRunner.manager.save(prodImages);
+      prod.images = prodImages;
+      prod.title = title,
+      prod.description = description,
+      prod.oldPrice = oldPrice,
+      prod.price = price,
+      prod.image = image,
+      prod.itemType = itemType,
+      prod.status = status,
+      prod.brand = brand,
       await queryRunner.manager.save(prod);
       await queryRunner.commitTransaction();
       return prod;
