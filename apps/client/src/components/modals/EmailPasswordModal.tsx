@@ -1,54 +1,20 @@
 import { Button, Input, InputGroup, InputLeftAddon, Stack, Text, useToast } from "@chakra-ui/react";
-import { FaInbox, FaKey, FaSignature } from "react-icons/fa";
+import { FaInbox } from "react-icons/fa";
 import { supabase } from "@/src/lib/Store";
 import { useState } from "react";
 import { useModal } from "@/src/context/ModalContext";
 import { IoLogIn } from "react-icons/io5";
 
-export default function EmailPasswordModal({ refreshSession }: any) {
+export default function EmailPasswordModal() {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [password_again, setPasswordAgain] = useState("");
-  const [pwdHide, setPwdHide] = useState(true);
   const toast = useToast();
   const [loading, setLoading] = useState(false);
   const { onClose } = useModal();
-  const signIn = async () => {
-    setLoading(true);
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
-    if (error) {
-      toast({
-        title: "Error",
-        description: error.message,
-        status: "error",
-        duration: 5000,
-        isClosable: true,
-      });
-    } else {
-      refreshSession();
-      onClose();
-    }
-    setLoading(false);
-  };
 
-  const signUp = async () => {
-    if (password !== password_again) {
-      toast({
-        title: "Error",
-        description: "Нууц үг хоорондоо таарахгүй байна",
-        status: "error",
-        duration: 5000,
-        isClosable: true,
-      });
-      return;
-    }
+  const signInWithMagicLink = async () => {
     setLoading(true);
-    const { error } = await supabase.auth.signUp({
+    const { error } = await supabase.auth.signInWithOtp({
       email,
-      password,
     });
     if (error) {
       toast({
@@ -61,11 +27,12 @@ export default function EmailPasswordModal({ refreshSession }: any) {
     } else {
       toast({
         title: "Амжилттай",
-        description: "Та цахим хаягаа шалгаарай",
-        status: "success",
+        description: "Нэвтрэх линк таны цахим хаягруу явуулсан. Та цахим хаягаа шалгана уу.",
+        status: "error",
         duration: 5000,
         isClosable: true,
       });
+      onClose();
     }
     setLoading(false);
   }
@@ -73,10 +40,6 @@ export default function EmailPasswordModal({ refreshSession }: any) {
   const handleChange = (e: any) => {
     if (e.target.name === "email") {
       setEmail(e.target.value);
-    } else if (e.target.name === "password") {
-      setPassword(e.target.value);
-    } else if (e.target.name === "password_again") {
-      setPasswordAgain(e.target.value);
     }
   }
 
@@ -86,45 +49,14 @@ export default function EmailPasswordModal({ refreshSession }: any) {
         <InputLeftAddon>
           <FaInbox />
         </InputLeftAddon>
-        <Input onChange={handleChange} value={email} name="email" type="text" placeholder="Хэрэглэгчийн нэр" />
+        <Input onChange={handleChange} value={email} name="email" type="text" placeholder="Цахим хаяг: mail@mail.com" />
       </InputGroup>
-      <InputGroup>
-        <InputLeftAddon>
-          <FaKey />
-        </InputLeftAddon>
-        <Input onChange={handleChange} value={password} name="password" type="password" placeholder="Нууц үг" />
-      </InputGroup>
-      {!pwdHide ?
-        <InputGroup>
-          <InputLeftAddon>
-            <FaKey />
-          </InputLeftAddon>
-          <Input onChange={handleChange} value={password_again} name="password_again" type="password" placeholder="Нууц үг дахин" />
-        </InputGroup>
-        : null}
-      <Button isLoading={loading} onClick={signIn}
+      <Button isLoading={loading} onClick={signInWithMagicLink}
         bg="primary.500"
         _hover={{ bg: "primary.600" }}
         color="white"
         variant="solid">
-        <IoLogIn /><Text ml="2">Нэвтрэх</Text>
-      </Button>
-      <Button isLoading={loading} onClick={() => {
-        if (pwdHide) {
-          setPwdHide(false);
-        } else {
-          signUp();
-        }
-      }}
-        bg="none"
-        _hover={{ bg: "blackAlpha.100" }}
-        color="black"
-        variant="solid"
-      >
-        <FaSignature />
-        <Text ml="2">
-          Бүртгүүлэх
-        </Text>
+        <IoLogIn /><Text ml="2">Нэвтрэх линк авах</Text>
       </Button>
     </Stack>
   )
