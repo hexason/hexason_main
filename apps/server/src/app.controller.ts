@@ -19,4 +19,17 @@ export class AppController {
       colors: app['config.color'],
     };
   }
+
+  @Get('info/bank')
+  async bankAccount() {
+    const app = await this.appService.initApp();
+
+    return (
+      app['config.bank'] || {
+        'bank.name': 'not_cofigured',
+        'bank.account': 'not_configured',
+        'bank.reciver': 'not_configured',
+      }
+    );
+  }
 }

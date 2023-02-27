@@ -23,7 +23,7 @@ import { AdminJWTGuard } from '../middleware/admin_jwt.guard';
 @ApiTags('Admin')
 @Controller('admin')
 export class AdminController {
-  constructor(@InjectDataSource() private readonly datasource: DataSource) { }
+  constructor(@InjectDataSource() private readonly datasource: DataSource) {}
 
   @Post('login')
   async adminLogin(@Body() { username, password }: AdminLoginDTO) {

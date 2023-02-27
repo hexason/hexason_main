@@ -67,6 +67,21 @@ export default class UserSeeder implements Seeder {
         config: '1.0.0',
         type: 'config.info',
       },
+      {
+        name: 'bank.name',
+        config: 'Банкны нэр',
+        type: 'config.bank',
+      },
+      {
+        name: 'bank.account',
+        config: 'xxxxxxxxx',
+        type: 'config.bank',
+      },
+      {
+        name: 'bank.reciver',
+        config: 'Хүлээн авагч',
+        type: 'config.bank',
+      },
     ]);
   }
 }

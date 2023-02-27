@@ -1,6 +1,7 @@
 import { useModal } from "@/src/context/ModalContext";
 import { useAxios } from "@/src/utils/axiosHook";
 import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box, Divider, Flex, Heading, HStack, Stack, Tag, Text, Image, Grid, Button } from "@chakra-ui/react";
+import axios from "axios";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useUser } from "../../src/context/UserContext";
@@ -87,6 +88,20 @@ const OrderItem = ({ item }: any) => {
 }
 
 const Payment = ({ order }: any) => {
+  const [bank, setBank] = useState({
+    "bank.name": "",
+    "bank.account": "",
+    "bank.reciver": ""
+  });
+  useEffect(() => {
+    axios({
+      baseURL: process.env.NEXT_PUBLIC_API_URL,
+      url: "/info/bank",
+      method: "get"
+    }).then((response) => {
+      setBank(response.data)
+    }).catch(console.log)
+  }, [])
   return (
     <Stack spacing={3}>
       <Heading>Төлбөр төлөх</Heading>
@@ -97,7 +112,9 @@ const Payment = ({ order }: any) => {
       </Box>
       <Divider />
       <Box>
-        <Text>Банк: </Text>
+        <Text>Банк: {bank["bank.name"]}</Text>
+        <Text>Дансны дугаар: {bank["bank.account"]}</Text>
+        <Text>Хүлээн авагч: {bank["bank.reciver"]}</Text>
       </Box>
     </Stack>
   )

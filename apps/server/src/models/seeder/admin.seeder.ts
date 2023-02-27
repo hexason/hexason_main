@@ -10,9 +10,10 @@ export default class UserSeeder implements Seeder {
       {
         username: 'cn',
         name: 'Super Admin',
-        credential: '$2b$10$zG4sWNxqYh79JPMNlPf0pe9Oc5si9Mywunw.GKs0MZ5xsUF5vV99e',
-        role: 'super'
-      }
+        credential:
+          '$2b$10$zG4sWNxqYh79JPMNlPf0pe9Oc5si9Mywunw.GKs0MZ5xsUF5vV99e',
+        role: 'super',
+      },
     ]);
   }
 }

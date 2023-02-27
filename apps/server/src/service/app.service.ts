@@ -5,9 +5,6 @@ import { runSeeders } from 'typeorm-extension';
 export class AppService {
   constructor(@InjectDataSource() private readonly dataSource: DataSource) {}
 
-  async runSeeds() {
-    await runSeeders(this.dataSource);
-  }
   async initApp() {
     const app = this.dataSource.getRepository('App');
     const appConfigs = await app.find();
@@ -19,5 +16,8 @@ export class AppService {
     }, {});
 
     return appInit;
+  }
+  async runSeeds() {
+    await runSeeders(this.dataSource);
   }
 }
