@@ -36,6 +36,7 @@ export class OrderService {
       const order = repoOrder.create({
         user: userId as any,
         paymentMessage: 'waiting',
+        shortId: Date.now().toString(32).slice(2),
         totalPrice: products.reduce(
           (acc, item) => acc + item.quantity * item.price,
           0,

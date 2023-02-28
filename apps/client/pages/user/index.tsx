@@ -53,7 +53,7 @@ const Order = ({ order }: any) => {
           <Flex w="100%" justifyContent={"space-between"}>
             <HStack>
               <Text display={["none", "block"]}>Захиалгын дугаар: </Text>
-              <Text fontWeight={"bold"}>{order.id}</Text>
+              <Text fontWeight={"bold"}>{order.shortId}</Text>
             </HStack>
             <Tag colorScheme={"orange"}>{order.status}</Tag>
           </Flex>
@@ -107,7 +107,7 @@ const Payment = ({ order }: any) => {
       <Heading>Төлбөр төлөх</Heading>
       <Divider />
       <Box>
-        <Text>Захиалгын дугаар: {order.id}</Text>
+        <Text>Захиалгын дугаар: {order.shortId}</Text>
         <Text>Төлөх дүн: {order.totalPrice}</Text>
       </Box>
       <Divider />

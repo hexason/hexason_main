@@ -43,6 +43,8 @@ export class Order {
   @OneToMany(() => OrderItem, (orderItem) => orderItem.order)
   items: OrderItem[];
 
+  @Column({type: "varchar", default: Date.now().toString(32).slice(2)})
+  shortId: string;
   @ManyToOne(() => User, (user) => user.orders)
   user: User;
 
