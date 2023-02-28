@@ -7,17 +7,20 @@ import axios from 'axios';
 import type { AppProps } from 'next/app'
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import Login from './login';
 
 export default function App({ Component, pageProps }: AppProps) {
   const [user, setUser] = useState<User | null>(null);
   const { getItem } = useLocalStorage();
   const { removeUser } = useUser();
   const router = useRouter();
+  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
+  const userRefresh = async () => {
+    setLoading(true);
     const localUser = getItem('user');
     if (localUser) {
-      axios({
+      await axios({
         baseURL: process.env.NEXT_PUBLIC_API_URL,
         method: "get",
         url: "admin/me",
@@ -37,15 +40,22 @@ export default function App({ Component, pageProps }: AppProps) {
         }).then(response => {
           setUser(response.data)
         }).catch(() => removeUser())
-      });
-    } else router.replace("/login")
+      })
+    } else await router.replace("/login")
+    setLoading(false)
+  }
+  useEffect(() => {
+    userRefresh();
   }, []);
 
   return (
     <AuthContext.Provider value={{ user, setUser }}>
-      <LayoutBuilder>
-        <Component {...pageProps} />
-      </LayoutBuilder> :
+      {loading ? "Loading..." :
+     user ? 
+        <LayoutBuilder>
+          <Component {...pageProps} />
+        </LayoutBuilder>: <Login />
+      }
     </AuthContext.Provider>
   )
 }
