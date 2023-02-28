@@ -11,6 +11,20 @@ export class OrderService {
     this.orderItemRepo = this.dataSource.getRepository(OrderItem);
   }
 
+  async getAllOrders() {
+    const orders = await this.orderRepo.find({
+      relations: ["items", "items.product", "user"],
+      order: {
+        createdAt: 'DESC',
+      },
+    });
+    const count = await this.orderRepo.count({});
+    return {
+      count,
+      orders,
+    };
+  }
+
   async getOrders(userId: string, page: number, limit: number) {
     const repoOrder = this.dataSource.getRepository(Order);
     const orders = await repoOrder.find({

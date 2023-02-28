@@ -19,11 +19,15 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { hash, compare } from 'bcrypt';
 import { sign } from 'jsonwebtoken';
 import { AdminJWTGuard } from '../middleware/admin_jwt.guard';
+import { OrderService } from '../service/order.service';
 
 @ApiTags('Admin')
 @Controller('admin')
 export class AdminController {
-  constructor(@InjectDataSource() private readonly datasource: DataSource) {}
+  constructor(
+    @InjectDataSource() private readonly datasource: DataSource,
+    private readonly orderService: OrderService,
+  ) {}
 
   @Post('login')
   async adminLogin(@Body() { username, password }: AdminLoginDTO) {
@@ -141,5 +145,13 @@ export class AdminController {
     } catch (e) {
       throw new HttpException('SOMETHING_WENT_WRONG', 500);
     }
+  }
+
+  @UseGuards(AdminJWTGuard)
+  @ApiBearerAuth('admin-access')
+  @Get('orders')
+  async getOrders() {
+    const order = await this.orderService.getAllOrders();
+    return order;
   }
 }
