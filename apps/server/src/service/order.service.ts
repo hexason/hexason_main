@@ -1,10 +1,15 @@
 import { InjectDataSource } from '@nestjs/typeorm';
 import { Order } from '../models/order';
 import { OrderItem } from '../models/order_item';
-import { DataSource } from 'typeorm';
+import { DataSource, Repository } from 'typeorm';
 
 export class OrderService {
-  constructor(@InjectDataSource() private readonly dataSource: DataSource) {}
+  orderRepo: Repository<Order>;
+  orderItemRepo: Repository<OrderItem>;
+  constructor(@InjectDataSource() private readonly dataSource: DataSource) {
+    this.orderRepo = this.dataSource.getRepository(Order);
+    this.orderItemRepo = this.dataSource.getRepository(OrderItem);
+  }
 
   async getOrders(userId: string, page: number, limit: number) {
     const repoOrder = this.dataSource.getRepository(Order);
