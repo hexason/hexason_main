@@ -156,7 +156,7 @@ export default function UserContextProvider({ children }: any) {
           removeFromBasket,
           createOrder,
           signInOpen: () => {
-            setChild(process.env.NEXT_PUBLIC_LOGIN_MODE === "social" ? <LoginModal signIn={signIn} /> : <EmailPasswordModal refreshSession={refreshSession} />);
+            setChild(process.env.NEXT_PUBLIC_LOGIN_MODE === "social" ? <LoginModal signIn={signIn} /> : <EmailPasswordModal />);
             onOpen();
           },
           setAddress: addressSet,
