@@ -46,6 +46,14 @@ export default function LayoutBuilder({ children }: any) {
       onClick: () => {
         router.push("/order")
       }
+    },
+    {
+      key: "nav_5",
+      icon: createElement(FaFacebook),
+      disabled: true,
+      label: "Админ нэмэх",
+      onClick: () => {
+      }
     }
   ];
 
