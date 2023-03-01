@@ -3,10 +3,11 @@ import { Product } from "@/src/interface/product";
 import { useCurrencyFormat } from "@/src/utils/CurrencyFormat";
 import { Box, Button, Divider, Grid, HStack, Image, NumberDecrementStepper, NumberIncrementStepper, NumberInput, NumberInputField, NumberInputStepper, Stack, Text } from "@chakra-ui/react";
 import axios from "axios";
+import Head from "next/head";
 import { useState } from "react";
 import { TbTruckDelivery } from "react-icons/tb";
 
-export default function Page({ data }: { data: Product }) {
+export default function Page({ data, app }: { data: Product, app?:any }) {
   const formatter = useCurrencyFormat();
   const { actions } = useUser();
   const [quantity, setQuantity] = useState(1);
@@ -16,6 +17,16 @@ export default function Page({ data }: { data: Product }) {
   };
   if (!data) return <div>Product not found</div>
   return <Stack p="6">
+    <Head>
+      <title>{data.title} | {app?.title}</title>
+      <meta property="og:type" content="og:product" />
+      <meta property="og:title" content={data.title} />
+      <meta property="og:image" content={data.image} />
+      <meta property="og:image" content={data.image} />
+      <meta property="og:description" content={data.description} />
+      <meta property="product:price:amount" content={data.price.toString()} />
+      <meta property="product:price:currency" content="MNT" />
+    </Head>
     <Grid gap={3} templateColumns={{
       base: "repeat(1, 1fr)",
       md: "repeat(2, 1fr)",
@@ -114,6 +125,14 @@ export default function Page({ data }: { data: Product }) {
 
 export async function getServerSideProps(context: any) {
   const { id } = context.query;
+  const app = await axios({
+    method: "get",
+    baseURL: process.env.NEXT_PUBLIC_API_URL,
+    url: "/init"
+  }).then(res => res.data).catch(e => ({
+    title: "Undermaintain",
+    description: "Sorry, we are undermaintain, please try again later."
+  }));
   const { data } = await axios({
     method: "GET",
     url: process.env.NEXT_PUBLIC_API_URL + "/product/" + id,
@@ -125,6 +144,7 @@ export async function getServerSideProps(context: any) {
   return {
     props: {
       data,
+      app
     },
   };
 }
