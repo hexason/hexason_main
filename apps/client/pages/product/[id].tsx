@@ -4,6 +4,7 @@ import { useCurrencyFormat } from "@/src/utils/CurrencyFormat";
 import { Box, Button, Divider, Grid, HStack, Image, NumberDecrementStepper, NumberIncrementStepper, NumberInput, NumberInputField, NumberInputStepper, Stack, Text } from "@chakra-ui/react";
 import axios from "axios";
 import { useState } from "react";
+import { TbTruckDelivery } from "react-icons/tb";
 
 export default function Page({ data }: { data: Product }) {
   const formatter = useCurrencyFormat();
@@ -37,24 +38,35 @@ export default function Page({ data }: { data: Product }) {
             {data?.title}
           </Text>
           <Divider />
-          <Text mt="3" dangerouslySetInnerHTML={{
-            __html: data.description || ""
-          }} />
+          <Stack>
+            <HStack mt={6}>
+              <Text color="primary.500" textAlign={"center"} fontSize={"xl"} fontWeight={"bold"}>
+                {formatter(data.price)}
+              </Text>
+              <Text
+                color="gray.500"
+                fontSize="sm"
+                fontWeight="bold"
+                textTransform="uppercase"
+                textDecoration={"line-through"}
+              >
+                {formatter(data.oldPrice || 0)}
+              </Text>
+            </HStack>
+            <Text color="gray" mt="3" dangerouslySetInnerHTML={{
+              __html: data.description || ""
+            }} />
+            <HStack>
+              <Text fontWeight={"bold"}>Агуулахад үлдсэн:</Text>
+              <Text> {data.quantity}</Text>
+            </HStack>
+            <HStack>
+              <TbTruckDelivery />
+              <Text fontSize={"11px"} fontStyle={"italic"}>Хотын А бүс доторх хүргэлт: </Text>
+              <Text fontWeight={"bold"} color="primary.400">ҮНЭГҮЙ</Text>
+            </HStack>
+          </Stack>
         </Box>
-        <HStack>
-          <Text color="green" textAlign={"center"} fontSize={"xl"} fontWeight={"bold"}>
-            {formatter(data.price)}
-          </Text>
-          <Text
-            color="gray.500"
-            fontSize="sm"
-            fontWeight="bold"
-            textTransform="uppercase"
-            textDecoration={"line-through"}
-          >
-            {formatter(data.oldPrice || 0)}
-          </Text>
-        </HStack>
         <HStack>
           <Box>
             <NumberInput
