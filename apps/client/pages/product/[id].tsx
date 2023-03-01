@@ -20,10 +20,11 @@ export default function Page({ data, app }: { data: Product, app?: any }) {
     <div itemScope itemType="http://schema.org/Product">
       {data.brand ? <meta itemProp="brand" content={data.brand} /> : null}
       <meta itemProp="name" content={data.title} />
-      <meta itemProp="description" content={data.description} />
+      {/* <meta itemProp="description" content={data.description} /> */}
       <meta itemProp="productID" content={data.id} />
       <meta itemProp="url" content={`https://${app.host}/product/` + data.id} />
       <meta itemProp="image" content={data.image} />
+      <meta itemProp="availability" content="available for order" />
     </div>
     <Head>
       <title>{data.title} | {app?.title}</title>
