@@ -18,18 +18,12 @@ export default function Page({ data, app }: { data: Product, app?: any }) {
   if (!data) return <div>Product not found</div>
   return <Stack p="6">
     <div itemScope itemType="http://schema.org/Product">
-      <meta itemProp="brand" content="facebook" />
-      <meta itemProp="name" content="Facebook T-Shirt" />
-      <meta itemProp="description" content="Unisex Facebook T-shirt, Small" />
-      <meta itemProp="productID" content="facebook_tshirt_001" />
-      <meta itemProp="url" content="https://example.org/facebook" />
-      <meta itemProp="image" content="https://example.org/facebook.jpg" />
-      <div itemProp="offers" itemScope itemType="http://schema.org/Offer">
-        <link itemProp="availability" href="http://schema.org/InStock" />
-        <link itemProp="itemCondition" href="http://schema.org/NewCondition" />
-        <meta itemProp="price" content="7.99" />
-        <meta itemProp="priceCurrency" content="USD" />
-      </div>
+      {data.brand ? <meta itemProp="brand" content={data.brand} /> : null}
+      <meta itemProp="name" content={data.title} />
+      <meta itemProp="description" content={data.description} />
+      <meta itemProp="productID" content={data.id} />
+      <meta itemProp="url" content={`https://${app.host}/product/` + data.id} />
+      <meta itemProp="image" content={data.image} />
     </div>
     <Head>
       <title>{data.title} | {app?.title}</title>
@@ -155,6 +149,10 @@ export async function getServerSideProps(context: any) {
       data: null
     }
   });
+
+  if (context.req) {
+    app.host = context.req.headers.host;
+  }
   return {
     props: {
       data,
