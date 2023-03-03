@@ -4,22 +4,8 @@ import Script from 'next/script'
 
 
 const FacebookPixel = ({ children }: any) => {
-  const router = useRouter()
+  // const router = useRouter()
   const FB_PIXEL_ID = process.env.NEXT_PUBLIC_FACEBOOK_PIXEL_ID
-  const pageview = () => {
-    (window as any).fbq('track', 'PageView')
-  }
-  const handleRouteChange = () => {
-    pageview()
-  }
-
-  useEffect(() => {
-    // the below will only fire on route changes (not initial load - that is handled in the script below)
-    router.events.on('routeChangeComplete', handleRouteChange)
-    return () => {
-      router.events.off('routeChangeComplete', handleRouteChange)
-    }
-  }, [router.events])
 
   return (
     <Script id="facebook-pixel">
