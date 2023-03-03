@@ -58,6 +58,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <ModalContextProvider>
         <UserContextProvider>
           <Head>
+            <meta name="facebook-domain-verification" content={process.env.NEXT_PUBLIC_FACEBOOK_DOMAIN_VERIFY} />
             <FacebookPixel />
           </Head>
           <NextNProgress />
