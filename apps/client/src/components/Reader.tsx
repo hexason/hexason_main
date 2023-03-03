@@ -1,6 +1,5 @@
 import { Box, Divider, Heading, Image, Stack, Text, useToast } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import 'react-quill/dist/quill.snow.css';
 
 export default function Reader({ data }: any) {
   const [paragraph, setParagraph] = useState([])
