@@ -8,6 +8,8 @@ import { ProductImages } from './product_images.model';
 import { Transaction } from './transaction.model';
 import { User } from './user.model';
 import { Wallet } from './wallet.model';
+import { Book } from './book.model';
+import { BookImage } from './book_image.model';
 
 export {
   Admin,
@@ -20,4 +22,6 @@ export {
   Transaction,
   User,
   Wallet,
+  Book,
+  BookImage
 };
