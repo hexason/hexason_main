@@ -38,6 +38,7 @@ export default function BookAdd() {
       <Divider />
       <FileUploader url={coverImage} setUrl={setCoverImage} />
       <FileUploaderMany images={images} setImages={setImages} />
+      {context}
       <Button loading={loading} onClick={saveHandle} type="primary">Save</Button>
     </Space>
   )
