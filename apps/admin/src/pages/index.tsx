@@ -1,3 +1,4 @@
+import FileUploader from "@/components/FileUploader";
 import { useAuth } from "@/hooks/useAuth";
 import { Button, Input, message, Space } from "antd";
 import axios from "axios";
@@ -9,6 +10,7 @@ export default function Home() {
     "bank.account": "",
     "bank.reciver": ""
   });
+  const [logo, setLogo] = useState("");
   const [loading, setLoading] = useState(false);
   const { user } = useAuth()
   useEffect(() => {
@@ -45,6 +47,7 @@ export default function Home() {
   }
   return (
     <Space direction="vertical">
+      <FileUploader url={logo} setUrl={setLogo} />
       <Input onChange={inputHandler} addonBefore="Банк: " name="bank.name" value={bank["bank.name"]} />
       <Input onChange={inputHandler} addonBefore="Төлбөр хүлээн авах данс:" name="bank.account" value={bank["bank.account"]} />
       <Input onChange={inputHandler} addonBefore="Данс эзэмшигч:" name="bank.reciver" value={bank["bank.reciver"]} />
