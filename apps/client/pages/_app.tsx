@@ -11,6 +11,7 @@ import AppContextProvider from '@/src/context/AppContext';
 import { CONFIG_CONST } from '@/src/constant/config_const';
 import { useAxios } from '@/src/utils/axiosHook';
 import NextNProgress from "nextjs-progressbar"
+import FacebookPixel from '@/src/components/other/FacebooPixel';
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -55,6 +56,7 @@ export default function App({ Component, pageProps }: AppProps) {
     <AppContextProvider>
       <ModalContextProvider>
         <UserContextProvider>
+          <FacebookPixel />
           <NextNProgress />
           <Root>
             <Component {...pageProps} />
