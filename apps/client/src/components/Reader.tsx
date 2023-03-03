@@ -15,7 +15,7 @@ export default function Reader({ data }: any) {
         {paragraph.map((text, i) => (
           <Box key={Math.random().toString() + i}>
             <Text fontFamily={"Troubleside"} fontSize={"20px"} lineHeight="taller" dangerouslySetInnerHTML={{ __html: text }} />
-            {data.images[i] ? <Image src={data.images[i].url} /> : null}
+            {data.images[i] ? <Image w="100%" src={data.images[i].url} /> : null}
           </Box>
         ))}
       </Stack>
