@@ -4,7 +4,7 @@ import { useAxios } from "@/src/utils/axiosHook";
 import { Button, Input, Select, Stack } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 
-export default function AddressLine() {
+export default function AddressLine({nextStep}:{nextStep?: (address:any) => any}) {
   const user = useUser();
   const { onClose } = useModal();
   const {fetch} = useAxios("/user/info", {}, "get");
@@ -33,6 +33,7 @@ export default function AddressLine() {
   const handleSave = () => {
     user?.actions?.setAddress(JSON.stringify(address));
     onClose();
+    if(nextStep) nextStep(address)
   };
 
   return (

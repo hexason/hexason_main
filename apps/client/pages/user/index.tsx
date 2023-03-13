@@ -1,8 +1,7 @@
 import PaymentModal from "@/src/components/modals/PaymentModal";
-import OrderItem from "@/src/components/other/OrderItem";
 import { useModal } from "@/src/context/ModalContext";
 import { useAxios } from "@/src/utils/axiosHook";
-import { Accordion, AccordionItem, AccordionPanel, Box, Divider, Flex, Heading, HStack, Stack, Text, Image, Button, Tag } from "@chakra-ui/react";
+import { Box, Divider, Flex, Heading, HStack, Stack, Text, Image, Button, Tag } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useUser } from "../../src/context/UserContext";
