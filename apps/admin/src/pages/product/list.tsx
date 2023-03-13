@@ -12,16 +12,32 @@ export default function ProductList() {
   const [products, setProducts] = useState([]);
   const router = useRouter();
 
-  const columns = [
+  const columns: any = [
     {
       title: 'Бүтээгдэхүүн нэр',
       dataIndex: 'title',
       key: 'title',
+      filters: products.map((el: any) => ({
+        text: el.title,
+        value: el.title,
+      })),
+      filterMode: 'search',
+      onFilter: (value: string, record: any) => record.title.startsWith(value),
+      filterSearch: true,
+    },
+    {
+      title: 'Тоо ширхэг',
+      dataIndex: 'quantity',
+      key: 'quantity',
+      sorter: (a: any, b: any) => a.quantity - b.quantity,
+
     },
     {
       title: 'Үнэ',
       dataIndex: 'price',
       key: 'price',
+      sorter: (a: any, b: any) => a.price - b.price,
+
     },
     {
       title: "Үндсэн үнэ",
@@ -32,6 +48,13 @@ export default function ProductList() {
       title: "Зураг",
       dataIndex: "image",
       key: "image"
+    },
+    {
+      title: "Бараа оруулсан огноо",
+      dataIndex: "createdAt",
+      key: "createdAt",
+      render: (_: any, record: any) => new Date(Date.parse(record.createdAt)).toLocaleString(),
+      sorter: (a: any, b: any) => Date.parse(a.createdAt) - Date.parse(b.createdAt),
     },
     {
       title: 'Action',
