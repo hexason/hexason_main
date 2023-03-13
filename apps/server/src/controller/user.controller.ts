@@ -2,7 +2,7 @@ import {
   Body,
   Controller,
   Get,
-  Logger,
+  HttpException,
   Post,
   Query,
   Request,
@@ -24,7 +24,7 @@ export class UserController {
     private readonly userService: UserService,
     private readonly orderService: OrderService,
     @InjectDataSource() private readonly dataSource: DataSource,
-  ) {}
+  ) { }
 
   @Get('orders')
   async getOrders(@Request() req: any, @Query() query: any) {
@@ -49,6 +49,7 @@ export class UserController {
       const item = products.find((r) => r.id === pr.id);
       return pr.quantity >= item.quantity;
     });
+    if (filteredProducts.length < 1) throw new HttpException("Бараа агуулахад үлдэгдэлгүй байна.", 400)
     const order = await this.orderService.createOrder(
       user.sub,
       address,
@@ -58,7 +59,7 @@ export class UserController {
         quantity: products.find((p) => p.id === item.id).quantity,
       })),
     );
-    // return order;
+    return order;
   }
 
   @Get('info')
