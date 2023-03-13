@@ -9,5 +9,5 @@ export const controllers = [
   UserController,
   AdminController,
   ConfigController,
-  BookController
+  BookController,
 ];

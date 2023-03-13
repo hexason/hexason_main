@@ -1,6 +1,6 @@
-import { BookImage } from "@/models";
-import { ApiProperty } from "@nestjs/swagger";
-import { IsArray, IsString } from "class-validator";
+import { BookImage } from '@/models';
+import { ApiProperty } from '@nestjs/swagger';
+import { IsArray, IsString } from 'class-validator';
 
 export class BookAddDto {
   @ApiProperty()

@@ -13,7 +13,7 @@ export class OrderService {
 
   async getAllOrders() {
     const orders = await this.orderRepo.find({
-      relations: ["items", "items.product", "user"],
+      relations: ['items', 'items.product', 'user'],
       order: {
         createdAt: 'DESC',
       },

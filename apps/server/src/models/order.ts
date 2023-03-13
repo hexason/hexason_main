@@ -45,7 +45,7 @@ export class Order {
 
   @Column({ type: 'varchar', default: Date.now().toString(32).slice(2) })
   shortId: string;
-  
+
   @ManyToOne(() => User, (user) => user.orders)
   user: User;
 

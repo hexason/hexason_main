@@ -1,7 +1,8 @@
+import PaymentModal from "@/src/components/modals/PaymentModal";
+import OrderItem from "@/src/components/other/OrderItem";
 import { useModal } from "@/src/context/ModalContext";
 import { useAxios } from "@/src/utils/axiosHook";
-import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box, Divider, Flex, Heading, HStack, Stack, Tag, Text, Image, Grid, Button } from "@chakra-ui/react";
-import axios from "axios";
+import { Accordion, AccordionItem, AccordionPanel, Box, Divider, Flex, Heading, HStack, Stack, Text, Image, Button, Tag } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useUser } from "../../src/context/UserContext";
@@ -29,11 +30,9 @@ export default function User() {
       <Stack spacing={4}>
         <Heading>Таны захиалга</Heading>
         <Divider />
-        <Box>
-          <Accordion allowToggle defaultIndex={[0]}>
-            {orders.map((order: any) => <Order key={order.id} order={order} />)}
-          </Accordion>
-        </Box>
+        <Stack>
+          {orders.map((order: any) => <Order key={order.id} order={order} />)}
+        </Stack>
       </Stack>
     </Box>
   )
@@ -43,79 +42,27 @@ const Order = ({ order }: any) => {
   const { onOpen, setChild } = useModal()
 
   const handleOpen = () => {
-    setChild(<Payment order={order} />)
+    setChild(<PaymentModal order={order} />)
     onOpen()
   }
   return (
-    <AccordionItem>
-      <h2>
-        <AccordionButton>
-          <Flex w="100%" justifyContent={"space-between"}>
-            <HStack>
-              <Text display={["none", "block"]}>Захиалгын дугаар: </Text>
-              <Text fontWeight={"bold"}>{order.shortId}</Text>
-            </HStack>
-            <Tag colorScheme={"orange"}>{order.status}</Tag>
-          </Flex>
-          <AccordionIcon />
-        </AccordionButton>
-      </h2>
-      <AccordionPanel pb={4}>
-        <Stack spacing={5}>
-          <Button w="100%" colorScheme={"blue"} onClick={handleOpen}>Төлөх {`(${order.totalPrice}₮)`}</Button>
-          {order.items.map((item: any) => <OrderItem key={item.id} item={item} />)}
+    <Flex w="100%" justifyContent={"space-between"}>
+      <HStack>
+        <Box h="50px" w="50px">
+          <Image objectFit={"cover"} src={order.items[0]?.product.image} />
+        </Box>
+        <Text display={["none", "block"]}>Захиалгын дугаар: </Text>
+        <Stack spacing={0}>
+          <Text fontWeight={"bold"}>{order.shortId}</Text>
         </Stack>
-      </AccordionPanel>
-    </AccordionItem>
-  )
-}
-
-const OrderItem = ({ item }: any) => {
-  return (
-    <Grid borderBottom={"1px solid gray"} templateColumns={["repeat(1,1fr)", "repeat(3,1fr)"]} gap="5">
-      <Image w="100%" src={item.product.image} />
-      <Stack>
-        <Box>Үнэ: {item.totalPrice}</Box>
-        <Box>Тоо ширхэг: {item.quantity}</Box>
-        <Box>Төлөв: {item.status}</Box>
-        {/* <Button colorScheme={"red"} onClick={() => { }}><FaTrash /> ХАСАХ</Button> */}
-      </Stack>
-      <Box>
-        <Text>{item.description}</Text>
-      </Box>
-    </Grid>
-  )
-}
-
-const Payment = ({ order }: any) => {
-  const [bank, setBank] = useState({
-    "bank.name": "",
-    "bank.account": "",
-    "bank.reciver": ""
-  });
-  useEffect(() => {
-    axios({
-      baseURL: process.env.NEXT_PUBLIC_API_URL,
-      url: "/info/bank",
-      method: "get"
-    }).then((response) => {
-      setBank(response.data)
-    }).catch(console.log)
-  }, [])
-  return (
-    <Stack spacing={3}>
-      <Heading>Төлбөр төлөх</Heading>
-      <Divider />
-      <Box>
-        <Text>Захиалгын дугаар: {order.shortId}</Text>
-        <Text>Төлөх дүн: {order.totalPrice}</Text>
-      </Box>
-      <Divider />
-      <Box>
-        <Text>Банк: {bank["bank.name"]}</Text>
-        <Text>Дансны дугаар: {bank["bank.account"]}</Text>
-        <Text>Хүлээн авагч: {bank["bank.reciver"]}</Text>
-      </Box>
-    </Stack>
+      </HStack>
+      <HStack flexDirection={{ base: "column-reverse", md: "row" }} spacing={{base:0, md: 2}}>
+        <Tag fontSize={"12px"}>{order.totalPrice.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}₮</Tag>
+        <Button colorScheme={"blue"} onClick={handleOpen}>
+          Төлөх
+        </Button>
+        {/* <Tag colorScheme={"orange"}>{order.status}</Tag> */}
+      </HStack>
+    </Flex>
   )
 }

@@ -1,10 +1,11 @@
 import { useModal } from "@/src/context/ModalContext";
-import { Modal, ModalHeader, ModalCloseButton, ModalBody, ModalContent, ModalFooter } from "@chakra-ui/react"
+import { Modal, ModalHeader, ModalCloseButton, ModalBody, ModalContent, ModalFooter, ModalOverlay } from "@chakra-ui/react"
 
 export default function DefaulModal({ children, title, ...props }: any) {
   const { isOpen, onClose } = useModal()
   return (
     <Modal isOpen={isOpen} onClose={onClose} {...props}>
+      <ModalOverlay />
       <ModalContent>
         <ModalHeader>{title || ""}</ModalHeader>
         <ModalCloseButton />

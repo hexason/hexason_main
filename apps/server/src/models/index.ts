@@ -23,5 +23,5 @@ export {
   User,
   Wallet,
   Book,
-  BookImage
+  BookImage,
 };
