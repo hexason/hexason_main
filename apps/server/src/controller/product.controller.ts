@@ -17,7 +17,7 @@ import { ProductImages } from '../models';
 
 @Controller('product')
 export class ProductController {
-  constructor(@InjectDataSource() private readonly dataSource: DataSource) {}
+  constructor(@InjectDataSource() private readonly dataSource: DataSource) { }
 
   @Get()
   async getProducts() {
@@ -116,6 +116,7 @@ export class ProductController {
       image,
       itemType,
       status,
+      quantity,
       brand,
       images,
     }: ProductAddDTO,
@@ -135,15 +136,16 @@ export class ProductController {
     try {
       await queryRunner.manager.save(prodImages);
       prod.images = prodImages;
-      (prod.title = title),
-        (prod.description = description),
-        (prod.oldPrice = oldPrice),
-        (prod.price = price),
-        (prod.image = image),
-        (prod.itemType = itemType),
-        (prod.status = status),
-        (prod.brand = brand),
-        await queryRunner.manager.save(prod);
+      prod.title = title;
+      prod.description = description;
+      prod.oldPrice = oldPrice;
+      prod.price = price;
+      prod.image = image;
+      prod.itemType = itemType;
+      prod.status = status;
+      prod.brand = brand;
+      prod.quantity = quantity
+      await queryRunner.manager.save(prod);
       await queryRunner.commitTransaction();
       return prod;
     } catch (e) {
