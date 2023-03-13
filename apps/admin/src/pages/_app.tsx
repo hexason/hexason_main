@@ -8,6 +8,8 @@ import type { AppProps } from 'next/app'
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import Login from './login';
+import NextNProgress from "nextjs-progressbar"
+
 
 export default function App({ Component, pageProps }: AppProps) {
   const [user, setUser] = useState<User | null>(null);
@@ -50,11 +52,12 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <AuthContext.Provider value={{ user, setUser }}>
+      <NextNProgress />
       {loading ? "Loading..." :
-     user ? 
-        <LayoutBuilder>
-          <Component {...pageProps} />
-        </LayoutBuilder>: <Login />
+        user ?
+          <LayoutBuilder>
+            <Component {...pageProps} />
+          </LayoutBuilder> : <Login />
       }
     </AuthContext.Provider>
   )
