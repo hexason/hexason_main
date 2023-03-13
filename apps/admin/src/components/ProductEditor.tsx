@@ -74,6 +74,9 @@ export default function ProductEditor({ product }: any) {
       case "oldPrice":
         value = value.replace(/[^0-9]/g, '').replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
         break;
+      case "quantity":
+        value = value.replace(/[^0-9]/g, '')
+        break;
     }
     setInputs({
       ...inputs,
