@@ -57,9 +57,10 @@ const Order = ({ order }: any) => {
       </HStack>
       <HStack flexDirection={{ base: "column-reverse", md: "row" }} spacing={{base:0, md: 2}}>
         <Tag fontSize={"12px"}>{order.totalPrice.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}₮</Tag>
-        <Button colorScheme={"blue"} onClick={handleOpen}>
+        {order.status === "pending" ? <Button colorScheme={"blue"} onClick={handleOpen}>
           Төлөх
-        </Button>
+        </Button>: <Tag colorScheme={"blue"}>{order.status}</Tag>}
+        
         {/* <Tag colorScheme={"orange"}>{order.status}</Tag> */}
       </HStack>
     </Flex>

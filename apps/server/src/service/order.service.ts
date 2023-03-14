@@ -11,6 +11,15 @@ export class OrderService {
     this.orderItemRepo = this.dataSource.getRepository(OrderItem);
   }
 
+  async orderStatusChange(id: string, status: "pending" | "paid" | "delivered" | "done" | "cancel") {
+    const order = await this.orderRepo.findOneBy({ id })
+    if (!order) return null;
+    order.status = status
+    await this.orderRepo.save(order);
+    
+    return order;
+  }
+
   async getAllOrders() {
     const orders = await this.orderRepo.find({
       relations: ['items', 'items.product', 'user'],
