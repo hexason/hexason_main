@@ -4,7 +4,7 @@ import { useAxios } from "@/src/utils/axiosHook";
 import { Box, Divider, Flex, Heading, HStack, Stack, Text, Image, Button, Tag } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { useUser } from "../../src/context/UserContext";
+import { useUser } from "../../context/UserContext";
 
 export default function User() {
   const { user, loading } = useUser();

@@ -2,7 +2,7 @@ import '@/src/styles/globals.css'
 import type { AppProps } from 'next/app'
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import Root from "@/src/Root";
-import UserContextProvider from '../src/context/UserContext';
+import UserContextProvider from '../context/UserContext';
 import ReactGA from "react-ga4"
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';

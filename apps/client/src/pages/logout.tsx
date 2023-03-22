@@ -1,6 +1,6 @@
 import { Box } from "@chakra-ui/react";
 import { useEffect } from "react";
-import { useUser } from "../src/context/UserContext";
+import { useUser } from "../context/UserContext";
 import { useRouter } from "next/router";
 
 export default function Logout() {
