@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import axios, { Method } from "axios"
 
 export const useAxios = <T>(url:string, payload:Object, method: Method) => {
