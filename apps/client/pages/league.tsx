@@ -1,4 +1,4 @@
-import BookLibrary from "@/src/components/BookLibrary";
+import BookLibrary from "@/src/components/library/BookLibrary";
 import Reader from "@/src/components/Reader";
 import axios from "axios";
 import { NextPageContext } from "next";
