@@ -1,4 +1,4 @@
-import { Book, BookImage } from '../models';
+import { Book, BookImage } from '@/models/index';
 import {
   Body,
   Controller,

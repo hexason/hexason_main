@@ -8,12 +8,11 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { InjectDataSource } from '@nestjs/typeorm';
-import { Product } from '../models/product.model';
 import { DataSource } from 'typeorm';
 import { AdminJWTGuard } from '../middleware/admin_jwt.guard';
 import { ApiBearerAuth } from '@nestjs/swagger';
 import { ProductAddDTO } from './dto/ProductControllerDto';
-import { ProductImages } from '../models';
+import { Product, ProductImages } from '@/models/index';
 
 @Controller('product')
 export class ProductController {

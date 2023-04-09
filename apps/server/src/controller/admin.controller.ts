@@ -14,12 +14,12 @@ import {
   AdminLoginDTO,
   AdminTokenRefreshDTO,
 } from './dto/AdminControllerDto';
-import { Admin } from '../models';
+import { Admin } from '@/models/admin.model';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { hash, compare } from 'bcrypt';
 import { sign } from 'jsonwebtoken';
-import { AdminJWTGuard } from '../middleware/admin_jwt.guard';
-import { OrderService } from '../service/order.service';
+import { AdminJWTGuard } from '@/middleware/admin_jwt.guard';
+import { OrderService } from '@/service/order.service';
 
 @ApiTags('Admin')
 @Controller('admin')
@@ -27,7 +27,7 @@ export class AdminController {
   constructor(
     @InjectDataSource() private readonly datasource: DataSource,
     private readonly orderService: OrderService,
-  ) {}
+  ) { }
 
   @Post('login')
   async adminLogin(@Body() { username, password }: AdminLoginDTO) {

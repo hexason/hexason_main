@@ -2,13 +2,11 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TerminusModule } from '@nestjs/terminus';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AppController } from './app.controller';
-import { controllers } from './controller/inext';
-import { HealthController } from './health.controller';
-import { UserService } from './service/user.service';
-import { OrderService } from './service/order.service';
-import { AppService } from './service/app.service';
-import * as entities from './models';
+
+import * as controller from '@/controller';
+
+import * as entities from '@/models/index';
+import * as services from '@/service';
 
 @Module({
   imports: [
@@ -33,7 +31,7 @@ import * as entities from './models';
     }),
     TerminusModule,
   ],
-  providers: [UserService, OrderService, AppService],
-  controllers: [AppController, HealthController, ...controllers],
+  providers: Object.values(services),
+  controllers: Object.values(controller),
 })
 export class AppModule {}

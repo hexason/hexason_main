@@ -1,6 +1,6 @@
 import { InjectDataSource } from '@nestjs/typeorm';
-import { Order } from '../models/order';
-import { OrderItem } from '../models/order_item';
+import { Order } from '@/models/order';
+import { OrderItem } from '@/models/order_item';
 import { DataSource, Repository } from 'typeorm';
 
 export class OrderService {

@@ -1,4 +1,4 @@
-import { App } from '../models';
+import { App } from '../lib/models';
 import {
   Body,
   Controller,
