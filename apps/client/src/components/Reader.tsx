@@ -18,6 +18,12 @@ export default function Reader({ data }: any) {
             {data.images[i] ? <Image w="100%" src={data.images[i].url} /> : null}
           </Box>
         ))}
+        <Box>
+          {
+            paragraph.length < data.images.length ?
+            data.images.map((el:any, index:number) => index > paragraph.length - 1 ? <Image key={el.url+index} src={el.url} /> : null) : null
+          }
+        </Box>
       </Stack>
     </Box>
   )
