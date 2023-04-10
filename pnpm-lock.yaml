@@ -45,6 +45,7 @@ importers:
       '@apollo/client': ^3.7.3
       '@chakra-ui/icons': ^2.0.16
       '@chakra-ui/react': ^2.4.8
+      '@chakra-ui/system': ^2.5.5
       '@emotion/react': ^11.10.5
       '@emotion/styled': ^11.10.5
       '@next/font': 13.1.1
@@ -62,6 +63,7 @@ importers:
       eslint: 8.31.0
       eslint-config-next: 13.1.1
       framer-motion: ^8.4.2
+      mirox: workspace:^0.1.0
       next: 13.1.1
       nextjs-progressbar: ^0.0.16
       qrcode: ^1.5.1
@@ -77,6 +79,7 @@ importers:
       '@apollo/client': 3.7.7_gdcq4dv6opitr3wbfwyjmanyra
       '@chakra-ui/icons': 2.0.17_lze4h7kxffpjhokvtqbtrlfkmq
       '@chakra-ui/react': 2.4.9_25afuchw6ph7oyxitjqcvuz4ue
+      '@chakra-ui/system': 2.5.5_dovxhg2tvkkxkdnqyoum6wzcxm
       '@emotion/react': 11.10.5_jp5qgyg6plq757v5hojp7ls2oe
       '@emotion/styled': 11.10.5_jp5djshq6aqfasno3mth3hguci
       '@next/font': 13.1.1
@@ -92,6 +95,7 @@ importers:
       eslint: 8.31.0
       eslint-config-next: 13.1.1_iukboom6ndih5an6iafl45j2fe
       framer-motion: 8.5.5_biqbaboplfbrettd7655fr4n2y
+      mirox: link:../mirox
       next: 13.1.1_pjwopsidmaokadturxaafygjp4
       nextjs-progressbar: 0.0.16_next@13.1.1+react@18.2.0
       qrcode: 1.5.1
@@ -10217,7 +10221,7 @@ packages:
       react: '>= 16.0.0'
     dependencies:
       '@types/nprogress': 0.2.0
-      next: 13.1.1_biqbaboplfbrettd7655fr4n2y
+      next: 13.1.1_pjwopsidmaokadturxaafygjp4
       nprogress: 0.2.0
       prop-types: 15.8.1
       react: 18.2.0
