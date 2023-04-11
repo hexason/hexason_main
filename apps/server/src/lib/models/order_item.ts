@@ -7,14 +7,13 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { Order } from './order';
-import { Product } from '../schema/product.model';
 
 @Entity()
 export class OrderItem {
   @PrimaryGeneratedColumn()
   id: string;
 
-  @Column()
+  @Column({nullable: true})
   product: string;
 
   @ManyToOne(() => Order, (order) => order.items)
