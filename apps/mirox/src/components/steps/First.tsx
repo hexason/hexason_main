@@ -50,7 +50,7 @@ export default function FirstStep(props: DetailedHTMLProps<HTMLAttributes<HTMLDi
         transform={"translateY(-30px)"}
         color={"#000"}
         userSelect={"none"}
-        fontSize={["1rem","2rem"]}
+        fontSize={["1rem", "2rem"]}
       >
         {
           step < setences.length - 1 ?

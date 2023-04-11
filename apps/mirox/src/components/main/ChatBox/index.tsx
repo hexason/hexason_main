@@ -23,7 +23,7 @@ const ChatBox = () => {
     if (newMessage !== "") {
       axios({
         baseURL: process.env.NEXT_PUBLIC_AI_API,
-        url: "api/chat",
+        url: "ai/chat/ask",
         method: "post",
         data: {
           session,
