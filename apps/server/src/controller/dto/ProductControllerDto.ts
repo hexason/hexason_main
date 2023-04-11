@@ -1,7 +1,8 @@
+import { Item, Product } from '@/lib/schema';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsArray, IsIn, IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
 
-export class ProductAddDTO {
+export class ProductAddDTO implements Product {
   @ApiProperty()
   @IsNotEmpty()
   @IsString()
@@ -12,14 +13,18 @@ export class ProductAddDTO {
   description?: string;
 
   @ApiProperty()
-  @IsNotEmpty()
   @IsString()
-  brand?: string;
-  
+  bgColor: string;
+
   @ApiProperty()
   @IsNotEmpty()
   @IsString()
-  itemType?: string;
+  brand?: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  category: string;
 
   @ApiProperty()
   @IsString()
@@ -32,16 +37,7 @@ export class ProductAddDTO {
   @ApiProperty()
   @IsNumber()
   @IsOptional()
-  oldPrice?: number;
-
-  @ApiProperty()
-  @IsNumber()
-  @IsOptional()
-  sold?: number;
-
-  @ApiProperty()
-  @IsNumber()
-  quantity: number;
+  discount?: number;
 
   @ApiProperty()
   @IsIn(['active', 'inactive', 'draft'])
@@ -49,5 +45,17 @@ export class ProductAddDTO {
 
   @ApiProperty()
   @IsArray()
-  images: string[];
+  options: { configName: string; value: string; }[];
+
+  @ApiProperty()
+  @IsArray()
+  images: { url: string; blurHash: string; }[];
+  
+  @ApiProperty()
+  @IsArray()
+  items: Item[];
+
+  sold: number;
+  quantity: number;
+  supplier: string;
 }

@@ -21,14 +21,14 @@ export class Product {
   @Prop({ type: [Types.ObjectId], ref: "Category" })
   category: string;
 
-  @Prop()
+  @Prop({ default: "unknown" })
   brand?: string;
 
   @Prop({ type: Number, required: true })
   price: number;
 
-  @Prop({ type: Number })
-  oldPrice?: number;
+  @Prop({ type: Number, default: 0 })
+  discount?: number;
 
   @Prop({ default: 0 })
   sold: number;
@@ -39,17 +39,17 @@ export class Product {
   @Prop({ enum: ['active', 'inactive', 'draft'], required: true })
   status: string;
 
-  @Prop({ type: Types.ObjectId, ref: 'Supplier' })
+  @Prop({ type: Types.ObjectId, ref: 'Supplier', required: true })
   supplier: Supplier | string;
 
   @Prop({ type: [{ configName: String, value: String }] })
-  options: { configName: string, value: string };
+  options: { configName: string, value: string }[];
 
   @Prop({ type: [{ type: { image: String, blurHash: String } }] })
   images: { url: string, blurHash: string }[];
 
   @Prop({ type: [{ type: Types.ObjectId, ref: 'Item' }] })
-  items: Item[];
+  items: Item[] | Types.ObjectId[];
 }
 
 export const ProductSchema = SchemaFactory.createForClass(Product);

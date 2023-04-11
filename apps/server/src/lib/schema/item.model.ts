@@ -1,26 +1,27 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose"
+import { Types } from "mongoose";
 
-@Schema({timestamps: true})
+@Schema({ timestamps: true })
 export class Item {
-  @Prop()
+  @Prop({ required: true })
   altTxt: string;
 
   @Prop()
   image: string;
 
-  @Prop()
+  @Prop({ required: true })
   sku: string; // stock keeping unit
 
   @Prop()
   upc: string; // universal product code
 
-  @Prop()
+  @Prop({ required: true })
   price: string;
 
-  @Prop()
+  @Prop({ required: true })
   stock: number;
 
-  @Prop({ref: 'Product'})
+  @Prop({ type: Types.ObjectId, ref: 'Product', required: true })
   product: string;
 }
 

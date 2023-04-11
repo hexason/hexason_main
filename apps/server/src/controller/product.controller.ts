@@ -27,7 +27,7 @@ export class ProductController {
 
   @Get(':id')
   async getProduct(@Param('id') id: string) {
-    return {id};
+    return { id };
   }
 
   @UseGuards(AdminJWTGuard)
@@ -37,15 +37,19 @@ export class ProductController {
     @Body()
     {
       title,
-      description,
-      oldPrice,
-      price,
       image,
-      itemType,
+      description,
+      bgColor,
+      category,
+      brand,
+      price,
+      discount,
+      sold,
       quantity,
       status,
-      brand,
-      images,
+      supplier,
+      options,
+      images
     }: ProductAddDTO,
   ) {
     return {}
@@ -59,17 +63,21 @@ export class ProductController {
     @Body()
     {
       title,
-      description,
-      oldPrice,
-      price,
       image,
-      itemType,
-      status,
-      quantity,
+      description,
+      bgColor,
+      category,
       brand,
-      images,
+      price,
+      discount,
+      sold,
+      quantity,
+      status,
+      supplier,
+      options,
+      images
     }: ProductAddDTO,
   ) {
-   return {}
+    return {}
   }
 }
