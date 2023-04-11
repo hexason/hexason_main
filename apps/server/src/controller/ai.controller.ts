@@ -1,5 +1,5 @@
-import { EXPLAIN_TO_GPT } from "@/lib/data/train";
-import { Body, Controller, HttpException, Post } from "@nestjs/common";
+import { ABOUT_BEATHOSTEL, EXPLAIN_TO_GPT } from "@/lib/data/train";
+import { Body, Controller, HttpException, Post, Query } from "@nestjs/common";
 import { ChatCompletionRequestMessage, Configuration, OpenAIApi } from "openai"
 
 let sessions: any = {}
@@ -25,11 +25,11 @@ export class AiCcontroller {
   }
 
   @Post("chat/ask")
-  async chatAsk(@Body() { session, message }: any) {
+  async chatAsk(@Body() { session, message }: any, @Query() { provider }: any) {
     if (!session) throw new HttpException({ message: "session required" }, 400);
     if (!sessions[session]) sessions[session] = [
       {
-        "role": "system", "content": EXPLAIN_TO_GPT,
+        "role": "system", "content": provider === "beat" ? ABOUT_BEATHOSTEL : EXPLAIN_TO_GPT,
       }
     ];
     const en = { role: "user", content: message }
