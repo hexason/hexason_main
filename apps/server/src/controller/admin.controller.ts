@@ -14,7 +14,7 @@ import {
   AdminLoginDTO,
   AdminTokenRefreshDTO,
 } from './dto/AdminControllerDto';
-import { Admin } from '@/models/admin.model';
+import { Admin } from '@/lib/models/admin.model';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { hash, compare } from 'bcrypt';
 import { sign } from 'jsonwebtoken';

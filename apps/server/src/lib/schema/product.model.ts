@@ -18,7 +18,7 @@ export class Product {
   @Prop({})
   bgColor?: string;
 
-  @Prop()
+  @Prop({ type: [Types.ObjectId], ref: "Category" })
   category: string;
 
   @Prop()

@@ -1,12 +1,14 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TerminusModule } from '@nestjs/terminus';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import * as controller from '@/controller';
 
-import * as entities from '@/models/index';
+import * as entities from '@/lib/models/index';
+import { SchemaFormats } from "@/lib/schema/index"
 import * as services from '@/service';
+import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
   imports: [
@@ -14,6 +16,13 @@ import * as services from '@/service';
       isGlobal: true,
       envFilePath: ['.env.local'],
     }),
+    MongooseModule.forRootAsync({
+      useFactory: async () => ({
+        uri: process.env.MONGO_URL
+      }),
+      inject: [ConfigService]
+    }),
+    MongooseModule.forFeature(SchemaFormats),
     TypeOrmModule.forRootAsync({
       useFactory: () => ({
         type: 'postgres',
@@ -34,4 +43,4 @@ import * as services from '@/service';
   providers: Object.values(services),
   controllers: Object.values(controller),
 })
-export class AppModule {}
+export class AppModule { }

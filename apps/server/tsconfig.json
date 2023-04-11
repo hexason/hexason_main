@@ -18,8 +18,7 @@
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
     "paths": {
-      "@/*": ["src/*"],
-      "@/models/*": ["src/lib/models/*"],
+      "@/*": ["src/*"]
     }
   }
 }
