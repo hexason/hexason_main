@@ -3,9 +3,9 @@ import { Document, Types } from "mongoose";
 
 export type CategoryDocument = Category & Document;
 
-@Schema()
+@Schema({ timestamps: true })
 export class Category {
-  @Prop({ required: true })
+  @Prop({ required: true, unique: true })
   name: string;
 
   @Prop({ type: String })
@@ -19,12 +19,6 @@ export class Category {
 
   @Prop({ type: Number, default: 0 })
   order?: number;
-
-  @Prop({ type: Date, default: Date.now })
-  createdAt: Date;
-
-  @Prop({ type: Date, default: Date.now })
-  updatedAt: Date;
 }
 
 export const CategorySchema = SchemaFactory.createForClass(Category);

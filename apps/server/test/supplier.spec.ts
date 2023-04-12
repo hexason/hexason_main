@@ -2,7 +2,7 @@ import { AppModule } from '@/app.module';
 import { SupplierService } from '@/service';
 import { Test } from '@nestjs/testing';
 
-describe('Product Service', () => {
+describe('Supplier Service', () => {
   let service: SupplierService;
 
   beforeAll(async () => {
@@ -14,7 +14,7 @@ describe('Product Service', () => {
   });
 
   describe('createSupplier', () => {
-    it('should return an product', async () => {
+    it('should return an supplier', async () => {
       try {
         const res = await service.createSupplier({
           name: "hexason",
