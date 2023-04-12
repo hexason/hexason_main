@@ -1,7 +1,6 @@
 import AuthForm from '@/components/core/AuthForm';
 import { supabase } from '@/lib/Supabase';
 import { SupabaseAuthSession } from '@/lib/types';
-import { Auth } from '@supabase/auth-ui-react';
 import { Session } from '@supabase/supabase-js';
 import { createContext, useContext, useEffect, useState } from 'react';
 
