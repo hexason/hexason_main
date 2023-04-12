@@ -21,4 +21,11 @@ export class Category {
   order?: number;
 }
 
-export const CategorySchema = SchemaFactory.createForClass(Category);
+const CategorySchema = SchemaFactory.createForClass(Category);
+CategorySchema.set('toJSON', {
+  virtuals: true
+});
+CategorySchema.virtual('id').get(function () {
+  return this._id.toHexString();
+});
+export { CategorySchema };

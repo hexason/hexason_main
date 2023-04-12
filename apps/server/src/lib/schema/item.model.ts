@@ -25,4 +25,12 @@ export class Item {
   product: string;
 }
 
-export const ItemSchema = SchemaFactory.createForClass(Item);
+const ItemSchema = SchemaFactory.createForClass(Item);
+ItemSchema.set('toJSON', {
+  virtuals: true
+});
+ItemSchema.virtual('id').get(function () {
+  return this._id.toHexString();
+});
+
+export { ItemSchema }

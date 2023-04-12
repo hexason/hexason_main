@@ -52,4 +52,13 @@ export class Product {
   items: Item[] | Types.ObjectId[];
 }
 
-export const ProductSchema = SchemaFactory.createForClass(Product);
+
+const ProductSchema = SchemaFactory.createForClass(Product);
+ProductSchema.set('toJSON', {
+  virtuals: true
+});
+ProductSchema.virtual('id').get(function () {
+  return this._id.toHexString();
+});
+
+export { ProductSchema }

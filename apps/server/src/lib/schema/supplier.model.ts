@@ -21,4 +21,11 @@ export class Supplier {
   score: 0
 }
 
-export const SupplierSchema = SchemaFactory.createForClass(Supplier);
+const SupplierSchema = SchemaFactory.createForClass(Supplier);
+SupplierSchema.set('toJSON', {
+  virtuals: true
+});
+SupplierSchema.virtual('id').get(function () {
+  return this._id.toHexString();
+});
+export { SupplierSchema }
