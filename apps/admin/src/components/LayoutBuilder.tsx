@@ -1,7 +1,6 @@
 import { Grid, GridItem } from "@chakra-ui/react";
 import Sidebar from "./core/Sidebar";
 import Navbar from "./core/Navbar";
-import { useEffect, useState } from "react";
 
 export default function LayoutBuilder({ children }: any) {
   return (

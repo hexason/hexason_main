@@ -9,7 +9,7 @@ const buttons = [
     txt: "Home"
   },
   {
-    url: "/test",
+    url: "/page/test",
     txt: "Test"
   },
 ]

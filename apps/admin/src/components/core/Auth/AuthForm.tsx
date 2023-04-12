@@ -61,7 +61,7 @@ export default function AuthForm({ supabaseClient }: { supabaseClient: SupabaseC
       </form>
       <Divider />
       <Button borderRadius={"20px"} onClick={signInWithGoogle}>
-        <Image h="50%" src={"/icon/google.png"} mr={2} /> Google
+        <Image h="50%" src={"/icon/google.png"} mr={2} alt="Google" /> Google
       </Button>
     </Stack>
   )
