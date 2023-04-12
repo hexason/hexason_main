@@ -2,17 +2,23 @@ import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 
 @Schema({ timestamps: true })
 export class Supplier {
-  @Prop()
-  title: string;
+  @Prop({ required: true, unique: true })
+  name: string;
+
+  @Prop({ required: true })
+  description: string;
 
   @Prop()
-  description: string;
+  logo: string;
 
   @Prop()
   location: string;
 
   @Prop()
-  review: string;
+  supplierType: "premium" | "person" | "commerce"
+
+  @Prop()
+  score: 0
 }
 
 export const SupplierSchema = SchemaFactory.createForClass(Supplier);
