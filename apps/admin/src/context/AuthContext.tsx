@@ -1,12 +1,39 @@
-import { createContext } from 'react';
-import { User } from '../hooks/useUser';
+import AuthForm from '@/components/core/AuthForm';
+import { supabase } from '@/lib/Supabase';
+import { SupabaseAuthSession } from '@/lib/types';
+import { Auth } from '@supabase/auth-ui-react';
+import { Session } from '@supabase/supabase-js';
+import { createContext, useContext, useEffect, useState } from 'react';
 
-interface AuthContext {
-  user: User | null;
-  setUser: (user: User | null) => void;
+export const AuthContext = createContext<SupabaseAuthSession>({ session: null });
+export const AuthContextProvider = ({ children }: any) => {
+  const [session, setSession] = useState<Session | null>(null)
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session)
+    })
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session)
+    })
+
+    return () => subscription.unsubscribe()
+  }, [])
+
+  if (!session) {
+    return (<AuthForm supabaseClient={supabase} />)
+  }
+  else {
+    return (
+      <AuthContext.Provider value={{
+        session
+      }}>
+        {children}
+      </AuthContext.Provider>
+    )
+  }
 }
-
-export const AuthContext = createContext<AuthContext>({
-  user: null,
-  setUser: () => {},
-});
+export const useAuth = () => useContext(AuthContext);
