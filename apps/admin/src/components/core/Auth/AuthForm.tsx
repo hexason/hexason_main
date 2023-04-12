@@ -1,4 +1,4 @@
-import { Button, Divider, Input, Stack, useToast } from "@chakra-ui/react";
+import { Button, Divider, Image, Input, Stack, useToast } from "@chakra-ui/react";
 import { SupabaseClient } from "@supabase/supabase-js";
 import { useState } from "react";
 
@@ -29,7 +29,7 @@ export default function AuthForm({ supabaseClient }: { supabaseClient: SupabaseC
   const signInWithPassword = async (e: any) => {
     e.preventDefault();
     setLoading(true);
-    const { data, error } = await supabaseClient.auth.signInWithPassword(userInput);
+    const { error } = await supabaseClient.auth.signInWithPassword(userInput);
     if (error) {
       toast({
         title: "Error",
@@ -54,13 +54,15 @@ export default function AuthForm({ supabaseClient }: { supabaseClient: SupabaseC
     <Stack spacing={5} p={3}>
       <form onSubmit={signInWithPassword} >
         <Stack>
-          <Input onChange={handleInput} type="email" name="email" placeholder="Username" />
+          <Input onChange={handleInput} type="email" name="email" placeholder="Email" />
           <Input onChange={handleInput} type="password" name="password" placeholder="Password" />
-          <Button isLoading={loading} type="submit" borderRadius={"20px"} onClick={() => { }}>Log In</Button>
+          <Button colorScheme="blue" border="1px solid #fff" isLoading={loading} type="submit" borderRadius={"20px"} onClick={() => { }}>Log In</Button>
         </Stack>
       </form>
       <Divider />
-      <Button borderRadius={"20px"} onClick={signInWithGoogle}>Google</Button>
+      <Button borderRadius={"20px"} onClick={signInWithGoogle}>
+        <Image h="50%" src={"/icon/google.png"} mr={2} /> Google
+      </Button>
     </Stack>
   )
 }
