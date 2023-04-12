@@ -4,7 +4,8 @@ export default function AuthLayout({ children, ...props }: any) {
   return (
     <Box
       w="100%"
-      bg={"linear-gradient(to right, #373b44, #4286f4)"}
+      bg={"#28243D"}
+      color="white"
       position={"absolute"}
       zIndex={100}
       top={0}
