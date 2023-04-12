@@ -12,10 +12,10 @@ export class Category {
   description?: string;
 
   @Prop({ type: Types.ObjectId, ref: "Category" })
-  children: Category[];
+  children: (Category | Types.ObjectId)[];
 
   @Prop({ type: Types.ObjectId, ref: "Category" })
-  parent?: Category;
+  parent?: Category | Types.ObjectId;
 
   @Prop({ type: Number, default: 0 })
   order?: number;

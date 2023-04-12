@@ -1,4 +1,5 @@
 import { Category } from "@/lib/schema";
+import { CategoryCreateType } from "@/lib/types";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
 
@@ -9,7 +10,7 @@ export class CategoryService {
     name,
     description,
     parent,
-  }) {
+  }: CategoryCreateType) {
     if (await this.categoryModel.findOne({ name })) throw { code: "DUPLICABLE_DATA", message: "Category exist" }
     const category = new this.categoryModel({
       name,
@@ -19,10 +20,10 @@ export class CategoryService {
 
     await category.save();
     if (parent) {
-      parent = await this.categoryModel.findById(parent);
+      const parentCategory = await this.categoryModel.findById(parent);
       if (!parent) throw { code: "NOT_FOUND_DATA", message: "Category not found" }
-      parent.children.push(category._id);
-      await parent.save();
+      parentCategory.children.push(category._id);
+      await parentCategory.save();
     }
 
     return category;
