@@ -18,9 +18,9 @@ export class ProductService {
   }
 
   async getOneProductById(id: string) {
-    if(!Types.ObjectId.isValid(id)) throw {code: "FORMAT", message: "Check product id carefully"}
+    if (!Types.ObjectId.isValid(id)) throw { code: "FORMAT", message: "Check product id carefully" }
     const product = await this.productModel.findById(id);
-    if(!product) throw { code: "NOT_FOUND_DATA", message: "Product not found" }
+    if (!product) throw { code: "NOT_FOUND_DATA", message: "Product not found" }
     return product;
   }
 
@@ -39,7 +39,6 @@ export class ProductService {
     images,
     items
   }: ProductAddDTO) {
-
     if (!Types.ObjectId.isValid(supplier)) throw { code: "FORMAT", message: "Supplier is not valid ID" }
     if (!Types.ObjectId.isValid(category)) throw { code: "FORMAT", message: "Category is not valid ID" }
     let product = new this.productModel({
