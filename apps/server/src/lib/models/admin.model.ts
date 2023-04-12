@@ -11,6 +11,9 @@ export class Admin {
   @Column()
   username: string;
 
+  @Column({ unique: true })
+  email: string;
+
   @Column()
   credential: string;
 

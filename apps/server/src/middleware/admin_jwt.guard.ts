@@ -1,10 +1,14 @@
-import { ExecutionContext, Injectable } from '@nestjs/common';
+import { AdminService } from '@/service/admin.service';
+import { CanActivate, ExecutionContext, Inject, Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { verify } from 'jsonwebtoken';
 
 @Injectable()
-export class AdminJWTGuard {
-  constructor(private reflector: Reflector) {}
+export class AdminJWTGuard implements CanActivate {
+  constructor(
+    private reflector: Reflector,
+    @Inject(AdminService) private readonly adminService: AdminService
+  ) { }
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
@@ -12,8 +16,8 @@ export class AdminJWTGuard {
     try {
       const { authorization } = request.headers;
       const token = authorization.split(' ')[1];
-      const payload = verify(token, process.env.SUPER_SECRET) as any;
-
+      const payload = verify(token, process.env.SUPABASE_SECRET) as any;
+      console.log(await this.adminService.getAdminByEmail({email: payload.email}));
       request.user = payload;
       return true;
     } catch (e) {
