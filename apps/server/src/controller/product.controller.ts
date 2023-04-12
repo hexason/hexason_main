@@ -7,27 +7,29 @@ import {
   Post,
   UseGuards,
 } from '@nestjs/common';
-import { InjectDataSource } from '@nestjs/typeorm';
-import { DataSource } from 'typeorm';
 import { AdminJWTGuard } from '../middleware/admin_jwt.guard';
 import { ApiBearerAuth } from '@nestjs/swagger';
 import { ProductAddDTO } from './dto/ProductControllerDto';
+import { ProductService } from '@/service';
 
 @Controller('product')
 export class ProductController {
-  constructor(@InjectDataSource() private readonly dataSource: DataSource) { }
+  constructor(private readonly productService: ProductService) { }
 
   @Get()
   async getProducts() {
+    const products = await this.productService.getProducts();
     return {
-      count: 0,
-      items: [],
+      count: products.length,
+      items: products,
     };
   }
 
   @Get(':id')
   async getProduct(@Param('id') id: string) {
-    return { id };
+    const product = await this.productService.getOneProductById(id)
+      .catch(e => { throw new HttpException(e, 400) });
+    return product;
   }
 
   @UseGuards(AdminJWTGuard)
