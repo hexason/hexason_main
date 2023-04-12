@@ -1,5 +1,5 @@
 import LayoutBuilder from '@/components/LayoutBuilder';
-import DefaultAnimate from '@/components/core/Animation/DefaultAnimate';
+import DefaultAnimate from '@/components/animation/DefaultAnimate';
 import AuthForm from '@/components/core/Auth/AuthForm';
 import AuthLayout from '@/components/core/Auth/AuthLayout';
 import { supabase } from '@/lib/Supabase';

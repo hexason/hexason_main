@@ -1,5 +1,6 @@
-import { Box, Grid, GridItem } from "@chakra-ui/react";
+import { Grid, GridItem } from "@chakra-ui/react";
 import Sidebar from "./core/Sidebar";
+import Navbar from "./core/Navbar";
 
 export default function LayoutBuilder({ children }: any) {
   return (
@@ -12,7 +13,7 @@ export default function LayoutBuilder({ children }: any) {
         <Sidebar />
       </GridItem>
       <GridItem colSpan={7} p={1}>
-        <Box>Header</Box>
+        <Navbar />
         {children}
       </GridItem>
     </Grid>
