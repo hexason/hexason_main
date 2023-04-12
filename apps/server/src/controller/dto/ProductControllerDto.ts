@@ -1,8 +1,9 @@
-import { Item, Product } from '@/lib/schema';
+import { ProductI } from '@/lib/interfaces';
+import { Item } from '@/lib/schema';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsArray, IsIn, IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
 
-export class ProductAddDTO implements Product {
+export class ProductAddDTO implements ProductI {
   @ApiProperty()
   @IsNotEmpty()
   @IsString()

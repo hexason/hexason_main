@@ -2,10 +2,11 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Types } from 'mongoose';
 import { Item } from './item.model';
 import { Supplier } from './supplier.model';
+import { ProductI } from '../interfaces';
 
 export type ProductDocument = Product & Document;
 @Schema({ timestamps: true })
-export class Product {
+export class Product implements ProductI {
   @Prop({ required: true })
   title: string;
 
@@ -18,7 +19,7 @@ export class Product {
   @Prop({})
   bgColor?: string;
 
-  @Prop({ type: [Types.ObjectId], ref: "Category" })
+  @Prop({ type: [Types.ObjectId], ref: "Category", required: true })
   category: string;
 
   @Prop({ default: "unknown" })

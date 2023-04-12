@@ -1,8 +1,10 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose"
 import { Types } from "mongoose";
+import { ItemI } from "../interfaces";
+import { Product } from "./product.model";
 
 @Schema({ timestamps: true })
-export class Item {
+export class Item implements ItemI{
   @Prop({ required: true })
   altTxt: string;
 
@@ -22,7 +24,7 @@ export class Item {
   stock: number;
 
   @Prop({ type: Types.ObjectId, ref: 'Product', required: true })
-  product: string;
+  product: Product | Types.ObjectId;
 }
 
 const ItemSchema = SchemaFactory.createForClass(Item);
