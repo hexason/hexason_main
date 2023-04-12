@@ -1,8 +1,28 @@
 import { useAuth } from "@/context/AuthContext";
 import { Stack, Button, Box, Divider } from "@chakra-ui/react";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+
+const buttons = [
+  {
+    url: "/",
+    txt: "Home"
+  },
+  {
+    url: "/test",
+    txt: "Test"
+  },
+]
 
 export default function Sidebar() {
+  const [active, setActive] = useState("");
   const { session, supabase } = useAuth();
+  const router = useRouter();
+  useEffect(() => {
+    if (router.isReady) {
+      setActive(router.pathname)
+    }
+  }, [router])
 
   return (
     <Stack>
@@ -11,12 +31,9 @@ export default function Sidebar() {
           {session?.user.email}
         </Box>
         <Divider />
-        <SidebarButton isActive={true}>
-          Menu
-        </SidebarButton>
-        <SidebarButton>
-          Not active
-        </SidebarButton>
+        {buttons.map(el => <SidebarButton
+          onClick={() => router.push(el.url)}
+          isActive={el.url === active} key={el.url}>{el.txt}</SidebarButton>)}
       </Stack>
       <Divider />
       <Stack p={3}>
@@ -26,9 +43,10 @@ export default function Sidebar() {
   )
 }
 
-function SidebarButton({ children, isActive }: any) {
+function SidebarButton({ children, isActive, onClick }: any) {
   return (
-    <Box
+    <Button
+      colorScheme=""
       bg={isActive && "linear-gradient(98deg, rgb(198, 167, 254), rgb(145, 85, 253) 94%)"}
       borderRadius={"0 20px 20px 0"}
       p={1}
@@ -38,8 +56,9 @@ function SidebarButton({ children, isActive }: any) {
         bg: isActive ? "linear-gradient(98deg, rgb(198, 167, 254), rgb(145, 85, 253) 94%)" : "gray.400"
       }}
       transition={"0.3s"}
+      onClick={onClick}
     >
       {children}
-    </Box>
+    </Button>
   )
 }

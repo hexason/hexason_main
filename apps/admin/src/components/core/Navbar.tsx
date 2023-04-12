@@ -4,7 +4,7 @@ export default function Navbar() {
   return (
     <HStack justifyContent={"space-between"} p={4}>
       <HStack>
-        <Box>Ху</Box>
+        <Box></Box>
       </HStack>
       <HStack
         alignItems={"center"}
