@@ -10,5 +10,5 @@ export type SupplierCreateType = {
   name: string,
   description: string,
   logo: string,
-  location: string;
+  location?: string;
 }
