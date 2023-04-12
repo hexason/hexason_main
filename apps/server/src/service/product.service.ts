@@ -12,7 +12,7 @@ export class ProductService {
   ) { }
 
   async getProducts() {
-    const product = await this.productModel.find({});
+    const product = await this.productModel.find({}).populate(["supplier", "category"]);
     return product;
   }
 

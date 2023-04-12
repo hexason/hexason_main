@@ -15,7 +15,8 @@ describe('Product Service', () => {
 
   describe('getProducts', () => {
     it('should return an array of product', async () => {
-      expect(await productService.getProducts()).toBeDefined();
+      const products = await productService.getProducts();
+      expect(products).toBeDefined();
     });
   });
 
@@ -31,8 +32,8 @@ describe('Product Service', () => {
           discount: 0,
           "sold": 0,
           "quantity": 0,
-          supplier: "test",
-          category: "test",
+          supplier: "64364d4829aeda71de8a6fa6",
+          category: "643652045afd39516f042376",
           options: [],
           images: [],
           bgColor: "",

@@ -21,7 +21,7 @@ describe('Category Service', () => {
         parent: "",
       })
         .then(res => expect(res.name).toBe("other"))
-        .catch(e => expect(e.code).toBe("DUPLICAPLE_DATA"))
+        .catch(e => expect(e.code).toBe("DUPLICABLE_DATA"))
     })
   })
 })
