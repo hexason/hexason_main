@@ -1,3 +1,4 @@
+import LayoutBuilder from '@/components/LayoutBuilder';
 import DefaultAnimate from '@/components/core/Animation/DefaultAnimate';
 import AuthForm from '@/components/core/Auth/AuthForm';
 import AuthLayout from '@/components/core/Auth/AuthLayout';
@@ -30,11 +31,15 @@ export const AuthContextProvider = ({ children }: any) => {
       supabase
     }}>
       <DefaultAnimate>
-        {session ? children : (
-          <AuthLayout>
-            <AuthForm supabaseClient={supabase} />
-          </AuthLayout>
-        )}
+        {session ?
+          <LayoutBuilder>
+            {children}
+          </LayoutBuilder>
+          : (
+            <AuthLayout>
+              <AuthForm supabaseClient={supabase} />
+            </AuthLayout>
+          )}
       </DefaultAnimate>
     </AuthContext.Provider>
   )
