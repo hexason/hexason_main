@@ -13,7 +13,6 @@ importers:
       '@chakra-ui/react': ^2.5.5
       '@emotion/react': ^11.10.6
       '@emotion/styled': ^11.10.6
-      '@supabase/auth-ui-react': ^0.3.5
       '@supabase/supabase-js': ^2.20.0
       '@types/node': 18.11.18
       '@types/react': 18.0.26
@@ -33,7 +32,6 @@ importers:
       '@chakra-ui/react': 2.5.5_6enkwwntgdinrkntwutn4vtdly
       '@emotion/react': 11.10.6_kzbn2opkn2327fwg5yzwzya5o4
       '@emotion/styled': 11.10.6_qry7xzgsc55pr5ngbiorqn3fpa
-      '@supabase/auth-ui-react': 0.3.5_ghb6skat2wscrlzdhxa36qq744
       '@supabase/supabase-js': 2.20.0
       '@types/node': 18.11.18
       '@types/react': 18.0.26
@@ -4915,31 +4913,6 @@ packages:
 
   /@sqltools/formatter/1.2.5:
     resolution: {integrity: sha512-Uy0+khmZqUrUGm5dmMqVlnvufZRSK0FbYzVgp0UMstm+F5+W2/jnEEQyc9vo1ZR/E5ZI/B1WjjoTqBqwJL6Krw==}
-    dev: false
-
-  /@stitches/core/1.2.8:
-    resolution: {integrity: sha512-Gfkvwk9o9kE9r9XNBmJRfV8zONvXThnm1tcuojL04Uy5uRyqg93DC83lDebl0rocZCfKSjUv+fWYtMQmEDJldg==}
-    dev: false
-
-  /@supabase/auth-ui-react/0.3.5_ghb6skat2wscrlzdhxa36qq744:
-    resolution: {integrity: sha512-3X9rlLwQliRZ386qFjsCdHvMYQIzAByXT4uWcHssFIX4s0ymwkIH49UJDb6vtpswDV4z9ZOxF0igPZyEyZT32w==}
-    peerDependencies:
-      '@supabase/supabase-js': ^2.8.0
-    dependencies:
-      '@stitches/core': 1.2.8
-      '@supabase/auth-ui-shared': 0.1.3_ghb6skat2wscrlzdhxa36qq744
-      '@supabase/supabase-js': 2.20.0
-      prop-types: 15.8.1
-      react: 18.2.0
-      react-dom: 18.2.0_react@18.2.0
-    dev: false
-
-  /@supabase/auth-ui-shared/0.1.3_ghb6skat2wscrlzdhxa36qq744:
-    resolution: {integrity: sha512-GoyW+3EiDcy+sQdmdkezx9fpsRSogHJwTdzxgf79PjyLbpyAKCnTVhOB02tiMHZ0uIZ+afAQ8CmNEwwxwHVnJw==}
-    peerDependencies:
-      '@supabase/supabase-js': ^2.8.0
-    dependencies:
-      '@supabase/supabase-js': 2.20.0
     dev: false
 
   /@supabase/functions-js/2.0.0:
