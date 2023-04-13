@@ -4,6 +4,9 @@ import ProductDetail from "./ProductDetail";
 import { useAxios } from "@/hooks/useAxios";
 import DefaultAnimate from "../animation/DefaultAnimate";
 import ThreeDotsWave from "../animation/ThreeDotsWave";
+import { motion } from "framer-motion";
+import { TrashIcon } from "@/assets/icons"
+
 
 export default function TableList() {
   const [products, setProducts] = useState<any>([]);
@@ -49,7 +52,18 @@ export default function TableList() {
               <Thead>
                 <Tr>
                   <Th>
-                    <Checkbox isChecked={checkedProducts.length === products.length} onChange={(e) => checkAllProducts(e.target.checked)} />
+                    <HStack>
+                      <Checkbox isChecked={checkedProducts.length === products.length} onChange={(e) => checkAllProducts(e.target.checked)} />
+                      <Button
+                        as={motion.button}
+                        initial={{ opacity: checkedProducts.length > 0 ? 0 : 1, rotate: checkedProducts.length > 0 ? "360deg" : "0deg" }}
+                        animate={{ opacity: checkedProducts.length > 0 ? 1 : 0, rotate: checkedProducts.length > 0 ? "0deg" : "360deg" }}
+                        transition={{ duration: "0.5s" }}
+                        colorScheme="blackAlpha"
+                        p={3}
+                        onClick={() => setCheckProducts([])}
+                      ><TrashIcon height={20} fill={"white"} /></Button>
+                    </HStack>
                   </Th>
                   <Th>Title</Th>
                   <Th>Image</Th>
