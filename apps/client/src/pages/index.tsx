@@ -1,8 +1,7 @@
-import { Container, Divider, Stack } from '@chakra-ui/react'
+import { Container, Stack } from '@chakra-ui/react'
 import axios from 'axios';
 import Head from 'next/head';
 import BookLibrary from '@/src/components/library/BookLibrary';
-import ProductLibrary from '@/src/components/library/ProductLibrary';
 
 export default function Home({ app }: any) {
   return (
@@ -19,8 +18,6 @@ export default function Home({ app }: any) {
       <Container mt="10px" minW="100%">
         <Stack>
           <BookLibrary />
-          <Divider />
-          <ProductLibrary />
         </Stack>
       </Container>
     </>
