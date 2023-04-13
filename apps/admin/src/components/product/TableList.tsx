@@ -2,6 +2,8 @@ import { Button, Checkbox, HStack, Image, Modal, ModalBody, ModalCloseButton, Mo
 import { useEffect, useState } from "react";
 import ProductDetail from "./ProductDetail";
 import { useAxios } from "@/hooks/useAxios";
+import DefaultAnimate from "../animation/DefaultAnimate";
+import ThreeDotsWave from "../animation/ThreeDotsWave";
 
 export default function TableList() {
   const [products, setProducts] = useState<any>([]);
@@ -21,25 +23,29 @@ export default function TableList() {
     })
       .then(({ data }) => setProducts(data.items))
       .catch(e => {
-        if(e.isPermission) setProducts(null)
+        if (e.isPermission) setProducts(null)
       })
   }, [axios])
 
   if (!products) return <>No Permission</>
 
   return (
-    <>
-      <TableContainer>
-        <Table variant={"striped"} colorScheme="blackAlpha">
-          <Thead>
-            <TableHeaderRow />
-          </Thead>
-          <Tbody>
-            {products.map((item: any) => <TableBodyRow key={item.id} data={item} actions={{ selectProduct }} />)}
-          </Tbody>
-        </Table>
-      </TableContainer>
-      <Modal isOpen={isOpen} onClose={onClose} size={"xl"}>
+    <DefaultAnimate>
+      {products.length === 0 ? <ThreeDotsWave /> :
+        <DefaultAnimate>
+          <TableContainer>
+            <Table variant={"striped"} colorScheme="blackAlpha">
+              <Thead>
+                <TableHeaderRow />
+              </Thead>
+              <Tbody>
+                {products.map((item: any) => <TableBodyRow key={item.id} data={item} actions={{ selectProduct }} />)}
+              </Tbody>
+            </Table>
+          </TableContainer>
+        </DefaultAnimate>
+      }
+      <Modal isOpen={isOpen} onClose={onClose} size={"4xl"}>
         <ModalOverlay />
         <ModalContent bg="#28243D" color="gray.200">
           <ModalHeader>
@@ -51,7 +57,7 @@ export default function TableList() {
           </ModalBody>
         </ModalContent>
       </Modal>
-    </>
+    </DefaultAnimate>
   )
 }
 
