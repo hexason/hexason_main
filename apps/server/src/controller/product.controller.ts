@@ -16,7 +16,7 @@ import { ProductService } from '@/service';
 export class ProductController {
   constructor(private readonly productService: ProductService) { }
 
-  @Get()
+  @Get("list")
   async getProducts() {
     const products = await this.productService.getProducts();
     return {

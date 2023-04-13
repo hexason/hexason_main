@@ -8,7 +8,7 @@ export default function TableList() {
   useEffect(() => {
     axios({
       baseURL: process.env.NEXT_PUBLIC_API_URL,
-      url: "product",
+      url: "product/list",
       method: "get"
     })
       .then(({ data }) => setProducts(data.items))
