@@ -14,41 +14,41 @@ export const AuthContextProvider = ({ children }: any) => {
   const [session, setSession] = useState<SupabaseAuthSession>(null);
   const toast = useToast();
 
-  const permissionCheck = (session: SupabaseAuthSession) => {
-    axios({
-      baseURL: process.env.NEXT_PUBLIC_API_URL,
-      url: "/admin/me",
-      headers: {
-        Authorization: "Bearer " + session?.access_token
-      }
-    }).then(() =>
-      setSession(session)
-    ).catch(() => {
-      supabase.auth.signOut();
-      setSession(session);
-      toast({
-        title: "Permission Denied",
-        description: "Sorry, You're not permitted user",
-        status: "error",
-        duration: 4000,
-        isClosable: true
-      })
-    });
-  }
-
   useEffect(() => {
+    const permissionCheck = (session: SupabaseAuthSession) => {
+      axios({
+        baseURL: process.env.NEXT_PUBLIC_API_URL,
+        url: "/admin/me",
+        headers: {
+          Authorization: "Bearer " + session?.access_token
+        }
+      }).then(() =>
+        setSession(session)
+      ).catch(() => {
+        supabase.auth.signOut();
+        setSession(session);
+        toast({
+          title: "Permission Denied",
+          description: "Sorry, You're not permitted user",
+          status: "error",
+          duration: 4000,
+          isClosable: true
+        })
+      });
+    }
+
     supabase.auth.getSession().then(({ data: { session } }) => {
-      permissionCheck(session);
+      if (session) permissionCheck(session);
     })
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
-      if (_event !== "SIGNED_OUT") permissionCheck(session);
+      if (_event !== "SIGNED_OUT" && session) permissionCheck(session);
       else setSession(session);
     })
 
     return () => subscription.unsubscribe()
-  }, []);
+  }, [toast]);
 
   return (
     <AuthContext.Provider value={{
