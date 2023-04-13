@@ -1,5 +1,5 @@
 import { AdminJWTGuard } from "@/middleware/admin_jwt.guard";
-import { Controller, UseGuards, Request, Get } from "@nestjs/common";
+import { Controller, UseGuards, Request, Get, SetMetadata } from "@nestjs/common";
 import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
 
 @ApiTags("Admin")

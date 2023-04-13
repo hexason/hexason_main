@@ -6,7 +6,8 @@ import {
   Param,
   Post,
   UseGuards,
-  Request
+  Request,
+  SetMetadata
 } from '@nestjs/common';
 import { AdminJWTGuard } from '../middleware/admin_jwt.guard';
 import { ApiBearerAuth } from '@nestjs/swagger';
@@ -15,12 +16,15 @@ import { ProductService } from '@/service';
 import { SupabaseJWTPayload } from '@/lib/interfaces';
 import { Admin } from '@/lib/models';
 
+@UseGuards(AdminJWTGuard)
+@ApiBearerAuth('admin-access')
 @Controller('product')
 export class ProductController {
   constructor(
     private readonly productService: ProductService) { }
 
   @Get("list")
+  @SetMetadata('isPublic', true)
   async getProducts() {
     const products = await this.productService.getProducts();
     return {
@@ -30,14 +34,13 @@ export class ProductController {
   }
 
   @Get(':id')
+  @SetMetadata('isPublic', true)
   async getProduct(@Param('id') id: string) {
     const product = await this.productService.getOneProductById(id)
       .catch(e => { throw new HttpException(e, 400) });
     return product;
   }
 
-  @UseGuards(AdminJWTGuard)
-  @ApiBearerAuth('admin-access')
   @Post('create')
   async productAdd(
     @Body()
@@ -62,8 +65,6 @@ export class ProductController {
     const user = req.user as SupabaseJWTPayload & { admin: Admin }
   }
 
-  @UseGuards(AdminJWTGuard)
-  @ApiBearerAuth('admin-access')
   @Post('edit/:id')
   async productUpdate(
     @Param('id') id: string,

@@ -1,6 +1,6 @@
 import { Admin, Permission, Role, SupplierAdmin } from "@/lib/models";
 import { InjectDataSource } from "@nestjs/typeorm";
-import { DataSource, Repository } from "typeorm";
+import { DataSource, In, Repository } from "typeorm";
 
 export class AdminService {
   adminRepo: Repository<Admin>;
@@ -28,12 +28,9 @@ export class AdminService {
     return admin;
   }
 
-  async permissionChecker(key: string, code: number) {
-    const permission = await this.permissionRepo.findOneBy({ key });
-    if (!permission) throw { code: "PERMISSION_DENIED", message: "Permission denied" };
-    if (permission.code < code) return true;
-
-    throw { code: "PERMISSION_DENIED", message: "Permission denied" }
+  async getAllPermissionsBy(roleId: string | string[]) {
+    const permissions = await this.permissionRepo.findBy({ role: In(Array.isArray(roleId) ? roleId : [roleId]) });
+    return permissions;
   }
 
   async roleAdd(name: string) {

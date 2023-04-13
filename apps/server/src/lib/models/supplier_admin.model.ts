@@ -10,10 +10,10 @@ export class SupplierAdmin {
   @Column()
   supplierId: string;
 
-  @OneToOne(() => Role)
+  @ManyToOne(() => Role)
   @JoinColumn()
   role: Role | string;
 
   @ManyToOne(() => Admin)
-  admin: string;
+  admin: Admin | string;
 }

@@ -1,6 +1,6 @@
 import { SupabaseJWTPayload } from '@/lib/interfaces';
 import { AdminService } from '@/service/admin.service';
-import { CanActivate, ExecutionContext, Inject, Injectable } from '@nestjs/common';
+import { CanActivate, ExecutionContext, HttpException, Inject, Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { verify } from 'jsonwebtoken';
 
@@ -20,14 +20,23 @@ export class AdminJWTGuard implements CanActivate {
       const admin = await this.adminService.getAdminByEmail({ email: payload.email });
       if (admin.supplier.length === 0 && admin.role !== "super") throw new Error("No registered supply");
       if (!admin) throw new Error("admin not found");
+      const permissions = await this.adminService.getAllPermissionsBy(admin.supplier.map((el: any) => el.role.id));
+      const rule = this.reflector.get('rule', context.getHandler()) as { key: string, code: number } | null;
+      if (rule) {
+        const check = permissions.find(permission => permission.key === rule.key);
+        if (!check) throw { code: "RULE_PERMITION", message: "can't accept" };
+        if (check.code < rule.code) throw { code: "RULE_PERMITION", message: "can't accept" };
+      }
       request.user = {
         admin,
+        permissions,
         ...payload
       };
       return true;
     } catch (e) {
       if (this.reflector.get('isPublic', context.getHandler()) === true)
         return true;
+      if(e.code === "RULE_PERMITION") throw new HttpException(e, 401);
       return false;
     }
   }

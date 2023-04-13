@@ -1,4 +1,4 @@
-import { Role, SupplierAdmin } from "@/lib/models";
+import { Admin, Role, SupplierAdmin } from "@/lib/models";
 import { Supplier } from "@/lib/schema";
 import { SupplierCreateType } from "@/lib/types";
 import { Injectable } from "@nestjs/common";
@@ -41,16 +41,21 @@ export class SupplierService {
     const role = await this.dataSource.getRepository(Role).findOneBy({id: roleId})
     if (!role) throw { code: "NOT_FOUND_DATA", message: "Role not found" }
 
+    const admin = await this.dataSource.getRepository(Admin).findOneBy({id: adminId});
+    if(!admin) throw {code: "NOT_FOUND_DATA", message: "Admin not found"}
+
     let adminSupplier = await this.supplierRepo.findOneBy({
       supplierId: id,
-      id: adminId,
+      admin: admin,
       role: role
     });
     if (!adminSupplier) adminSupplier = this.supplierRepo.create({
       supplierId: id,
-      id: adminId,
+      admin: admin,
       role: role
     })
+
+    await this.supplierRepo.save(adminSupplier);
 
     return adminSupplier;
   }
