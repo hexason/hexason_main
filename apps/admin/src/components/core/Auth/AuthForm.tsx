@@ -13,7 +13,7 @@ export default function AuthForm({ supabaseClient }: { supabaseClient: SupabaseC
     const { error } = await supabaseClient.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: process.env.NODE_ENV === "production" ? "https://admin.hexason.com" : "http://localhost:3001"
+        redirectTo: process.env.NEXT_PUBLIC_REDIRECT_URL || "http://localhost:3001"
       }
     });
     if (error) {
