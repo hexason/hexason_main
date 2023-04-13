@@ -5,7 +5,7 @@ import { useAxios } from "@/hooks/useAxios";
 import DefaultAnimate from "../animation/DefaultAnimate";
 import ThreeDotsWave from "../animation/ThreeDotsWave";
 import { motion } from "framer-motion";
-import { TrashIcon } from "@/assets/icons"
+import { EyeIcon, TrashIcon } from "@/assets/icons"
 
 
 export default function TableList() {
@@ -59,7 +59,7 @@ export default function TableList() {
                         initial={{ opacity: checkedProducts.length > 0 ? 0 : 1, rotate: checkedProducts.length > 0 ? "360deg" : "0deg" }}
                         animate={{ opacity: checkedProducts.length > 0 ? 1 : 0, rotate: checkedProducts.length > 0 ? "0deg" : "360deg" }}
                         transition={{ duration: "0.5s" }}
-                        colorScheme="blackAlpha"
+                        colorScheme="red"
                         p={3}
                         onClick={() => setCheckProducts([])}
                       ><TrashIcon height={20} fill={"white"} /></Button>
@@ -117,7 +117,7 @@ const TableBodyRow = ({ data, actions, isChecked }: any) => {
       </Td>
       <Td>
         <HStack>
-          <Button colorScheme="blue" onClick={() => actions.selectProduct(data.id)}>v</Button>
+          <Button colorScheme="blackAlpha" onClick={() => actions.selectProduct(data.id)}><EyeIcon height={30} fill={"white"} /></Button>
         </HStack>
       </Td>
     </Tr>
