@@ -2,19 +2,8 @@ import { Popover, PopoverTrigger, Button, PopoverContent, PopoverArrow, PopoverC
 import { useEffect, useState } from "react";
 
 export default function ColorPicker({ value, onChange }: { value?: string, onChange?: any }) {
-  const [color, setColor] = useState("gray.500");
-  const colors = [
-    "gray.500",
-    "red.500",
-    "gray.700",
-    "green.500",
-    "blue.500",
-    "blue.800",
-    "yellow.500",
-    "orange.500",
-    "purple.500",
-    "pink.500"
-  ];
+  const [color, setColor] = useState("#718096");
+  const colors = ["#718096", "#E53E3E", "#2D3748", "#38A169", "#4299E1", "#1A365D", "#ECC94B", "#ED8936", "#9F7AEA", "#ED64A6"];
   useEffect(() => {
     if (value) setColor(value);
   }, [value])
