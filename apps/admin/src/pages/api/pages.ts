@@ -20,5 +20,5 @@ export default function handler(req: NextRequest, res: any) {
     },
   ]
 
-  return res.status(200).send(buttons.sort((a, b) => b.order - a.order)).sort();
+  return res.status(200).send(buttons.sort((a, b) => b.order - a.order));
 }
