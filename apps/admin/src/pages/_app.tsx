@@ -1,13 +1,29 @@
 import '@/styles/globals.css'
 import type { AppProps } from 'next/app'
 import NextNProgress from "nextjs-progressbar"
-import { ChakraProvider } from '@chakra-ui/react';
+import { ChakraProvider, extendTheme } from '@chakra-ui/react';
 import { AuthContextProvider } from '@/context/AuthContext';
+import CustomerHead from '@/components/core/CustomHead';
 
+const theme = extendTheme({
+  components: {
+    Popover: {
+      variants: {
+        picker: {
+          popper: {
+            maxWidth: "unset",
+            width: "unset"
+          }
+        }
+      }
+    }
+  }
+});
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <ChakraProvider>
+    <ChakraProvider theme={theme}>
       <AuthContextProvider>
+        <CustomerHead />
         <NextNProgress />
         <Component {...pageProps} />
       </AuthContextProvider>
