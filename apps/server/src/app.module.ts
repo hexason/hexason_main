@@ -9,9 +9,14 @@ import * as entities from '@/lib/models/index';
 import { SchemaFormats } from "@/lib/schema/index"
 import * as services from '@/service';
 import { MongooseModule } from '@nestjs/mongoose';
+import { ThrottlerModule } from '@nestjs/throttler';
 
 @Module({
   imports: [
+    ThrottlerModule.forRoot({
+      ttl: 60,
+      limit: 100,
+    }),
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: ['.env.local'],
