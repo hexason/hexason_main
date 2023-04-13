@@ -8,8 +8,19 @@ import ThreeDotsWave from "../animation/ThreeDotsWave";
 export default function TableList() {
   const [products, setProducts] = useState<any>([]);
   const [selectedProduct, setSelectedProduct] = useState<string | null>(null);
+  const [checkedProducts, setCheckProducts] = useState<string[]>([]);
   const { isOpen, onClose, onOpen } = useDisclosure();
-  const axios = useAxios()
+  const axios = useAxios();
+
+  const checkAllProducts = (checked: boolean) => {
+    if (checked) setCheckProducts(products.map((el: any) => el.id));
+    else setCheckProducts([]);
+  }
+
+  const checkProduct = (id: string, checked: boolean) => {
+    if (checked) setCheckProducts(prev => [...prev, id]);
+    else setCheckProducts(prev => prev.filter(el => el !== id));
+  }
 
   const selectProduct = (id: string) => {
     setSelectedProduct(id);
@@ -36,10 +47,20 @@ export default function TableList() {
           <TableContainer>
             <Table variant={"striped"} colorScheme="blackAlpha">
               <Thead>
-                <TableHeaderRow />
+                <Tr>
+                  <Th>
+                    <Checkbox isChecked={checkedProducts.length === products.length} onChange={(e) => checkAllProducts(e.target.checked)} />
+                  </Th>
+                  <Th>Title</Th>
+                  <Th>Image</Th>
+                  <Th>sold</Th>
+                  <Th>quantity</Th>
+                  <Th>status</Th>
+                  <Th>action</Th>
+                </Tr>
               </Thead>
               <Tbody>
-                {products.map((item: any) => <TableBodyRow key={item.id} data={item} actions={{ selectProduct }} />)}
+                {products.map((item: any) => <TableBodyRow isChecked={checkedProducts.includes(item.id)} key={item.id} data={item} actions={{ selectProduct, checkProduct }} />)}
               </Tbody>
             </Table>
           </TableContainer>
@@ -61,25 +82,11 @@ export default function TableList() {
   )
 }
 
-const TableHeaderRow = () => {
-  return (
-    <Tr>
-      <Th></Th>
-      <Th>Title</Th>
-      <Th>Image</Th>
-      <Th>sold</Th>
-      <Th>quantity</Th>
-      <Th>status</Th>
-      <Th>action</Th>
-    </Tr>
-  )
-}
-
-const TableBodyRow = ({ data, actions }: any) => {
+const TableBodyRow = ({ data, actions, isChecked }: any) => {
   return (
     <Tr>
       <Td>
-        <Checkbox />
+        <Checkbox isChecked={isChecked} onChange={e => actions.checkProduct(data.id, e.target.checked)} />
       </Td>
       <Td>
         {data.title}
