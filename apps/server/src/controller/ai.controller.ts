@@ -29,8 +29,14 @@ export class AiCcontroller {
     if (!session) throw new HttpException({ message: "session required" }, 400);
     if (!sessions[session]) sessions[session] = [
       {
-        "role": "system", "content": provider === "beat" ? ABOUT_BEATHOSTEL : EXPLAIN_TO_GPT,
-      }
+        "role": "system", "content": EXPLAIN_TO_GPT,
+      },
+      {
+        "role": "system", "content": ABOUT_BEATHOSTEL,
+      },
+      {
+        "role": "system", "content": "Greetings friendly no additional requirement needed. Just introduce yourself Hexy",
+      },
     ];
     const en = { role: "user", content: message }
     sessions[session].push(en)
