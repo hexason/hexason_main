@@ -1,27 +1,21 @@
 import { useAuth } from "@/context/AuthContext";
 import { Stack, Button, Box, Divider } from "@chakra-ui/react";
+import axios from "axios";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-
-const buttons = [
-  {
-    url: "/",
-    txt: "Dashboard"
-  },
-  {
-    url: "/page/product",
-    txt: "Product"
-  },
-]
 
 export default function Sidebar() {
   const [active, setActive] = useState("");
   const { session, supabase } = useAuth();
+  const [buttons, setButtons] = useState<any>([]);
   const router = useRouter();
   useEffect(() => {
-    if (router.isReady) {
-      setActive(router.pathname)
-    }
+    if (router.isReady) setActive(router.pathname)
+    axios({
+      baseURL: "/",
+      url: "/api/pages"
+    }).then(el => setButtons(el.data))
+      .catch(console.log)
   }, [router])
 
   return (
@@ -31,7 +25,7 @@ export default function Sidebar() {
           {session?.user.email}
         </Box>
         <Divider />
-        {buttons.map(el => <SidebarButton
+        {buttons.map((el: any) => <SidebarButton
           onClick={() => router.push(el.url)}
           isActive={el.url === active} key={el.url}>{el.txt}</SidebarButton>)}
       </Stack>
@@ -57,6 +51,7 @@ function SidebarButton({ children, isActive, onClick }: any) {
       }}
       transition={"0.3s"}
       onClick={onClick}
+      textTransform={"capitalize"}
     >
       {children}
     </Button>
