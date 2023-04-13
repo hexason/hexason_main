@@ -1,3 +1,4 @@
+export * from './admin.controller'
 export * from "./app.controller"
 export * from './ai.controller';
 export * from './book.controller';

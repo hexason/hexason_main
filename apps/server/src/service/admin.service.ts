@@ -9,7 +9,7 @@ export class AdminService {
   }
 
   async getAdminByEmail({email}) {
-    const admin = await this.adminRepo.findBy({
+    const admin = await this.adminRepo.findOneBy({
       email
     })
     return admin;
