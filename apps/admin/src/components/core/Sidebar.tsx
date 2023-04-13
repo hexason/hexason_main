@@ -6,11 +6,11 @@ import { useEffect, useState } from "react";
 const buttons = [
   {
     url: "/",
-    txt: "Home"
+    txt: "Dashboard"
   },
   {
-    url: "/page/test",
-    txt: "Test"
+    url: "/page/product",
+    txt: "Product"
   },
 ]
 
