@@ -1,17 +1,59 @@
-import { Admin } from "@/lib/models";
+import { Admin, Permission, Role, SupplierAdmin } from "@/lib/models";
 import { InjectDataSource } from "@nestjs/typeorm";
 import { DataSource, Repository } from "typeorm";
 
 export class AdminService {
-  adminRepo: Repository<Admin>
-  constructor(@InjectDataSource() private readonly dataSource: DataSource) { 
+  adminRepo: Repository<Admin>;
+  roleRepo: Repository<Role>;
+  permissionRepo: Repository<Permission>;
+  supplierAdminRepo: Repository<SupplierAdmin>;
+
+  constructor(
+    @InjectDataSource() private readonly dataSource: DataSource
+  ) {
+    this.roleRepo = this.dataSource.getRepository(Role);
     this.adminRepo = this.dataSource.getRepository(Admin);
+    this.permissionRepo = this.dataSource.getRepository(Permission);
+    this.supplierAdminRepo = this.dataSource.getRepository(SupplierAdmin);
   }
 
-  async getAdminByEmail({email}) {
-    const admin = await this.adminRepo.findOneBy({
-      email
-    })
+  async getAdminByEmail({ email }) {
+    const admin = await this.adminRepo.findOne({
+      where: {
+        email
+      },
+      relations: ["supplier", "supplier.role", "supplier.role.permissions"]
+    });
+    if (!admin) throw { code: "NOT_FOUND_DATA", message: "Admin not found" }
     return admin;
+  }
+
+  async permissionChecker(key: string, code: number) {
+    const permission = await this.permissionRepo.findOneBy({ key });
+    if (!permission) throw { code: "PERMISSION_DENIED", message: "Permission denied" };
+    if (permission.code < code) return true;
+
+    throw { code: "PERMISSION_DENIED", message: "Permission denied" }
+  }
+
+  async roleAdd(name: string) {
+    const role = this.roleRepo.create({
+      name,
+    })
+    await this.roleRepo.save(role);
+    return await this.roleRepo.findOne({ where: { id: role.id }, relations: ["permissions"] });
+  }
+
+  async permissionAdd({ roleId, key, code }: any) {
+    const role = await this.roleRepo.findOneBy({ id: roleId });
+    if (!role) throw { code: "NOT_FOUND_DATA", message: "Role doesn't exist" }
+
+    const permission = this.permissionRepo.create({
+      key,
+      code,
+      role
+    });
+    await this.permissionRepo.save(permission);
+    return await this.roleRepo.findOne({ where: { id: roleId }, relations: ["permissions"] });
   }
 }

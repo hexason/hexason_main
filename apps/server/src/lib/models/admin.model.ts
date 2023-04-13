@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { SupplierAdmin } from './supplier_admin.model';
 
 @Entity()
 export class Admin {
@@ -18,8 +19,8 @@ export class Admin {
   credential: string;
 
   @Column({ nullable: true })
-  refreshToken: string;
-
-  @Column()
   role: string;
+
+  @OneToMany(() => SupplierAdmin, (supplier) => supplier.admin)
+  supplier: SupplierAdmin[];
 }

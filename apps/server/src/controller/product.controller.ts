@@ -6,15 +6,19 @@ import {
   Param,
   Post,
   UseGuards,
+  Request
 } from '@nestjs/common';
 import { AdminJWTGuard } from '../middleware/admin_jwt.guard';
 import { ApiBearerAuth } from '@nestjs/swagger';
 import { ProductAddDTO } from './dto/ProductControllerDto';
 import { ProductService } from '@/service';
+import { SupabaseJWTPayload } from '@/lib/interfaces';
+import { Admin } from '@/lib/models';
 
 @Controller('product')
 export class ProductController {
-  constructor(private readonly productService: ProductService) { }
+  constructor(
+    private readonly productService: ProductService) { }
 
   @Get("list")
   async getProducts() {
@@ -53,8 +57,9 @@ export class ProductController {
       options,
       images
     }: ProductAddDTO,
+    @Request() req: any
   ) {
-    return {}
+    const user = req.user as SupabaseJWTPayload & { admin: Admin }
   }
 
   @UseGuards(AdminJWTGuard)

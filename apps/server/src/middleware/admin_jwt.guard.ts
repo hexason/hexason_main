@@ -13,13 +13,13 @@ export class AdminJWTGuard implements CanActivate {
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
-
     try {
       const { authorization } = request.headers;
       const token = authorization.split(' ')[1];
       const payload = verify(token, process.env.SUPABASE_SECRET) as SupabaseJWTPayload;
       const admin = await this.adminService.getAdminByEmail({ email: payload.email });
-      if (!admin) return false;
+      if (admin.supplier.length === 0 && admin.role !== "super") throw new Error("No registered supply");
+      if (!admin) throw new Error("admin not found");
       request.user = {
         admin,
         ...payload

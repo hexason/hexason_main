@@ -26,5 +26,15 @@ describe('Supplier Service', () => {
         return expect(e.code).toBe("DUPLICAPLE_DATA");
       }
     })
+  });
+  describe('Add admin to supplier', () => {
+    it("should return admin supplier", async () => {
+      const supplier = await service.addAdminToSupplier({
+        id: "64364d4829aeda71de8a6fa6",
+        adminId: "85fda777-db58-4068-8003-c0f1c208ae94",
+        roleId: "a5178a68-f040-4550-9d19-eb5607482bc7"
+      });
+      expect(supplier.supplierId).toBe("64364d4829aeda71de8a6fa6")
+    })
   })
 });

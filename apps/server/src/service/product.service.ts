@@ -19,7 +19,7 @@ export class ProductService {
 
   async getOneProductById(id: string) {
     if (!Types.ObjectId.isValid(id)) throw { code: "FORMAT", message: "Check product id carefully" }
-    const product = await this.productModel.findById(id);
+    const product = await this.productModel.findById(id).populate(["supplier", "category", "items"]);
     if (!product) throw { code: "NOT_FOUND_DATA", message: "Product not found" }
     return product;
   }
