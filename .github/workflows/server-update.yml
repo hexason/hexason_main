@@ -16,8 +16,7 @@ jobs:
         key: ${{ secrets.KEY }}
         port: ${{ secrets.PORT }}
         script: |
-          sudo su hexason
-          cd /home/hexason/hexason/apps/server
+          cd hexason/apps/server
           docker stop $(docker ps -q)
           docker system prune -a -f
           docker build -t hexason-server .
