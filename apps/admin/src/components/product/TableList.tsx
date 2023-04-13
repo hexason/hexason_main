@@ -1,12 +1,13 @@
 import { Button, Checkbox, HStack, Image, Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay, Table, TableContainer, Tag, Tbody, Td, Th, Thead, Tr, useDisclosure } from "@chakra-ui/react";
-import axios from "axios";
 import { useEffect, useState } from "react";
 import ProductDetail from "./ProductDetail";
+import { useAxios } from "@/hooks/useAxios";
 
 export default function TableList() {
   const [products, setProducts] = useState<any>([]);
   const [selectedProduct, setSelectedProduct] = useState<string | null>(null);
   const { isOpen, onClose, onOpen } = useDisclosure();
+  const axios = useAxios()
 
   const selectProduct = (id: string) => {
     setSelectedProduct(id);
@@ -15,13 +16,12 @@ export default function TableList() {
 
   useEffect(() => {
     axios({
-      baseURL: process.env.NEXT_PUBLIC_API_URL,
       url: "product/list",
       method: "get"
     })
       .then(({ data }) => setProducts(data.items))
       .catch(e => console.log(e))
-  }, [])
+  }, [axios])
 
   return (
     <>
