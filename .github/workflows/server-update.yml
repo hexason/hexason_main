@@ -2,25 +2,21 @@ name: Server deployer
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - name: executing remote ssh commands using password
-      uses: appleboy/ssh-action@v0.1.10
-      with:
-        host: ${{ secrets.HOST }}
-        username: ${{ secrets.USERNAME }}
-        key: ${{ secrets.KEY }}
-        port: ${{ secrets.PORT }}
-        script: |
-          cd hexason/apps/server
-          docker stop $(docker ps -q)
-          docker system prune -a -f
-          docker build -t hexason-server .
-          docker run -p80:4000 -d hexason-server
-        
-          
-          
+      - name: executing remote ssh commands using password
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          port: ${{ secrets.PORT }}
+          script: |
+            docker system prune -a -f
+            docker pull nikorunikk/hexason-server
+            docker stop $(docker ps -q)
+            docker run -p80:4000 -d nikorunikk/hexason-server
