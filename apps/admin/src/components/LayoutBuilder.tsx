@@ -1,6 +1,7 @@
 import { Grid, GridItem } from "@chakra-ui/react";
 import Sidebar from "./core/Sidebar";
 import Navbar from "./core/Navbar";
+import DefaultAnimate from "./animation/DefaultAnimate";
 
 export default function LayoutBuilder({ children }: any) {
   return (
@@ -12,9 +13,11 @@ export default function LayoutBuilder({ children }: any) {
       <GridItem colSpan={1}>
         <Sidebar />
       </GridItem>
-      <GridItem colSpan={7} p={1}>
+      <GridItem overflow={"auto"} colSpan={7} p={1}>
         <Navbar />
-        {children}
+        <DefaultAnimate>
+          {children}
+        </DefaultAnimate>
       </GridItem>
     </Grid>
   )
