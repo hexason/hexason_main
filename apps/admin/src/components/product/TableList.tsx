@@ -20,8 +20,12 @@ export default function TableList() {
       method: "get"
     })
       .then(({ data }) => setProducts(data.items))
-      .catch(e => console.log(e))
+      .catch(e => {
+        if(e.isPermission) setProducts(null)
+      })
   }, [axios])
+
+  if (!products) return <>No Permission</>
 
   return (
     <>

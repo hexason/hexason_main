@@ -9,7 +9,7 @@ export const useAxios = () => {
   axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_URL;
   axios.interceptors.response.use((response) => response, (error) => {
     if (error.response && error.response.status === 401) {
-      return router.replace("/no_permission");
+      throw { ...error, isPermission: true };
     }
     throw error;
   });
