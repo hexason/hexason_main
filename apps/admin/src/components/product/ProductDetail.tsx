@@ -1,4 +1,4 @@
-import { Badge, Box, Button, Center, Container, FormControl, FormLabel, Grid, Image, Input, Select, Stack, Tag, Textarea } from "@chakra-ui/react";
+import { Badge, Box, Button, Center, Container, FormControl, FormLabel, Grid, Image, Input, Select, Stack, Tag, Textarea, Wrap } from "@chakra-ui/react";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import ColorPicker from "../utils/ColorPicker";
@@ -9,6 +9,12 @@ export default function ProductDetail({ id }: { id: string }) {
   const [product, setProduct] = useState<any>(null);
   const [bgColor, setBgColor] = useState("");
 
+  const inputChanger = (e: any) => {
+    setProduct((prev: any) => ({
+      ...prev,
+      [e.target.name]: e.target.value
+    }));
+  }
   const categoryRemove = (id: string) => {
     if (!product) return;
     setProduct((prev: any) => ({
@@ -41,24 +47,24 @@ export default function ProductDetail({ id }: { id: string }) {
               </Center>
             </Stack>
             <CustomFormControl title={"Title"}>
-              <Input value={product.title} />
+              <Input value={product.title} name="title" onChange={inputChanger} />
             </CustomFormControl>
             <CustomFormControl title={"Description"}>
-              <Textarea value={product.description} />
+              <Textarea value={product.description} name="description" onChange={inputChanger} />
             </CustomFormControl>
             <CustomFormControl title={"Brand"}>
-              <Input value={product.brand} />
+              <Input value={product.brand} name="brand" onChange={inputChanger} />
             </CustomFormControl>
           </Stack>
           <Stack>
             <CustomFormControl title={"Price"}>
-              <Input value={product.price} />
+              <Input value={product.price} name="price" onChange={inputChanger} />
             </CustomFormControl>
             <CustomFormControl title={"Discount"}>
-              <Input value={product.discount} />
+              <Input value={product.discount} name="discount" onChange={inputChanger} />
             </CustomFormControl>
             <CustomFormControl title={"Status"}>
-              <Select value={product.status}>
+              <Select value={product.status} onChange={(value) => inputChanger({ target: { name: "status", value } })}>
                 <option value={"active"}>Active</option>
               </Select>
             </CustomFormControl>
@@ -76,24 +82,24 @@ export default function ProductDetail({ id }: { id: string }) {
                 </Box>
               </Stack>
             </CustomFormControl>
-            <CustomFormControl title={"SKU items"}>
-              {product.items.map((e: any) => (
-                <Box key={e.id}>
-                  {e.altTxt}
-                </Box>
-              ))}
-            </CustomFormControl>
             <CustomFormControl title={"Picture description"}>
-              {product.images.map((e: any) => (
-                <Box key={e.url}>
-                  {e.url}
-                </Box>
-              ))}
+              <Wrap>
+                {product.images.map((e: any) => (
+                  <Image key={e._id} h="50px" src={e.url} />
+                ))}
+              </Wrap>
             </CustomFormControl>
             <CustomFormControl title={"General Options"}>
               {product.options.map((e: any) => (
                 <Box key={e._id}>
-                  {JSON.stringify(e)}
+                  <Tag>{e.configName}:{e.value}</Tag>
+                </Box>
+              ))}
+            </CustomFormControl>
+            <CustomFormControl title={"SKU items"}>
+              {product.items.map((e: any) => (
+                <Box key={e.id}>
+                  {e.altTxt}
                 </Box>
               ))}
             </CustomFormControl>

@@ -1,6 +1,5 @@
 import { useAuth } from "@/context/AuthContext";
 import { Stack, Button, Box, Divider } from "@chakra-ui/react";
-import axios from "axios";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
@@ -11,11 +10,23 @@ export default function Sidebar() {
   const router = useRouter();
   useEffect(() => {
     if (router.isReady) setActive(router.pathname)
-    axios({
-      baseURL: "/",
-      url: "/api/pages"
-    }).then(el => setButtons(el.data))
-      .catch(console.log)
+    setButtons([
+      {
+        url: "/",
+        txt: "Home",
+        order: 1
+      },
+      {
+        url: "/page/product",
+        txt: "Products",
+        order: 0
+      },
+      {
+        url: "/page/integration",
+        txt: "Integrations",
+        order: 0
+      },
+    ])
   }, [router])
 
   return (

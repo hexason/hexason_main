@@ -96,6 +96,13 @@ export class ProductInfoUpdateDTO implements Partial<Product> {
   @ApiProperty()
   @IsArray()
   @ValidateNested({ each: true })
+  @Type(() => ImagesDto)
+  @IsOptional()
+  images?: { url: string; blurHash: string; }[];
+
+  @ApiProperty()
+  @IsArray()
+  @ValidateNested({ each: true })
   @IsOptional()
   @Type(() => OptionDto)
   options?: OptionDto[]
@@ -109,4 +116,16 @@ export class OptionDto {
   @ApiProperty()
   @IsString()
   value: string;
+}
+
+
+export class ImagesDto {
+  @ApiProperty()
+  @IsString()
+  url: string;
+
+  @ApiProperty()
+  @IsString()
+  @IsOptional()
+  blurHash: string;
 }

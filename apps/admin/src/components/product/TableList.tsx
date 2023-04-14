@@ -7,7 +7,6 @@ import ThreeDotsWave from "../animation/ThreeDotsWave";
 import { motion } from "framer-motion";
 import { EyeIcon, TrashIcon } from "@/assets/icons"
 
-
 export default function TableList() {
   const [products, setProducts] = useState<any>([]);
   const [selectedProduct, setSelectedProduct] = useState<string | null>(null);

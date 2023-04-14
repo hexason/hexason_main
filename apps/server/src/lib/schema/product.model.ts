@@ -46,7 +46,7 @@ export class Product implements ProductI {
   @Prop({ type: [{ configName: String, value: String }] })
   options: { configName: string, value: string }[];
 
-  @Prop({ type: [{ type: { image: String, blurHash: String } }] })
+  @Prop({ type: [{ type: { url: String, blurHash: String } }] })
   images: { url: string, blurHash: string }[];
 
   @Prop({ type: [{ type: Types.ObjectId, ref: 'Item' }] })
