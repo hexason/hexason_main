@@ -37,7 +37,7 @@ export default function ProductDetail({ id }: { id: string }) {
   if (!product) return <ThreeDotsWave />
   return (
     <Container maxW="container.lg">
-      <DefaultAnimate>
+      <Stack spacing={4} p={3} as={DefaultAnimate}>
         <Grid templateColumns={"repeat(2, 1fr)"} gap={3}>
           <Stack>
             <Stack borderRadius={"20px"} border="1px solid #000" bg={bgColor} p={6}>
@@ -46,27 +46,21 @@ export default function ProductDetail({ id }: { id: string }) {
                 <ColorPicker value={bgColor} onChange={(value: string) => setBgColor(value)} />
               </Center>
             </Stack>
-            <CustomFormControl title={"Title"}>
-              <Input value={product.title} name="title" onChange={inputChanger} />
-            </CustomFormControl>
-            <CustomFormControl title={"Description"}>
-              <Textarea value={product.description} name="description" onChange={inputChanger} />
-            </CustomFormControl>
             <CustomFormControl title={"Brand"}>
               <Input value={product.brand} name="brand" onChange={inputChanger} />
-            </CustomFormControl>
-          </Stack>
-          <Stack>
-            <CustomFormControl title={"Price"}>
-              <Input value={product.price} name="price" onChange={inputChanger} />
-            </CustomFormControl>
-            <CustomFormControl title={"Discount"}>
-              <Input value={product.discount} name="discount" onChange={inputChanger} />
             </CustomFormControl>
             <CustomFormControl title={"Status"}>
               <Select value={product.status} onChange={(value) => inputChanger({ target: { name: "status", value } })}>
                 <option value={"active"}>Active</option>
               </Select>
+            </CustomFormControl>
+          </Stack>
+          <Stack>
+            <CustomFormControl title={"Title"}>
+              <Input value={product.title} name="title" onChange={inputChanger} />
+            </CustomFormControl>
+            <CustomFormControl title={"Description"}>
+              <Textarea value={product.description} name="description" onChange={inputChanger} />
             </CustomFormControl>
             <CustomFormControl title={"Category"}>
               <Stack>
@@ -77,17 +71,7 @@ export default function ProductDetail({ id }: { id: string }) {
                     </Tag>
                   ))}
                 </Box>
-                <Box>
-                  <Button float={"right"} colorScheme="blackAlpha">Save</Button>
-                </Box>
               </Stack>
-            </CustomFormControl>
-            <CustomFormControl title={"Picture description"}>
-              <Wrap>
-                {product.images.map((e: any) => (
-                  <Image key={e._id} h="50px" src={e.url} />
-                ))}
-              </Wrap>
             </CustomFormControl>
             <CustomFormControl title={"General Options"}>
               {product.options.map((e: any) => (
@@ -96,16 +80,24 @@ export default function ProductDetail({ id }: { id: string }) {
                 </Box>
               ))}
             </CustomFormControl>
-            <CustomFormControl title={"SKU items"}>
-              {product.items.map((e: any) => (
-                <Box key={e.id}>
-                  {e.altTxt}
-                </Box>
-              ))}
+            <CustomFormControl title={"Picture description"}>
+              <Wrap>
+                {product.images.map((e: any) => (
+                  <Image key={e._id} h="50px" src={e.url} />
+                ))}
+              </Wrap>
             </CustomFormControl>
           </Stack>
         </Grid>
-      </DefaultAnimate>
+        <CustomFormControl title={"SKU items"}>
+          {product.items.map((e: any) => (
+            <Box key={e.id}>
+              {e.altTxt}
+            </Box>
+          ))}
+        </CustomFormControl>
+        <Button colorScheme="green" w="100%">Save</Button>
+      </Stack>
     </Container>
   )
 }
