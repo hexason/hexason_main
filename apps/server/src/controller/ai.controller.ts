@@ -5,6 +5,7 @@ import { ChatCompletionRequestMessage, Configuration, OpenAIApi } from "openai"
 let sessions: any = {}
 @Controller("ai")
 export class AiCcontroller {
+  recomdation: any = []
   ask: any;
   constructor() {
     const config = new Configuration({
@@ -42,14 +43,13 @@ export class AiCcontroller {
       }
     };
 
-    axios.request(options).then(function (response) {
+    axios.request(options).then((response)  => {
       this.recomdation = JSON.stringify(response.data);
     }).catch(function (error) {
       console.error(error);
     });
   }
 
-  recomdation: any = []
   @Post("chat/ask")
   async chatAsk(@Body() { session, message }: any, @Query() { provider }: any) {
     if (!session) throw new HttpException({ message: "session required" }, 400);
