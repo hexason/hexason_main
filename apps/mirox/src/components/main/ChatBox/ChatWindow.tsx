@@ -1,6 +1,5 @@
-import { Box, Stack, Wrap } from "@chakra-ui/react";
+import { Box, Stack } from "@chakra-ui/react";
 import React, { useEffect, useRef } from "react";
-import ReactMarkdown from "react-markdown";
 
 export default function ChatWindow({ messagesList }: any) {
   const messageListEndRef = useRef(null);
@@ -18,9 +17,9 @@ export default function ChatWindow({ messagesList }: any) {
               <Box w="30px" overflow={"hidden"}>
                 <img src="/images/hexy.png" />
               </Box>
-              <Wrap>
-                <ReactMarkdown>{oneMessage.content}</ReactMarkdown>
-              </Wrap>
+              <Stack>
+                <Box dangerouslySetInnerHTML={{__html: oneMessage.content}} />
+              </Stack>
             </Stack>
           ))}
         <div className="reference" ref={messageListEndRef} />
