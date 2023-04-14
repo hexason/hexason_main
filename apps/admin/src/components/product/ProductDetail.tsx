@@ -1,13 +1,16 @@
-import { Badge, Box, Button, Center, Container, FormControl, FormLabel, Grid, Image, Input, Select, Stack, Tag, Textarea, Wrap } from "@chakra-ui/react";
-import axios from "axios";
+import { Badge, Box, Button, Center, Container, FormControl, FormLabel, Grid, Image, Input, Select, Stack, Tag, Textarea, Wrap, useToast } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import ColorPicker from "../utils/ColorPicker";
 import ThreeDotsWave from "../animation/ThreeDotsWave";
 import DefaultAnimate from "../animation/DefaultAnimate";
+import { useAxios } from "@/hooks/useAxios";
 
 export default function ProductDetail({ id }: { id: string }) {
   const [product, setProduct] = useState<any>(null);
   const [bgColor, setBgColor] = useState("");
+  const [loading, setLoading] = useState(false);
+  const axios = useAxios();
+  const toast = useToast();
 
   const inputChanger = (e: any) => {
     setProduct((prev: any) => ({
@@ -24,14 +27,54 @@ export default function ProductDetail({ id }: { id: string }) {
   }
   useEffect(() => {
     if (!id) return;
+    setLoading(true)
     axios({
       baseURL: process.env.NEXT_PUBLIC_API_URL,
       method: "get",
       url: "product/" + id
     })
-      .then(({ data }) => setProduct(data))
+      .then(({ data }) => {
+        setBgColor(data.bgColor)
+        setProduct(data)
+      })
       .catch(e => console.log(e))
-  }, [id]);
+      .finally(() => setLoading(false))
+  }, [id, axios]);
+
+  const saveProduct = async () => {
+    setLoading(true)
+    await axios({
+      method: "put",
+      url: `product/${id}/info`,
+      data: {
+        title: product.title,
+        description: product.description,
+        bgColor,
+        image: product.image,
+        brand: product.brand,
+        images: product.images,
+        options: product.options,
+        category: product.category.map((e: any) => e.id)
+      }
+    }).then(() => {
+      toast({
+        title: "Successfully",
+        status: "success",
+        description: "Saved successfully",
+        isClosable: true,
+        duration: 5000
+      })
+    }).catch((e) => {
+      toast({
+        title: "Error",
+        status: "error",
+        description: e.response ? e.response.data.message : e.message,
+        isClosable: true,
+        duration: 5000
+      })
+    })
+    setLoading(false);
+  }
 
 
   if (!product) return <ThreeDotsWave />
@@ -83,7 +126,7 @@ export default function ProductDetail({ id }: { id: string }) {
             <CustomFormControl title={"Picture description"}>
               <Wrap>
                 {product.images.map((e: any) => (
-                  <Image key={e._id} h="50px" src={e.url} />
+                  <Image key={e._id} h="50px" src={e.url} alt={e._id + "-picture"} />
                 ))}
               </Wrap>
             </CustomFormControl>
@@ -96,7 +139,7 @@ export default function ProductDetail({ id }: { id: string }) {
             </Box>
           ))}
         </CustomFormControl>
-        <Button colorScheme="green" w="100%">Save</Button>
+        <Button isLoading={loading} onClick={saveProduct} colorScheme="green" w="100%">Save</Button>
       </Stack>
     </Container>
   )
