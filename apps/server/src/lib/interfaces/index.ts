@@ -3,7 +3,6 @@ export interface ProductI {
   image: string;
   description?: string;
   bgColor?: string;
-  category: string;
   brand?: string;
   price: number;
   discount?: number;
@@ -11,6 +10,13 @@ export interface ProductI {
   quantity: number;
   status: string;
   supplier: any;
+  category: {
+    id: string;
+    description: string;
+    parent: string;
+    children: string[];
+    name: string,
+  }[];
   options: {
     configName: string;
     value: string;

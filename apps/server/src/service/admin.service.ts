@@ -1,5 +1,6 @@
 import { Admin, Permission, Role, SupplierAdmin } from "@/lib/models";
 import { InjectDataSource } from "@nestjs/typeorm";
+import { sign } from "jsonwebtoken";
 import { DataSource, In, Repository } from "typeorm";
 
 export class AdminService {
@@ -33,7 +34,7 @@ export class AdminService {
     return permissions;
   }
 
-  permissionChecker(permissions: {key: string, code: number}[], rule: {key: string, code: number}) {
+  permissionChecker(permissions: { key: string, code: number }[], rule: { key: string, code: number }) {
     const check = permissions.find(permission => permission.key === rule.key);
     if (!check) throw { code: "RULE_PERMITION", message: "can't accept" };
     if (check.code < rule.code) throw { code: "RULE_PERMITION", message: "can't accept" };
@@ -58,5 +59,10 @@ export class AdminService {
     });
     await this.permissionRepo.save(permission);
     return await this.roleRepo.findOne({ where: { id: roleId }, relations: ["permissions"] });
+  }
+
+  tokenGenerator({ email }) {
+    const access_token = sign({ email }, process.env.SUPABASE_SECRET, { expiresIn: "1d" });
+    return access_token;
   }
 }

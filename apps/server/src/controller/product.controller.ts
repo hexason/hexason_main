@@ -7,11 +7,12 @@ import {
   Post,
   UseGuards,
   Request,
-  SetMetadata
+  SetMetadata,
+  Put
 } from '@nestjs/common';
 import { AdminJWTGuard } from '../middleware/admin_jwt.guard';
 import { ApiBearerAuth } from '@nestjs/swagger';
-import { ProductAddDTO } from './dto/ProductControllerDto';
+import { ProductAddDTO, ProductInfoUpdateDTO } from './dto/ProductControllerDto';
 import { ProductService } from '@/service';
 import { SupabaseJWTPayload } from '@/lib/interfaces';
 import { Admin } from '@/lib/models';
@@ -65,27 +66,26 @@ export class ProductController {
     const user = req.user as SupabaseJWTPayload & { admin: Admin }
   }
 
-  @Post('edit/:id')
+  @Put(':id/info')
   async productUpdate(
     @Param('id') id: string,
-    @Body()
-    {
-      title,
-      image,
-      description,
-      bgColor,
-      category,
-      brand,
-      price,
-      discount,
-      sold,
-      quantity,
-      status,
-      supplier,
-      options,
-      images
-    }: ProductAddDTO,
+    @Body() data: ProductInfoUpdateDTO,
   ) {
-    return {}
+    try {
+      const product = await this.productService.getOneProductById(id);
+      return await this.productService.updateProduct(product, data)
+    } catch (e) {
+      if (e.code) throw new HttpException(e, 400)
+      throw e;
+    }
+  }
+
+  @Put(':id/item')
+  async productItemUpdate(
+    @Param('id') id: string,
+    @Body() { items }: { items: string[] }
+  ) {
+    console.log(id);
+    return items;
   }
 }

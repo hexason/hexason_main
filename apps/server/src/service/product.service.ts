@@ -2,7 +2,7 @@ import { ProductAddDTO } from "@/controller/dto/ProductControllerDto";
 import { Item } from "@/lib/schema";
 import { Product } from "@/lib/schema/product.model";
 import { InjectConnection, InjectModel } from "@nestjs/mongoose";
-import { Connection, Model, Types } from "mongoose";
+import { Connection, Model, Types, Document } from "mongoose";
 
 export class ProductService {
   constructor(
@@ -21,6 +21,19 @@ export class ProductService {
     if (!Types.ObjectId.isValid(id)) throw { code: "FORMAT", message: "Check product id carefully" }
     const product = await this.productModel.findById(id).populate(["supplier", "category", "items"]);
     if (!product) throw { code: "NOT_FOUND_DATA", message: "Product not found" }
+    return product;
+  }
+
+  modifyModel(model: Document & Product, { key, value }: { key: keyof Product | string, value: any }) {
+    if (value) model[key] = value;
+    return model;
+  }
+
+  async updateProduct(product: Document & Product, productData: Partial<Product>) {
+    Object.keys(productData).forEach(e => {
+      this.modifyModel(product, { key: e, value: productData[e] })
+    });
+    await product.save();
     return product;
   }
 

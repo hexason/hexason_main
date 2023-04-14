@@ -20,7 +20,7 @@ export class Product implements ProductI {
   bgColor?: string;
 
   @Prop({ type: [Types.ObjectId], ref: "Category", required: true })
-  category: string;
+  category: any[];
 
   @Prop({ default: "unknown" })
   brand?: string;

@@ -15,7 +15,6 @@ export default function ProductDetail({ id }: { id: string }) {
       ...prev,
       category: prev.category.filter((e: any) => e.id !== id)
     }))
-
   }
   useEffect(() => {
     if (!id) return;
@@ -93,8 +92,8 @@ export default function ProductDetail({ id }: { id: string }) {
             </CustomFormControl>
             <CustomFormControl title={"General Options"}>
               {product.options.map((e: any) => (
-                <Box key={e}>
-                  {e}
+                <Box key={e._id}>
+                  {JSON.stringify(e)}
                 </Box>
               ))}
             </CustomFormControl>
