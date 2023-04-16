@@ -1,4 +1,5 @@
 import { ProductAddDTO } from "@/controller/dto/ProductControllerDto";
+import { ProductI } from "@/lib/interfaces";
 import { Item } from "@/lib/schema";
 import { Product } from "@/lib/schema/product.model";
 import { InjectConnection, InjectModel } from "@nestjs/mongoose";
@@ -52,9 +53,8 @@ export class ProductService {
     supplier, // from token
     images,
     items
-  }: ProductAddDTO) {
-    if (!Types.ObjectId.isValid(supplier)) throw { code: "FORMAT", message: "Supplier is not valid ID" }
-    if (!Types.ObjectId.isValid(category)) throw { code: "FORMAT", message: "Category is not valid ID" }
+  }: ProductI) {
+    if (!Types.ObjectId.isValid(supplier as any)) throw { code: "FORMAT", message: "Supplier is not valid ID" }
     let product = new this.productModel({
       title,
       image,

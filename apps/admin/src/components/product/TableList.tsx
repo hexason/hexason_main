@@ -7,12 +7,14 @@ import ThreeDotsWave from "../animation/ThreeDotsWave";
 import { motion } from "framer-motion";
 import { EyeIcon, TrashIcon } from "@/assets/icons"
 import { statusViewer } from "@/lib/utils";
+import ProductCreate from "./ProductCreate";
 
 export default function TableList() {
   const [products, setProducts] = useState<any>([]);
   const [selectedProduct, setSelectedProduct] = useState<string | null>(null);
   const [checkedProducts, setCheckProducts] = useState<string[]>([]);
   const { isOpen, onClose, onOpen } = useDisclosure();
+  const creatorModal = useDisclosure();
   const [listener, refresh] = useState(0);
   const axios = useAxios();
 
@@ -48,6 +50,7 @@ export default function TableList() {
     <DefaultAnimate>
       {products.length === 0 ? <ThreeDotsWave /> :
         <DefaultAnimate>
+          <Button onClick={creatorModal.onOpen} colorScheme="blackAlpha">Create Product</Button>
           <TableContainer>
             <Table variant={"striped"} colorScheme="blackAlpha">
               <Thead>
@@ -81,6 +84,19 @@ export default function TableList() {
           </TableContainer>
         </DefaultAnimate>
       }
+      <Modal isOpen={creatorModal.isOpen} onClose={() => { creatorModal.onClose(); refresh(Date.now()) }} size={"4xl"}>
+        <ModalOverlay />
+        <ModalContent bg="#28243D" color="gray.200">
+          <ModalHeader>
+            Product Create
+            <ModalCloseButton />
+          </ModalHeader>
+          <ModalBody>
+            <ProductCreate trigger={(id) => {creatorModal.onClose(), selectProduct(id)}} />
+          </ModalBody>
+        </ModalContent>
+      </Modal>
+
       <Modal isOpen={isOpen} onClose={() => { onClose(); refresh(Date.now()) }} size={"4xl"}>
         <ModalOverlay />
         <ModalContent bg="#28243D" color="gray.200">

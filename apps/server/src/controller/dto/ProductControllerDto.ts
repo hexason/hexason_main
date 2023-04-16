@@ -1,10 +1,10 @@
 import { ItemI, ProductI } from '@/lib/interfaces';
-import { Item, Product } from '@/lib/schema';
+import { Product } from '@/lib/schema';
 import { Type } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsArray, IsNotEmpty, IsNumber, IsOptional, IsString, ValidateNested } from 'class-validator';
 
-export class ProductAddDTO implements ProductI {
+export class ProductAddDTO implements Partial<ProductI> {
   @ApiProperty()
   @IsNotEmpty()
   @IsString()
@@ -24,39 +24,12 @@ export class ProductAddDTO implements ProductI {
   brand?: string;
 
   @ApiProperty()
-  @IsNotEmpty()
-  @IsString()
-  category: any;
-
-  @ApiProperty()
   @IsString()
   image: string;
 
   @ApiProperty()
-  @IsNumber()
-  price: number;
-
-  @ApiProperty()
-  @IsNumber()
-  @IsOptional()
-  discount?: number;
-
-  @ApiProperty()
-  // @IsIn([12, 0])
-  @IsNumber()
-  status: number;
-
-  @ApiProperty()
-  @IsArray()
-  options: { configName: string; value: string; }[];
-
-  @ApiProperty()
   @IsArray()
   images: { url: string; blurHash: string; }[];
-
-  @ApiProperty()
-  @IsArray()
-  items: Item[];
 
   sold: number;
   quantity: number;

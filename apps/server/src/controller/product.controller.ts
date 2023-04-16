@@ -52,20 +52,30 @@ export class ProductController {
       image,
       description,
       bgColor,
-      category,
       brand,
-      price,
-      discount,
-      sold,
-      quantity,
-      status,
-      supplier,
-      options,
       images
     }: ProductAddDTO,
     @Request() req: any
   ) {
     const user = req.user as SupabaseJWTPayload & { admin: Admin }
+    const product = await this.productService.createProduct({
+      "title": title,
+      "image": image,
+      "description": description,
+      "bgColor": bgColor,
+      "brand": brand,
+      "images": images,
+      "supplier": user.admin.supplier[0].supplierId,
+      "price": 0,
+      "discount": 0,
+      "sold": 0,
+      "quantity": 0,
+      "status": 0,
+      "category": [],
+      "options": [],
+      "items": []
+    })
+    return product;
   }
 
   @Put(':id/info')
@@ -75,7 +85,7 @@ export class ProductController {
   ) {
     try {
       const product = await this.productService.getOneProductById(id);
-      return await this.productService.updateProduct(product, data)
+      return await this.productService.updateProduct(product, data);
     } catch (e) {
       if (e.code) throw new HttpException(e, 400)
       throw e;

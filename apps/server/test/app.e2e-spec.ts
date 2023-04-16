@@ -8,7 +8,7 @@ describe('AppController (e2e)', () => {
   let app: INestApplication;
   let adminService: AdminService
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
     }).compile();
@@ -17,7 +17,7 @@ describe('AppController (e2e)', () => {
     adminService = moduleFixture.get(AdminService);
     app.useGlobalPipes(new ValidationPipe());
     await app.init();
-  });
+  }, 30000);
 
   it('/product/:id/info', () => {
     const token = adminService.tokenGenerator({ email: "nikorunikk@gmail.com" });
@@ -31,21 +31,6 @@ describe('AppController (e2e)', () => {
         brand: "Supertest",
         image: "https://www.nursafia.my/image/nursafia/image/data/all_product_images/product-1482/test-product-copy_1655771197.jpeg",
         images: [
-          { url: "https://www.nursafia.my/image/nursafia/image/data/all_product_images/product-1482/test-product-copy_1655771197.jpeg" },
-          { url: "https://www.nursafia.my/image/nursafia/image/data/all_product_images/product-1482/test-product-copy_1655771197.jpeg" },
-          { url: "https://www.nursafia.my/image/nursafia/image/data/all_product_images/product-1482/test-product-copy_1655771197.jpeg" },
-          { url: "https://www.nursafia.my/image/nursafia/image/data/all_product_images/product-1482/test-product-copy_1655771197.jpeg" },
-          { url: "https://www.nursafia.my/image/nursafia/image/data/all_product_images/product-1482/test-product-copy_1655771197.jpeg" },
-          { url: "https://www.nursafia.my/image/nursafia/image/data/all_product_images/product-1482/test-product-copy_1655771197.jpeg" },
-          { url: "https://www.nursafia.my/image/nursafia/image/data/all_product_images/product-1482/test-product-copy_1655771197.jpeg" },
-          { url: "https://www.nursafia.my/image/nursafia/image/data/all_product_images/product-1482/test-product-copy_1655771197.jpeg" },
-          { url: "https://www.nursafia.my/image/nursafia/image/data/all_product_images/product-1482/test-product-copy_1655771197.jpeg" },
-          { url: "https://www.nursafia.my/image/nursafia/image/data/all_product_images/product-1482/test-product-copy_1655771197.jpeg" },
-          { url: "https://www.nursafia.my/image/nursafia/image/data/all_product_images/product-1482/test-product-copy_1655771197.jpeg" },
-          { url: "https://www.nursafia.my/image/nursafia/image/data/all_product_images/product-1482/test-product-copy_1655771197.jpeg" },
-          { url: "https://www.nursafia.my/image/nursafia/image/data/all_product_images/product-1482/test-product-copy_1655771197.jpeg" },
-          { url: "https://www.nursafia.my/image/nursafia/image/data/all_product_images/product-1482/test-product-copy_1655771197.jpeg" },
-          { url: "https://www.nursafia.my/image/nursafia/image/data/all_product_images/product-1482/test-product-copy_1655771197.jpeg" },
           { url: "https://www.nursafia.my/image/nursafia/image/data/all_product_images/product-1482/test-product-copy_1655771197.jpeg" },
         ],
         category: ["643652045afd39516f042376"],
@@ -74,7 +59,8 @@ describe('AppController (e2e)', () => {
         upc: '1234',
         price: 1000,
         stock: 10,
-      }).set("authorization", "Bearer " + token)
+      })
+      .set("authorization", "Bearer " + token)
       .set('Accept', 'application/json')
       .expect(200)
       .expect('Content-Type', /json/)
@@ -82,4 +68,28 @@ describe('AppController (e2e)', () => {
         expect(JSON.parse(response.text).configName).toBe(title)
       })
   })
+
+  it('product create', () => {
+    const token = adminService.tokenGenerator({ email: "nikorunikk@gmail.com" });
+    const title = "permit"
+    return request(app.getHttpServer())
+      .post("/product/create")
+      .send({
+        title,
+        description: "test e2e",
+        bgColor: '#000',
+        brand: "Supertest",
+        image: "https://www.nursafia.my/image/nursafia/image/data/all_product_images/product-1482/test-product-copy_1655771197.jpeg",
+        images: [
+          { url: "https://www.nursafia.my/image/nursafia/image/data/all_product_images/product-1482/test-product-copy_1655771197.jpeg" },
+        ],
+      })
+      .set("authorization", "Bearer " + token)
+      .set('Accept', 'application/json')
+      .expect(201)
+      .expect('Content-Type', /json/)
+      .then(response => {
+        expect(JSON.parse(response.text).title).toBe(title)
+      })
+  }, 300000)
 });
