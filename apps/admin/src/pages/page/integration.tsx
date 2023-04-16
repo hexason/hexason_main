@@ -1,11 +1,7 @@
-import { Box } from "@chakra-ui/react";
+import Integration from "@/components/integration";
 
-export default function Integration() {
+export default function IntegrationPage() {
   return (
-    <Box>
-      https://taobao.com
-      https://tmall.com
-      https://shoppy.mn
-    </Box>
+    <Integration />
   )
 }
