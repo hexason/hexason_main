@@ -22,8 +22,8 @@ const theme = extendTheme({
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <ChakraProvider theme={theme}>
+      <CustomerHead />
       <AuthContextProvider>
-        <CustomerHead />
         <NextNProgress />
         <Component {...pageProps} />
       </AuthContextProvider>
