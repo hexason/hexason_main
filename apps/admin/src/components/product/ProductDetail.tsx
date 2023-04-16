@@ -6,13 +6,22 @@ import DefaultAnimate from "../animation/DefaultAnimate";
 import { useAxios } from "@/hooks/useAxios";
 import { CategoryCreator } from "../category";
 import FileUploader from "../core/File/FileUploader";
-
+import FileUploaderMany, { ImageUploadManyType } from "../core/File/FileUploaderMany";
 export default function ProductDetail({ id }: { id: string }) {
   const [product, setProduct] = useState<any>(null);
   const [bgColor, setBgColor] = useState("");
   const [loading, setLoading] = useState(false);
   const axios = useAxios();
   const toast = useToast();
+
+  const imagesDescriptionChanger = (images: ImageUploadManyType[]) => {
+    setProduct((prev: any) => {
+      return {
+        ...prev,
+        images: images.map(e => ({ url: e.url }))
+      }
+    })
+  }
 
   const inputChanger = (e: any) => {
     setProduct((prev: any) => ({
@@ -130,12 +139,7 @@ export default function ProductDetail({ id }: { id: string }) {
               ))}
             </CustomFormControl> */}
             <CustomFormControl title={"Picture description"}>
-              <Wrap>
-                {product.images.map((e: any) => (
-                  <Image key={e._id} h="50px" src={e.url} alt={e._id + "-picture"} />
-                ))}
-                <Button colorScheme="blackAlpha">+</Button>
-              </Wrap>
+              <FileUploaderMany imgs={product.images.map((e: any) => ({ name: e._id, url: e.url, isUploaded: true }))} onChange={imagesDescriptionChanger} />
             </CustomFormControl>
           </Stack>
         </Grid>
