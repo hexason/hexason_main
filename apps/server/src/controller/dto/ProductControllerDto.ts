@@ -2,7 +2,7 @@ import { ProductI } from '@/lib/interfaces';
 import { Item, Product } from '@/lib/schema';
 import { Type } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
-import { IsArray, IsIn, IsNotEmpty, IsNumber, IsOptional, IsString, ValidateNested } from 'class-validator';
+import { IsArray, IsNotEmpty, IsNumber, IsOptional, IsString, ValidateNested } from 'class-validator';
 
 export class ProductAddDTO implements ProductI {
   @ApiProperty()
@@ -42,8 +42,9 @@ export class ProductAddDTO implements ProductI {
   discount?: number;
 
   @ApiProperty()
-  @IsIn(['active', 'inactive', 'draft'])
-  status: string;
+  // @IsIn([12, 0])
+  @IsNumber()
+  status: number;
 
   @ApiProperty()
   @IsArray()
@@ -106,6 +107,11 @@ export class ProductInfoUpdateDTO implements Partial<Product> {
   @IsOptional()
   @Type(() => OptionDto)
   options?: OptionDto[]
+
+  @ApiProperty()
+  @IsNumber()
+  @IsOptional()
+  status?: number;
 }
 
 export class OptionDto {

@@ -4,7 +4,10 @@ import { ItemI } from "../interfaces";
 import { Product } from "./product.model";
 
 @Schema({ timestamps: true })
-export class Item implements ItemI{
+export class Item implements ItemI {
+  @Prop({ required: true })
+  configName: string;
+
   @Prop({ required: true })
   altTxt: string;
 
@@ -22,6 +25,9 @@ export class Item implements ItemI{
 
   @Prop({ required: true })
   stock: number;
+
+  @Prop({ default: 12 }) // 1 - active, 0 - pending
+  status: number
 
   @Prop({ type: Types.ObjectId, ref: 'Product', required: true })
   product: Product | Types.ObjectId;

@@ -6,6 +6,7 @@ import DefaultAnimate from "../animation/DefaultAnimate";
 import ThreeDotsWave from "../animation/ThreeDotsWave";
 import { motion } from "framer-motion";
 import { EyeIcon, TrashIcon } from "@/assets/icons"
+import { statusViewer } from "@/lib/utils";
 
 export default function TableList() {
   const [products, setProducts] = useState<any>([]);
@@ -80,7 +81,7 @@ export default function TableList() {
           </TableContainer>
         </DefaultAnimate>
       }
-      <Modal isOpen={isOpen} onClose={() => {onClose(); refresh(Date.now())}} size={"4xl"}>
+      <Modal isOpen={isOpen} onClose={() => { onClose(); refresh(Date.now()) }} size={"4xl"}>
         <ModalOverlay />
         <ModalContent bg="#28243D" color="gray.200">
           <ModalHeader>
@@ -111,8 +112,8 @@ const TableBodyRow = ({ data, actions, isChecked }: any) => {
       <Td>{data.sold}</Td>
       <Td>{data.quantity}</Td>
       <Td>
-        <Tag colorScheme={data.status === "active" ? "green" : "gray"}>
-          {data.status}
+        <Tag colorScheme={statusViewer(data.status).colorSchema}>
+          {statusViewer(data.status).txt}
         </Tag>
       </Td>
       <Td>

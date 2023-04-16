@@ -1,6 +1,6 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import { Box, Button, Image, Input, Stack, Wrap, useToast } from "@chakra-ui/react";
-import { Queue } from "@/lib/queue";
+import { Queue } from "@/lib/utils/queue";
 import { TrashIcon } from "@/assets/icons";
 
 export type ImageUploadManyType = { name: string, url?: string, isUploaded: boolean, file?: File }

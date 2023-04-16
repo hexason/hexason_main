@@ -37,8 +37,8 @@ export class Product implements ProductI {
   @Prop({ default: 0 })
   quantity: number;
 
-  @Prop({ enum: ['active', 'inactive', 'draft'], required: true })
-  status: string;
+  @Prop({ default: 12, required: true })
+  status: number; // 12 - active, 1 - cancel, 0 - pending
 
   @Prop({ type: Types.ObjectId, ref: 'Supplier', required: true })
   supplier: Supplier | string;

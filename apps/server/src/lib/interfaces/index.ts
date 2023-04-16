@@ -8,7 +8,7 @@ export interface ProductI {
   discount?: number;
   sold: number;
   quantity: number;
-  status: string;
+  status: number;
   supplier: any;
   category: {
     id: string;

@@ -68,7 +68,8 @@ export default function ProductDetail({ id }: { id: string }) {
         brand: product.brand,
         images: product.images,
         options: product.options,
-        category: product.category.map((e: any) => e.id)
+        category: product.category.map((e: any) => e.id),
+        status: parseInt(product.status)
       }
     }).then(() => {
       toast({
@@ -107,8 +108,9 @@ export default function ProductDetail({ id }: { id: string }) {
               <Input value={product.brand} name="brand" onChange={inputChanger} />
             </CustomFormControl>
             <CustomFormControl title={"Status"}>
-              <Select value={product.status} onChange={(value) => inputChanger({ target: { name: "status", value } })}>
-                <option value={"active"}>Active</option>
+              <Select name="status" value={product.status} onChange={(e) => inputChanger(e)}>
+                <option value={12}>Active</option>
+                <option value={0}>Pending</option>
               </Select>
             </CustomFormControl>
           </Stack>

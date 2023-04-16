@@ -26,6 +26,7 @@ export class ProductService {
 
   modifyModel(model: Document & Product, { key, value }: { key: keyof Product | string, value: any }) {
     if (value) model[key] = value;
+    else if(key === "status" && (value === 0 || Number.isInteger(value))) model[key] = value;
     return model;
   }
 
