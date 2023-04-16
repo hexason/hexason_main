@@ -122,13 +122,13 @@ export default function ProductDetail({ id }: { id: string }) {
                 </Wrap>
               </Stack>
             </CustomFormControl>
-            <CustomFormControl title={"General Options"}>
+            {/* <CustomFormControl title={"General Options"}>
               {product.options.map((e: any) => (
                 <Box key={e._id}>
                   <Tag>{e.configName}:{e.value}</Tag>
                 </Box>
               ))}
-            </CustomFormControl>
+            </CustomFormControl> */}
             <CustomFormControl title={"Picture description"}>
               <Wrap>
                 {product.images.map((e: any) => (

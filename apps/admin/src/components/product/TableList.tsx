@@ -12,6 +12,7 @@ export default function TableList() {
   const [selectedProduct, setSelectedProduct] = useState<string | null>(null);
   const [checkedProducts, setCheckProducts] = useState<string[]>([]);
   const { isOpen, onClose, onOpen } = useDisclosure();
+  const [listener, refresh] = useState(0);
   const axios = useAxios();
 
   const checkAllProducts = (checked: boolean) => {
@@ -38,7 +39,7 @@ export default function TableList() {
       .catch(e => {
         if (e.isPermission) setProducts(null)
       })
-  }, [axios])
+  }, [axios, listener])
 
   if (!products) return <>No Permission</>
 
@@ -79,7 +80,7 @@ export default function TableList() {
           </TableContainer>
         </DefaultAnimate>
       }
-      <Modal isOpen={isOpen} onClose={onClose} size={"4xl"}>
+      <Modal isOpen={isOpen} onClose={() => {onClose(); refresh(Date.now())}} size={"4xl"}>
         <ModalOverlay />
         <ModalContent bg="#28243D" color="gray.200">
           <ModalHeader>
