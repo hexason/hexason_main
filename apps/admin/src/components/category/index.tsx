@@ -54,12 +54,12 @@ export const CategoryCreator = ({ name, trigger }: { name?: string, trigger?: (d
     if (isTyping) return
     axios.get("/category/list?s=" + category.name)
       .then(({ data }) => setCategories(data))
-  }, [isTyping])
+  }, [isTyping, axios, category])
   useEffect(() => {
-    setCategory({
-      ...category,
+    setCategory(prev => ({
+      ...prev,
       name,
-    });
+    }));
   }, [name])
 
   return (

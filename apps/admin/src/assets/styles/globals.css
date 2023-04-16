@@ -5,3 +5,11 @@
 body {
   background-color: "#28243D";
 }
+
+.overlay-image {
+  opacity: 0;
+}
+
+.hover-overlay-show:hover .overlay-image {
+  opacity: 1;
+}

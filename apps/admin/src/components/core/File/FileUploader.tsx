@@ -59,9 +59,7 @@ export default function FileUploader({ src, onChange }: { src?: string, onChange
           shadow="sm"
           role="group"
           transition="all 150ms ease-in-out"
-          _hover={{
-            shadow: "md"
-          }}
+          className="hover-overlay-show"
           as={motion.div}
         >
           <Box position="relative" height="100%" width="100%">
@@ -88,7 +86,8 @@ export default function FileUploader({ src, onChange }: { src?: string, onChange
                 backgroundPosition={"center"}
                 backgroundImage={`url(${url})`}
               >
-                <Stack w="100%" h="100%" bg={"#00000081"}>
+                <Stack className="overlay-image"
+                  transition={"0.3s"} w="100%" h="100%" bg={"#00000081"}>
                   <Stack p="8" textAlign="center" spacing="1">
                     <Heading fontSize="lg" color="gray.400" fontWeight="bold">
                       Drop images here
