@@ -5,17 +5,13 @@ import { TrashIcon } from "@/assets/icons";
 
 export type ImageUploadManyType = { name: string, url?: string, isUploaded: boolean, file?: File }
 export default function FileUploaderMany({ imgs, onChange }: { imgs?: ImageUploadManyType[], onChange?: (prop: ImageUploadManyType[]) => any; }) {
-  const [images, setImages] = useState<ImageUploadManyType[]>([]);
+  const [images, setImages] = useState<ImageUploadManyType[]>(imgs || []);
   const [loading, setLoading] = useState(false);
   const toast = useToast();
 
   useEffect(() => {
-    if (imgs) setImages(imgs);
-  }, [imgs])
-
-  useEffect(() => {
     if (onChange) onChange(images);
-  }, [images, onChange])
+  }, [onChange, images])
 
   const handleUploadClick = async (file: File | null) => {
     if (!file) {
