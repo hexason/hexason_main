@@ -19,7 +19,7 @@ describe('AppController (e2e)', () => {
     await app.init();
   });
 
-  it('/ (GET)', () => {
+  it('/product/:id/info', () => {
     const token = adminService.tokenGenerator({ email: "nikorunikk@gmail.com" });
     const title = "test"
     return request(app.getHttpServer())
@@ -57,6 +57,29 @@ describe('AppController (e2e)', () => {
       .expect('Content-Type', /json/)
       .then(response => {
         expect(JSON.parse(response.text).title).toBe(title)
+      })
+  });
+
+  it('/product/:id/item', () => {
+    const token = adminService.tokenGenerator({ email: "nikorunikk@gmail.com" });
+    const title = "test"
+    return request(app.getHttpServer())
+      .put('/product/64365283ac96be2f5f119c95/item')
+      .send({
+        configName: title,
+        altTxt: 'test',
+        image: '',
+        status: 12,
+        sku: Date.now().toString(32),
+        upc: '1234',
+        price: 1000,
+        stock: 10,
+      }).set("authorization", "Bearer " + token)
+      .set('Accept', 'application/json')
+      .expect(200)
+      .expect('Content-Type', /json/)
+      .then(response => {
+        expect(JSON.parse(response.text).configName).toBe(title)
       })
   })
 });

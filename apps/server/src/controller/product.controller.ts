@@ -12,8 +12,8 @@ import {
 } from '@nestjs/common';
 import { AdminJWTGuard } from '../middleware/admin_jwt.guard';
 import { ApiBearerAuth } from '@nestjs/swagger';
-import { ProductAddDTO, ProductInfoUpdateDTO } from './dto/ProductControllerDto';
-import { ProductService } from '@/service';
+import { ProductAddDTO, ProductInfoUpdateDTO, ProductItemUpdateDto } from './dto/ProductControllerDto';
+import { ItemService, ProductService } from '@/service';
 import { SupabaseJWTPayload } from '@/lib/interfaces';
 import { Admin } from '@/lib/models';
 
@@ -22,7 +22,9 @@ import { Admin } from '@/lib/models';
 @Controller('product')
 export class ProductController {
   constructor(
-    private readonly productService: ProductService) { }
+    private readonly productService: ProductService,
+    private readonly itemService: ItemService
+  ) { }
 
   @Get("list")
   @SetMetadata('isPublic', true)
@@ -83,9 +85,20 @@ export class ProductController {
   @Put(':id/item')
   async productItemUpdate(
     @Param('id') id: string,
-    @Body() { items }: { items: string[] }
+    @Body() data: ProductItemUpdateDto
   ) {
-    console.log(id);
-    return items;
+    const product = await this.productService.getOneProductById(id);
+    if (!product) throw new HttpException({ code: "NOT_FOUND_DATA", message: "Product not found" }, 404)
+    const items = await this.itemService.getItemsByProductId(id);
+    let item = items.find(i => i.id === data.id);
+    if (!item) {
+      item = this.itemService.createItemModel(data);
+      product.items.push(item._id as any);
+    }
+    item.product = product._id;
+    await item.save();
+    await product.save();
+
+    return item;
   }
 }

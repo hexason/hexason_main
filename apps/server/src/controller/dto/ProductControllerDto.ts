@@ -1,4 +1,4 @@
-import { ProductI } from '@/lib/interfaces';
+import { ItemI, ProductI } from '@/lib/interfaces';
 import { Item, Product } from '@/lib/schema';
 import { Type } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
@@ -134,4 +134,46 @@ export class ImagesDto {
   @IsString()
   @IsOptional()
   blurHash: string;
+}
+
+export class ProductItemUpdateDto implements Partial<ItemI> {
+  @ApiProperty()
+  @IsString()
+  @IsOptional()
+  id: string;
+
+  @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
+  configName: string;
+
+  @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
+  altTxt: string;
+
+  @ApiProperty()
+  @IsString()
+  @IsOptional()
+  image: string;
+
+  @ApiProperty()
+  @IsString()
+  @IsOptional()
+  upc: string;
+
+  @ApiProperty()
+  @IsNumber()
+  @IsNotEmpty()
+  price: number;
+
+  @ApiProperty()
+  @IsNumber()
+  @IsNotEmpty()
+  stock: number;
+
+
+  status: number;
+  sku: string;
+  product: any;
 }

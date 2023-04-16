@@ -38,7 +38,7 @@ describe('Product Service', () => {
           images: [],
           bgColor: "",
           items: [],
-          "status": "active",
+          "status": 12,
         });
         return expect(res.title).toBe("Hokage T5A");
       } catch (e) {

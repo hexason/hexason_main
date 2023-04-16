@@ -14,14 +14,14 @@ export class Item implements ItemI {
   @Prop()
   image: string;
 
-  @Prop({ required: true })
+  @Prop({ unique: true, required: true })
   sku: string; // stock keeping unit
 
   @Prop()
   upc: string; // universal product code
 
   @Prop({ required: true })
-  price: string;
+  price: number;
 
   @Prop({ required: true })
   stock: number;

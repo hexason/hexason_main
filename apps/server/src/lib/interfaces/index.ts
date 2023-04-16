@@ -29,12 +29,15 @@ export interface ProductI {
 }
 
 export interface ItemI {
+  configName:string;
   altTxt: string;
-  image: string;
+  image?: string;
   sku: string;
-  upc: string;
-  price: string;
-  product: any
+  upc?: string;
+  price: number;
+  status: number;
+  stock: number;
+  product?: any;
 }
 
 export interface SupabaseJWTPayload {
