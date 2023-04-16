@@ -4,6 +4,8 @@ import ColorPicker from "../utils/ColorPicker";
 import ThreeDotsWave from "../animation/ThreeDotsWave";
 import DefaultAnimate from "../animation/DefaultAnimate";
 import { useAxios } from "@/hooks/useAxios";
+import { CategoryCreator } from "../category";
+import FileUploader from "../core/File/FileUploader";
 
 export default function ProductDetail({ id }: { id: string }) {
   const [product, setProduct] = useState<any>(null);
@@ -24,6 +26,9 @@ export default function ProductDetail({ id }: { id: string }) {
       ...prev,
       category: prev.category.filter((e: any) => e.id !== id)
     }))
+  }
+  const categoryAdd = (data: any) => {
+    setProduct((prev: any) => ({ ...prev, category: [...prev.category, data] }))
   }
   useEffect(() => {
     if (!id) return;
@@ -84,7 +89,7 @@ export default function ProductDetail({ id }: { id: string }) {
         <Grid templateColumns={"repeat(2, 1fr)"} gap={3}>
           <Stack>
             <Stack borderRadius={"20px"} border="1px solid #000" bg={bgColor} p={6}>
-              <Image borderRadius={"20px"} src={product.image} alt={product.title} />
+              <FileUploader src={product.image} onChange={(url: string) => setProduct({ ...product, image: url })} />
               <Center>
                 <ColorPicker value={bgColor} onChange={(value: string) => setBgColor(value)} />
               </Center>
@@ -107,13 +112,14 @@ export default function ProductDetail({ id }: { id: string }) {
             </CustomFormControl>
             <CustomFormControl title={"Category"}>
               <Stack>
-                <Box>
+                <Wrap>
                   {product.category.map((e: any) => (
                     <Tag cursor={"pointer"} key={e.id} onClick={() => categoryRemove(e.id)}>
                       {e.name} <Badge colorScheme="red">X</Badge>
                     </Tag>
                   ))}
-                </Box>
+                  <CategoryCreator trigger={categoryAdd} />
+                </Wrap>
               </Stack>
             </CustomFormControl>
             <CustomFormControl title={"General Options"}>
@@ -128,6 +134,7 @@ export default function ProductDetail({ id }: { id: string }) {
                 {product.images.map((e: any) => (
                   <Image key={e._id} h="50px" src={e.url} alt={e._id + "-picture"} />
                 ))}
+                <Button colorScheme="blackAlpha">+</Button>
               </Wrap>
             </CustomFormControl>
           </Stack>
