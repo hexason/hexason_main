@@ -1,4 +1,4 @@
-import { ABOUT_BEATHOSTEL, EXPLAIN_TO_GPT } from "@/lib/data/train";
+import { EXPLAIN_TO_GPT } from "@/lib/data/train";
 import { Body, Controller, HttpException, Post, Query } from "@nestjs/common";
 import { ChatCompletionRequestMessage, Configuration, OpenAIApi } from "openai"
 
@@ -23,31 +23,6 @@ export class AiCcontroller {
 
       return completion
     }
-    // const axios = require("axios");
-
-    // const options = {
-    //   method: 'GET',
-    //   url: 'https://booking-com.p.rapidapi.com/v1/hotels/room-list',
-    //   params: {
-    //     hotel_id: '495712',
-    //     currency: 'SGD',
-    //     checkout_date: '2023-04-20',
-    //     locale: 'en-gb',
-    //     checkin_date: '2023-04-15',
-    //     adults_number_by_rooms: '1',
-    //     units: 'metric'
-    //   },
-    //   headers: {
-    //     'X-RapidAPI-Key': '27902383ccmsh73734c1b4b05958p1f703cjsne31eda711108',
-    //     'X-RapidAPI-Host': 'booking-com.p.rapidapi.com'
-    //   }
-    // };
-
-    // axios.request(options).then((response)  => {
-    //   this.recomdation = JSON.stringify(response.data);
-    // }).catch(function (error) {
-    //   console.error(error);
-    // });
   }
 
   @Post("chat/ask")
@@ -60,16 +35,6 @@ export class AiCcontroller {
         },
         {
           "role": "system", "content": EXPLAIN_TO_GPT,
-        },
-        {
-          "role": "system", "content": ABOUT_BEATHOSTEL,
-        },
-        {
-          "role": "system", "content": "Greetings friendly no additional requirement needed. Just introduce yourself Hexy.",
-        },
-        {
-          "role": "system", "content": `If request booking form or wanted booking include your answer this '{{book_number}}'. Then your response rendered by ejs. 
-        You need to give this after booking confirmation:<iframe src="https://docs.google.com/forms/d/e/1FAIpQLScdsobukoR6q_fseyPU6w3pUcsfDtrdvm1H3fhGMthyKn00eQ/viewform?embedded=true" width="640" height="801" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe> `
         },
       ];
     }
