@@ -1,7 +1,6 @@
 import '@/src/styles/globals.css'
 import type { AppProps } from 'next/app'
-import { ChakraProvider, extendTheme } from "@chakra-ui/react";
-import Root from "@/src/Root";
+import { ChakraProvider, Heading, Stack, extendTheme } from "@chakra-ui/react";
 import UserContextProvider from '../context/UserContext';
 import ReactGA from "react-ga4"
 import { useEffect, useState } from 'react';
@@ -13,7 +12,8 @@ import { useAxios } from '@/src/utils/axiosHook';
 import NextNProgress from "nextjs-progressbar"
 import FacebookPixel from '@/src/components/other/FacebooPixel';
 import Head from 'next/head';
-import WarningModal from '@/src/components/modals/WarningModal';
+import { motion } from 'framer-motion';
+import ThreeDotsWave from '../components/animation/ThreeDotsWave';
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -40,7 +40,15 @@ export default function App({ Component, pageProps }: AppProps) {
     })
   }, [router.isReady]
   )
-
+  const DotVariants = {
+    initial: {
+      y: "0%"
+    },
+    animate: {
+      y: "100%"
+    }
+  };
+  
   return <ChakraProvider theme={extendTheme({
     config: {
       initialColorMode: "light",
@@ -63,10 +71,25 @@ export default function App({ Component, pageProps }: AppProps) {
             <FacebookPixel />
           </Head>
           <NextNProgress />
-          <WarningModal />
-          <Root>
+          <Stack
+            w="100%"
+            h="100vh" position="fixed" top="0" left="0" zIndex="99" bg="#000000"
+            alignItems={"center"}
+            justifyContent={"center"}
+          >
+            {/* infinite animation fade in fade out */}
+            <Heading
+              as={motion.div}
+              color={"white"}
+              initial={{ y: 10, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: -10, opacity: 0 }}
+            >Coming soon</Heading>
+            <ThreeDotsWave />
+          </Stack>
+          {/* <Root>
             <Component {...pageProps} />
-          </Root>
+          </Root> */}
         </UserContextProvider>
       </ModalContextProvider>
     </AppContextProvider>
