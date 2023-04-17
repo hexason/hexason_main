@@ -113,7 +113,7 @@ export class ProductItemUpdateDto implements Partial<ItemI> {
   @ApiProperty()
   @IsString()
   @IsOptional()
-  id: string;
+  _id: string;
 
   @ApiProperty()
   @IsString()

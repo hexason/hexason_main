@@ -1,4 +1,4 @@
-import { Badge, Box, Button, Center, Container, FormControl, FormLabel, Grid, Image, Input, Select, Stack, Tag, Textarea, Wrap, useToast } from "@chakra-ui/react";
+import { Badge, Button, Center, Container, FormControl, FormLabel, Grid, Image, Input, Select, Stack, Table, TableContainer, Tag, Textarea, Th, Thead, Tr, Wrap, useToast } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import ColorPicker from "../utils/ColorPicker";
 import ThreeDotsWave from "../animation/ThreeDotsWave";
@@ -7,6 +7,8 @@ import { useAxios } from "@/hooks/useAxios";
 import { CategoryCreator } from "../category";
 import FileUploader from "../core/File/FileUploader";
 import FileUploaderMany, { ImageUploadManyType } from "../core/File/FileUploaderMany";
+import ItemDetail from "./ItemDetail";
+import ItemCreate from "./ItemCreate";
 export default function ProductDetail({ id }: { id: string }) {
   const [product, setProduct] = useState<any>(null);
   const [bgColor, setBgColor] = useState("");
@@ -146,18 +148,28 @@ export default function ProductDetail({ id }: { id: string }) {
           </Stack>
         </Grid>
         <CustomFormControl title={"SKU items"}>
-          {product.items.map((e: any) => (
-            <Box key={e.id}>
-              {e.altTxt}
-            </Box>
-          ))}
+          <TableContainer>
+            <Table>
+              <Thead>
+                <Tr>
+                  <Th>SKU</Th>
+                  <Th>Variant</Th>
+                  <Th>Price</Th>
+                  <Th>Action</Th>
+                </Tr>
+              </Thead>
+              {product.items.filter((e: any) => e.status === 12).map((e: any) => (
+                <ItemDetail key={e.id} itemData={e} onChange={(datas: any) => setProduct({ ...product, items: datas })} />
+              ))}
+              <ItemCreate productId={product.id} onChange={(datas: any) => setProduct({ ...product, items: datas })} />
+            </Table>
+          </TableContainer>
         </CustomFormControl>
         <Button isLoading={loading} onClick={saveProduct} colorScheme="green" w="100%">Save</Button>
       </Stack>
     </Container>
   )
 }
-
 const CustomFormControl = ({ children, title }: any) => {
   return (
     <FormControl bg="#00000050" p={3} borderRadius={"20px"}>

@@ -100,15 +100,22 @@ export class ProductController {
     const product = await this.productService.getOneProductById(id);
     if (!product) throw new HttpException({ code: "NOT_FOUND_DATA", message: "Product not found" }, 404)
     const items = await this.itemService.getItemsByProductId(id);
-    let item = items.find(i => i.id === data.id);
-    if (!item) {
+
+    let item = items.find(i => i._id.toString() === data._id);
+    if (!item && !data._id) {
       item = this.itemService.createItemModel(data);
       product.items.push(item._id as any);
     }
-    item.product = product._id;
-    await item.save();
+    if (data._id && data.status === 1 && product) {
+      product.items = product.items.filter((it: any) => it._id.toString() !== data._id);
+    }
+    if (item) {
+      item.product = product._id;
+      await item.save();
+    }
+    await product.populate("items")
     await product.save();
 
-    return item;
+    return product.items;
   }
 }

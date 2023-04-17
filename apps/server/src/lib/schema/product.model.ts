@@ -50,7 +50,7 @@ export class Product implements ProductI {
   images: { url: string, blurHash: string }[];
 
   @Prop({ type: [{ type: Types.ObjectId, ref: 'Item' }] })
-  items: Item[] | Types.ObjectId[];
+  items: any[]
 }
 
 
