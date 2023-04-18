@@ -45,7 +45,7 @@ const ChatBox = () => {
       borderRadius={"20px"}
     >
       <HStack px={6} pt={3}>
-        <Checkbox onChange={(e) => setTranslate(e.target.checked)} />
+        <Checkbox isChecked={translate} onChange={(e) => setTranslate(e.target.checked)} />
         <Text fontSize={"14px"}>Google Translate ашиглах</Text>
       </HStack>
       <Divider />

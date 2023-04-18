@@ -30,12 +30,12 @@ export class AiCcontroller {
 
   @Post('google/translate')
   async googleTranslate(@Body() { text, source, target }: any) {
-    const translation = await this.googleService.translate(
+    const { translations } = await this.googleService.translate(
       text,
       target,
       source,
     );
-    return translation[0].translatedText;
+    return translations[0];
   }
 
   @Post('chat/ask')
