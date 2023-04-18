@@ -15,7 +15,7 @@ export interface ProductI {
     description: string;
     parent: string;
     children: string[];
-    name: string,
+    name: string;
   }[];
   options: {
     configName: string;
@@ -23,13 +23,13 @@ export interface ProductI {
   }[];
   images: {
     url: string;
-    blurHash: string
-  }[]
-  items: any[]
+    blurHash: string;
+  }[];
+  items: any[];
 }
 
 export interface ItemI {
-  configName:string;
+  configName: string;
   altTxt: string;
   image?: string;
   sku: string;

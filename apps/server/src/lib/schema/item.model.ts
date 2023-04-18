@@ -1,7 +1,7 @@
-import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose"
-import { Types } from "mongoose";
-import { ItemI } from "../interfaces";
-import { Product } from "./product.model";
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Types } from 'mongoose';
+import { ItemI } from '../interfaces';
+import { Product } from './product.model';
 
 @Schema({ timestamps: true })
 export class Item implements ItemI {
@@ -27,7 +27,7 @@ export class Item implements ItemI {
   stock: number;
 
   @Prop({ default: 12 }) // 1 - active, 0 - pending
-  status: number
+  status: number;
 
   @Prop({ type: Types.ObjectId, ref: 'Product', required: true })
   product: Product | Types.ObjectId;
@@ -35,10 +35,10 @@ export class Item implements ItemI {
 
 const ItemSchema = SchemaFactory.createForClass(Item);
 ItemSchema.set('toJSON', {
-  virtuals: true
+  virtuals: true,
 });
 ItemSchema.virtual('id').get(function () {
   return this._id.toHexString();
 });
 
-export { ItemSchema }
+export { ItemSchema };

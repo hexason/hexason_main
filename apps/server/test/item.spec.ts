@@ -8,7 +8,7 @@ describe('Product Service', () => {
 
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
-      imports: [AppModule]
+      imports: [AppModule],
     }).compile();
 
     productService = moduleRef.get<ProductService>(ProductService);
@@ -28,11 +28,11 @@ describe('Product Service', () => {
         upc: '1234',
         price: 1000,
         stock: 10,
-        product: products[0].id
+        product: products[0].id,
       });
       await item.save();
-    
-      expect(item.configName).toBe("test")
+
+      expect(item.configName).toBe('test');
     });
   });
 });

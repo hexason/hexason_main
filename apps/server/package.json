@@ -21,6 +21,7 @@
     "seed": "ts-node src/seed.ts"
   },
   "dependencies": {
+    "@google-cloud/translate": "^7.2.1",
     "@nestjs/common": "^9.0.0",
     "@nestjs/config": "^2.2.0",
     "@nestjs/core": "^9.0.0",

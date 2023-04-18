@@ -1,10 +1,16 @@
-import { Entity, Column, ManyToOne, PrimaryGeneratedColumn, OneToOne, JoinColumn } from "typeorm";
-import { Admin } from "./admin.model";
-import { Role } from "./role.model";
+import {
+  Entity,
+  Column,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+  JoinColumn,
+} from 'typeorm';
+import { Admin } from './admin.model';
+import { Role } from './role.model';
 
 @Entity()
 export class SupplierAdmin {
-  @PrimaryGeneratedColumn("uuid")
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()

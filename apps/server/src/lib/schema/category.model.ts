@@ -1,5 +1,5 @@
-import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import { Document, Types } from "mongoose";
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Document, Types } from 'mongoose';
 
 export type CategoryDocument = Category & Document;
 
@@ -11,10 +11,10 @@ export class Category {
   @Prop({ type: String })
   description?: string;
 
-  @Prop({ type: Types.ObjectId, ref: "Category" })
+  @Prop({ type: Types.ObjectId, ref: 'Category' })
   children: (Category | Types.ObjectId)[];
 
-  @Prop({ type: Types.ObjectId, ref: "Category" })
+  @Prop({ type: Types.ObjectId, ref: 'Category' })
   parent?: Category | Types.ObjectId;
 
   @Prop({ type: Number, default: 0 })
@@ -23,7 +23,7 @@ export class Category {
 
 const CategorySchema = SchemaFactory.createForClass(Category);
 CategorySchema.set('toJSON', {
-  virtuals: true
+  virtuals: true,
 });
 CategorySchema.virtual('id').get(function () {
   return this._id.toHexString();

@@ -7,7 +7,7 @@ describe('Product Service', () => {
 
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
-      imports: [AppModule]
+      imports: [AppModule],
     }).compile();
 
     productService = moduleRef.get<ProductService>(ProductService);
@@ -24,26 +24,26 @@ describe('Product Service', () => {
     it('should return an product', async () => {
       try {
         const res = await productService.createProduct({
-          "title": "Hokage T5A",
-          "description": "Hokage T5A\nRTX3060 I7-11 gen",
-          "brand": "Firebat",
-          "image": "http://file.firebat.com.cn/FtGLwoPAAjEhy9IB43xcSdVxi6bE",
-          "price": 4400000,
+          title: 'Hokage T5A',
+          description: 'Hokage T5A\nRTX3060 I7-11 gen',
+          brand: 'Firebat',
+          image: 'http://file.firebat.com.cn/FtGLwoPAAjEhy9IB43xcSdVxi6bE',
+          price: 4400000,
           discount: 0,
-          "sold": 0,
-          "quantity": 0,
-          supplier: "64364d4829aeda71de8a6fa6",
-          category: "643652045afd39516f042376",
+          sold: 0,
+          quantity: 0,
+          supplier: '64364d4829aeda71de8a6fa6',
+          category: '643652045afd39516f042376',
           options: [],
           images: [],
-          bgColor: "",
+          bgColor: '',
           items: [],
-          "status": 12,
+          status: 12,
         });
-        return expect(res.title).toBe("Hokage T5A");
+        return expect(res.title).toBe('Hokage T5A');
       } catch (e) {
-        return expect(e.code).toBe("FORMAT");
+        return expect(e.code).toBe('FORMAT');
       }
-    })
-  })
+    });
+  });
 });

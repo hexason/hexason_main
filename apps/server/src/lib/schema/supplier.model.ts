@@ -1,4 +1,4 @@
-import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
 @Schema({ timestamps: true })
 export class Supplier {
@@ -15,17 +15,17 @@ export class Supplier {
   location: string;
 
   @Prop()
-  supplierType: "premium" | "person" | "commerce"
+  supplierType: 'premium' | 'person' | 'commerce';
 
   @Prop()
-  score: 0
+  score: 0;
 }
 
 const SupplierSchema = SchemaFactory.createForClass(Supplier);
 SupplierSchema.set('toJSON', {
-  virtuals: true
+  virtuals: true,
 });
 SupplierSchema.virtual('id').get(function () {
   return this._id.toHexString();
 });
-export { SupplierSchema }
+export { SupplierSchema };

@@ -13,7 +13,7 @@ export class OrderItem {
   @PrimaryGeneratedColumn()
   id: string;
 
-  @Column({nullable: true})
+  @Column({ nullable: true })
   product: string;
 
   @ManyToOne(() => Order, (order) => order.items)

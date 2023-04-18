@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsIn, IsString, Max, MaxLength } from 'class-validator';
+import { IsIn, IsString, MaxLength } from 'class-validator';
 
 export class AdminLoginDTO {
   @ApiProperty()

@@ -6,7 +6,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import * as controller from '@/controller';
 
 import * as entities from '@/lib/models/index';
-import { SchemaFormats } from "@/lib/schema/index"
+import { SchemaFormats } from '@/lib/schema/index';
 import * as services from '@/service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ThrottlerModule } from '@nestjs/throttler';
@@ -23,9 +23,9 @@ import { ThrottlerModule } from '@nestjs/throttler';
     }),
     MongooseModule.forRootAsync({
       useFactory: async () => ({
-        uri: process.env.MONGO_URL
+        uri: process.env.MONGO_URL,
       }),
-      inject: [ConfigService]
+      inject: [ConfigService],
     }),
     MongooseModule.forFeature(SchemaFormats),
     TypeOrmModule.forRootAsync({
@@ -48,4 +48,4 @@ import { ThrottlerModule } from '@nestjs/throttler';
   providers: Object.values(services),
   controllers: Object.values(controller),
 })
-export class AppModule { }
+export class AppModule {}
