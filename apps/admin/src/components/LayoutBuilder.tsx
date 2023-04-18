@@ -9,7 +9,7 @@ export default function LayoutBuilder({ children }: any) {
       w="100%" bg="#28243D" h="100vh"
       overflow={"hidden"}
       color="gray.200"
-      templateColumns={"repeat(8, 1fr)"} gap={12}>
+      templateColumns={{base:"repeat(1,1fr)", md:"repeat(8, 1fr)"}} gap={12}>
       <GridItem colSpan={1}>
         <Sidebar />
       </GridItem>

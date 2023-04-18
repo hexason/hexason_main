@@ -1,4 +1,4 @@
-import { Button, Checkbox, HStack, Image, Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay, Table, TableContainer, Tag, Tbody, Td, Th, Thead, Tr, useDisclosure } from "@chakra-ui/react";
+import { Box, Button, Checkbox, HStack, Image, Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay, Table, TableContainer, Tag, Tbody, Td, Th, Thead, Tr, useDisclosure } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import ProductDetail from "./ProductDetail";
 import { useAxios } from "@/hooks/useAxios";
@@ -45,13 +45,12 @@ export default function TableList() {
   }, [axios, listener])
 
   if (!products) return <>No Permission</>
-
   return (
     <DefaultAnimate>
       {products.length === 0 ? <ThreeDotsWave /> :
-        <DefaultAnimate>
+        <Box m={3} as={DefaultAnimate}>
           <Button onClick={creatorModal.onOpen} colorScheme="blackAlpha">Create Product</Button>
-          <TableContainer>
+          <TableContainer h="80vh" overflowY="auto">
             <Table variant={"striped"} colorScheme="blackAlpha">
               <Thead>
                 <Tr>
@@ -82,7 +81,7 @@ export default function TableList() {
               </Tbody>
             </Table>
           </TableContainer>
-        </DefaultAnimate>
+        </Box>
       }
       <Modal isOpen={creatorModal.isOpen} onClose={() => { creatorModal.onClose(); refresh(Date.now()) }} size={"4xl"}>
         <ModalOverlay />
@@ -92,7 +91,7 @@ export default function TableList() {
             <ModalCloseButton />
           </ModalHeader>
           <ModalBody>
-            <ProductCreate trigger={(id) => {creatorModal.onClose(), selectProduct(id)}} />
+            <ProductCreate trigger={(id) => { creatorModal.onClose(), selectProduct(id) }} />
           </ModalBody>
         </ModalContent>
       </Modal>

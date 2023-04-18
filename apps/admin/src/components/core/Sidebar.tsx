@@ -1,48 +1,22 @@
 import { useAuth } from "@/context/AuthContext";
-import { Stack, Button, Box, Divider } from "@chakra-ui/react";
+import { Stack, Button, Box, Divider, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerOverlay, useDisclosure } from "@chakra-ui/react";
 import { useRouter } from "next/router";
+import React from "react";
 import { useEffect, useState } from "react";
 
 export default function Sidebar() {
-  const [active, setActive] = useState("");
-  const { session, supabase } = useAuth();
-  const [buttons, setButtons] = useState<any>([]);
-  const router = useRouter();
-  useEffect(() => {
-    if (router.isReady) setActive(router.pathname)
-    setButtons([
-      {
-        url: "/",
-        txt: "Home",
-        order: 1
-      },
-      {
-        url: "/page/product",
-        txt: "Products",
-        order: 0
-      },
-      {
-        url: "/page/integration",
-        txt: "Integrations",
-        order: 0
-      },
-    ])
-  }, [router])
+  const { isOpen, onOpen, onClose } = useDisclosure()
 
   return (
     <Stack>
-      <Stack minH={"600px"}>
+      <MobileSideBar {...{ isOpen, onOpen, onClose }} />
+      <Stack display={{ base: "flex", md: "none" }}>
         <Box p={6}>
-          {session?.user.email}
+          <Button colorScheme="blackAlpha" onClick={onOpen}>Menu</Button>
         </Box>
-        <Divider />
-        {buttons.map((el: any) => <SidebarButton
-          onClick={() => router.push(el.url)}
-          isActive={el.url === active} key={el.url}>{el.txt}</SidebarButton>)}
       </Stack>
-      <Divider />
-      <Stack p={3}>
-        <Button colorScheme="blackAlpha" onClick={() => supabase.auth.signOut()}>Log Out</Button>
+      <Stack display={{ base: "none", md: "flex" }} minH={"600px"}>
+        <SidebarContent />
       </Stack>
     </Stack>
   )
@@ -66,5 +40,67 @@ function SidebarButton({ children, isActive, onClick }: any) {
     >
       {children}
     </Button>
+  )
+}
+
+
+function SidebarContent() {
+  const [active, setActive] = useState("");
+  const [buttons, setButtons] = useState<any>([]);
+  const router = useRouter();
+  const { session, supabase } = useAuth();
+
+  useEffect(() => {
+    if (router.isReady) setActive(router.pathname)
+    setButtons([
+      {
+        url: "/",
+        txt: "Home",
+        order: 1
+      },
+      {
+        url: "/page/product",
+        txt: "Products",
+        order: 0
+      },
+      {
+        url: "/page/integration",
+        txt: "Integrations",
+        order: 0
+      },
+    ])
+  }, [router])
+  return (
+    <Stack minH={"600px"}>
+      <Box p={6}>
+        {session?.user.email}
+      </Box>
+      <Divider />
+      {buttons.map((el: any) => <SidebarButton
+        onClick={() => router.push(el.url)}
+        isActive={el.url === active} key={el.url}>{el.txt}</SidebarButton>)}
+      <Divider />
+      <Stack p={3}>
+        <Button colorScheme="blackAlpha" onClick={() => supabase.auth.signOut()}>Log Out</Button>
+      </Stack>
+    </Stack>
+  )
+}
+function MobileSideBar({ isOpen, onClose }: any) {
+
+  return (
+    <Drawer
+      isOpen={isOpen}
+      placement='left'
+      onClose={onClose}
+    >
+      <DrawerOverlay />
+      <DrawerContent bg={"#28243D"} color="gray.200">
+        <DrawerCloseButton />
+        <DrawerBody p={0} pr={6}>
+          <SidebarContent />
+        </DrawerBody>
+      </DrawerContent>
+    </Drawer>
   )
 }

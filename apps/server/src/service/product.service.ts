@@ -14,6 +14,7 @@ export class ProductService {
   async getProducts() {
     const product = await this.productModel
       .find({})
+      .sort({ status: 'asc', createdAt: 'desc' })
       .populate(['supplier', 'category']);
     return product;
   }
