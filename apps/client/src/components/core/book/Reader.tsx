@@ -8,7 +8,7 @@ export default function Reader({ data }: any) {
   }, []);
 
   return (
-    <Box backgroundImage={"url(https://img.freepik.com/free-photo/vintage-grunge-paper-background_1048-10911.jpg?w=2000)"}>
+    <Box backgroundImage={"url(https://img.freepik.com/free-photo/vintage-grunge-paper-background_1048-10911.jpg?w=2000)"} color="black">
       <Stack spacing={"5"} p="6" bg="rgba(255,255,255,0.3)" w="100%" h="100%">
         <Heading fontFamily={"Troubleside"} textAlign={"center"} dangerouslySetInnerHTML={{ __html: data.title }} />
         <Divider borderColor={"black"} />

@@ -3,6 +3,7 @@ import { Reader, BookLibrary } from "../components/core/book";
 import axios from "axios";
 import { NextPageContext } from "next";
 import Head from "next/head";
+import DefaultAnimate from "@/components/animation/DefaultAnimate";
 
 export default function League({ data }: any) {
   if (!data) return (
@@ -10,7 +11,7 @@ export default function League({ data }: any) {
       <Head>
         <title>Book Library</title>
       </Head>
-      <Container maxW="container.lg">
+      <Container maxW="container.lg" as={DefaultAnimate}>
         <BookLibrary />
       </Container>
     </>
