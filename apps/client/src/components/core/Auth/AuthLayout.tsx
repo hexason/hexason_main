@@ -1,3 +1,4 @@
+import DefaultAnimate from "@/components/animation/DefaultAnimate";
 import { Box, Container, Image, Stack } from "@chakra-ui/react";
 
 export default function AuthLayout({ children, ...props }: any) {
@@ -9,6 +10,7 @@ export default function AuthLayout({ children, ...props }: any) {
       position={"absolute"}
       zIndex={100}
       top={0}
+      as={DefaultAnimate}
       {...props}
     >
       <Container maxW="container.lg">

@@ -1,10 +1,10 @@
-import { Box, Divider, Heading, Image, Stack, Text, useToast } from "@chakra-ui/react";
+import { Box, Divider, Heading, Image, Stack, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 
 export default function Reader({ data }: any) {
   const [paragraph, setParagraph] = useState([])
   useEffect(() => {
-    setParagraph(data.context.split("<p><br></p>"))    
+    setParagraph(data.context.split("<p><br></p>"))
   }, []);
 
   return (
@@ -21,7 +21,7 @@ export default function Reader({ data }: any) {
         <Box>
           {
             paragraph.length < data.images.length ?
-            data.images.map((el:any, index:number) => index > paragraph.length - 1 ? <Image key={el.url+index} src={el.url} /> : null) : null
+              data.images.map((el: any, index: number) => index > paragraph.length - 1 ? <Image key={el.url + index} src={el.url} /> : null) : null
           }
         </Box>
       </Stack>
