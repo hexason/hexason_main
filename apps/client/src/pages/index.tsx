@@ -51,7 +51,7 @@ export default function Home({ app }: any) {
         w="100%">
 
         <Grid
-          templateColumns={"repeat(2, 1fr)"}
+          templateColumns={{ base: "repeat(1,1fr)", md: "repeat(2, 1fr)" }}
           gap={6}
         >
           {cards.map(e => (

@@ -4,7 +4,7 @@ import Link from "next/link";
 export default function ImageCard({ children, src, href }: { children: any, src: string, href: string }) {
   return (
     <Box
-      w="300px"
+      w={["200px", "300px", "400px"]}
       h="200px"
       borderRadius={"20px"}
       backgroundPosition={"center"}
