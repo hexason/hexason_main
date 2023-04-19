@@ -1,5 +1,5 @@
-import BookLibrary from "@/src/components/library/BookLibrary";
-import Reader from "@/src/components/Reader";
+import { Container } from "@chakra-ui/react";
+import { Reader, BookLibrary } from "../components/core/book";
 import axios from "axios";
 import { NextPageContext } from "next";
 import Head from "next/head";
@@ -10,7 +10,9 @@ export default function League({ data }: any) {
       <Head>
         <title>Book Library</title>
       </Head>
-      <BookLibrary />
+      <Container maxW="container.lg">
+        <BookLibrary />
+      </Container>
     </>
   )
   return <>
@@ -18,10 +20,12 @@ export default function League({ data }: any) {
       <title>{data.title.replace(/<\/?[^>]+(>|$)/g, "")}</title>
       <meta property="og:type" content="article" />
       <meta property="og:title" content={data.title.replace(/<\/?[^>]+(>|$)/g, "")} />
-      <meta property="og:description" content={data.context.replace(/<\/?[^>]+(>|$)/g, "").toLowerCase().split(" ").slice(0,10).join(" ")} />
+      <meta property="og:description" content={data.context.replace(/<\/?[^>]+(>|$)/g, "").toLowerCase().split(" ").slice(0, 10).join(" ")} />
       <meta property="og:image" content={data.coverImage} />
     </Head>
-    <Reader data={data} />
+    <Container maxW="container.lg">
+      <Reader data={data} />
+    </Container>
   </>
 }
 

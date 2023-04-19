@@ -1,7 +1,7 @@
-import { Center, Divider, Grid, Heading, Stack, useToast } from "@chakra-ui/react";
+import { Grid, Heading, Stack, useToast } from "@chakra-ui/react";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import BookCard from "../cards/BookCard";
+import BookCard from "./BookCard";
 
 export default function BookLibrary() {
   const [books, setBooks] = useState([]);

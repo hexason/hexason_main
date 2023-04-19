@@ -1,7 +1,7 @@
-import { Container, Stack } from '@chakra-ui/react'
+import { Box, Divider, Heading, Image, Stack, Text } from '@chakra-ui/react';
 import axios from 'axios';
 import Head from 'next/head';
-import BookLibrary from '@/src/components/library/BookLibrary';
+import ImageCard from '../components/cards/ImageCard';
 
 export default function Home({ app }: any) {
   return (
@@ -15,11 +15,37 @@ export default function Home({ app }: any) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Container mt="10px" minW="100%">
-        <Stack>
-          <BookLibrary />
-        </Stack>
-      </Container>
+      <Stack
+        justifyContent={"center"}
+        alignItems={"center"}
+        h="100vh"
+        w="100%"
+      >
+        <ImageCard
+          src="https://upload.wikimedia.org/wikipedia/en/d/da/KDA.png"
+          href={"/league"}
+        >
+          <Stack textAlign={"center"}>
+            <Heading color={"#fffffffB"}>
+              League of Legends
+            </Heading>
+            <Divider />
+            <Text color="gray.400" fontSize={"2xl"}>Universe</Text>
+          </Stack>
+        </ImageCard>
+        <ImageCard
+          src="https://unity.com/sites/default/files/styles/16_9_l_scale_width/public/2022-02/learning-journey-810x455%401x.jpg?itok=Plw3_1K2"
+          href={"/course"}
+        >
+           <Stack textAlign={"center"}>
+            <Heading color="#fffffffB">
+               ZTH16
+            </Heading>
+            <Divider />
+            <Text color="gray.400" fontSize={"2xl"}>Zero To Hero</Text>
+          </Stack>
+        </ImageCard>
+      </Stack>
     </>
   )
 }
