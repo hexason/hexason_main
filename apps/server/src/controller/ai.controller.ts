@@ -56,7 +56,6 @@ export class AiCcontroller {
       const { translations } = await this.googleService.translate(message, 'en');
       en = { role: 'user', content: translations[0].translatedText };
     }
-
     sessions[session].push(en);
     const answer = await this.ask(sessions[session]);
     sessions[session].push({

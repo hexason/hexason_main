@@ -17,12 +17,7 @@ export class SupplierService {
     this.supplierRepo = this.dataSource.getRepository(SupplierAdmin);
   }
 
-  async createSupplier({
-    name,
-    description,
-    logo,
-    location,
-  }: SupplierCreateType) {
+  async createSupplier({ name, description, logo, location }: SupplierCreateType) {
     if (await this.supplierModel.findOne({ name }))
       throw { code: 'DUPLICAPLE_DATA', message: 'Supplier already there' };
     const supplier = new this.supplierModel({
@@ -37,17 +32,12 @@ export class SupplierService {
 
   async addAdminToSupplier({ id, adminId, roleId }: any) {
     const supplier = await this.supplierModel.findById(id);
-    if (!supplier)
-      throw { code: 'NOT_FOUND_DATA', message: 'SUPPLIER not found' };
+    if (!supplier) throw { code: 'NOT_FOUND_DATA', message: 'SUPPLIER not found' };
 
-    const role = await this.dataSource
-      .getRepository(Role)
-      .findOneBy({ id: roleId });
+    const role = await this.dataSource.getRepository(Role).findOneBy({ id: roleId });
     if (!role) throw { code: 'NOT_FOUND_DATA', message: 'Role not found' };
 
-    const admin = await this.dataSource
-      .getRepository(Admin)
-      .findOneBy({ id: adminId });
+    const admin = await this.dataSource.getRepository(Admin).findOneBy({ id: adminId });
     if (!admin) throw { code: 'NOT_FOUND_DATA', message: 'Admin not found' };
 
     let adminSupplier = await this.supplierRepo.findOneBy({

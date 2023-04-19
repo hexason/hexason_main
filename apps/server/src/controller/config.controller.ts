@@ -1,18 +1,8 @@
 import { App } from '../lib/models';
-import {
-  Body,
-  Controller,
-  HttpException,
-  Post,
-  UseGuards,
-} from '@nestjs/common';
+import { Body, Controller, HttpException, Post, UseGuards } from '@nestjs/common';
 import { InjectDataSource } from '@nestjs/typeorm';
 import { DataSource, Repository } from 'typeorm';
-import {
-  ConfigCreateDTO,
-  ConfigUpdateBankDTO,
-  ConfigUpdateDTO,
-} from './dto/ConfigControllerDto';
+import { ConfigCreateDTO, ConfigUpdateBankDTO, ConfigUpdateDTO } from './dto/ConfigControllerDto';
 import { AdminJWTGuard } from '../middleware/admin_jwt.guard';
 import { ApiBearerAuth } from '@nestjs/swagger';
 

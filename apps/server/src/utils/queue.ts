@@ -1,10 +1,7 @@
 import { Readable } from 'stream';
 
 export class Queue<T, R> {
-  constructor(
-    private readonly data: T[],
-    private readonly func: (props: T) => R,
-  ) {}
+  constructor(private readonly data: T[], private readonly func: (props: T) => R) {}
   result: R[];
   isRunning = false;
 

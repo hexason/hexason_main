@@ -34,14 +34,10 @@ export class AdminService {
     return permissions;
   }
 
-  permissionChecker(
-    permissions: { key: string; code: number }[],
-    rule: { key: string; code: number },
-  ) {
+  permissionChecker(permissions: { key: string; code: number }[], rule: { key: string; code: number }) {
     const check = permissions.find((permission) => permission.key === rule.key);
     if (!check) throw { code: 'RULE_PERMITION', message: "can't accept" };
-    if (check.code < rule.code)
-      throw { code: 'RULE_PERMITION', message: "can't accept" };
+    if (check.code < rule.code) throw { code: 'RULE_PERMITION', message: "can't accept" };
   }
 
   async roleAdd(name: string) {

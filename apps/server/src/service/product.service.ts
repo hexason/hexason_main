@@ -20,30 +20,19 @@ export class ProductService {
   }
 
   async getOneProductById(id: string) {
-    if (!Types.ObjectId.isValid(id))
-      throw { code: 'FORMAT', message: 'Check product id carefully' };
-    const product = await this.productModel
-      .findById(id)
-      .populate(['supplier', 'category', 'items']);
-    if (!product)
-      throw { code: 'NOT_FOUND_DATA', message: 'Product not found' };
+    if (!Types.ObjectId.isValid(id)) throw { code: 'FORMAT', message: 'Check product id carefully' };
+    const product = await this.productModel.findById(id).populate(['supplier', 'category', 'items']);
+    if (!product) throw { code: 'NOT_FOUND_DATA', message: 'Product not found' };
     return product;
   }
 
-  modifyModel(
-    model: Document & Product,
-    { key, value }: { key: keyof Product | string; value: any },
-  ) {
+  modifyModel(model: Document & Product, { key, value }: { key: keyof Product | string; value: any }) {
     if (value) model[key] = value;
-    else if (key === 'status' && (value === 0 || Number.isInteger(value)))
-      model[key] = value;
+    else if (key === 'status' && (value === 0 || Number.isInteger(value))) model[key] = value;
     return model;
   }
 
-  async updateProduct(
-    product: Document & Product,
-    productData: Partial<Product>,
-  ) {
+  async updateProduct(product: Document & Product, productData: Partial<Product>) {
     Object.keys(productData).forEach((e) => {
       this.modifyModel(product, { key: e, value: productData[e] });
     });
@@ -66,8 +55,7 @@ export class ProductService {
     images,
     items,
   }: ProductI) {
-    if (!Types.ObjectId.isValid(supplier as any))
-      throw { code: 'FORMAT', message: 'Supplier is not valid ID' };
+    if (!Types.ObjectId.isValid(supplier as any)) throw { code: 'FORMAT', message: 'Supplier is not valid ID' };
     const product = new this.productModel({
       title,
       image,

@@ -5,9 +5,7 @@ import { Model } from 'mongoose';
 
 @Controller('category')
 export class CategoryController {
-  constructor(
-    @InjectModel(Category.name) private readonly cateModel: Model<Category>,
-  ) {}
+  constructor(@InjectModel(Category.name) private readonly cateModel: Model<Category>) {}
 
   @Get('list')
   async getAllCategories(@Query('s') s: string) {

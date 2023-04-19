@@ -1,13 +1,4 @@
-import {
-  Body,
-  Controller,
-  Get,
-  HttpException,
-  Post,
-  Query,
-  Request,
-  UseGuards,
-} from '@nestjs/common';
+import { Body, Controller, Get, HttpException, Post, Query, Request, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { UserService } from '../service/user.service';
 import { UserJWTGuard } from '../middleware/user_jwt.guard';
@@ -49,8 +40,7 @@ export class UserController {
       const item = products.find((r) => r.id === pr.id);
       return pr.quantity >= item.quantity;
     });
-    if (filteredProducts.length < 1)
-      throw new HttpException('Бараа агуулахад үлдэгдэлгүй байна.', 400);
+    if (filteredProducts.length < 1) throw new HttpException('Бараа агуулахад үлдэгдэлгүй байна.', 400);
     const order = await this.orderService.createOrder(
       user.sub,
       address,

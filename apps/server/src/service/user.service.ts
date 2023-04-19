@@ -5,16 +5,12 @@ import { DataSource } from 'typeorm';
 export class UserService {
   supaAdmin: GoTrueAdminApi;
   constructor(@InjectDataSource() private readonly dataSource: DataSource) {
-    const supabase = createClient(
-      process.env.SUPABASE_URL,
-      process.env.SUPABASE_KEY,
-      {
-        auth: {
-          autoRefreshToken: false,
-          persistSession: false,
-        },
+    const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY, {
+      auth: {
+        autoRefreshToken: false,
+        persistSession: false,
       },
-    );
+    });
     this.supaAdmin = supabase.auth.admin;
   }
 

@@ -11,16 +11,9 @@ export class GoogleService {
     });
   }
 
-  async translate(
-    text: string,
-    targetLanguage: string,
-    sourceLanguage?: string,
-  ) {
+  async translate(text: string, targetLanguage: string, sourceLanguage?: string) {
     const [translation] = await this.client.translateText({
-      parent: this.client.locationPath(
-        this.serviceAccount.project_id,
-        'global',
-      ),
+      parent: this.client.locationPath(this.serviceAccount.project_id, 'global'),
       contents: [text],
       mimeType: 'text/plain',
       sourceLanguageCode: sourceLanguage,

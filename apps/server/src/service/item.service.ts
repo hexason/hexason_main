@@ -6,9 +6,7 @@ import { Model } from 'mongoose';
 
 @Injectable()
 export class ItemService {
-  constructor(
-    @InjectModel(Item.name) private readonly itemModel: Model<Item>,
-  ) {}
+  constructor(@InjectModel(Item.name) private readonly itemModel: Model<Item>) {}
 
   async getItemsByProductId(id: string) {
     const items = await this.itemModel.find({ product: id });

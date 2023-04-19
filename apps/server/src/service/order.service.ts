@@ -11,10 +11,7 @@ export class OrderService {
     this.orderItemRepo = this.dataSource.getRepository(OrderItem);
   }
 
-  async orderStatusChange(
-    id: string,
-    status: 'pending' | 'paid' | 'delivered' | 'done' | 'cancel',
-  ) {
+  async orderStatusChange(id: string, status: 'pending' | 'paid' | 'delivered' | 'done' | 'cancel') {
     const order = await this.orderRepo.findOneBy({ id });
     if (!order) return null;
     order.status = status;
@@ -68,10 +65,7 @@ export class OrderService {
         user: userId as any,
         paymentMessage: 'waiting',
         shortId: Date.now().toString(32).slice(2),
-        totalPrice: products.reduce(
-          (acc, item) => acc + item.quantity * item.price,
-          0,
-        ),
+        totalPrice: products.reduce((acc, item) => acc + item.quantity * item.price, 0),
         city,
         district,
         address,

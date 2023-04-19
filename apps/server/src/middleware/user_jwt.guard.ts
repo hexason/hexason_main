@@ -17,8 +17,7 @@ export class UserJWTGuard implements CanActivate {
       request.user = payload;
       return true;
     } catch (e) {
-      if (this.reflector.get('isPublic', context.getHandler()) === true)
-        return true;
+      if (this.reflector.get('isPublic', context.getHandler()) === true) return true;
       return false;
     }
   }

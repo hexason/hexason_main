@@ -11,17 +11,4 @@ import { Role } from './role.model';
 import { Permission } from './permission.model';
 import { SupplierAdmin } from './supplier_admin.model';
 
-export {
-  Admin,
-  App,
-  OrderItem,
-  Order,
-  Transaction,
-  User,
-  Wallet,
-  Book,
-  BookImage,
-  Role,
-  Permission,
-  SupplierAdmin,
-};
+export { Admin, App, OrderItem, Order, Transaction, User, Wallet, Book, BookImage, Role, Permission, SupplierAdmin };

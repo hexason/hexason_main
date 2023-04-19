@@ -12,11 +12,7 @@ import {
 } from '@nestjs/common';
 import { AdminJWTGuard } from '../middleware/admin_jwt.guard';
 import { ApiBearerAuth } from '@nestjs/swagger';
-import {
-  ProductAddDTO,
-  ProductInfoUpdateDTO,
-  ProductItemUpdateDto,
-} from './dto/ProductControllerDto';
+import { ProductAddDTO, ProductInfoUpdateDTO, ProductItemUpdateDto } from './dto/ProductControllerDto';
 import { ItemService, ProductService } from '@/service';
 import { SupabaseJWTPayload } from '@/lib/interfaces';
 import { Admin } from '@/lib/models';
@@ -25,10 +21,7 @@ import { Admin } from '@/lib/models';
 @ApiBearerAuth('admin-access')
 @Controller('product')
 export class ProductController {
-  constructor(
-    private readonly productService: ProductService,
-    private readonly itemService: ItemService,
-  ) {}
+  constructor(private readonly productService: ProductService, private readonly itemService: ItemService) {}
 
   @Get('list')
   @SetMetadata('isPublic', true)
@@ -43,11 +36,9 @@ export class ProductController {
   @Get(':id')
   @SetMetadata('isPublic', true)
   async getProduct(@Param('id') id: string) {
-    const product = await this.productService
-      .getOneProductById(id)
-      .catch((e) => {
-        throw new HttpException(e, 400);
-      });
+    const product = await this.productService.getOneProductById(id).catch((e) => {
+      throw new HttpException(e, 400);
+    });
     return product;
   }
 
@@ -79,10 +70,7 @@ export class ProductController {
   }
 
   @Put(':id/info')
-  async productUpdate(
-    @Param('id') id: string,
-    @Body() data: ProductInfoUpdateDTO,
-  ) {
+  async productUpdate(@Param('id') id: string, @Body() data: ProductInfoUpdateDTO) {
     try {
       const product = await this.productService.getOneProductById(id);
       return await this.productService.updateProduct(product, data);
@@ -93,16 +81,9 @@ export class ProductController {
   }
 
   @Put(':id/item')
-  async productItemUpdate(
-    @Param('id') id: string,
-    @Body() data: ProductItemUpdateDto,
-  ) {
+  async productItemUpdate(@Param('id') id: string, @Body() data: ProductItemUpdateDto) {
     const product = await this.productService.getOneProductById(id);
-    if (!product)
-      throw new HttpException(
-        { code: 'NOT_FOUND_DATA', message: 'Product not found' },
-        404,
-      );
+    if (!product) throw new HttpException({ code: 'NOT_FOUND_DATA', message: 'Product not found' }, 404);
     const items = await this.itemService.getItemsByProductId(id);
 
     let item = items.find((i) => i._id.toString() === data._id);
@@ -111,9 +92,7 @@ export class ProductController {
       product.items.push(item._id as any);
     }
     if (data._id && data.status === 1 && product) {
-      product.items = product.items.filter(
-        (it: any) => it._id.toString() !== data._id,
-      );
+      product.items = product.items.filter((it: any) => it._id.toString() !== data._id);
     }
     if (item) {
       item.product = product._id;

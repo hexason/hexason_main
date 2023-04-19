@@ -17,10 +17,7 @@ export class OrderController {
   @UseGuards(AdminJWTGuard)
   @ApiBearerAuth('admin-access')
   @Put(':id/status')
-  async updateVerify(
-    @Param('id') id: string,
-    @Body() { status }: OrderStatusChangeDTO,
-  ) {
+  async updateVerify(@Param('id') id: string, @Body() { status }: OrderStatusChangeDTO) {
     await this.orderService.orderStatusChange(id, status);
     return {
       success: true,

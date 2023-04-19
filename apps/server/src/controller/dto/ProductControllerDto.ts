@@ -2,14 +2,7 @@ import { ItemI, ProductI } from '@/lib/interfaces';
 import { Product } from '@/lib/schema';
 import { Type } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
-import {
-  IsArray,
-  IsNotEmpty,
-  IsNumber,
-  IsOptional,
-  IsString,
-  ValidateNested,
-} from 'class-validator';
+import { IsArray, IsNotEmpty, IsNumber, IsOptional, IsString, ValidateNested } from 'class-validator';
 
 export class ProductAddDTO implements Partial<ProductI> {
   @ApiProperty()

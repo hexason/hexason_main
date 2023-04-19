@@ -1,11 +1,4 @@
-import {
-  Column,
-  CreateDateColumn,
-  Entity,
-  ManyToOne,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 import { Order } from './order';
 
 @Entity()
@@ -27,17 +20,7 @@ export class OrderItem {
 
   @Column({
     default: 'pending',
-    enum: [
-      'inbasket',
-      'pending',
-      'paid',
-      'prepare',
-      'shipping',
-      'delivered',
-      'closed',
-      'cancel',
-      'done',
-    ],
+    enum: ['inbasket', 'pending', 'paid', 'prepare', 'shipping', 'delivered', 'closed', 'cancel', 'done'],
   })
   status: string;
 
