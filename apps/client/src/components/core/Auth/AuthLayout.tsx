@@ -13,7 +13,7 @@ export default function AuthLayout({ children, ...props }: any) {
     >
       <Container maxW="container.lg">
         <Stack minH="100vh" justifyContent={"center"} alignItems={"center"}>
-          <Image alt="Hexason" borderRadius={"20px"} h="75px" src="/icon/logo.png" />
+          <Image alt="Hexason" borderRadius={"20px"} h="75px" src="/logo.png" />
           {children}
         </Stack>
       </Container>
