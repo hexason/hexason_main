@@ -7,6 +7,7 @@ import Head from 'next/head';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { AuthContextProvider } from '@/context/AuthContext';
+import { AnimatePresence } from 'framer-motion';
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -28,7 +29,9 @@ export default function App({ Component, pageProps }: AppProps) {
       >
         <NextNProgress />
         <AuthContextProvider>
-          <Component {...pageProps} />
+          <AnimatePresence mode="wait" initial={false} onExitComplete={() => window.scrollTo(0, 0)}>
+            <Component {...pageProps} key={router.asPath} />
+          </AnimatePresence>
         </AuthContextProvider>
       </Box>
     </ChakraProvider>

@@ -1,9 +1,37 @@
-import { Box, Divider, Heading, Image, Stack, Text } from '@chakra-ui/react';
+import { Divider, Grid, Heading, Stack, Text } from '@chakra-ui/react';
 import axios from 'axios';
 import Head from 'next/head';
 import ImageCard from '../components/cards/ImageCard';
+import { useState } from 'react';
+import DefaultAnimate from '@/components/animation/DefaultAnimate';
 
 export default function Home({ app }: any) {
+  const [cards] = useState([
+    {
+      title: "League of Legends",
+      description: "Universe",
+      href: "/league",
+      src: "https://upload.wikimedia.org/wikipedia/en/d/da/KDA.png"
+    },
+    {
+      title: "ZTH16",
+      description: "Zero To Hero",
+      href: "/course",
+      src: "https://unity.com/sites/default/files/styles/16_9_l_scale_width/public/2022-02/learning-journey-810x455%401x.jpg?itok=Plw3_1K2"
+    },
+    {
+      title: "Hexy",
+      description: "Ask anything",
+      href: "/support",
+      src: "https://cdn.discordapp.com/attachments/960216281993322606/1098000261672349696/hexy.webp"
+    },
+    {
+      title: "Pointes",
+      description: "Find what you need...",
+      href: "/shop",
+      src: "https://www.skunexus.com/hubfs/essential-ecommerce-website-tools.jpg"
+    }
+  ])
   return (
     <>
       <Head>
@@ -16,47 +44,32 @@ export default function Home({ app }: any) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Stack
+        as={DefaultAnimate}
         justifyContent={"center"}
         alignItems={"center"}
         h="100vh"
-        w="100%"
-      >
-        <ImageCard
-          src="https://upload.wikimedia.org/wikipedia/en/d/da/KDA.png"
-          href={"/league"}
+        w="100%">
+
+        <Grid
+          templateColumns={"repeat(2, 1fr)"}
+          gap={6}
         >
-          <Stack textAlign={"center"}>
-            <Heading color={"#fffffffB"}>
-              League of Legends
-            </Heading>
-            <Divider />
-            <Text color="gray.400" fontSize={"2xl"}>Universe</Text>
-          </Stack>
-        </ImageCard>
-        <ImageCard
-          src="https://unity.com/sites/default/files/styles/16_9_l_scale_width/public/2022-02/learning-journey-810x455%401x.jpg?itok=Plw3_1K2"
-          href={"/course"}
-        >
-          <Stack textAlign={"center"}>
-            <Heading color="#fffffffB">
-              ZTH16
-            </Heading>
-            <Divider />
-            <Text color="gray.400" fontSize={"2xl"}>Zero To Hero</Text>
-          </Stack>
-        </ImageCard>
-        <ImageCard
-          src="https://cdn.discordapp.com/attachments/960216281993322606/1098000261672349696/hexy.webp"
-          href={"/support"}
-        >
-          <Stack textAlign={"center"}>
-            <Heading color="#fffffffB">
-              Hexy
-            </Heading>
-            <Divider />
-            <Text color="gray.400" fontSize={"2xl"}>Ask me anything</Text>
-          </Stack>
-        </ImageCard>
+          {cards.map(e => (
+            <ImageCard
+              key={e.title}
+              src={e.src}
+              href={e.href}
+            >
+              <Stack textAlign={"center"}>
+                <Heading color={"#fffffffB"}>
+                  {e.title}
+                </Heading>
+                <Divider />
+                <Text color="gray.400" fontSize={"2xl"}>{e.description}</Text>
+              </Stack>
+            </ImageCard>
+          ))}
+        </Grid>
       </Stack>
     </>
   )
