@@ -37,12 +37,24 @@ export default function Home({ app }: any) {
           src="https://unity.com/sites/default/files/styles/16_9_l_scale_width/public/2022-02/learning-journey-810x455%401x.jpg?itok=Plw3_1K2"
           href={"/course"}
         >
-           <Stack textAlign={"center"}>
+          <Stack textAlign={"center"}>
             <Heading color="#fffffffB">
-               ZTH16
+              ZTH16
             </Heading>
             <Divider />
             <Text color="gray.400" fontSize={"2xl"}>Zero To Hero</Text>
+          </Stack>
+        </ImageCard>
+        <ImageCard
+          src="https://cdn.discordapp.com/attachments/960216281993322606/1098000261672349696/hexy.webp"
+          href={"/support"}
+        >
+          <Stack textAlign={"center"}>
+            <Heading color="#fffffffB">
+              Hexy
+            </Heading>
+            <Divider />
+            <Text color="gray.400" fontSize={"2xl"}>Ask me anything</Text>
           </Stack>
         </ImageCard>
       </Stack>

@@ -1,0 +1,37 @@
+.login-page {
+  min-height: 100vh;
+}
+
+body {
+  background-color: "#28243D";
+}
+
+.overlay-image {
+  opacity: 0;
+}
+
+.hover-overlay-show:hover .overlay-image {
+  opacity: 1;
+}
+
+/* Scroll customize */
+/* width */
+::-webkit-scrollbar {
+  border-radius: 20px;
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 20px;
+  width: 10px;
+  box-shadow: inset 1px 1px 1px #000000AB;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: #000;
+  width: 10px;
+}
