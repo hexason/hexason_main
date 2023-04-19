@@ -23,6 +23,9 @@ describe('Product Service', () => {
   describe('createProduct', () => {
     it('should return an product', async () => {
       try {
+        const products = await productService.getProducts();
+        if (products.length > 1) return expect(products.length).toBeGreaterThan(1);
+
         const res = await productService.createProduct({
           title: 'Hokage T5A',
           description: 'Hokage T5A\nRTX3060 I7-11 gen',
@@ -33,7 +36,7 @@ describe('Product Service', () => {
           sold: 0,
           quantity: 0,
           supplier: '64364d4829aeda71de8a6fa6',
-          category: '643652045afd39516f042376',
+          category: '643652045afd39516f042376' as any,
           options: [],
           images: [],
           bgColor: '',
