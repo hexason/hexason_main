@@ -6,6 +6,7 @@ import NextNProgress from "nextjs-progressbar"
 import Head from 'next/head';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
+import { AuthContextProvider } from '@/context/AuthContext';
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -26,7 +27,9 @@ export default function App({ Component, pageProps }: AppProps) {
         color="white"
       >
         <NextNProgress />
-        <Component {...pageProps} />
+        <AuthContextProvider>
+          <Component {...pageProps} />
+        </AuthContextProvider>
       </Box>
     </ChakraProvider>
   )
