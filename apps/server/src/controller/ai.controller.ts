@@ -1,6 +1,8 @@
-import { EXPLAIN_TO_GPT } from '@/lib/data/train';
+import { Chat, TrainGpt } from '@/lib/schema';
 import { GoogleService } from '@/service';
 import { Body, Controller, HttpException, Post } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
 import { ChatCompletionRequestMessage, Configuration, OpenAIApi } from 'openai';
 
 const sessions: any = {};
@@ -8,7 +10,11 @@ const sessions: any = {};
 export class AiCcontroller {
   recomdation: any = [];
   ask: any;
-  constructor(private readonly googleService: GoogleService) {
+  constructor(
+    private readonly googleService: GoogleService,
+    @InjectModel(Chat.name) private readonly chatSchem: Model<Chat>,
+    @InjectModel(TrainGpt.name) private readonly trainSchem: Model<TrainGpt>,
+  ) {
     const config = new Configuration({
       apiKey: process.env.OPENAI_API_KEY,
     });
@@ -30,11 +36,7 @@ export class AiCcontroller {
 
   @Post('google/translate')
   async googleTranslate(@Body() { text, source, target }: any) {
-    const { translations } = await this.googleService.translate(
-      text,
-      target,
-      source,
-    );
+    const { translations } = await this.googleService.translate(text, target, source);
     return translations[0];
   }
 
@@ -42,24 +44,16 @@ export class AiCcontroller {
   async chatAsk(@Body() { session, message, translate }: any) {
     if (!session) throw new HttpException({ message: 'session required' }, 400);
     if (!sessions[session]) {
-      sessions[session] = [
-        {
-          role: 'system',
-          content: "You're response must me html formatted.",
-        },
-        {
-          role: 'system',
-          content: EXPLAIN_TO_GPT,
-        },
-      ];
+      const traindata = (await this.trainSchem.find({})).map((e) => ({
+        role: 'system',
+        content: e.trainContext,
+      }));
+      sessions[session] = traindata;
     }
 
     let en = { role: 'user', content: message };
     if (translate) {
-      const { translations } = await this.googleService.translate(
-        message,
-        'en',
-      );
+      const { translations } = await this.googleService.translate(message, 'en');
       en = { role: 'user', content: translations[0].translatedText };
     }
 
@@ -68,6 +62,21 @@ export class AiCcontroller {
     sessions[session].push({
       role: 'assistant',
       content: answer.data.choices[0].message?.content,
+    });
+
+    const newChats = [
+      new this.chatSchem({
+        session,
+        ...en,
+      }),
+      new this.chatSchem({
+        role: 'assistant',
+        session,
+        content: answer.data.choices[0].message?.content,
+      }),
+    ];
+    this.chatSchem.insertMany(newChats).catch((e) => {
+      console.log(e);
     });
 
     return sessions[session].filter((e: any) => e.role != 'system');
