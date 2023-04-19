@@ -1,4 +1,4 @@
-import { Box, Stack, Text } from "@chakra-ui/react";
+import { Box, Stack, Text, transition } from "@chakra-ui/react";
 import Link from "next/link";
 
 export default function ImageCard({ children, src, href }: { children: any, src: string, href: string }) {
@@ -14,6 +14,11 @@ export default function ImageCard({ children, src, href }: { children: any, src:
       cursor={"pointer"}
       as={Link}
       href={href}
+      _hover={{
+        shadow: "md",
+        transform: "scale(1.05)",
+        transition: "all .2s ease-in-out"
+      }}
     >
       <Stack
         alignItems={"center"}
