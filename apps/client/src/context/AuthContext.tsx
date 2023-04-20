@@ -1,7 +1,7 @@
 import DefaultAnimate from '@/components/animation/DefaultAnimate';
 import { SupabaseAuthSession } from '@/lib/types';
 import { supabase } from '@/lib/Supabase';
-import { useToast } from '@chakra-ui/react';
+import { Box, Button, useToast } from '@chakra-ui/react';
 import { SupabaseClient } from '@supabase/supabase-js';
 import { createContext, useContext, useEffect, useState } from 'react';
 
@@ -30,7 +30,8 @@ export const AuthContextProvider = ({ children }: any) => {
       supabase
     }}>
       <DefaultAnimate>
-         {children}
+        {session && <Button colorScheme='blackAlpha' position={"absolute"} top={20} right={20} onClick={() => supabase.auth.signOut()}>Log out</Button>
+        } {children}
       </DefaultAnimate>
     </AuthContext.Provider>
   )
