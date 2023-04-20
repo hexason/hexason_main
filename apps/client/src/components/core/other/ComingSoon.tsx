@@ -6,7 +6,7 @@ export default function ComingSoon() {
   return (
     <Stack
       w="100%"
-      h="100vh"
+      minH="100vh"
       position="fixed"
       top="0"
       left="0"

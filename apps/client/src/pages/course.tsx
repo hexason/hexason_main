@@ -1,21 +1,12 @@
 import DefaultAnimate from "@/components/animation/DefaultAnimate";
-import ThreeDotsWave from "@/components/animation/ThreeDotsWave";
-import AuthForm from "@/components/core/Auth/AuthForm";
-import AuthLayout from "@/components/core/Auth/AuthLayout";
+import TimeLine from "@/components/core/Course/Timeline";
 import { useAuth } from "@/context/AuthContext";
-import { Center, Divider, Heading, Stack, Text } from "@chakra-ui/react";
+import { Divider, Heading, Stack, Text } from "@chakra-ui/react";
 
 export default function AuthPage() {
-  const { session, supabase } = useAuth();
-  if (!session)
-    return (
-      <AuthLayout>
-        <AuthForm supabaseClient={supabase} />
-      </AuthLayout>
-    )
-
+  const { session } = useAuth();
   return (
-    <Stack height="100vh" alignItems={"center"} justifyContent={"center"}>
+    <Stack spacing={6} py={6} minH="100vh" alignItems={"center"} justifyContent={"center"}>
       <Heading as={DefaultAnimate}>
         Hi.
         <Text color="teal" as="span">
@@ -23,7 +14,7 @@ export default function AuthPage() {
         </Text>
         <br />
         <Text color="gray.600" as="span">
-          {session.user.email} <br />
+          {session?.user.email} <br />
         </Text>
         <Text color="teal" as="span">
           {"<"}
@@ -36,14 +27,9 @@ export default function AuthPage() {
         <Text color="teal" as="span">
           {"/>"}
         </Text>
-        <Center>
-          <Divider />
-          <Text mt={6}>
-            Magic will come soon
-          </Text>
-        </Center>
-        <ThreeDotsWave />
       </Heading>
+      <Divider />
+      <TimeLine />
     </Stack>
   )
 }

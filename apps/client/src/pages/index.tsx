@@ -47,7 +47,7 @@ export default function Home({ app }: any) {
         as={DefaultAnimate}
         justifyContent={"center"}
         alignItems={"center"}
-        h="100vh"
+        minH="100vh"
         w="100%">
 
         <Grid
