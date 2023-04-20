@@ -1,7 +1,7 @@
 import DefaultAnimate from '@/components/animation/DefaultAnimate';
 import { SupabaseAuthSession } from '@/lib/types';
 import { supabase } from '@/lib/Supabase';
-import { Box, Button, useToast } from '@chakra-ui/react';
+import { Button, useToast } from '@chakra-ui/react';
 import { SupabaseClient } from '@supabase/supabase-js';
 import { createContext, useContext, useEffect, useState } from 'react';
 
