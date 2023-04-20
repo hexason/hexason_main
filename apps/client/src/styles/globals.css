@@ -46,7 +46,7 @@
 
   .timeline-middle {
     position: relative;
-    background-image: linear-gradient(45deg, #F27121, #E94057, #8A2387);
+    background-image: linear-gradient(45deg, #319795, #319795, #319795);
     width: 3px;
     height: 100%;
   }
@@ -62,7 +62,7 @@
     width: 15px;
     height: 15px;
     border-radius: 50%;
-    background-image: linear-gradient(45deg, #F27121, #E94057, #8A2387);
+    background-image: linear-gradient(45deg, #319795, #319795, #319795);
     -webkit-transform: translateX(-50%);
     transform: translateX(-50%);
   }

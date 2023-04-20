@@ -1,5 +1,5 @@
 import { SendIcon } from "@/assets/icons";
-import { Button, Stack, Text } from "@chakra-ui/react";
+import { Button, Divider, Stack, Text } from "@chakra-ui/react";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -31,7 +31,11 @@ export default function TimeLine() {
     },
   ])
   return (
-    <Stack>
+    <Stack spacing={"20px"}>
+      <Button colorScheme="teal" as={Link} href="https://forms.gle/o9jWaowk99aHo9JY9">
+        <SendIcon height="20px" fill="white" /><Text mx="1">Бүртгүүлэх</Text>
+      </Button>
+      <Divider />
       <div className="timeline">
         <div className="timeline-empty" />
         <div className="timeline-middle">
@@ -63,7 +67,7 @@ export default function TimeLine() {
           <div className="timeline-circle" />
         </div>
       </div >
-      <Button colorScheme="orange" as={Link} href="https://forms.gle/o9jWaowk99aHo9JY9">
+      <Button colorScheme="teal" as={Link} href="https://forms.gle/o9jWaowk99aHo9JY9">
         <SendIcon height="20px" fill="white" /><Text mx="1">Бүртгүүлэх</Text>
       </Button>
     </Stack >
