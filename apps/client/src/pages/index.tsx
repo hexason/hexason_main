@@ -28,9 +28,9 @@ export default function Home({ app }: any) {
   ])
   const [projects] = useState([
     {
-      title: "League of Legends",
-      description: "Universe",
-      href: "/league",
+      title: "Game Area",
+      description: "Virtaul Entertainment Area",
+      href: "/game",
       src: "https://upload.wikimedia.org/wikipedia/en/d/da/KDA.png"
     },
     {
