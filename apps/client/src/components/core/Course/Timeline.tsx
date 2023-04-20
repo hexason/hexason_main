@@ -56,6 +56,10 @@ export default function TimeLine() {
           <div className="timeline-circle" />
         </div>
         <Point {...stage[4]} />
+        <Point {...stage[5]} />
+        <div className="timeline-middle">
+          <div className="timeline-circle" />
+        </div>
       </div >
     </Stack >
   )
