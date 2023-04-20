@@ -1,20 +1,11 @@
-import AuthForm from "@/components/core/Auth/AuthForm";
-import AuthLayout from "@/components/core/Auth/AuthLayout";
 import ChatBox from "@/components/core/ChatBox";
-import { useAuth } from "@/context/AuthContext";
+import { Container, Text } from "@chakra-ui/react";
 
 export default function Support() {
-  const { session, supabase } = useAuth();
-  if (!session)
-    return (
-      <AuthLayout>
-        <AuthForm supabaseClient={supabase} />
-      </AuthLayout>
-    )
-
   return (
-    <>
+    <Container maxW="container.lg">
+      <Text color="gray.500">{'"Мирокс Ойн" талаар мэдээлэл өгч сургасан бот. Та туршаад үзээрэй. Хэрэв та яг ийм бот хийлгэх хүсэлтэй бол манай пэйж хуудсаар холбоо барина уу. https://facebook.com/hexason'}</Text>
       <ChatBox />
-    </>
+    </Container>
   )
 }
