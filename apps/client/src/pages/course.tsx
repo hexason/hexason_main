@@ -2,10 +2,14 @@ import DefaultAnimate from "@/components/animation/DefaultAnimate";
 import TimeLine from "@/components/core/Course/Timeline";
 import { useAuth } from "@/context/AuthContext";
 import { Divider, Heading, Stack, Text } from "@chakra-ui/react";
+import Head from "next/head";
 
 export default function AuthPage() {
   const { session } = useAuth();
-  return (
+  return (<>
+  <Head>
+    <title>ZTH16 | Developer Training Project</title>
+  </Head>
     <Stack spacing={6} py={6} minH="100vh" alignItems={"center"} justifyContent={"center"}>
       <Heading as={DefaultAnimate}>
         Hi.
@@ -31,5 +35,6 @@ export default function AuthPage() {
       <Divider />
       <TimeLine />
     </Stack>
+  </>
   )
 }
