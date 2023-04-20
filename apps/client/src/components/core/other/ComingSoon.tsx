@@ -19,7 +19,7 @@ export default function ComingSoon() {
       alignItems={"center"}
       justifyContent={"center"}
     >
-      <Button onClick={router.back} colorScheme="blackAlpha"><ArrorLeft fill="white" w={20} /> <Text ml={1}>Буцах</Text></Button>
+      <Button onClick={router.back} colorScheme="whiteAlpha"><ArrorLeft fill="white" w={20} /> <Text ml={1}>Буцах</Text></Button>
       <Image h="75px" src="/logo.png" alt="hexason" />
       <Heading
         as={motion.div}
