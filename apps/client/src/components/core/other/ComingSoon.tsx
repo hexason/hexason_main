@@ -1,8 +1,12 @@
-import { Stack, Heading, Image } from "@chakra-ui/react";
+import { Stack, Heading, Image, Button, Text } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import ThreeDotsWave from "../../animation/ThreeDotsWave";
+import { ArrorLeft } from "@/assets/icons";
+import { useRouter } from "next/router";
 
 export default function ComingSoon() {
+  const router = useRouter();
+
   return (
     <Stack
       w="100%"
@@ -15,6 +19,7 @@ export default function ComingSoon() {
       alignItems={"center"}
       justifyContent={"center"}
     >
+      <Button onClick={router.back} colorScheme="blackAlpha"><ArrorLeft fill="white" w={20} /> <Text ml={1}>Буцах</Text></Button>
       <Image h="75px" src="/logo.png" alt="hexason" />
       <Heading
         as={motion.div}

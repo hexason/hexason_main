@@ -1,6 +1,6 @@
 import '@/styles/globals.css'
 import type { AppProps } from 'next/app'
-import { Box, ChakraProvider } from "@chakra-ui/react";
+import { Box, Button, ChakraProvider } from "@chakra-ui/react";
 import ReactGA from "react-ga4"
 import NextNProgress from "nextjs-progressbar"
 import Head from 'next/head';
