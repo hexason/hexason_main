@@ -11,9 +11,11 @@ export const AuthContextProvider = ({ children }: any) => {
   const [session, setSession] = useState<SupabaseAuthSession>(null);
   const toast = useToast();
   const router = useRouter();
+  const [isBackable, setBackable] = useState(true);
 
   useEffect(() => {
-    if(router.isReady) console.log(router.asPath)
+    if (router.asPath === "/") setBackable(false);
+    else setBackable(true);
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session)
 
@@ -25,7 +27,7 @@ export const AuthContextProvider = ({ children }: any) => {
     })
 
     return () => subscription.unsubscribe()
-  }, [toast,router]);
+  }, [toast, router]);
 
   return (
     <AuthContext.Provider value={{
@@ -33,9 +35,9 @@ export const AuthContextProvider = ({ children }: any) => {
       supabase
     }}>
       <DefaultAnimate>
-        {router.asPath !== "/" ? <Button m="3" onClick={router.back} colorScheme="whiteAlpha">{"< Буцах"}</Button> : null}
-        {session && <Button colorScheme='blackAlpha' position={"absolute"} top={20} right={20} onClick={() => supabase.auth.signOut()}>Log out</Button>
-        } {children}
+        {isBackable && <Button m="3" onClick={router.back} colorScheme="whiteAlpha">{"< Буцах"}</Button>}
+        {session && <Button float={"right"} m="3" colorScheme='red' onClick={() => supabase.auth.signOut()}>Гарах</Button>}
+         {children}
       </DefaultAnimate>
     </AuthContext.Provider>
   )
