@@ -16,13 +16,13 @@ export default function Home({ app }: any) {
     {
       title: "ZTH16",
       description: "Crypto Finance",
-       href: "/zth16/crypto",
+      href: "/zth16/crypto",
       src: "https://cdn.corporatefinanceinstitute.com/assets/cryptocurrency.jpg"
     },
     {
       title: "ZTH16",
       description: "Game Development",
-       href: "/zth16/game",
+      href: "/zth16/game",
       src: "https://itchronicles.com/wp-content/uploads/2021/04/Optimized-Illustration-from-Adobe-Stock-for-ITC-Post-on-AI-in-Game-Development-1024x576.jpeg.webp"
     },
   ])
@@ -65,7 +65,7 @@ export default function Home({ app }: any) {
         w="100%">
         <Heading>Сургалт, Хөтөлбөр</Heading>
         <Grid
-          templateColumns={{ base: "repeat(1,1fr)", md: "repeat(3, 1fr)" }}
+          templateColumns={["repeat(1,1fr)", "repeat(2, 1fr)","repeat(3, 1fr)"]}
           gap={6}
         >
           {courses.map(e => (
@@ -86,7 +86,7 @@ export default function Home({ app }: any) {
         </Grid>
         <Heading>Төсөл, Бүтээгдэхүүн</Heading>
         <Grid
-          templateColumns={{ base: "repeat(1,1fr)", md: "repeat(3, 1fr)" }}
+          templateColumns={["repeat(1,1fr)", "repeat(2, 1fr)","repeat(3, 1fr)"]}
           gap={6}
         >
           {projects.map(e => (

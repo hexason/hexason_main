@@ -1,10 +1,10 @@
-import { Box, Stack, Text, transition } from "@chakra-ui/react";
+import { Box, Stack } from "@chakra-ui/react";
 import Link from "next/link";
 
 export default function ImageCard({ children, src, href }: { children: any, src: string, href: string }) {
   return (
     <Box
-      w={["200px", "300px", "400px"]}
+      w={["200px", "250px", "250px", "300px"]}
       h="200px"
       borderRadius={"20px"}
       backgroundPosition={"center"}
