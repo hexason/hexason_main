@@ -82,6 +82,7 @@ importers:
       next: 13.1.1
       next-seo: ^6.0.0
       nextjs-progressbar: ^0.0.16
+      pointes: workspace:^1.0.0
       qrcode: ^1.5.1
       react: 18.2.0
       react-blurhash: ^0.3.0
@@ -112,6 +113,7 @@ importers:
       next: 13.1.1_pjwopsidmaokadturxaafygjp4
       next-seo: 6.0.0_q76c2b4vyoegvsbrcwkfvimnai
       nextjs-progressbar: 0.0.16_next@13.1.1+react@18.2.0
+      pointes: link:../../packages/pointes
       qrcode: 1.5.1
       react: 18.2.0
       react-blurhash: 0.3.0_3yj36mirjqglzs3tnjovhau2ge
@@ -280,6 +282,12 @@ importers:
       eslint-config-next: 12.3.4_vwh6htx42aidho2qgfca5u5rwm
       eslint-config-prettier: 8.6.0_eslint@8.37.0
       eslint-plugin-react: 7.29.3_eslint@8.37.0
+
+  packages/pointes:
+    specifiers:
+      mongoose: ^7.0.3
+    dependencies:
+      mongoose: 7.0.3
 
   packages/utils:
     specifiers:

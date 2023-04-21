@@ -1,6 +1,5 @@
 import { useCurrencyFormat } from "@/hooks/userCurrencyFormatter";
 import { AspectRatio, Box, HStack, Stack, Text } from "@chakra-ui/react";
-import { Blurhash } from 'react-blurhash';
 import Image from "next/image"
 import Link from "next/link";
 export default function ProductCard({ product }: any) {
@@ -22,14 +21,6 @@ export default function ProductCard({ product }: any) {
     >
       <AspectRatio position={"relative"} ratio={1} borderRadius={"20px"} overflow={"hidden"}>
         <Box position={"absolute"} w="100%">
-          <Blurhash
-            hash="LEHV6nWB2yk8pyo0adR*.7kCMdnj"
-            width={400}
-            height={300}
-            resolutionX={32}
-            resolutionY={32}
-            punch={1}
-          />
           <Image
             src={product.image}
             alt={product.title}

@@ -1,8 +1,9 @@
+import ProductDetail from '@/components/core/Product/ProductDetail';
 import axios from 'axios';
 import { GetServerSidePropsContext } from 'next';
 import { NextSeo } from 'next-seo';
 
-export default function ProductDetail({ product }: any) {
+export default function ProductDetailPage({ product }: any) {
   return (
     <>
       <NextSeo
@@ -23,7 +24,7 @@ export default function ProductDetail({ product }: any) {
           siteName: 'Heaxason',
         }}
       />
-      <p>{product.title}</p>
+      <ProductDetail product={product} />
     </>
   )
 }
