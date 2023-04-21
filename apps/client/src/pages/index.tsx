@@ -4,6 +4,7 @@ import Head from 'next/head';
 import ImageCard from '../components/cards/ImageCard';
 import { useState } from 'react';
 import DefaultAnimate from '@/components/animation/DefaultAnimate';
+import BigHeader from '@/components/core/BigHeader';
 
 export default function Home({ app }: any) {
   const [courses] = useState([
@@ -53,10 +54,12 @@ export default function Home({ app }: any) {
         alignItems={"center"}
         minH="100vh"
         py={6}
+        spacing={6}
         w="100%">
+        <BigHeader />
         <Heading>Сургалт, Хөтөлбөр</Heading>
         <Grid
-          templateColumns={["repeat(1,1fr)", "repeat(2, 1fr)","repeat(3, 1fr)"]}
+          templateColumns={["repeat(1,1fr)", "repeat(2, 1fr)", "repeat(3, 1fr)"]}
           gap={6}
         >
           {courses.map(e => (
@@ -77,7 +80,7 @@ export default function Home({ app }: any) {
         </Grid>
         <Heading>Төсөл, Бүтээгдэхүүн</Heading>
         <Grid
-          templateColumns={["repeat(1,1fr)", "repeat(2, 1fr)","repeat(3, 1fr)"]}
+          templateColumns={["repeat(1,1fr)", "repeat(2, 1fr)", "repeat(3, 1fr)"]}
           gap={6}
         >
           {projects.map(e => (
