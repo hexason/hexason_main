@@ -35,28 +35,19 @@ export default function Home({ app }: any) {
     },
     {
       title: "Hexy",
-      description: "Ask anything",
+      description: "GPT based Bot",
       href: "/support",
       src: "https://cdn.discordapp.com/attachments/960216281993322606/1098000261672349696/hexy.webp"
     },
     {
       title: "Pointes",
-      description: "Find what you need...",
+      description: "Online Ecommerce All in One",
       href: "/shop",
       src: "https://www.skunexus.com/hubfs/essential-ecommerce-website-tools.jpg"
     }
   ])
   return (
     <>
-      <Head>
-        <title>{app.title}</title>
-        <meta property="og:url" content="https://hexason.com" />
-        <meta property="og:title" content={app.title} />
-        <meta property="og:description" content={app.description} />
-        <meta property="og:image" content="https://scontent.fuln6-1.fna.fbcdn.net/v/t39.30808-6/330797995_516059910647704_2620251664384262155_n.png?_nc_cat=106&ccb=1-7&_nc_sid=e3f864&_nc_ohc=RJk8A8UjVp0AX_alyqw&_nc_ht=scontent.fuln6-1.fna&oh=00_AfAB0K4YGMzdTe3SHvSXgGfEX1waXBz2QbDe7CsnFcEd8w&oe=6420875B" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
       <Stack
         as={DefaultAnimate}
         alignItems={"center"}
