@@ -1,8 +1,11 @@
 import { useCurrencyFormat } from "@/hooks/userCurrencyFormatter";
-import { AspectRatio, HStack, Image, Stack, Text } from "@chakra-ui/react";
+import { AspectRatio, Box, HStack, Stack, Text } from "@chakra-ui/react";
+import { Blurhash } from 'react-blurhash';
+import Image from "next/image"
+import Link from "next/link";
+export default function ProductCard({ product }: any) {
+  const formatter = useCurrencyFormat();
 
-export default function ProductCard() {
-  const formatter = useCurrencyFormat()
   return (
     <Stack
       w="100%"
@@ -10,21 +13,44 @@ export default function ProductCard() {
       overflow={"hidden"}
       p={3}
       cursor={"pointer"}
+      as={Link}
+      href={"/shop/" + product.id}
       _hover={{
         bg: "#000",
         boxShadow: "0 19px 39px 0 rgba(255,255,255,0.2)"
       }}
     >
-      <AspectRatio ratio={1} borderRadius={"20px"} overflow={"hidden"}>
-        <Image src="https://gw.alicdn.com/bao/uploaded/i4/2213340882873/O1CN01XAAdyw1X5sezAipNl_!!2213340882873.jpg_220x10000Q75.jpg_.webp" w="100%" h="100%" bg="#fff" />
+      <AspectRatio position={"relative"} ratio={1} borderRadius={"20px"} overflow={"hidden"}>
+        <Box position={"absolute"} w="100%">
+          <Blurhash
+            hash="LEHV6nWB2yk8pyo0adR*.7kCMdnj"
+            width={400}
+            height={300}
+            resolutionX={32}
+            resolutionY={32}
+            punch={1}
+          />
+          <Image
+            src={product.image}
+            alt={product.title}
+            blurDataURL="https://upload.wikimedia.org/wikipedia/commons/c/c7/Loading_2.gif?20170503175831"
+            loading="lazy"
+            placeholder="blur"
+            fill
+            style={{
+              objectFit: "cover",
+              transition: "0.5s"
+            }}
+          />
+        </Box>
       </AspectRatio>
-      <Text h="70px" overflow={"hidden"} fontSize={["1rem", "1.5rem"]}>{`Brand special price large size 2023 summer new ladies slippers outerwear fashion flip flops medium heel thick heel sandals women's shoes`}</Text>
+      <Text h="70px" overflow={"hidden"} fontSize={["1rem", "1.5rem"]}>{product.title}</Text>
       <HStack>
-        <Text color="teal" fontSize={"1.2rem"}>
-          {formatter(200000, "short")}
+        {product.price ? <Text color="teal" fontSize={"1.2rem"}>
+          {formatter(product.price, "short")}
           <Text as={"span"} fontSize={'0.8rem'}>₮</Text>
-        </Text>
-        <Text fontSize={"0.8rem"} opacity={["0", "0.5"]}>{formatter(10000, "short")} зарагдсан</Text>
+        </Text> : null}
+        <Text fontSize={"0.8rem"} opacity={["0", "0.5"]}>{formatter(product.sold, "short")} зарагдсан</Text>
       </HStack>
     </Stack>
   )
