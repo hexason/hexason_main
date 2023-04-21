@@ -8,7 +8,7 @@ export default function BookCard({ id, coverImage, title }: { id: string, coverI
       h="300px"
       w="100%"
       cursor="pointer"
-      onClick={() => { router.push("/league?id=" + id) }}
+      onClick={() => { router.push("/game?id=" + id) }}
     >
       <Box
         h="290px" w="95%"
