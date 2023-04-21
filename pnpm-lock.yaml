@@ -74,6 +74,7 @@ importers:
       eslint-plugin-react-svg: ^0.0.4
       framer-motion: ^8.5.5
       next: 13.1.1
+      next-seo: ^6.0.0
       nextjs-progressbar: ^0.0.16
       qrcode: ^1.5.1
       react: 18.2.0
@@ -100,6 +101,7 @@ importers:
       eslint-plugin-react-svg: 0.0.4_eslint@8.31.0
       framer-motion: 8.5.5_biqbaboplfbrettd7655fr4n2y
       next: 13.1.1_pjwopsidmaokadturxaafygjp4
+      next-seo: 6.0.0_q76c2b4vyoegvsbrcwkfvimnai
       nextjs-progressbar: 0.0.16_next@13.1.1+react@18.2.0
       qrcode: 1.5.1
       react: 18.2.0
@@ -10314,6 +10316,18 @@ packages:
   /neo-async/2.6.2:
     resolution: {integrity: sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==}
     dev: true
+
+  /next-seo/6.0.0_q76c2b4vyoegvsbrcwkfvimnai:
+    resolution: {integrity: sha512-jKKt1p1z4otMA28AyeoAONixVjdYmgFCWwpEFtu+DwRHQDllVX3RjtyXbuCQiUZEfQ9rFPBpAI90vDeLZlMBdg==}
+    peerDependencies:
+      next: ^8.1.1-canary.54 || >=9.0.0
+      react: '>=16.0.0'
+      react-dom: '>=16.0.0'
+    dependencies:
+      next: 13.1.1_pjwopsidmaokadturxaafygjp4
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+    dev: false
 
   /next-tick/1.1.0:
     resolution: {integrity: sha512-CXdUiJembsNjuToQvxayPZF9Vqht7hewsvy2sOWafLvi2awflj9mOC6bHIg50orX8IJvWKY9wYQ/zB2kogPslQ==}
