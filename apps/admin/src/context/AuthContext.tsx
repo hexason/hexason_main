@@ -2,6 +2,7 @@ import LayoutBuilder from '@/components/LayoutBuilder';
 import DefaultAnimate from '@/components/animation/DefaultAnimate';
 import AuthForm from '@/components/core/Auth/AuthForm';
 import AuthLayout from '@/components/core/Auth/AuthLayout';
+import SupplierChanger from '@/components/core/Auth/SupplierChanger';
 import { supabase } from '@/lib/Supabase';
 import { SupabaseAuthSession } from '@/lib/types';
 import { useToast } from '@chakra-ui/react';
@@ -13,6 +14,7 @@ export const AuthContext = createContext<{ session: SupabaseAuthSession, supabas
 export const AuthContextProvider = ({ children }: any) => {
   const [session, setSession] = useState<SupabaseAuthSession>(null);
   const toast = useToast();
+  const [supplier, setSupplier] = useState(null);
 
   useEffect(() => {
     const permissionCheck = (session: SupabaseAuthSession) => {
@@ -56,10 +58,11 @@ export const AuthContextProvider = ({ children }: any) => {
       supabase
     }}>
       <DefaultAnimate>
-        {session ?
+        {session ? supplier ? 
           <LayoutBuilder>
             {children}
           </LayoutBuilder>
+          : <AuthLayout><SupplierChanger setSupplier={setSupplier} /> </AuthLayout>
           : (
             <AuthLayout>
               <AuthForm supabaseClient={supabase} />
