@@ -83,6 +83,7 @@ export default function TableList() {
           </TableContainer>
         </Box>
       }
+      
       <Modal isOpen={creatorModal.isOpen} onClose={() => { creatorModal.onClose(); refresh(Date.now()) }} size={"4xl"}>
         <ModalOverlay />
         <ModalContent bg="#28243D" color="gray.200">
