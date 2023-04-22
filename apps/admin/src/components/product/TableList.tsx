@@ -68,7 +68,7 @@ export default function TableList() {
                       ><TrashIcon height={20} fill={"white"} /></Button>
                     </HStack>
                   </Th>
-                  <Th>Title</Th>
+                  <Th>Id</Th>
                   <Th>Image</Th>
                   <Th>sold</Th>
                   <Th>quantity</Th>
@@ -119,9 +119,7 @@ const TableBodyRow = ({ data, actions, isChecked }: any) => {
         <Checkbox isChecked={isChecked} onChange={e => actions.checkProduct(data.id, e.target.checked)} />
       </Td>
       <Td>
-        <Wrap w="100px">
-          {data.title}
-        </Wrap>
+        {data.id}
       </Td>
       <Td>
         <Image alt={data.title} src={data.image} h="75px" />
