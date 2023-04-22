@@ -14,7 +14,7 @@ import { AdminJWTGuard } from '../middleware/admin_jwt.guard';
 import { ApiBearerAuth } from '@nestjs/swagger';
 import { ProductAddDTO, ProductInfoUpdateDTO, ProductItemUpdateDto } from './dto/ProductControllerDto';
 import { ItemService, ProductService } from '@/service';
-import { SupabaseJWTPayload } from '@/lib/interfaces';
+import { ProductI, SupabaseJWTPayload } from '@/lib/interfaces';
 import { Admin } from '@/lib/models';
 
 @UseGuards(AdminJWTGuard)
@@ -25,12 +25,17 @@ export class ProductController {
 
   @Get('list')
   @SetMetadata('isPublic', true)
-  async getProducts() {
-    const products = await this.productService.getProducts();
-    return {
-      count: products.length,
-      items: products,
+  async getProducts(@Request() req: any) {
+    const filter: Partial<ProductI> = {
+      status: 12,
     };
+    if (req.user && req.user.admin) delete filter.status;
+
+    const products = await this.productService.getProducts({
+      filter,
+    });
+
+    return products;
   }
 
   @Get(':id')

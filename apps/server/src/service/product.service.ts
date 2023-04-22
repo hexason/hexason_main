@@ -11,12 +11,16 @@ export class ProductService {
     @InjectConnection() private readonly connection: Connection,
   ) {}
 
-  async getProducts() {
-    const product = await this.productModel
-      .find({})
+  async getProducts(option?: { filter?: Partial<ProductI> }) {
+    const items = await this.productModel
+      .find(option?.filter)
       .sort({ status: 'asc', createdAt: 'desc' })
       .populate(['supplier', 'category']);
-    return product;
+    const count = await this.productModel.count(option?.filter);
+    return {
+      items,
+      count,
+    };
   }
 
   async getOneProductById(id: string) {
