@@ -105,6 +105,7 @@ export class ProductController {
     }
     await product.populate('items');
     await product.save();
+    this.productService.productCatchupItemData(product._id).catch((e) => console.log(e));
 
     return product.items;
   }

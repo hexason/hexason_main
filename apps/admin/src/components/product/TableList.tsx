@@ -1,4 +1,4 @@
-import { Box, Button, Checkbox, HStack, Image, Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay, Table, TableContainer, Tag, Tbody, Td, Th, Thead, Tr, useDisclosure } from "@chakra-ui/react";
+import { Box, Button, Checkbox, HStack, Image, Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay, Table, TableContainer, Tag, Tbody, Td, Th, Thead, Tr, Wrap, useDisclosure } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import ProductDetail from "./ProductDetail";
 import { useAxios } from "@/hooks/useAxios";
@@ -119,7 +119,9 @@ const TableBodyRow = ({ data, actions, isChecked }: any) => {
         <Checkbox isChecked={isChecked} onChange={e => actions.checkProduct(data.id, e.target.checked)} />
       </Td>
       <Td>
-        {data.title}
+        <Wrap w="100px">
+          {data.title}
+        </Wrap>
       </Td>
       <Td>
         <Image alt={data.title} src={data.image} h="75px" />

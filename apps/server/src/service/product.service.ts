@@ -1,4 +1,4 @@
-import { ProductI } from '@/lib/interfaces';
+import { ItemI, ProductI } from '@/lib/interfaces';
 import { Item } from '@/lib/schema';
 import { Product } from '@/lib/schema/product.model';
 import { InjectConnection, InjectModel } from '@nestjs/mongoose';
@@ -23,7 +23,7 @@ export class ProductService {
     };
   }
 
-  async getOneProductById(id: string) {
+  async getOneProductById(id: string | Types.ObjectId) {
     if (!Types.ObjectId.isValid(id)) throw { code: 'FORMAT', message: 'Check product id carefully' };
     const product = await this.productModel.findById(id).populate(['supplier', 'category', 'items']);
     if (!product) throw { code: 'NOT_FOUND_DATA', message: 'Product not found' };
@@ -89,6 +89,20 @@ export class ProductService {
     } finally {
       session.endSession();
     }
+
+    return product;
+  }
+
+  async productCatchupItemData(id: string | Types.ObjectId) {
+    const product = await this.getOneProductById(id);
+    const items = product.items;
+    let quantity = 0;
+    items.forEach((item: ItemI) => {
+      quantity += item.stock;
+      product.price = Math.min(product.price, item.price);
+    });
+    product.quantity = quantity;
+    await product.save();
 
     return product;
   }
