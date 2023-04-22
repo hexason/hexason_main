@@ -273,6 +273,12 @@ importers:
       tsconfig-paths: 4.1.1
       typescript: 4.9.5
 
+  documents/diagram:
+    specifiers:
+      gojs: ^2.3.5
+    dependencies:
+      gojs: 2.3.5
+
   packages/config:
     specifiers:
       eslint-config-next: ^12.1.0
@@ -8485,6 +8491,10 @@ packages:
 
   /globrex/0.1.2:
     resolution: {integrity: sha512-uHJgbwAMwNFf5mLst7IWLNg14x1CkeqglJb/K3doi4dw6q2IvAAmM/Y81kevy83wP+Sst+nutFTYOGg3d1lsxg==}
+    dev: false
+
+  /gojs/2.3.5:
+    resolution: {integrity: sha512-yXtakWD8WGxzDQopeGUlqPR91ehRP8KhhcON2v9bXnZbelFwanEBmw6GgGzr1ZNKxf+hzttEwlWonLk0lCrtJA==}
     dev: false
 
   /google-auth-library/8.7.0:
