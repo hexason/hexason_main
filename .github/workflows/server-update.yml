@@ -18,13 +18,11 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Build the Docker image
-        run: |
-          ls
-          cd ./apps/server
-          docker build . --file Dockerfile --tag ${{ secrets.DOCKERHUB_USERNAME }}/hexason-server:latest
+        working-directory: ./apps/server
+        run: docker build . --file Dockerfile --tag ${{ secrets.DOCKERHUB_USERNAME }}/hexason-server:latest
       - name: Push the Docker image
         run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/hexason-server:latest
-    
+
   deliver:
     runs-on: ubuntu-latest
     needs: build
