@@ -9,8 +9,8 @@ export const useCurrencyFormat = () => {
     const lookup = [
       { value: 1, symbol: "" },
       { value: 1e3, symbol: ",000" },
-      { value: 1e6, symbol: "m" },
-      { value: 1e9, symbol: "g" },
+      { value: 1e6, symbol: " сая" },
+      { value: 1e9, symbol: "тербум" },
       { value: 1e12, symbol: "t" },
       { value: 1e15, symbol: "p" },
       { value: 1e18, symbol: "e" }
@@ -27,7 +27,7 @@ export const useCurrencyFormat = () => {
       case "normal":
         return formatter.format(num);
       case "short":
-        return nFormatter(num, 2) + " ₮";
+        return nFormatter(num, 2);
       default:
         return formatter.format(num);
     }
