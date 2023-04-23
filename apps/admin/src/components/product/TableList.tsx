@@ -1,4 +1,4 @@
-import { Box, Button, Checkbox, HStack, Image, Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay, Table, TableContainer, Tag, Tbody, Td, Th, Thead, Tr, useDisclosure } from "@chakra-ui/react";
+import { Box, Button, Checkbox, HStack, Image, Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay, Table, TableContainer, Tag, Tbody, Td, Th, Thead, Tr, Wrap, useDisclosure } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import ProductDetail from "./ProductDetail";
 import { useAxios } from "@/hooks/useAxios";
@@ -68,7 +68,7 @@ export default function TableList() {
                       ><TrashIcon height={20} fill={"white"} /></Button>
                     </HStack>
                   </Th>
-                  <Th>Title</Th>
+                  <Th>Id</Th>
                   <Th>Image</Th>
                   <Th>sold</Th>
                   <Th>quantity</Th>
@@ -83,6 +83,7 @@ export default function TableList() {
           </TableContainer>
         </Box>
       }
+      
       <Modal isOpen={creatorModal.isOpen} onClose={() => { creatorModal.onClose(); refresh(Date.now()) }} size={"4xl"}>
         <ModalOverlay />
         <ModalContent bg="#28243D" color="gray.200">
@@ -119,7 +120,7 @@ const TableBodyRow = ({ data, actions, isChecked }: any) => {
         <Checkbox isChecked={isChecked} onChange={e => actions.checkProduct(data.id, e.target.checked)} />
       </Td>
       <Td>
-        {data.title}
+        {data.id}
       </Td>
       <Td>
         <Image alt={data.title} src={data.image} h="75px" />

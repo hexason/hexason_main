@@ -22,8 +22,12 @@ export default function ItemCreate({ productId, onChange }: { productId: string,
     await axios({
       method: "put",
       url: `product/${item.product}/item`,
-      data: item
-    }).then(({ data }) => onChange(data))
+      data: {
+        ...item,
+        price: +item.price,
+        stock: +item.stock,
+      }
+    }).then(({ data }) => onChange(data)).catch(console.log);
     setLoading(false);
   }
 
