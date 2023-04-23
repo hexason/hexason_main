@@ -29,30 +29,30 @@
 ## Installation
 
 ```bash
-$ yarn install
+$ pnpm install
 ```
 
 ## Running the app
 
 ```bash
 # development
-$ yarn run start
+$ pnpm start
 
 # watch mode
-$ yarn run start:dev
+$ pnpm dev
 
 # production mode
-$ yarn run start:prod
+$ pnpm start:prod
 ```
 
 ## Test
 
 ```bash
 # unit tests
-$ yarn run test
+$ pnpm test
 
 # e2e tests
-$ yarn run test:e2e
+$ pnpm test:e2e
 
 # test coverage
 $ yarn run test:cov
