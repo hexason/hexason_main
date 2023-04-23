@@ -4,9 +4,9 @@ importers:
 
   .:
     specifiers:
-      dotenv-cli: ^7.0.0
+      dotenv-cli: ^7.2.1
     devDependencies:
-      dotenv-cli: 7.0.0
+      dotenv-cli: 7.2.1
 
   apps/admin:
     specifiers:
@@ -206,6 +206,7 @@ importers:
       mongoose: ^7.0.3
       openai: ^3.2.1
       pg: ^8.8.0
+      pointes: workspace:^1.0.1
       prettier: ^2.3.2
       reflect-metadata: ^0.1.13
       rxjs: ^7.2.0
@@ -243,6 +244,7 @@ importers:
       mongoose: 7.0.3
       openai: 3.2.1
       pg: 8.9.0
+      pointes: link:../../packages/pointes
       reflect-metadata: 0.1.13
       rxjs: 7.8.0
       socket.io: 4.6.0
@@ -6554,14 +6556,14 @@ packages:
       domhandler: 4.3.1
     dev: true
 
-  /dotenv-cli/7.0.0:
-    resolution: {integrity: sha512-XfMzVdpdDTRnlcgvFLg3lSyiLXqFxS4tH7RbK5IxkC4XIUuxPyrGoDufkfLjy/dA28EILzEu+mros6h8aQmyGg==}
+  /dotenv-cli/7.2.1:
+    resolution: {integrity: sha512-ODHbGTskqRtXAzZapDPvgNuDVQApu4oKX8lZW7Y0+9hKA6le1ZJlyRS687oU9FXjOVEDU/VFV6zI125HzhM1UQ==}
     hasBin: true
     dependencies:
       cross-spawn: 7.0.3
       dotenv: 16.0.3
       dotenv-expand: 10.0.0
-      minimist: 1.2.7
+      minimist: 1.2.8
     dev: true
 
   /dotenv-expand/10.0.0:
@@ -10253,7 +10255,6 @@ packages:
 
   /minimist/1.2.8:
     resolution: {integrity: sha512-2yyAR8qBkN3YuheJanUpWC5U3bb5osDywNB8RzDVlDwDHbocAJveqqj1u8+SVD7jkWT4yvsHCpWqqWqAxb0zCA==}
-    dev: false
 
   /minipass/3.3.6:
     resolution: {integrity: sha512-DxiNidxSEK+tHG6zOIklvNOwm3hvCrbUrdtzY74U6HKTJxvIDfOUL5W5P2Ghd3DTkhhKPYGqeNUIh5qcM4YBfw==}
