@@ -20,8 +20,8 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - uses: actions/checkout@v3
-      - name: "Create env file"
+      - uses: actions/checkout@v3        
+      - name: Build the Docker image
         run: |
           touch .env.local
           echo DB_HOST: ${{secrets.DB_HOST}} >> .env.local
@@ -36,8 +36,8 @@ jobs:
           echo SUPABASE_KEY=${{secrets.SUPABASE_KEY}} >> .env.local
           echo OPENAI_API_KEY=${{secrets.OPENAI_API_KEY}} >> .env.local
           echo GOOGLE_SERVICE_JSON=${{secrets.GOOGLE_SERVICE_JSON}} >> .env.local
-      - name: Build the Docker image
-        run: docker build . --file Dockerfile --tag ${{ secrets.DOCKERHUB_USERNAME }}/hexason-server:latest
+          cat .env.local
+          docker build . --file Dockerfile --tag ${{ secrets.DOCKERHUB_USERNAME }}/hexason-server:latest
       - name: Push the Docker image
         run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/hexason-server:latest
 
