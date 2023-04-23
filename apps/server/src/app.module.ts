@@ -1,15 +1,10 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { TerminusModule } from '@nestjs/terminus';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import * as controller from '@/controller';
-
-import * as entities from '@/lib/models/index';
-import { SchemaFormats } from '@/lib/schema/index';
-import * as services from '@/service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ThrottlerModule } from '@nestjs/throttler';
+import * as modules from './modules';
 
 @Module({
   imports: [
@@ -27,7 +22,6 @@ import { ThrottlerModule } from '@nestjs/throttler';
       }),
       inject: [ConfigService],
     }),
-    MongooseModule.forFeature(SchemaFormats),
     TypeOrmModule.forRootAsync({
       useFactory: () => ({
         type: 'postgres',
@@ -38,14 +32,9 @@ import { ThrottlerModule } from '@nestjs/throttler';
         database: process.env.DB_NAME,
         autoLoadEntities: true,
         synchronize: process.env.DB_SYNC === 'true',
-        entities: Object.values(entities),
-        seeds: [__dirname + '/models/seeder/*.seeder{.ts,.js}'],
-        factories: [__dirname + '/models/factory/*.factory{.ts,.js}'],
       }),
     }),
-    TerminusModule,
+    ...Object.values(modules),
   ],
-  providers: Object.values(services),
-  controllers: Object.values(controller),
 })
 export class AppModule {}

@@ -1,9 +1,9 @@
-import { Book, BookImage } from '@/modules/book/models';
+import { Book, BookImage } from '../book/models';
 import { Body, Controller, Get, HttpException, Param, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { InjectDataSource } from '@nestjs/typeorm';
 import { DataSource, Repository } from 'typeorm';
-import { BookAddDto } from '@/controller/dto/BookControllerDto';
+import { BookAddDto } from './validation/BookControllerDto';
 
 @ApiTags('book')
 @Controller('book')
