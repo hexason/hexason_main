@@ -18,8 +18,23 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - uses: actions/checkout@v3
-      - name: Build the Docker image
+      - name: 'Create env file'
         working-directory: ./apps/server
+        run: |
+          touch .env.local
+          echo DB_HOST: ${{secrets.DB_HOST}} >> env.local
+          echo DB_USER=${{secrets.DB_USER}} >> env.local
+          echo DB_PASSWORD=${{secrets.DB_PASSWORD}} >> env.local
+          echo DB_NAME=${{secrets.DB_NAME}} >> env.local
+          echo DB_PORT=${{secrets.DB_PORT}} >> env.local
+          echo DB_SYNC=false >> env.local
+          echo MONGO_URL=${{secrets.MONGO_URL}} >> env.local
+          echo SUPABASE_SECRET=${{secrets.SUPABASE_SECRET}} >> env.local
+          echo SUPABASE_URL=${{secrets.SUPABASE_URL}} >> env.local
+          echo SUPABASE_KEY=${{secrets.SUPABASE_KEY}} >> env.local
+          echo OPENAI_API_KEY=${{secrets.OPENAI_API_KEY}} >> env.local
+          echo GOOGLE_SERVICE_JSON=${{secrets.GOOGLE_SERVICE_JSON}} >> env.local
+      - name: Build the Docker image
         run: docker build . --file Dockerfile --tag ${{ secrets.DOCKERHUB_USERNAME }}/hexason-server:latest
       - name: Push the Docker image
         run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/hexason-server:latest
