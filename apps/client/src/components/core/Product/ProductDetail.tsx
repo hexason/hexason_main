@@ -9,7 +9,7 @@ export default function ProductDetail({ product }: { product: ProductI }) {
   const [configs, setConfigs] = useState<{ [key: string]: any[] }>({});
 
   useEffect(() => {
-    const config = product.items.reduce((att, itt) => {
+    const config = product.items.reduce((att:any, itt) => {
       if (att[itt.configName]) {
         att[itt.configName].push(itt);
       } else {
