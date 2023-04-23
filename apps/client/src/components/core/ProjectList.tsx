@@ -6,19 +6,19 @@ export default function ProjectList() {
   const [projects] = useState([
     {
       title: "Pointes",
-      description: "Online Ecommerce All in One",
+      description: "Хайсан бүхнээ эндээс олоорой",
       href: "/shop",
       src: "https://www.skunexus.com/hubfs/essential-ecommerce-website-tools.jpg"
     },
     {
-      title: "Game Area",
-      description: "Virtaul Entertainment Area",
+      title: "Чөлөөт булан",
+      description: "Сонирхолтой тоглоомын ертөнцөд уусаарай",
       href: "/game",
       src: "https://upload.wikimedia.org/wikipedia/en/d/da/KDA.png"
     },
     {
       title: "ZTH16",
-      description: "Zero To Hero",
+      description: "Хөгжүүлэгч бэлтгэх хөтөлбөр",
       href: "/zth16/basic",
       src: "https://unity.com/sites/default/files/styles/16_9_l_scale_width/public/2022-02/learning-journey-810x455%401x.jpg?itok=Plw3_1K2"
     },
