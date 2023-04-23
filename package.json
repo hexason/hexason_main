@@ -19,6 +19,6 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "dotenv-cli": "^7.0.0"
+    "dotenv-cli": "^7.2.1"
   }
 }
