@@ -7,6 +7,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./apps/server
     steps:
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
@@ -18,8 +21,7 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - uses: actions/checkout@v3
-      - name: 'Create env file'
-        working-directory: ./apps/server
+      - name: "Create env file"
         run: |
           touch .env.local
           echo DB_HOST: ${{secrets.DB_HOST}} >> env.local
