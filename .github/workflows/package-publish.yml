@@ -13,6 +13,5 @@ jobs:
           node-version: 18
       - run: npm install -g pnpm
       - run: pnpm install --no-frozen-lockfile
+      - run: pnpm set //registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}
       - run: pnpm publish --access public --filter pointes --no-git-checks
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
