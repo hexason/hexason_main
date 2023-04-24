@@ -2,23 +2,11 @@ import { useCurrencyFormat } from '@/hooks/userCurrencyFormatter'
 import { AspectRatio, Avatar, Box, Button, Container, Divider, Grid, GridItem, HStack, Input, InputGroup, InputLeftAddon, InputRightAddon, Stack, Tag, Text, Wrap } from '@chakra-ui/react'
 import Image from 'next/image'
 import { ProductI } from 'pointes'
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 export default function ProductDetail({ product }: { product: ProductI }) {
   const formatter = useCurrencyFormat();
-  const [configs, setConfigs] = useState<{ [key: string]: any[] }>({});
-
-  useEffect(() => {
-    const config = product.items.reduce((att:any, itt) => {
-      if (att[itt.configName]) {
-        att[itt.configName].push(itt);
-      } else {
-        att[itt.configName] = [itt];
-      }
-      return att;
-    }, {});
-    setConfigs(config);
-  }, [])
+  const [configs] = useState<{ [key: string]: any[] }>({});
 
   return (
     <Container maxW="container.xl">
@@ -45,9 +33,9 @@ export default function ProductDetail({ product }: { product: ProductI }) {
           <GridItem as={Stack} p={3} colSpan={2}>
             <Stack h="100%" spacing={6}>
               <Stack>
-                <Text fontSize={"1.5rem"} fontWeight={"bold"}>{product.title}</Text>
+                <Text color="black" fontSize={"1.5rem"} fontWeight={"bold"}>{product.title}</Text>
                 {product.sold && <Text fontSize={"1rem"} opacity={"0.5"}>{formatter(product.sold, "short")} зарагдсан</Text>}
-                <Tag p={3}>
+                <Tag fontWeight={"bold"} textTransform={"uppercase"} p={3}>
                   <Avatar mr={3} src={product.supplier.logo} size={"sm"} />
                   {product.supplier.name}
                 </Tag>

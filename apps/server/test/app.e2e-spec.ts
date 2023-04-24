@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication, ValidationPipe } from '@nestjs/common';
 import * as request from 'supertest';
 import { AppModule } from './../src/app.module';
-import { AdminService } from '@/service';
+import { AdminService } from '@/modules/auth/admin.service';
 
 describe('AppController (e2e)', () => {
   let app: INestApplication;
@@ -38,7 +38,7 @@ describe('AppController (e2e)', () => {
             url: 'https://www.nursafia.my/image/nursafia/image/data/all_product_images/product-1482/test-product-copy_1655771197.jpeg',
           },
         ],
-        category: ['643652045afd39516f042376'],
+        categories: ['643652045afd39516f042376'],
         options: [{ configName: 'color', value: 'red' }],
       })
       .set('authorization', 'Bearer ' + token)

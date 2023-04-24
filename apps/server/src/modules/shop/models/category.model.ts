@@ -12,9 +12,6 @@ export class Category {
   description?: string;
 
   @Prop({ type: Types.ObjectId, ref: 'Category' })
-  children: (Category | Types.ObjectId)[];
-
-  @Prop({ type: Types.ObjectId, ref: 'Category' })
   parent?: Category | Types.ObjectId;
 
   @Prop({ type: Number, default: 0 })
