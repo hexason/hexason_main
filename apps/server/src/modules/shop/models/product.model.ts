@@ -19,7 +19,7 @@ export class Product implements ProductI {
   bgColor?: string;
 
   @Prop({ type: [Types.ObjectId], ref: 'Category', required: true })
-  category: any[];
+  categories: any[];
 
   @Prop({ default: 'unknown' })
   brand?: string;
@@ -41,9 +41,6 @@ export class Product implements ProductI {
 
   @Prop({ type: Types.ObjectId, ref: 'Supplier', required: true })
   supplier: Supplier | string;
-
-  @Prop({ type: [{ configName: String, value: String }] })
-  options: { configName: string; value: string }[];
 
   @Prop({ type: [{ type: { url: String, blurHash: String } }] })
   images: { url: string; blurHash: string }[];

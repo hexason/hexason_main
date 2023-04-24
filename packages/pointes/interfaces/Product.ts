@@ -13,7 +13,7 @@ export interface ProductI {
   quantity: number;
   status: number;
   supplier: any;
-  category: CategoryI[];
+  categories: CategoryI[];
   images: {
     url: string;
     blurHash: string;

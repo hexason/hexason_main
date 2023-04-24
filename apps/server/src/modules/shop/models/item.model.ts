@@ -1,32 +1,32 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Types } from 'mongoose';
-import { ItemI } from 'pointes';
+import { ItemI, VariationI } from 'pointes';
 import { Product } from './product.model';
 
 @Schema({ timestamps: true })
 export class Item implements ItemI {
-  @Prop({ required: true })
-  configName: string;
-
-  @Prop({ required: true })
-  altTxt: string;
-
-  @Prop()
-  image: string;
-
   @Prop({ unique: true, required: true })
-  sku: string; // stock keeping unit
+  SKU: string; // stock keeping unit
 
-  @Prop()
-  upc: string; // universal product code
+  @Prop({ type: String })
+  UPC: string; // universal product code
 
-  @Prop({ required: true })
+  @Prop({
+    type: {
+      configName: { type: String, required: true },
+      value: { type: String, required: true },
+      icon: String,
+    },
+  })
+  variations: VariationI[];
+
+  @Prop({ min: 0, required: true })
   price: number;
 
-  @Prop({ required: true })
+  @Prop({ min: 0, required: true })
   stock: number;
 
-  @Prop({ default: 12 }) // 1 - active, 0 - pending
+  @Prop({ default: 12 }) // 12 - active, 0 - pending
   status: number;
 
   @Prop({ type: Types.ObjectId, ref: 'Product', required: true })
