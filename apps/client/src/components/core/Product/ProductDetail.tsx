@@ -2,23 +2,11 @@ import { useCurrencyFormat } from '@/hooks/userCurrencyFormatter'
 import { AspectRatio, Avatar, Box, Button, Container, Divider, Grid, GridItem, HStack, Input, InputGroup, InputLeftAddon, InputRightAddon, Stack, Tag, Text, Wrap } from '@chakra-ui/react'
 import Image from 'next/image'
 import { ProductI } from 'pointes'
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 export default function ProductDetail({ product }: { product: ProductI }) {
   const formatter = useCurrencyFormat();
-  const [configs, setConfigs] = useState<{ [key: string]: any[] }>({});
-
-  useEffect(() => {
-    const config = product.items.reduce((att:any, itt) => {
-      if (att[itt.configName]) {
-        att[itt.configName].push(itt);
-      } else {
-        att[itt.configName] = [itt];
-      }
-      return att;
-    }, {});
-    setConfigs(config);
-  }, [])
+  const [configs] = useState<{ [key: string]: any[] }>({});
 
   return (
     <Container maxW="container.xl">
