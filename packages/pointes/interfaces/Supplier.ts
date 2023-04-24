@@ -1,7 +1,7 @@
 import { SupplierState } from "../constant/TypeConstant";
 import { CommentI } from "./Comment";
 
-export class SupplierI {
+export interface SupplierI {
   name: string;
   bio: string;
   logo: string;
