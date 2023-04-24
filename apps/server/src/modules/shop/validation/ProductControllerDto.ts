@@ -1,4 +1,4 @@
-import { ItemI, ProductI } from 'pointes';
+import { CategoryI, ItemI, ProductI, VariationI } from 'pointes';
 import { Type } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsArray, IsNotEmpty, IsNumber, IsOptional, IsString, ValidateNested } from 'class-validator';
@@ -64,7 +64,7 @@ export class ProductInfoUpdateDTO implements Partial<ProductI> {
   @ApiProperty()
   @IsArray()
   @IsOptional()
-  category?: any[];
+  categories?: CategoryI[];
 
   @ApiProperty()
   @IsArray()
@@ -74,26 +74,9 @@ export class ProductInfoUpdateDTO implements Partial<ProductI> {
   images?: { url: string; blurHash: string }[];
 
   @ApiProperty()
-  @IsArray()
-  @ValidateNested({ each: true })
-  @IsOptional()
-  @Type(() => OptionDto)
-  options?: OptionDto[];
-
-  @ApiProperty()
   @IsNumber()
   @IsOptional()
   status?: number;
-}
-
-export class OptionDto {
-  @ApiProperty()
-  @IsString()
-  configName: string;
-
-  @ApiProperty()
-  @IsString()
-  value: string;
 }
 
 export class ImagesDto {
@@ -115,23 +98,8 @@ export class ProductItemUpdateDto implements Partial<ItemI> {
 
   @ApiProperty()
   @IsString()
-  @IsNotEmpty()
-  configName: string;
-
-  @ApiProperty()
-  @IsString()
-  @IsNotEmpty()
-  altTxt: string;
-
-  @ApiProperty()
-  @IsString()
   @IsOptional()
-  image: string;
-
-  @ApiProperty()
-  @IsString()
-  @IsOptional()
-  upc: string;
+  UPC: string;
 
   @ApiProperty()
   @IsNumber()
@@ -143,7 +111,11 @@ export class ProductItemUpdateDto implements Partial<ItemI> {
   @IsNotEmpty()
   stock: number;
 
+  @ApiProperty()
+  @IsArray()
+  variations: VariationI[];
+
+  SKU: string;
   status: number;
-  sku: string;
-  product: any;
+  product: ProductI;
 }

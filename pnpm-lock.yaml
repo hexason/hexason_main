@@ -168,7 +168,7 @@ importers:
       mongoose: ^7.0.4
       openai: ^3.2.1
       pg: ^8.10.0
-      pointes: workspace:^1.0.1
+      pointes: ^1.0.2
       prettier: ^2.8.8
       reflect-metadata: ^0.1.13
       rxjs: ^7.8.0

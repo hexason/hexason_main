@@ -18,7 +18,6 @@ export class CategoryService {
     if (parent) {
       const parentCategory = await this.categoryModel.findById(parent);
       if (!parent) throw { code: 'NOT_FOUND_DATA', message: 'Category not found' };
-      parentCategory.children.push(category._id);
       await parentCategory.save();
     }
 

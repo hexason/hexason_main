@@ -51,7 +51,7 @@ export class ProductController {
       sold: 0,
       quantity: 0,
       status: 0,
-      category: [],
+      categories: [],
       items: [],
     });
     return product;
