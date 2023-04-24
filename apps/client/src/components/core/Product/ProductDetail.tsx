@@ -33,9 +33,9 @@ export default function ProductDetail({ product }: { product: ProductI }) {
           <GridItem as={Stack} p={3} colSpan={2}>
             <Stack h="100%" spacing={6}>
               <Stack>
-                <Text fontSize={"1.5rem"} fontWeight={"bold"}>{product.title}</Text>
+                <Text color="black" fontSize={"1.5rem"} fontWeight={"bold"}>{product.title}</Text>
                 {product.sold && <Text fontSize={"1rem"} opacity={"0.5"}>{formatter(product.sold, "short")} зарагдсан</Text>}
-                <Tag p={3}>
+                <Tag fontWeight={"bold"} textTransform={"uppercase"} p={3}>
                   <Avatar mr={3} src={product.supplier.logo} size={"sm"} />
                   {product.supplier.name}
                 </Tag>
