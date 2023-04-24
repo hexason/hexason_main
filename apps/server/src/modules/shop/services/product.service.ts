@@ -14,7 +14,7 @@ export class ProductService {
     const items = await this.productModel
       .find(option?.filter)
       .sort({ status: 'asc', createdAt: 'desc' })
-      .populate(['supplier', 'category']);
+      .populate(['supplier', 'categories']);
     const count = await this.productModel.count(option?.filter);
     return {
       items,
@@ -24,7 +24,7 @@ export class ProductService {
 
   async getOneProductById(id: string | Types.ObjectId) {
     if (!Types.ObjectId.isValid(id)) throw { code: 'FORMAT', message: 'Check product id carefully' };
-    const product = await this.productModel.findById(id).populate(['supplier', 'category', 'items']);
+    const product = await this.productModel.findById(id).populate(['supplier', 'categories', 'items']);
     if (!product) throw { code: 'NOT_FOUND_DATA', message: 'Product not found' };
     return product;
   }
