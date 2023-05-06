@@ -1,5 +1,5 @@
 import { Box, Flex, Text } from "@chakra-ui/react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 export default function BookCard({ id, coverImage, title }: { id: string, coverImage: string, title: string }) {
   const router = useRouter()

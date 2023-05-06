@@ -1,27 +1,28 @@
+"use client";
 import { Divider, Grid, Heading, Stack, Text } from "@chakra-ui/react";
 import ImageCard from "../cards/ImageCard";
 import { useState } from "react";
 
 export default function ProjectList() {
   const [projects] = useState([
-    {
-      title: "Pointes",
-      description: "Хайсан бүхнээ эндээс олоорой",
-      href: "/shop",
-      src: "https://www.skunexus.com/hubfs/essential-ecommerce-website-tools.jpg"
-    },
+    // {
+    //   title: "Pointes",
+    //   description: "Хайсан бүхнээ эндээс олоорой",
+    //   href: "/shop",
+    //   src: "https://www.skunexus.com/hubfs/essential-ecommerce-website-tools.jpg"
+    // },
     {
       title: "Чөлөөт булан",
       description: "Сонирхолтой тоглоомын ертөнцөд уусаарай",
-      href: "/game",
+      href: "/",
       src: "https://upload.wikimedia.org/wikipedia/en/d/da/KDA.png"
     },
-    {
-      title: "ZTH16",
-      description: "Хөгжүүлэгч бэлтгэх хөтөлбөр",
-      href: "/zth16/basic",
-      src: "https://unity.com/sites/default/files/styles/16_9_l_scale_width/public/2022-02/learning-journey-810x455%401x.jpg?itok=Plw3_1K2"
-    },
+    // {
+    //   title: "ZTH16",
+    //   description: "Хөгжүүлэгч бэлтгэх хөтөлбөр",
+    //   href: "/zth16/basic",
+    //   src: "https://unity.com/sites/default/files/styles/16_9_l_scale_width/public/2022-02/learning-journey-810x455%401x.jpg?itok=Plw3_1K2"
+    // },
   ]);
 
   return (

@@ -2,7 +2,7 @@ import { Stack, Heading, Image, Button, Text } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import ThreeDotsWave from "../../animation/ThreeDotsWave";
 import { ArrorLeft } from "@/assets/icons";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 export default function ComingSoon() {
   const router = useRouter();
