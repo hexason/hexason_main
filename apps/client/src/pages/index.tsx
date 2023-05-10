@@ -1,7 +1,6 @@
-import { Stack } from '@chakra-ui/react';
+import { Container, Stack } from '@chakra-ui/react';
 import DefaultAnimate from '@/components/animation/DefaultAnimate';
-import BigHeader from '@/components/core/BigHeader';
-import ProjectList from '@/components/core/ProjectList';
+import ChatBox from '@/components/core/ChatBox';
 
 export default function Home() {
   return (
@@ -13,8 +12,11 @@ export default function Home() {
         py={6}
         spacing={6}
         w="100%">
-        <BigHeader />
-        <ProjectList />
+        {/* <BigHeader /> */}
+        {/* <ProjectList /> */}
+        <Container border="1px solid #fff" p="3" borderRadius={"base"} maxW={"container.lg"}>
+          <ChatBox />
+        </Container>
       </Stack>
     </>
   )
