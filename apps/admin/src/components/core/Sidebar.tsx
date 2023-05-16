@@ -1,6 +1,6 @@
 import { useAuth } from "@/context/AuthContext";
 import { Stack, Button, Box, Divider, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerOverlay, useDisclosure } from "@chakra-ui/react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import React from "react";
 import { useEffect, useState } from "react";
 
@@ -45,13 +45,12 @@ function SidebarButton({ children, isActive, onClick }: any) {
 
 
 function SidebarContent() {
-  const [active, setActive] = useState("");
+  const [active] = useState("");
   const [buttons, setButtons] = useState<any>([]);
   const router = useRouter();
   const { session, supabase } = useAuth();
 
   useEffect(() => {
-    if (router.isReady) setActive(router.pathname)
     setButtons([
       {
         url: "/",

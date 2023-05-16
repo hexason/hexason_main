@@ -68,7 +68,7 @@ const OneMessage = ({ oneMessage }: { oneMessage: any }) => {
         <Avatar src={oneMessage.role !== "user" ? "https://cdn.discordapp.com/attachments/960216281993322606/1098000261672349696/hexy.webp" : "https://cdn.discordapp.com/attachments/960216281993322606/1098000590820343858/image.png"}
         />
       </Box>
-      <Box maxW="60%" p={3} borderRadius={"20px"} bg="gray.700">
+      <Box color="white" maxW="60%" p={3} borderRadius={"20px"} bg="gray.700">
         <Text dangerouslySetInnerHTML={{ __html: oneMessage.content }} />
         <Text color="gray.400" dangerouslySetInnerHTML={{ __html: message }} />
       </Box>

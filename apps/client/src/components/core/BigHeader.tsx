@@ -1,3 +1,4 @@
+"use client";
 import { Container, Heading, Stack, Text } from "@chakra-ui/react";
 import { useState } from "react";
 
