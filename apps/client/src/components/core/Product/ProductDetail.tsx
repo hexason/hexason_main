@@ -1,3 +1,4 @@
+"use client";
 import { useCurrencyFormat } from '@/hooks/userCurrencyFormatter'
 import { AspectRatio, Avatar, Box, Button, Container, Divider, Grid, GridItem, HStack, Input, InputGroup, InputLeftAddon, InputRightAddon, Stack, Tag, Text, Wrap } from '@chakra-ui/react'
 import Image from 'next/image'

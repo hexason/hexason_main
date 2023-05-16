@@ -3,7 +3,7 @@ import { Providers } from "./provider";
 
 export const metadata = {
   title: 'Home',
-  description: 'Welcome to Next.js',
+  description: 'Welcome to Hexason',
 };
 
 export default function RootLayout({

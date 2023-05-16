@@ -1,12 +1,11 @@
-import HomePage from "@/components/pages/HomePage"
+"use client"
+import ChatBox from "@/components/core/ChatBox"
+import DefaultLayout from "@/components/layout/DefaultLayout"
 
-export const metadata = {
-  title: "Hexason Home"
-}
 export default function Home() {
   return (
-    <>
-      <HomePage />
-    </>
+    <DefaultLayout>
+      <ChatBox />
+    </DefaultLayout>
   )
 }
