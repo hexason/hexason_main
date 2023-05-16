@@ -61,7 +61,7 @@ export default function ProductDetail({ product }: { product: ProductI }) {
 
                 <Stack>
                   <Text w="150px">Тоо ширхэг:</Text>
-                  <QuantityController color="white" />
+                  <QuantityController />
                 </Stack>
               </Stack>
               <Box borderRadius="20px" overflow={"hidden"} w={["100%", "300px"]}>
@@ -100,9 +100,9 @@ const QuantityController = (props: any) => {
 
   return (
     <InputGroup {...props}>
-      <InputLeftAddon onClick={() => addRemoveHandler(-1)} as={Button} bg="#000" >-</InputLeftAddon>
+      <InputLeftAddon color="white" onClick={() => addRemoveHandler(-1)} as={Button} bg="#000" >-</InputLeftAddon>
       <Input onChange={handleInputChanger} value={quant} w="50px" _focus={{ w: "100px" }} />
-      <InputRightAddon onClick={() => addRemoveHandler(1)} bg="#000" as={Button}>+</InputRightAddon>
+      <InputRightAddon color="white" onClick={() => addRemoveHandler(1)} bg="#000" as={Button}>+</InputRightAddon>
     </InputGroup>
   )
 }
