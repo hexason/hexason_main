@@ -1,5 +1,6 @@
 import { Analytics } from "@vercel/analytics/react";
 import { Providers } from "./provider";
+import Navbar from "@/components/core/Navbar";
 
 export const metadata = {
   title: 'Home',
@@ -17,6 +18,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <Providers>
+          <Navbar />
           {children}
         </Providers>
         <Analytics />

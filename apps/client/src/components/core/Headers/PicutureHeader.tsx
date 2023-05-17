@@ -2,7 +2,7 @@
 import { Container, Heading, Stack, Text } from "@chakra-ui/react";
 import { useState } from "react";
 
-export default function BigHeader() {
+export default function PicutureHeader() {
   const [selectedContent] = useState(0)
   const [content] = useState([
     {

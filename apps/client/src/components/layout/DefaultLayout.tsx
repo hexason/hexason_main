@@ -1,9 +1,9 @@
-import { Container } from "@chakra-ui/react";
+import { Container, Stack } from "@chakra-ui/react";
 import { PropsWithChildren } from "react";
 
 export default function DefaultLayout({ children }: PropsWithChildren) {
   return (
-    <Container maxW='container.xl'>
+    <Container as={Stack} maxW='container.xl'>
       {children}
     </Container>
   )
