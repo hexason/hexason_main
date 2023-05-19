@@ -1,3 +1,4 @@
+"use client";
 import { Button, Image, Stack, useToast } from "@chakra-ui/react";
 import { SupabaseClient } from "@supabase/supabase-js";
 
