@@ -1,5 +1,5 @@
 "use client"
-import ProductCard from "@/components/cards/ProductCard";
+import { ProductCard } from "@/components/core";
 import { useAxios } from "@/hooks/useAxios";
 import { Container, Grid } from "@chakra-ui/react";
 import { useEffect, useState } from "react";

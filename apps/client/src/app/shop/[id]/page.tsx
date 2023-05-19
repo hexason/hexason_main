@@ -1,4 +1,4 @@
-import ProductDetail from "@/components/core/Product/ProductDetail";
+import { ProductDetail } from "@/components/build";
 import axios from "axios";
 
 export default async function Page({ params }: any) {

@@ -58,7 +58,7 @@ export const AuthContextProvider = ({ children }: any) => {
       supabase
     }}>
       <DefaultAnimate>
-        {session ? supplier ? 
+        {session ? supplier ?
           <LayoutBuilder>
             {children}
           </LayoutBuilder>
