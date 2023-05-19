@@ -68,7 +68,7 @@ export default function ProductDetail({ id }: { id: string }) {
         bgColor,
         image: product.image,
         brand: product.brand,
-        images: product.images.filter((img:any)=>img.url),
+        images: product.images.filter((img: any) => img.url),
         options: product.options,
         category: product.category.map((e: any) => e.id),
         status: parseInt(product.status)
