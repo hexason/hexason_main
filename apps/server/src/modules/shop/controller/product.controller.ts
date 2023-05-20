@@ -80,7 +80,7 @@ export class ProductController {
       product.items.push(item._id as any);
     }
     if (data._id && data.status === 1 && product) {
-      product.items = product.items.filter((it: any) => it._id.toString() !== data._id);
+      product.items = product.items.filter((it) => it._id.toString() !== data._id);
     }
     if (item) {
       item.product = product._id;
