@@ -6,7 +6,6 @@ Hexason is an open-source project that consists of multiple applications, includ
 
 The applications within Hexason use a variety of development strategies and technologies:
 
-- **Mirox Forest:** A `next.js` and `Firebase`-based game that incorporates `ChatGPT` and features a little story and MMO elements.
 - **Hexason Client:** A `next.js` and `Supabase`-based application that provides ecommerce functionality.
 - **Core Server:** A `Nest.js`-based application that provides `RestAPI` functionality and uses `SQL` for data storage.
 
@@ -22,9 +21,8 @@ To install and set up Hexason, follow these steps:
 
 To use Hexason, follow these steps:
 
-1. Start the Core Server application by running `npm start` within the core server directory.
-2. Start the Mirox Forest and Hexason Client applications by running `npm start` within each respective application directory.
-3. Follow the usage instructions within each application to interact with the features of that application.
+1. Start the Core Server application by running `pnpm dev` within the core server directory.
+2. Follow the usage instructions within each application to interact with the features of that application.
 
 ## Contributing
 
