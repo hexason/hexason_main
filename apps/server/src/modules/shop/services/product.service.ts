@@ -2,8 +2,9 @@ import { InjectConnection, InjectModel } from '@nestjs/mongoose';
 import { Connection, Model, Types, Document } from 'mongoose';
 import { ItemI, ProductI } from 'pointes';
 import { Item, Product } from '../models';
-import { ProductListArgs } from '../validation/ProductArgs';
+import { SortArgs } from '../validation/ProductArgs';
 
+type getProductType = { filter?: Partial<ProductI>; skip?: number; take?: number; sort?: SortArgs[] };
 export class ProductService {
   constructor(
     @InjectModel(Product.name) private readonly productModel: Model<Product>,
@@ -11,9 +12,17 @@ export class ProductService {
     @InjectConnection() private readonly connection: Connection,
   ) {}
 
-  async getProducts(option?: { filter?: Partial<ProductI>; limit?: ProductListArgs }) {
+  async getProducts(option?: Partial<getProductType>) {
     const items = await this.productModel
-      .find(option?.filter, {}, option?.limit)
+      .find(
+        option?.filter,
+        {},
+        {
+          skip: option.skip,
+          take: option.take,
+          sort: option?.sort?.reduce((att, itt) => ({ ...att, [itt.key]: itt.value }), {}),
+        },
+      )
       .sort({ status: 'asc', createdAt: 'desc' })
       .populate(['supplier', 'categories']);
     const count = await this.productModel.count(option?.filter);

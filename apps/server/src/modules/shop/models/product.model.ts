@@ -65,6 +65,9 @@ export class Product implements Partial<ProductI> {
   @Field(() => [Item])
   @Prop({ type: [{ type: Types.ObjectId, ref: 'Item' }] })
   items: any[];
+
+  @Field()
+  createdAt: string;
 }
 
 @ObjectType()
