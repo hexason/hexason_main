@@ -1,9 +1,9 @@
-import { Image } from "@chakra-ui/react"
+import { Image, Stack } from "@chakra-ui/react"
 
 export const Logo = () => {
   return (
-    <>
-      <Image src="/logo-with-black-bg.png" />
-    </>
+    <Stack justifyContent={"center"} alignItems={"center"}>
+      <Image w="75px" src="/logo-with-black-bg.png" />
+    </Stack>
   )
 }
