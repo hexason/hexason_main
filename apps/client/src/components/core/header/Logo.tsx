@@ -1,9 +1,15 @@
-import { Image, Stack } from "@chakra-ui/react"
+import { Box, HStack, Image, Stack, Text } from "@chakra-ui/react"
 
 export const Logo = () => {
   return (
     <Stack justifyContent={"center"} alignItems={"center"}>
-      <Image w="75px" src="/logo-with-black-bg.png" />
+      <HStack>
+        <Image w="75px" src="/logo-with-black-bg.png" />
+        <Stack>
+          <Text fontWeight={"bold"} fontSize={"1.5rem"}>Hex</Text>
+          <Box>AS ON</Box>
+        </Stack>
+      </HStack>
     </Stack>
   )
 }

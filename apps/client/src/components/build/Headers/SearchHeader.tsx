@@ -1,5 +1,6 @@
 import { Logo, SearchBar } from "@/components/core";
-import { Box, Grid, GridItem } from "@chakra-ui/react";
+import { Grid, GridItem } from "@chakra-ui/react";
+import { BasketWithFavButton } from "../../core/header/BasketWithFavButton";
 
 export default function SearchHeader() {
   return (
@@ -11,7 +12,7 @@ export default function SearchHeader() {
         <SearchBar />
       </GridItem>
       <GridItem colSpan={2}>
-        <Box>ad or basket</Box>
+        <BasketWithFavButton />
       </GridItem>
     </Grid>
   )

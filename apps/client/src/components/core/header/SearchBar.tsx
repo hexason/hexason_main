@@ -1,24 +1,35 @@
-import { Box, Button, HStack, Input, InputGroup, InputLeftAddon, InputRightAddon, Stack } from "@chakra-ui/react";
+import { Button, HStack, Input, InputGroup } from "@chakra-ui/react";
 
 export const SearchBar = () => {
   return (
-    <HStack h="100%" justifyContent={"center"}>
-      <Box
-        borderColor={"black"}
-        border="1px solid #000"
-        w="100%" borderRadius={"2xl"} overflow={"hidden"}>
-        <InputGroup>
-          <InputLeftAddon>
-            Search
-          </InputLeftAddon>
-          <Input border="unset" />
-          <InputRightAddon border="unset" p={1} bg="unset">
-            <Button>
-              Search
-            </Button>
-          </InputRightAddon>
-        </InputGroup>
-      </Box>
+    <HStack>
+      <InputGroup
+        position={"relative"}
+        w="100%"
+        borderRadius={"full"}
+        overflow={"hidden"}
+      >
+        <Input
+          borderRadius={"full"}
+          bg="white"
+          h="50px"
+        />
+        <HStack
+          position={"absolute"}
+          zIndex="100"
+          right={2}
+          bottom={"5px"}
+          transform={"translate('-50%', 0)"}
+        >
+          <Button
+            borderRadius={"full"}
+            colorScheme="green"
+            fontSize={"1rem"}
+            p={2}
+            px={4}
+          >Хайх</Button>
+        </HStack>
+      </InputGroup>
     </HStack>
   )
 }
