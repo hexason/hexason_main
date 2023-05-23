@@ -12,7 +12,11 @@ export class Category {
 
   @Field()
   @Prop({ required: true, unique: true })
-  name: string;
+  title: string;
+
+  @Field()
+  @Prop({ required: false })
+  icon?: string;
 
   @Field()
   @Prop({ type: String })
@@ -24,7 +28,7 @@ export class Category {
 
   @Field()
   @Prop({ type: Number, default: 0 })
-  order?: number;
+  score?: number;
 }
 
 const CategorySchema = SchemaFactory.createForClass(Category);
