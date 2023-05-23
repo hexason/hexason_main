@@ -1,6 +1,7 @@
 import { Analytics } from "@vercel/analytics/react";
 import { Providers } from "./provider";
 import Navbar from "@/components/core/Navbar";
+import { ColorModeScript } from "@chakra-ui/react";
 
 export const metadata = {
   title: 'Home',

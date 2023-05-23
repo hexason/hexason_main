@@ -1,12 +1,12 @@
 "use client"
 import ChatBox from "@/components/build/ChatBox"
-import HomeHeader from "@/components/core/Headers/HomeHeader"
-import SearchHeader from "@/components/core/Headers/SearchHeader"
+import HomeHeader from "@/components/build/Headers/HomeHeader"
+import SearchHeader from "@/components/build/Headers/SearchHeader"
 import DefaultLayout from "@/components/layout/DefaultLayout"
 
 export default function Home() {
   return (
-    <DefaultLayout>
+    <DefaultLayout spacing={6}>
       <SearchHeader />
       <HomeHeader />
       <ChatBox />

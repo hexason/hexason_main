@@ -40,7 +40,6 @@ export default function TopUpBar() {
                 <Text cursor={"pointer"}>{el.label}</Text>
               </Link>
             ))}
-            <Button bg="unset" onClick={toggleColorMode}>Toggle</Button>
           </HStack>
         </Flex>
       </DefaultLayout>
