@@ -1,6 +1,6 @@
 "use client"
 import DefaultLayout from "@/components/layout/DefaultLayout";
-import { Text, Flex, HStack, Link, Box } from "@chakra-ui/react";
+import { Text, Flex, HStack, Link, Box, useColorMode, useColorModeValue, Button } from "@chakra-ui/react";
 
 
 const READER_PAGE_LINKS = [
@@ -22,23 +22,25 @@ const READER_PAGE_LINKS = [
 ]
 
 export default function TopUpBar() {
+  const { toggleColorMode } = useColorMode()
   return (
     <Box w="100%">
       <DefaultLayout>
         <Flex p="2" justifyContent={{ base: "center", md: "space-between" }} w="100%">
-          <HStack display={{ base: "none", md: "flex" }} fontSize={"12px"} color="gray.600">
+          <HStack display={{ base: "none", md: "flex" }} fontSize={"12px"} color={useColorModeValue("gray.600", "gray.100")}>
             {READER_PAGE_LINKS.map(el => (
               <Link href={el.url} key={el.id}>
                 <Text cursor={"pointer"}>{el.label}</Text>
               </Link>
             ))}
           </HStack>
-          <HStack display={{ base: "none", md: "flex" }} fontSize={"12px"} color="gray.600">
+          <HStack display={{ base: "none", md: "flex" }} fontSize={"12px"} color={useColorModeValue("gray.600", "gray.100")}>
             {READER_PAGE_LINKS.map(el => (
               <Link href={el.url} key={el.id}>
                 <Text cursor={"pointer"}>{el.label}</Text>
               </Link>
             ))}
+            <Button bg="unset" onClick={toggleColorMode}>Toggle</Button>
           </HStack>
         </Flex>
       </DefaultLayout>
