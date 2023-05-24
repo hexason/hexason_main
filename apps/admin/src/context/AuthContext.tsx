@@ -1,5 +1,5 @@
-import LayoutBuilder from '@/components/LayoutBuilder';
-import DefaultAnimate from '@/components/animation/DefaultAnimate';
+import LayoutBuilder from '@/components/layout/LayoutBuilder';
+import DefaultAnimate from '@/components/core/animation/DefaultAnimate';
 import AuthForm from '@/components/core/Auth/AuthForm';
 import AuthLayout from '@/components/core/Auth/AuthLayout';
 import SupplierChanger from '@/components/core/Auth/SupplierChanger';

@@ -1,10 +1,10 @@
 import { Badge, Button, Center, Container, FormControl, FormLabel, Grid, Image, Input, Select, Stack, Table, TableContainer, Tag, Textarea, Th, Thead, Tr, Wrap, useToast } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import ColorPicker from "../utils/ColorPicker";
-import ThreeDotsWave from "../animation/ThreeDotsWave";
-import DefaultAnimate from "../animation/DefaultAnimate";
+import ThreeDotsWave from "../core/animation/ThreeDotsWave";
+import DefaultAnimate from "../core/animation/DefaultAnimate";
 import { useAxios } from "@/hooks/useAxios";
-import { CategoryCreator } from "../category";
+import { CategoryCreator } from "../build/category";
 import FileUploader from "../core/File/FileUploader";
 import FileUploaderMany, { ImageUploadManyType } from "../core/File/FileUploaderMany";
 import ItemDetail from "./ItemDetail";

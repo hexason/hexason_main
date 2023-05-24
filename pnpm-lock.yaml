@@ -284,7 +284,12 @@ importers:
       eslint-plugin-react: 7.29.3_eslint@8.39.0
 
   packages/pointes:
-    specifiers: {}
+    specifiers:
+      '@types/node': 18.11.18
+      typescript: ^5.0.4
+    devDependencies:
+      '@types/node': 18.11.18
+      typescript: 5.0.4
 
   packages/utils:
     specifiers:
@@ -14701,6 +14706,12 @@ packages:
     engines: {node: '>=12.20'}
     hasBin: true
     dev: false
+
+  /typescript/5.0.4:
+    resolution: {integrity: sha512-cW9T5W9xY37cc+jfEnaUvX91foxtHkza3Nw3wkoF4sSlKn0MONdkdEndig/qPBWXNkmplh3NzayQzCiHM4/hqw==}
+    engines: {node: '>=12.20'}
+    hasBin: true
+    dev: true
 
   /typia/3.8.9_typescript@4.9.5:
     resolution: {integrity: sha512-yvQ67nhtzme+rnEUZfSOIgxBOHYrrQ3WBU1J4SrAhI3ntBhSelYwGiJkeaCvqchzK6O1RoIs3kCBS4XHIlp2NA==}

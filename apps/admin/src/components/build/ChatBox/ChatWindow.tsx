@@ -1,5 +1,5 @@
 import { GTransIcon } from "@/assets/icons";
-import DefaultAnimate from "@/components/animation/DefaultAnimate";
+import DefaultAnimate from "@/components/core/animation/DefaultAnimate";
 import { useAxios } from "@/hooks/useAxios";
 import { Avatar, Box, CircularProgress, Stack, Text, useToast } from "@chakra-ui/react";
 import React, { useEffect, useRef, useState } from "react";

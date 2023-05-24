@@ -2,8 +2,8 @@ import { Box, Button, Checkbox, HStack, Image, Modal, ModalBody, ModalCloseButto
 import { useEffect, useState } from "react";
 import ProductDetail from "./ProductDetail";
 import { useAxios } from "@/hooks/useAxios";
-import DefaultAnimate from "../animation/DefaultAnimate";
-import ThreeDotsWave from "../animation/ThreeDotsWave";
+import DefaultAnimate from "../core/animation/DefaultAnimate";
+import ThreeDotsWave from "../core/animation/ThreeDotsWave";
 import { motion } from "framer-motion";
 import { EyeIcon, TrashIcon } from "@/assets/icons"
 import { statusViewer } from "@/lib/utils";
@@ -83,7 +83,7 @@ export default function TableList() {
           </TableContainer>
         </Box>
       }
-      
+
       <Modal isOpen={creatorModal.isOpen} onClose={() => { creatorModal.onClose(); refresh(Date.now()) }} size={"4xl"}>
         <ModalOverlay />
         <ModalContent bg="#28243D" color="gray.200">
