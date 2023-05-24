@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 
 type PropsType = {
-  img: string,
+  img?: string,
   zoomScale: number,
   height: number,
   width: number,
