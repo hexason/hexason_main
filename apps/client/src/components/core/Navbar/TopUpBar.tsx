@@ -1,28 +1,23 @@
 "use client"
 import DefaultLayout from "@/components/layout/DefaultLayout";
-import { Text, Flex, HStack, Link, Box, useColorMode, useColorModeValue, Button } from "@chakra-ui/react";
+import { Text, Flex, HStack, Box, useColorModeValue } from "@chakra-ui/react";
+import Link from "next/link";
 
 
 const READER_PAGE_LINKS = [
   {
     id: "rp-1",
-    url: "/reader/terms",
-    label: "Үйлчилгээний нөхцөл"
+    url: "/",
+    label: "Нүүр"
   },
   {
     id: "rp-2",
-    url: "/reader/about",
-    label: "Бидний тухай"
-  },
-  {
-    id: "rp-3",
-    url: "/reader/about",
-    label: "Холбоо барих"
+    url: "/shop",
+    label: "Дэлгүүр"
   }
 ]
 
-export default function TopUpBar() {
-  const { toggleColorMode } = useColorMode()
+export const TopUpBar = () => {
   return (
     <Box w="100%">
       <DefaultLayout>
