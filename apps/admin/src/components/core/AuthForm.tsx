@@ -2,7 +2,7 @@ import { Button, Divider, Image, Input, Stack, useToast } from "@chakra-ui/react
 import { SupabaseClient } from "@supabase/supabase-js";
 import { useState } from "react";
 
-export default function AuthForm({ supabaseClient }: { supabaseClient: SupabaseClient }) {
+export const AuthForm = ({ supabaseClient }: { supabaseClient: SupabaseClient }) => {
   const [userInput, setUserInput] = useState({
     email: '',
     password: ''
@@ -53,6 +53,9 @@ export default function AuthForm({ supabaseClient }: { supabaseClient: SupabaseC
   return (
     <Stack spacing={5} p={3}>
       <form onSubmit={signInWithPassword} >
+        <Stack>
+          <Input onChange={handleInput} type="supply" name="supply" placeholder="Supplier ID" />
+        </Stack>
         <Stack>
           <Input onChange={handleInput} type="email" name="email" placeholder="Email" />
           <Input onChange={handleInput} type="password" name="password" placeholder="Password" />

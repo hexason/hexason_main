@@ -25,6 +25,7 @@
     "framer-motion": "^10.11.6",
     "next": "13.1.1",
     "nextjs-progressbar": "^0.0.16",
+    "pointes": "workspace:^1.1.2",
     "react": "18.2.0",
     "react-blurhash": "^0.3.0",
     "react-dom": "18.2.0",

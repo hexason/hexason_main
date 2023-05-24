@@ -4,7 +4,7 @@ import { Queue } from "@/lib/utils/queue";
 import { TrashIcon } from "@/assets/icons";
 
 export type ImageUploadManyType = { name: string, url?: string, isUploaded: boolean, file?: File }
-export default function FileUploaderMany({ imgs, onChange }: { imgs?: ImageUploadManyType[], onChange?: (prop: ImageUploadManyType[]) => any; }) {
+export const FileUploaderMany = ({ imgs, onChange }: { imgs?: ImageUploadManyType[], onChange?: (prop: ImageUploadManyType[]) => any; }) => {
   const [images, setImages] = useState<ImageUploadManyType[]>(imgs || []);
   const [loading, setLoading] = useState(false);
   const toast = useToast();

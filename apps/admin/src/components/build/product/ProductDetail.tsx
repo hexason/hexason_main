@@ -1,14 +1,11 @@
 import { Badge, Button, Center, Container, FormControl, FormLabel, Grid, Image, Input, Select, Stack, Table, TableContainer, Tag, Textarea, Th, Thead, Tr, Wrap, useToast } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import ColorPicker from "../utils/ColorPicker";
-import ThreeDotsWave from "../core/animation/ThreeDotsWave";
-import DefaultAnimate from "../core/animation/DefaultAnimate";
 import { useAxios } from "@/hooks/useAxios";
-import { CategoryCreator } from "../build/category";
-import FileUploader from "../core/File/FileUploader";
-import FileUploaderMany, { ImageUploadManyType } from "../core/File/FileUploaderMany";
 import ItemDetail from "./ItemDetail";
 import ItemCreate from "./ItemCreate";
+import { ImageUploadManyType, ThreeDotsWave, DefaultAnimate, FileUploader, FileUploaderMany } from "@/components/core";
+import { ColorPicker } from "@/components/core/other";
+import { CategoryCreator } from "../category";
 export default function ProductDetail({ id }: { id: string }) {
   const [product, setProduct] = useState<any>(null);
   const [bgColor, setBgColor] = useState("");

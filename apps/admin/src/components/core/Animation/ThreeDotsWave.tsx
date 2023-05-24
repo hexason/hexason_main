@@ -38,14 +38,14 @@ const DotVariants = {
   }
 };
 
-const DotTransition:Transition = {
+const DotTransition: Transition = {
   duration: 1,
   repeat: Infinity,
   repeatType: "reverse",
   ease: "easeInOut"
 };
 
-export default function ThreeDotsWave() {
+export const ThreeDotsWave = () => {
   return (
     <div
       style={{
@@ -61,7 +61,7 @@ export default function ThreeDotsWave() {
         variants={ContainerVariants}
         initial="initial"
         animate="animate"
-        exit={{opacity: 0}}
+        exit={{ opacity: 0 }}
       >
         <motion.span
           style={LoadingDot}

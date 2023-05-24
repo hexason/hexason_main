@@ -1,6 +1,6 @@
 import Head from "next/head";
 
-export default function CustomerHead() {
+export const CustomerHead = () => {
   return (
     <Head>
       <title>Hexason | All in One</title>

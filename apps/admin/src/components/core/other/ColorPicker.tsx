@@ -1,7 +1,7 @@
 import { Popover, PopoverTrigger, Button, PopoverContent, PopoverArrow, PopoverCloseButton, PopoverHeader, Center, PopoverBody, SimpleGrid } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 
-export default function ColorPicker({ value, onChange }: { value?: string, onChange?: any }) {
+export const ColorPicker = ({ value, onChange }: { value?: string, onChange?: any }) => {
   const [color, setColor] = useState("#718096");
   const colors = ["#718096", "#E53E3E", "#2D3748", "#38A169", "#4299E1", "#1A365D", "#ECC94B", "#ED8936", "#9F7AEA", "#ED64A6"];
   useEffect(() => {

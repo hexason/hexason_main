@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import React from "react";
 import { useEffect, useState } from "react";
 
-export default function Sidebar() {
+export const Sidebar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   return (

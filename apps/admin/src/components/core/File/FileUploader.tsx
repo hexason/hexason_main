@@ -11,7 +11,7 @@ import {
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
-export default function FileUploader({ src, onChange, w }: { src?: string, onChange?: (url: string) => any, w?: string }) {
+export const FileUploader = ({ src, onChange, w }: { src?: string, onChange?: (url: string) => any, w?: string }) => {
   const [loading, setLoading] = useState(false);
   const [url, setUrl] = useState("https://image.shutterstock.com/image-photo/paella-traditional-classic-spanish-seafood-600w-1662253543.jpg");
   const toast = useToast();

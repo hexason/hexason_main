@@ -2,8 +2,7 @@ import { Box, Button, Checkbox, HStack, Image, Modal, ModalBody, ModalCloseButto
 import { useEffect, useState } from "react";
 import ProductDetail from "./ProductDetail";
 import { useAxios } from "@/hooks/useAxios";
-import DefaultAnimate from "../core/animation/DefaultAnimate";
-import ThreeDotsWave from "../core/animation/ThreeDotsWave";
+import { DefaultAnimate, ThreeDotsWave } from "@/components/core";
 import { motion } from "framer-motion";
 import { EyeIcon, TrashIcon } from "@/assets/icons"
 import { statusViewer } from "@/lib/utils";

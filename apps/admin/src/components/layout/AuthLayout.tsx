@@ -1,6 +1,6 @@
 import { Box, Container, Image, Stack } from "@chakra-ui/react";
 
-export default function AuthLayout({ children, ...props }: any) {
+export const AuthLayout = ({ children, ...props }: any) => {
   return (
     <Box
       w="100%"

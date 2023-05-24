@@ -1,8 +1,11 @@
 //TODO: add supplier changer
 import { Avatar, Button, Select, Stack, useToast } from "@chakra-ui/react"
 import { useState } from "react"
-
-export default function SupplierChanger({ setSupplier }: { setSupplier: any }) {
+/**
+ * 
+ * @deprecated - don't use this function
+ */
+export const SupplierChanger = ({ setSupplier }: { setSupplier: any }) => {
   const [txt, setTxt] = useState('');
   const toast = useToast();
 
@@ -24,7 +27,7 @@ export default function SupplierChanger({ setSupplier }: { setSupplier: any }) {
       <form onSubmit={formSubmit}>
         <Stack>
           <Select value={txt} onChange={(e) => setTxt(e.target.value)}>
-          <option value={""}>
+            <option value={""}>
               None
             </option>
             <option value={"64364d4829aeda71de8a6fa6"}>

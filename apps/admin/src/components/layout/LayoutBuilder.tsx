@@ -1,9 +1,11 @@
 import { Grid, GridItem } from "@chakra-ui/react";
-import Sidebar from "../core/Sidebar";
-import Navbar from "../core/Navbar";
-import DefaultAnimate from "../core/animation/DefaultAnimate";
+import {
+  Sidebar,
+  Navbar,
+  DefaultAnimate
+} from "../core";
 
-export default function LayoutBuilder({ children }: any) {
+export const LayoutBuilder = ({ children }: any) => {
   return (
     <Grid
       w="100%" bg="#28243D" h="100vh"

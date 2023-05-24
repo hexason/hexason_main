@@ -1,10 +1,8 @@
-import product from "@/pages/page/product";
 import { Button, Center, Container, FormControl, FormLabel, Input, Stack, Textarea, useToast } from "@chakra-ui/react";
 import { useState } from "react"
-import FileUploader from "../core/File/FileUploader";
-import ColorPicker from "../utils/ColorPicker";
 import { useAxios } from "@/hooks/useAxios";
-import FileUploaderMany, { ImageUploadManyType } from "../core/File/FileUploaderMany";
+import { ImageUploadManyType, FileUploader, FileUploaderMany } from "@/components/core";
+import { ColorPicker } from "@/components/core/other";
 
 export default function ProductCreate({ trigger }: { trigger?: (id: string) => any }) {
   const [product, setProduct] = useState({
@@ -71,8 +69,6 @@ export default function ProductCreate({ trigger }: { trigger?: (id: string) => a
       [e.target.name]: e.target.value
     }));
   }
-
-
 
   return (
     <Container maxW="500px">
