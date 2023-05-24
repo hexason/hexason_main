@@ -1,19 +1,20 @@
-import { Body, Controller, Get, HttpException, Param, Post, Request, SetMetadata, Put } from '@nestjs/common';
+import { Body, Controller, Get, HttpException, Param, Post, Request, Put } from '@nestjs/common';
 import { ItemService, ProductService } from '../services';
 import { ProductI, SupabaseJWTPayload } from 'pointes';
 import { ProductAddDTO, ProductInfoUpdateDTO, ProductItemUpdateDto } from '../validation/ProductControllerDto';
+import { Auth } from '@/modules/auth';
+import { TypedRoute } from '@nestia/core';
 
+@Auth()
 @Controller('product')
 export class ProductController {
   constructor(private readonly productService: ProductService, private readonly itemService: ItemService) {}
 
-  @Get('list')
-  @SetMetadata('isPublic', true)
+  @TypedRoute.Get('list')
   async getProducts(@Request() req: any) {
     const filter: Partial<ProductI> = {
-      status: 12,
+      supplier: req.user.supplier_id,
     };
-    if (req.user && req.user.admin) delete filter.status;
 
     const products = await this.productService.getProducts({
       filter,
@@ -23,7 +24,6 @@ export class ProductController {
   }
 
   @Get(':id')
-  @SetMetadata('isPublic', true)
   async getProduct(@Param('id') id: string) {
     const product = await this.productService.getOneProductById(id).catch((e) => {
       throw new HttpException(e, 400);

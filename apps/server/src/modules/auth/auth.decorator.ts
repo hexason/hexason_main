@@ -1,11 +1,11 @@
-import { AccessJWTGuard } from './jwt-strategy.guard';
+import { AdminJWTGuard } from './admin.guard';
 import { UseGuards, applyDecorators } from '@nestjs/common';
 import { ApiBearerAuth, ApiUnauthorizedResponse } from '@nestjs/swagger';
 
 export function Auth() {
   return applyDecorators(
-    UseGuards(AccessJWTGuard),
-    ApiBearerAuth('admin-access'),
+    UseGuards(AdminJWTGuard),
+    ApiBearerAuth('access-token'),
     ApiUnauthorizedResponse({ description: 'Unauthorized' }),
   );
 }

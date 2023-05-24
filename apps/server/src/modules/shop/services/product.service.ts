@@ -15,11 +15,11 @@ export class ProductService {
   async getProducts(option?: Partial<getProductType>) {
     const items = await this.productModel
       .find(
-        option?.filter,
+        option?.filter || {},
         {},
         {
-          skip: option.skip,
-          take: option.take,
+          skip: option?.skip,
+          take: option?.take,
           sort: option?.sort?.reduce((att, itt) => ({ ...att, [itt.key]: itt.value }), {}),
         },
       )
