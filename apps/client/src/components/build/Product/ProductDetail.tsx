@@ -4,34 +4,29 @@ import { AspectRatio, Avatar, Box, Button, Container, Divider, Grid, GridItem, H
 import Image from 'next/image'
 import { ProductI } from 'pointes'
 import { useState } from 'react';
+import ZoomImage from "../../core/Image/ZoomImage"
 
 export default function ProductDetail({ product }: { product: ProductI }) {
   const formatter = useCurrencyFormat();
   const [configs] = useState<{ [key: string]: any[] }>({});
 
   return (
-    <Container maxW="container.xl">
+    <Container maxW="container.xl" my={3}>
       <Stack spacing={6} bg="#ffffffAB" p="3" borderRadius={"20px"}>
-        <Grid gap="3" templateColumns={["repeat(1,1fr)", "repeat(3, 1fr)"]}>
-          <GridItem colSpan={1} as={Stack}>
+        <Grid gap="3" templateColumns={["repeat(1,1fr)", "repeat(6, 1fr)"]}>
+          <GridItem colSpan={2} as={Stack}>
             <AspectRatio position={"relative"} ratio={1} borderRadius={"20px"} overflow={"hidden"}>
               <Box position={"absolute"} w="100%">
-                <Image
-                  src={product.image}
-                  alt={product.title}
-                  blurDataURL="https://upload.wikimedia.org/wikipedia/commons/c/c7/Loading_2.gif?20170503175831"
-                  loading="lazy"
-                  placeholder="blur"
-                  fill
-                  style={{
-                    objectFit: "cover",
-                    transition: "0.5s"
-                  }}
+                <ZoomImage
+                  img={product.image}
+                  zoomScale={3}
+                  width={379}
+                  height={379}
                 />
               </Box>
             </AspectRatio>
           </GridItem>
-          <GridItem as={Stack} p={3} colSpan={2}>
+          <GridItem as={Stack} p={3} colSpan={3}>
             <Stack h="100%" spacing={6}>
               <Stack>
                 <Text color="black" fontSize={"1.5rem"} fontWeight={"bold"}>{product.title}</Text>
@@ -58,7 +53,6 @@ export default function ProductDetail({ product }: { product: ProductI }) {
                     )
                   })
                 }
-
                 <Stack>
                   <Text w="150px">Тоо ширхэг:</Text>
                   <QuantityController />
@@ -68,6 +62,11 @@ export default function ProductDetail({ product }: { product: ProductI }) {
                 <Button w="50%" colorScheme='teal' borderRadius={"0"}>Сагслах</Button>
                 <Button w="50%" colorScheme='green' borderRadius={"0"}>Шууд захиалах</Button>
               </Box>
+            </Stack>
+          </GridItem>
+          <GridItem colSpan={1}>
+            <Stack h="100%" borderRadius={"5px"} bg="gray.200">
+
             </Stack>
           </GridItem>
         </Grid>

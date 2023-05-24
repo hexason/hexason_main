@@ -15,7 +15,7 @@ export default function ProductCard({ product }: any) {
       as={Link}
       href={"/shop/" + product.id}
       _hover={{
-        bg: "#000",
+        bg: "gray.200",
         boxShadow: "0 19px 39px 0 rgba(255,255,255,0.2)"
       }}
     >

@@ -1,3 +1,4 @@
+"use client"
 import { DefaultLayout } from "@/components/layout"
 import { Box, Image } from "@chakra-ui/react"
 
