@@ -25,7 +25,7 @@ export class ProductResolver {
     return products;
   }
 
-  @Query(() => ProductList)
+  @Query(() => Product)
   async getProductById(@Args('id') id: string) {
     const product = await this.productService.getOneProductById(id);
     return product;
