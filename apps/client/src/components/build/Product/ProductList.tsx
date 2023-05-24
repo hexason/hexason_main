@@ -1,18 +1,28 @@
 "use client"
+import { ThreeDotsWave } from "@/components/animation";
 import { ProductCard } from "@/components/core";
-import { useAxios } from "@/hooks/useAxios";
+import { gql, useQuery } from "@apollo/client";
 import { Container, Grid, Tag } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
 
 export default function ProductList() {
-  const [products, setProducts] = useState([]);
-  const axios = useAxios();
+  const { loading, data } = useQuery(gql`
+   {
+      getProducts {
+        items {
+          id,
+          title,
+          price,
+          sold,
+          image
+        }
+      }
+    }
+  `);
 
-  useEffect(() => {
-    axios.get('/product/list').then(res => {
-      setProducts(res.data.items);
-    });
-  }, [])
+  if (loading) return <Container my={4} maxW="container.xl" bg="white" borderRadius={"20px"} p={3} minH="60vh">
+    <ThreeDotsWave />
+  </Container>
+
   return (
     <Container my={4} maxW="container.xl" bg="white" borderRadius={"20px"} p={3} minH="60vh">
       <Tag
@@ -22,7 +32,7 @@ export default function ProductList() {
         fontWeight={"bold"}
       >Шинэ бүтээгдэхүүн</Tag>
       <Grid templateColumns={["repeat(2, 1fr)", "repeat(3, 1fr)", "repeat(5, 1fr)"]} gap={6}>
-        {products.map((product: any) => <ProductCard key={product.id} product={product} />)}
+        {data?.getProducts.items.map((product: any) => <ProductCard key={product.id} product={product} />)}
       </Grid>
     </Container>
   )
