@@ -1,10 +1,10 @@
-import { Supplier } from '../models';
 import { SupplierCreateType } from 'pointes';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { InjectDataSource } from '@nestjs/typeorm';
 import { Model, Types, Document } from 'mongoose';
 import { DataSource } from 'typeorm';
+import { Supplier } from '../models/supplier.model';
 
 @Injectable()
 export class SupplierService {
