@@ -1,5 +1,6 @@
 // app/providers.tsx
 'use client'
+import { AuthContextProvider } from '@/context/AuthContext'
 import apollo from '@/lib/Apollo'
 import { ApolloProvider } from '@apollo/client'
 import { CacheProvider } from '@chakra-ui/next-js'
@@ -25,9 +26,11 @@ export function Providers({
           }
         }
       })}>
-        <ApolloProvider client={apollo}>
-          {children}
-        </ApolloProvider>
+        <AuthContextProvider>
+          <ApolloProvider client={apollo}>
+            {children}
+          </ApolloProvider>
+        </AuthContextProvider>
       </ChakraProvider>
     </CacheProvider>
   )

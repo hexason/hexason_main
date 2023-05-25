@@ -16,7 +16,7 @@ export default function RootLayout({
 }) {
   // const path = usePathname()
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning={true} >
       <body>
         <Providers>
           <TopUpBar />
