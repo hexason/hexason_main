@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import * as controllers from './controller';
-import { ItemService, ProductService } from './services';
+import { ItemService, ProductService, SupplierService } from './services';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Product, ProductSchema } from './models/product.model';
 import { Category, CategorySchema, Item, ItemSchema, Supplier, SupplierSchema } from './models';
@@ -23,6 +23,6 @@ import { ProductResolver } from './resolver/product.resolver';
     ]),
   ],
   controllers: Object.values(controllers),
-  providers: [ItemService, ProductService, ProductResolver],
+  providers: [ItemService, ProductService, ProductResolver, SupplierService],
 })
 export class ShopModule {}
