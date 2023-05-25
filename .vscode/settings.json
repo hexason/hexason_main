@@ -1,0 +1,12 @@
+{
+    "vsicons.presets.foldersAllDefaultIcon": false,
+    "vsicons.presets.angular": false,
+    "vsicons.presets.nestjs": true,
+    "vsicons.projectDetection.disableDetect": false,
+    "vsicons.projectDetection.autoReload": false,
+    "vsicons.presets.tsOfficial": false,
+    "vsicons.presets.jsonOfficial": false,
+    "vsicons.presets.hideFolders": false,
+    "vsicons.dontShowConfigManuallyChangedMessage": false,
+    "vsicons.dontShowNewVersionMessage": false
+}

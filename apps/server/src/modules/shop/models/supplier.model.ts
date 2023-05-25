@@ -1,5 +1,8 @@
+import { ObjectType } from '@nestjs/graphql';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
+export type ProductDocument = Supplier & Document;
+@ObjectType({ description: 'supplier' })
 @Schema({ timestamps: true })
 export class Supplier {
   @Prop({ required: true, unique: true })
