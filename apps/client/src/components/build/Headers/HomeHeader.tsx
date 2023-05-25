@@ -1,4 +1,5 @@
 "use client";
+import { UserSidePage } from "@/components/core/SidePage/UserSidePage";
 import { Grid, GridItem } from "@chakra-ui/react";
 
 export default function HomeHeader() {
@@ -8,7 +9,7 @@ export default function HomeHeader() {
 
       </GridItem>
       <GridItem bg="white" borderRadius={"20px"} colSpan={2}>
-
+        <UserSidePage />
       </GridItem>
     </Grid>
   )
