@@ -2,14 +2,13 @@
 import DefaultAnimate from '@/components/animation/DefaultAnimate';
 import { SupabaseAuthSession } from '@/lib/types';
 import { supabase } from '@/lib/Supabase';
-import { Button, useToast } from '@chakra-ui/react';
+import { Button } from '@chakra-ui/react';
 import { SupabaseClient } from '@supabase/supabase-js';
 import { createContext, useContext, useEffect, useState } from 'react';
 
 export const AuthContext = createContext<{ session: SupabaseAuthSession, supabase: SupabaseClient }>({ session: null, supabase });
 export const AuthContextProvider = ({ children }: any) => {
   const [session, setSession] = useState<SupabaseAuthSession>(null);
-  const toast = useToast();
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -22,7 +21,7 @@ export const AuthContextProvider = ({ children }: any) => {
     })
 
     return () => subscription.unsubscribe()
-  }, [toast]);
+  }, []);
 
   return (
     <AuthContext.Provider value={{
@@ -31,7 +30,7 @@ export const AuthContextProvider = ({ children }: any) => {
     }}>
       <DefaultAnimate>
         {session && <Button float={"right"} m="3" colorScheme='red' onClick={() => supabase.auth.signOut()}>Гарах</Button>}
-         {children}
+        {children}
       </DefaultAnimate>
     </AuthContext.Provider>
   )
