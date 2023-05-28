@@ -16,7 +16,6 @@
     "@chakra-ui/theme-tools": "^2.0.16",
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
-    "@next/font": "13.1.1",
     "@sales24/client": "^2.0.17",
     "@supabase/supabase-js": "^2.20.0",
     "@types/node": "18.11.18",
