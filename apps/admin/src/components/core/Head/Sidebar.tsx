@@ -12,7 +12,7 @@ export const Sidebar = () => {
       <MobileSideBar {...{ isOpen, onOpen, onClose }} />
       <Stack display={{ base: "flex", md: "none" }}>
         <Box p={6}>
-          <Button colorScheme="blackAlpha" onClick={onOpen}>Menu</Button>
+          <Button onClick={onOpen}>Menu</Button>
         </Box>
       </Stack>
       <Stack display={{ base: "none", md: "flex" }} minH={"600px"}>
@@ -25,15 +25,11 @@ export const Sidebar = () => {
 function SidebarButton({ children, isActive, onClick }: any) {
   return (
     <Button
-      colorScheme=""
-      bg={isActive && "linear-gradient(98deg, rgb(198, 167, 254), rgb(145, 85, 253) 94%)"}
+      isActive={isActive}
       borderRadius={"0 20px 20px 0"}
       p={1}
       pl={6}
       cursor={"pointer"}
-      _hover={{
-        bg: isActive ? "linear-gradient(98deg, rgb(198, 167, 254), rgb(145, 85, 253) 94%)" : "gray.400"
-      }}
       transition={"0.3s"}
       onClick={onClick}
       textTransform={"capitalize"}
@@ -79,7 +75,7 @@ function SidebarContent() {
         isActive={el.url === active} key={el.url}>{el.txt}</SidebarButton>)}
       <Divider />
       <Stack p={3}>
-        <Button colorScheme="blackAlpha" onClick={() => supabase.auth.signOut()}>Log Out</Button>
+        <Button onClick={() => supabase.auth.signOut()}>Log Out</Button>
       </Stack>
     </Stack>
   )
@@ -93,7 +89,7 @@ function MobileSideBar({ isOpen, onClose }: any) {
       onClose={onClose}
     >
       <DrawerOverlay />
-      <DrawerContent bg={"#28243D"} color="gray.200">
+      <DrawerContent>
         <DrawerCloseButton />
         <DrawerBody p={0} pr={6}>
           <SidebarContent />

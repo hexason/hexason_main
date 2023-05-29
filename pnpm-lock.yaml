@@ -10,7 +10,10 @@ importers:
 
   apps/admin:
     specifiers:
+      '@chakra-ui/anatomy': ^2.1.1
       '@chakra-ui/react': ^2.5.5
+      '@chakra-ui/styled-system': ^2.9.0
+      '@chakra-ui/theme-tools': ^2.0.16
       '@emotion/react': ^11.10.6
       '@emotion/styled': ^11.10.6
       '@supabase/auth-helpers-nextjs': ^0.7.0
@@ -34,7 +37,10 @@ importers:
       react-quill: ^2.0.0
       typescript: 4.9.5
     dependencies:
+      '@chakra-ui/anatomy': 2.1.1
       '@chakra-ui/react': 2.5.5_6enkwwntgdinrkntwutn4vtdly
+      '@chakra-ui/styled-system': 2.9.0
+      '@chakra-ui/theme-tools': 2.0.16_krunc5eq5ukmju52vvh62v6wai
       '@emotion/react': 11.10.6_kzbn2opkn2327fwg5yzwzya5o4
       '@emotion/styled': 11.10.6_qry7xzgsc55pr5ngbiorqn3fpa
       '@supabase/auth-helpers-nextjs': 0.7.0_ghb6skat2wscrlzdhxa36qq744

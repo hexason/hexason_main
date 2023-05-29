@@ -7,11 +7,12 @@ import { SessionContextProvider } from '@/lib/supabase-react'
 import { createPagesBrowserClient } from '@supabase/auth-helpers-nextjs'
 import { useState } from 'react';
 import { LayoutBuilder } from '@/components/layout';
+import theme from '@/theme';
 
 export default function App({ Component, pageProps }: AppProps) {
   const [supabaseClient] = useState(() => createPagesBrowserClient())
   return (
-    <ChakraProvider>
+    <ChakraProvider theme={theme}>
       <CustomerHead />
       <SessionContextProvider supabaseClient={supabaseClient}>
         <NextNProgress />
