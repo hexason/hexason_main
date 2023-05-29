@@ -15,7 +15,7 @@ const SubCategory = ({ data }: { data: SubCategory }) => {
 };
 
 const CategoryItem = ({ data }: { data: CategoryItem }) => {
-	return <Text variant="body3">{data.name}</Text>;
+	return <Text variant="body2Alpha">{data.name}</Text>;
 };
 
 export default SubCategory;

@@ -1,4 +1,4 @@
-import { Box, Stack } from "@chakra-ui/react";
+import { Box, Stack, Text } from "@chakra-ui/react";
 import { testCategories } from "./mocks";
 import { ContainerStyle } from "@/theme/common";
 import { useState } from "react";
@@ -46,6 +46,20 @@ const CategiorySection = () => {
 					))}
 				</Stack>
 			</Box>
+			{isHover ? null : (
+				<Box
+					bg="hexhighligth.200"
+					p={1}
+					zIndex={101}
+					borderTopRadius={"10px"}
+					pos="absolute"
+					bottom="0px"
+					left="50%"
+					transform="translateX(-50%)"
+				>
+					<Text variant="body3">Hover to see more</Text>
+				</Box>
+			)}
 		</Box>
 	);
 };

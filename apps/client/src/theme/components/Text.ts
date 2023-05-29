@@ -17,9 +17,12 @@ const Text = defineStyleConfig({
 		body2: {
 			fontSize: "sm",
 		},
-		body3: {
+		body2Alpha: {
 			fontSize: "sm",
 			opacity: 0.6,
+		},
+		body3: {
+			fontSize: "xs",
 		},
 	},
 });
