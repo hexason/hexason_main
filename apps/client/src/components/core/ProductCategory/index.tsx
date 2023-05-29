@@ -49,11 +49,11 @@ const Test2: HomeHighlightType = {
 
 const ProductCategory = () => {
 	return (
-		<SimpleGrid columns={7} p={4} spacing={4}>
+		<SimpleGrid columns={7}>
 			<GridItem colSpan={2}>
 				<CategiorySection />
 			</GridItem>
-			<GridItem colSpan={5}>
+			<GridItem p={4} colSpan={5}>
 				<SimpleGrid columns={2} spacing={4}>
 					<GridItem>
 						<Highlight data={Test1} />
