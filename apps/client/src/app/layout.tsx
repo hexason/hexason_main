@@ -1,6 +1,6 @@
 import { Analytics } from "@vercel/analytics/react";
 import { Providers } from "./provider";
-import Navbar from "@/components/core/Navbar";
+import { TopAdBar, TopUpBar } from "@/components/core/Navbar";
 
 export const metadata = {
   title: 'Home',
@@ -14,11 +14,13 @@ export default function RootLayout({
 }: {
   children: React.ReactNode,
 }) {
+  // const path = usePathname()
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning={true} >
       <body>
         <Providers>
-          <Navbar />
+          <TopUpBar />
+          <TopAdBar />
           {children}
         </Providers>
         <Analytics />

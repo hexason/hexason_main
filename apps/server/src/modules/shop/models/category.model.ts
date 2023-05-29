@@ -1,21 +1,34 @@
+import { Field, ID, ObjectType } from '@nestjs/graphql';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Types } from 'mongoose';
 
 export type CategoryDocument = Category & Document;
 
+@ObjectType()
 @Schema({ timestamps: true })
 export class Category {
-  @Prop({ required: true, unique: true })
-  name: string;
+  @Field(() => ID)
+  id: string;
 
+  @Field()
+  @Prop({ required: true, unique: true })
+  title: string;
+
+  @Field()
+  @Prop({ required: false })
+  icon?: string;
+
+  @Field()
   @Prop({ type: String })
   description?: string;
 
+  @Field(() => Category)
   @Prop({ type: Types.ObjectId, ref: 'Category' })
   parent?: Category | Types.ObjectId;
 
+  @Field()
   @Prop({ type: Number, default: 0 })
-  order?: number;
+  score?: number;
 }
 
 const CategorySchema = SchemaFactory.createForClass(Category);

@@ -37,7 +37,7 @@ export class AiCcontroller {
   @Post('google/translate')
   async googleTranslate(@Body() { text, source, target }: any) {
     const { translations } = await this.googleService.translate(text, target, source);
-    return translations[0];
+    if (translations) return translations[0];
   }
 
   @Post('chat/ask')
@@ -54,7 +54,7 @@ export class AiCcontroller {
     let en = { role: 'user', content: message };
     if (translate) {
       const { translations } = await this.googleService.translate(message, 'en');
-      en = { role: 'user', content: translations[0].translatedText };
+      en = { role: 'user', content: translations && translations[0].translatedText };
     }
     sessions[session].push(en);
     const answer = await this.ask(sessions[session]);

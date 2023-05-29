@@ -3,9 +3,10 @@ import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import { IoCustomAdapter } from './utils/io-adapter';
+import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, { cors: true });
+  const app = await NestFactory.create<NestFastifyApplication>(AppModule, new FastifyAdapter(), { cors: true });
 
   app.useWebSocketAdapter(new IoCustomAdapter(app));
   app.useGlobalPipes(new ValidationPipe());
@@ -19,14 +20,7 @@ async function bootstrap() {
           type: 'http',
           scheme: 'bearer',
         },
-        'user-jwt-token',
-      )
-      .addBearerAuth(
-        {
-          type: 'http',
-          scheme: 'bearer',
-        },
-        'admin-access',
+        'access-token',
       )
       .build();
 
@@ -36,6 +30,6 @@ async function bootstrap() {
 
   console.log(process.env.APP_NAME);
 
-  await app.listen(4000);
+  await app.listen(4000, '0.0.0.0');
 }
 bootstrap();

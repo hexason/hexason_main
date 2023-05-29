@@ -4,45 +4,62 @@ import { AspectRatio, Avatar, Box, Button, Container, Divider, Grid, GridItem, H
 import Image from 'next/image'
 import { ProductI } from 'pointes'
 import { useState } from 'react';
+import ZoomImage from "../../core/Image/ZoomImage"
+import { gql, useQuery } from '@apollo/client';
+import { ThreeDotsWave } from '@/components/animation';
+import { useParams } from 'next/navigation';
 
-export default function ProductDetail({ product }: { product: ProductI }) {
+export default function ProductDetail() {
   const formatter = useCurrencyFormat();
   const [configs] = useState<{ [key: string]: any[] }>({});
+  const { id } = useParams();
+  const { loading, data } = useQuery<{ getProductById: ProductI }>(gql`
+    {
+      getProductById (id: "${id}"){
+        id,
+        title,
+        price,
+        supplier {
+          logo
+        },
+        images {
+          url
+        },
+        image
+      }
+    }
+  `)
+
+  if (loading) return <ThreeDotsWave />
 
   return (
-    <Container maxW="container.xl">
+    <Container maxW="container.xl" my={3}>
       <Stack spacing={6} bg="#ffffffAB" p="3" borderRadius={"20px"}>
-        <Grid gap="3" templateColumns={["repeat(1,1fr)", "repeat(3, 1fr)"]}>
-          <GridItem colSpan={1} as={Stack}>
+        <Grid gap="3" templateColumns={["repeat(1,1fr)", "repeat(6, 1fr)"]}>
+          <GridItem colSpan={2} as={Stack}>
             <AspectRatio position={"relative"} ratio={1} borderRadius={"20px"} overflow={"hidden"}>
               <Box position={"absolute"} w="100%">
-                <Image
-                  src={product.image}
-                  alt={product.title}
-                  blurDataURL="https://upload.wikimedia.org/wikipedia/commons/c/c7/Loading_2.gif?20170503175831"
-                  loading="lazy"
-                  placeholder="blur"
-                  fill
-                  style={{
-                    objectFit: "cover",
-                    transition: "0.5s"
-                  }}
+                <ZoomImage
+                  img={data?.getProductById.image}
+                  zoomScale={3}
+                  width={379}
+                  height={379}
                 />
               </Box>
             </AspectRatio>
           </GridItem>
-          <GridItem as={Stack} p={3} colSpan={2}>
+          <GridItem as={Stack} p={3} colSpan={3}>
             <Stack h="100%" spacing={6}>
               <Stack>
-                <Text color="black" fontSize={"1.5rem"} fontWeight={"bold"}>{product.title}</Text>
-                {product.sold && <Text fontSize={"1rem"} opacity={"0.5"}>{formatter(product.sold, "short")} зарагдсан</Text>}
+                <Text color="black" fontSize={"1.5rem"} fontWeight={"bold"}>{data?.getProductById.title}</Text>
+                {data?.getProductById.sold && <Text fontSize={"1rem"} opacity={"0.5"}>{formatter(data?.getProductById.sold, "short")} зарагдсан</Text>}
                 <Tag fontWeight={"bold"} textTransform={"uppercase"} p={3}>
-                  <Avatar mr={3} src={product.supplier.logo} size={"sm"} />
-                  {product.supplier.name}
+                  <Avatar mr={3} src={data?.getProductById.supplier.logo} size={"sm"} />
+                  {data?.getProductById.supplier.name}
                 </Tag>
                 <HStack spacing={"10px"}>
-                  <Text fontSize={"1.5rem"} color='green'>{formatter(product.price, "short")} ₮</Text>
-                  <Tag fontSize={"1.2rem"} colorScheme='teal'>Гишүүн: {formatter(product.price * 0.9, "short")}</Tag>
+                  <Text fontSize={"1.5rem"} color='green'>{formatter(data?.getProductById.price || 0, "short")} ₮</Text>
+                  <Tag fontSize={"1.2rem"} colorScheme='teal'>Гишүүн: {formatter((data?.getProductById.price || 0) * 0.9, "short")}</Tag>
                 </HStack>
               </Stack>
               <Stack color={"gray.600"}>
@@ -58,7 +75,6 @@ export default function ProductDetail({ product }: { product: ProductI }) {
                     )
                   })
                 }
-
                 <Stack>
                   <Text w="150px">Тоо ширхэг:</Text>
                   <QuantityController />
@@ -70,12 +86,17 @@ export default function ProductDetail({ product }: { product: ProductI }) {
               </Box>
             </Stack>
           </GridItem>
+          <GridItem colSpan={1}>
+            <Stack h="100%" borderRadius={"5px"} bg="gray.200">
+
+            </Stack>
+          </GridItem>
         </Grid>
 
         <Divider />
 
         <Stack alignItems={"center"} spacing={"0"}>
-          {product.images.map((img: any) => <Image width={600} height={400} unoptimized key={img._id} src={img.url} alt={product.title + img._id} />)}
+          {data?.getProductById.images.map((img: any) => <Image width={600} height={400} unoptimized key={img._id} src={img.url} alt={data?.getProductById.title + img._id} />)}
         </Stack>
       </Stack>
     </Container>

@@ -1,4 +1,4 @@
-import TableList from "@/components/product/TableList";
+import TableList from "@/components/build/product/TableList";
 import { Box } from "@chakra-ui/react";
 
 export default function ProductPage() {

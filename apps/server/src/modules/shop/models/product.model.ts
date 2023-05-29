@@ -3,12 +3,17 @@ import { Document, Types } from 'mongoose';
 import { Supplier } from './supplier.model';
 import { ProductI } from 'pointes';
 import { Field, ID, ObjectType } from '@nestjs/graphql';
+import { Item } from './item.model';
+import { Category } from './category.model';
 
 export type ProductDocument = Product & Document;
 @ObjectType({ description: 'product' })
 @Schema({ timestamps: true })
-export class Product implements ProductI {
+export class Product implements Partial<ProductI> {
   @Field(() => ID)
+  id: string;
+
+  @Field()
   @Prop({ required: true })
   title: string;
 
@@ -24,6 +29,7 @@ export class Product implements ProductI {
   @Prop({})
   bgColor?: string;
 
+  @Field(() => [Category])
   @Prop({ type: [Types.ObjectId], ref: 'Category', required: true })
   categories: any[];
 
@@ -51,6 +57,7 @@ export class Product implements ProductI {
   @Prop({ default: 12, required: true })
   status: number; // 12 - active, 1 - cancel, 0 - pending
 
+  @Field(() => Supplier)
   @Prop({ type: Types.ObjectId, ref: 'Supplier', required: true })
   supplier: Supplier | string;
 
@@ -58,9 +65,14 @@ export class Product implements ProductI {
   @Prop({ type: [{ type: { url: String, blurHash: String } }] })
   images: { url: string; blurHash: string }[];
 
+  @Field(() => [Item])
   @Prop({ type: [{ type: Types.ObjectId, ref: 'Item' }] })
   items: any[];
+
+  @Field()
+  createdAt: string;
 }
+
 @ObjectType()
 class ProductImages {
   @Field()

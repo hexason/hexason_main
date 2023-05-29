@@ -9,15 +9,25 @@ export class ProductResolver {
   constructor(private readonly productService: ProductService, private readonly itemService: ItemService) {}
 
   @Query(() => ProductList)
-  async getProducts(@Args() args: ProductListArgs) {
-    const filter: Partial<Product> = {
+  async getProducts(@Args() args?: ProductListArgs) {
+    let filter: Partial<Product> = {
       status: 12,
     };
+    if (!args) args = {};
+    if (args && args.filter) {
+      filter = { ...filter, ...args.filter };
+    }
 
     const products = await this.productService.getProducts({
       filter,
-      limit: args,
+      ...args.options,
     });
     return products;
+  }
+
+  @Query(() => Product)
+  async getProductById(@Args('id') id: string) {
+    const product = await this.productService.getOneProductById(id);
+    return product;
   }
 }

@@ -1,8 +1,10 @@
+import { Auth } from '@/modules/auth';
 import { Category } from '../models';
 import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
+@Auth()
 @Controller('category')
 export class CategoryController {
   constructor(@InjectModel(Category.name) private readonly cateModel: Model<Category>) {}

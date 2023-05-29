@@ -4,7 +4,7 @@ export class GoogleService {
   client: TranslationServiceClient;
   serviceAccount: { project_id: string };
   constructor() {
-    this.serviceAccount = JSON.parse(process.env.GOOGLE_SERVICE_JSON);
+    this.serviceAccount = JSON.parse(process.env.GOOGLE_SERVICE_JSON || '');
     this.client = new TranslationServiceClient({
       projectId: this.serviceAccount.project_id,
       credentials: this.serviceAccount as any,

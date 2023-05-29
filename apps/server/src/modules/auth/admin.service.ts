@@ -2,7 +2,9 @@ import { InjectDataSource } from '@nestjs/typeorm';
 import { sign } from 'jsonwebtoken';
 import { DataSource, In, Repository } from 'typeorm';
 import { Admin, Permission, Role, SupplierAdmin } from './models';
+import { Injectable } from '@nestjs/common';
 
+@Injectable()
 export class AdminService {
   adminRepo: Repository<Admin>;
   roleRepo: Repository<Role>;
@@ -68,7 +70,7 @@ export class AdminService {
   }
 
   tokenGenerator({ email }) {
-    const access_token = sign({ email }, process.env.SUPABASE_SECRET, {
+    const access_token = sign({ email }, process.env.SUPABASE_SECRET || '', {
       expiresIn: '1d',
     });
     return access_token;

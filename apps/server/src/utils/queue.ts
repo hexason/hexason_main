@@ -8,8 +8,8 @@ export class Queue<T, R> {
   readable = new Readable();
 
   private async runner() {
-    if (this.data.length < 1) return this.readable.emit('end', this.result);
     const data = this.data.shift();
+    if (!data) return this.readable.emit('end', this.result);
     const result = await this.func(data);
     this.result.push(result);
     this.readable.emit('data', result);
