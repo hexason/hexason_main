@@ -6,7 +6,7 @@ import typography from "./typography";
 
 const foundations = {
 	radius,
-	colors: { ...colors },
+	colors,
 	...typography,
 	shadows,
 	space: spacing,

@@ -1,7 +1,7 @@
 import { extendTheme } from "@chakra-ui/react";
 import foundations from "./foundations";
-
-const direction = "ltr";
+import components from "./components";
+import styles from "./styles";
 
 const config = {
 	useSystemColorMode: false,
@@ -10,9 +10,10 @@ const config = {
 };
 
 export const theme = {
-	direction,
 	...foundations,
+	components,
 	config,
+	styles,
 };
 
 export default extendTheme(theme);
