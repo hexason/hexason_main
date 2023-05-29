@@ -8,8 +8,8 @@ import { EyeIcon, TrashIcon } from "@/assets/icons"
 import { statusViewer } from "@/lib/utils";
 import ProductCreate from "./ProductCreate";
 
-export default function TableList() {
-  const [products, setProducts] = useState<any>([]);
+export default function TableList({ products }: any) {
+  // const [products, setProducts] = useState<any>([products]);
   const [selectedProduct, setSelectedProduct] = useState<string | null>(null);
   const [checkedProducts, setCheckProducts] = useState<string[]>([]);
   const { isOpen, onClose, onOpen } = useDisclosure();
@@ -33,14 +33,14 @@ export default function TableList() {
   }
 
   useEffect(() => {
-    axios({
-      url: "product/list",
-      method: "get"
-    })
-      .then(({ data }) => setProducts(data.items))
-      .catch(e => {
-        if (e.isPermission) setProducts(null)
-      })
+    // axios({
+    //   url: "product/list",
+    //   method: "get"
+    // })
+    //   .then(({ data }) => setProducts(data.items))
+    //   .catch(e => {
+    //     if (e.isPermission) setProducts(null)
+    //   })
   }, [axios, listener])
 
   if (!products) return <>No Permission</>
