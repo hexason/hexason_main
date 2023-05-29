@@ -2,17 +2,23 @@ import '@/assets/styles/globals.css'
 import type { AppProps } from 'next/app'
 import NextNProgress from "nextjs-progressbar"
 import { ChakraProvider } from '@chakra-ui/react';
-import { AuthContextProvider } from '@/context/AuthContext';
 import { CustomerHead } from '@/components/core';
+import { SessionContextProvider } from '@/lib/supabase-react'
+import { createPagesBrowserClient } from '@supabase/auth-helpers-nextjs'
+import { useState } from 'react';
+import { LayoutBuilder } from '@/components/layout';
 
 export default function App({ Component, pageProps }: AppProps) {
+  const [supabaseClient] = useState(() => createPagesBrowserClient())
   return (
     <ChakraProvider>
       <CustomerHead />
-      <AuthContextProvider>
+      <SessionContextProvider supabaseClient={supabaseClient}>
         <NextNProgress />
-        <Component {...pageProps} />
-      </AuthContextProvider>
+        <LayoutBuilder>
+          <Component {...pageProps} />
+        </LayoutBuilder>
+      </SessionContextProvider>
     </ChakraProvider>
   )
 }

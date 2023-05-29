@@ -1,8 +1,8 @@
-import { useAuth } from "@/context/AuthContext";
 import { Stack, Button, Box, Divider, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerOverlay, useDisclosure } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { useEffect, useState } from "react";
+import { useSupabaseClient } from "@/lib/supabase-react"
 
 export const Sidebar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -48,7 +48,7 @@ function SidebarContent() {
   const [active] = useState("");
   const [buttons, setButtons] = useState<any>([]);
   const router = useRouter();
-  const { session, supabase } = useAuth();
+  const supabase = useSupabaseClient();
 
   useEffect(() => {
     setButtons([
@@ -72,7 +72,6 @@ function SidebarContent() {
   return (
     <Stack minH={"600px"}>
       <Box p={6}>
-        {session?.user.email}
       </Box>
       <Divider />
       {buttons.map((el: any) => <SidebarButton

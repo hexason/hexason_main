@@ -13,6 +13,7 @@ importers:
       '@chakra-ui/react': ^2.5.5
       '@emotion/react': ^11.10.6
       '@emotion/styled': ^11.10.6
+      '@supabase/auth-helpers-nextjs': ^0.7.0
       '@supabase/supabase-js': ^2.20.0
       '@types/node': 18.11.18
       '@types/react': 18.0.26
@@ -23,7 +24,6 @@ importers:
       eslint: 8.34.0
       eslint-config-next: 13.2.1
       eslint-plugin-react: ^7.32.2
-      eslint-plugin-react-svg: ^0.0.4
       framer-motion: ^10.11.6
       next: 13.1.1
       nextjs-progressbar: ^0.0.16
@@ -37,6 +37,7 @@ importers:
       '@chakra-ui/react': 2.5.5_6enkwwntgdinrkntwutn4vtdly
       '@emotion/react': 11.10.6_kzbn2opkn2327fwg5yzwzya5o4
       '@emotion/styled': 11.10.6_qry7xzgsc55pr5ngbiorqn3fpa
+      '@supabase/auth-helpers-nextjs': 0.7.0_ghb6skat2wscrlzdhxa36qq744
       '@supabase/supabase-js': 2.20.0
       '@types/node': 18.11.18
       '@types/react': 18.0.26
@@ -46,7 +47,6 @@ importers:
       eslint: 8.34.0
       eslint-config-next: 13.2.1_7kw3g6rralp5ps6mg3uyzz6azm
       eslint-plugin-react: 7.32.2_eslint@8.34.0
-      eslint-plugin-react-svg: 0.0.4_eslint@8.34.0
       framer-motion: 10.11.6_biqbaboplfbrettd7655fr4n2y
       next: 13.1.1_z72xxk7vwlamvgqemvc4ptm4du
       nextjs-progressbar: 0.0.16_next@13.1.1+react@18.2.0
@@ -6020,6 +6020,25 @@ packages:
     resolution: {integrity: sha512-Uy0+khmZqUrUGm5dmMqVlnvufZRSK0FbYzVgp0UMstm+F5+W2/jnEEQyc9vo1ZR/E5ZI/B1WjjoTqBqwJL6Krw==}
     dev: false
 
+  /@supabase/auth-helpers-nextjs/0.7.0_ghb6skat2wscrlzdhxa36qq744:
+    resolution: {integrity: sha512-FvQflNstWjBXEr0oBux1xqalrpZatCAmnWXROs5HJyCGP7hb+iSWqlwBQtyAllvw2baUufHkXyP+vr1PI3myKA==}
+    peerDependencies:
+      '@supabase/supabase-js': ^2.19.0
+    dependencies:
+      '@supabase/auth-helpers-shared': 0.4.0_ghb6skat2wscrlzdhxa36qq744
+      '@supabase/supabase-js': 2.20.0
+      set-cookie-parser: 2.6.0
+    dev: false
+
+  /@supabase/auth-helpers-shared/0.4.0_ghb6skat2wscrlzdhxa36qq744:
+    resolution: {integrity: sha512-5wlCGb4HZ46W2fg8tdi22ZU1GAIOe3YxXrTgvAjWVapNFN+PiH5cFIbz51ZgZRK1TokRZ01pB1GEFy4e+NZE+A==}
+    peerDependencies:
+      '@supabase/supabase-js': ^2.19.0
+    dependencies:
+      '@supabase/supabase-js': 2.20.0
+      jose: 4.14.4
+    dev: false
+
   /@supabase/functions-js/2.1.1:
     resolution: {integrity: sha512-bIR1Puae6W+1/MzPfYBWOG/SCWGo4B5CB7c0ZZksvliNEAzhxNBJ0UFKYINcGdGtxG8ZC+1xr3utWpNZNwnoRw==}
     dependencies:
@@ -9430,17 +9449,6 @@ packages:
       eslint: 8.39.0
     dev: false
 
-  /eslint-plugin-react-svg/0.0.4_eslint@8.34.0:
-    resolution: {integrity: sha512-U71Q021twyRtZwIckBH1mZ2jsAqUuUiS/V0HLyQhQbfysqf6/czbQC0yism6StKmi8rhS65g7FM39U+BfUjG1g==}
-    engines: {node: '>=0.10.0'}
-    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
-    peerDependencies:
-      eslint: ^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0
-    dependencies:
-      eslint: 8.34.0
-      requireindex: 1.1.0
-    dev: false
-
   /eslint-plugin-react/7.29.3_eslint@8.39.0:
     resolution: {integrity: sha512-MzW6TuCnDOcta67CkpDyRfRsEVx9FNMDV8wZsDqe1luHPdGTrQIUaUXD27Ja3gHsdOIs/cXzNchWGlqm+qRVRg==}
     engines: {node: '>=4'}
@@ -11521,6 +11529,10 @@ packages:
     hasBin: true
     dev: false
 
+  /jose/4.14.4:
+    resolution: {integrity: sha512-j8GhLiKmUAh+dsFXlX1aJCbt5KMibuKb+d7j1JaOJG6s2UjX1PQlW+OKB/sD4a/5ZYF4RcmYmLSndOoU3Lt/3g==}
+    dev: false
+
   /jquery/3.6.4:
     resolution: {integrity: sha512-v28EW9DWDFpzcD9O5iyJXg3R3+q+mET5JhnjJzQUZMHOv67bpSIHq81GEYpPNZHG+XXHsfSme3nxp/hndKEcsQ==}
     dev: false
@@ -13406,11 +13418,6 @@ packages:
 
   /require-main-filename/2.0.0:
     resolution: {integrity: sha512-NKN5kMDylKuldxYLSUfrbo5Tuzh4hd+2E8NPPX02mZtn1VuREQToYe/ZdlJy+J3uCpfaiGF05e7B8W0iXbQHmg==}
-    dev: false
-
-  /requireindex/1.1.0:
-    resolution: {integrity: sha512-LBnkqsDE7BZKvqylbmn7lTIVdpx4K/QCduRATpO5R+wtPmky/a8pN1bO2D6wXppn1497AJF9mNjqAXr6bdl9jg==}
-    engines: {node: '>=0.10.5'}
     dev: false
 
   /requizzle/0.2.4:
