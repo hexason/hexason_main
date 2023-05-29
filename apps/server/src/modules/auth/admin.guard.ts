@@ -14,12 +14,13 @@ export class AdminJWTGuard implements CanActivate {
       const { authorization, supplier_id } = request.headers;
       const token = authorization.split(' ')[1];
       const payload = verify(token, process.env.SUPABASE_SECRET || '') as SupabaseJWTPayload;
-      console.log(payload);
       const admin = await this.adminService.getAdminByEmail({
         email: payload.email,
       });
       if (!admin) throw new Error('admin not found');
       if (admin.supplier.length === 0 && admin.role !== 'super') throw new Error('No registered supply');
+      if (supplier_id && admin.supplier.find((el) => el.supplierId === supplier_id))
+        throw new Error('Supplier permission');
 
       const permissions = await this.adminService.getAllPermissionsBy(admin.supplier.map((el: any) => el.role.id));
       const rule = this.reflector.get('rule', context.getHandler()) as {
@@ -31,7 +32,7 @@ export class AdminJWTGuard implements CanActivate {
       request.user = {
         admin,
         permissions,
-        supplier_id,
+        supplier_id: supplier_id || admin.supplier[0].supplierId,
         ...payload,
       };
       return true;
