@@ -169,8 +169,8 @@ export default function ProductDetail({ id }: { id: string }) {
 }
 const CustomFormControl = ({ children, title }: any) => {
   return (
-    <FormControl bg="#00000050" p={3} borderRadius={"20px"}>
-      <FormLabel color="gray.400">{title}</FormLabel>
+    <FormControl>
+      <FormLabel>{title}</FormLabel>
       {children}
     </FormControl>
   )

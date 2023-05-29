@@ -67,20 +67,20 @@ export const CategoryCreator = ({ name, trigger }: { name?: string, trigger?: (d
       <PopoverTrigger>
         <Tag cursor={"pointer"}>+</Tag>
       </PopoverTrigger>
-      <PopoverContent bg={"transpapent"} border="">
-        <PopoverArrow bg={"#000"} />
+      <PopoverContent>
+        <PopoverArrow />
         <PopoverCloseButton />
-        <PopoverHeader borderRadius={"20px 20px 0 0"} bg={"#000"} >
-          <Stack bg={"#000"} p="3" borderRadius={"20px"} color="white">
+        <PopoverHeader>
+          <Stack>
             <Input placeholder="What is your category?" onChange={inputHandler} name={"name"} value={category.name} />
             <Stack>
-              {categories.map((e: any) => <Button onClick={() => setCategory({ name: e.name })} colorScheme="blackAlpha" key={e._id}>{e.name}</Button>)}
+              {categories.map((e: any) => <Button onClick={() => setCategory({ name: e.name })} key={e._id}>{e.name}</Button>)}
             </Stack>
           </Stack>
         </PopoverHeader>
-        <PopoverBody borderRadius={"0 0 20px 20px"} bg={"#000"}>
+        <PopoverBody borderRadius={"0 0 20px 20px"}>
           <Stack>
-            <Button isLoading={loading} onClick={addCategory} colorScheme="blackAlpha">+</Button>
+            <Button isLoading={loading} onClick={addCategory}>+</Button>
           </Stack>
         </PopoverBody>
       </PopoverContent>

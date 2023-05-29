@@ -3,17 +3,17 @@ import { Grid, GridItem } from "@chakra-ui/react";
 import { BasketWithFavButton } from "../../core/header/BasketWithFavButton";
 
 export default function SearchHeader() {
-  return (
-    <Grid mt={3} gap={4} templateColumns={"repeat(10,1fr)"}>
-      <GridItem colSpan={2}>
-        <Logo />
-      </GridItem>
-      <GridItem colSpan={6}>
-        <SearchBar />
-      </GridItem>
-      <GridItem colSpan={2}>
-        <BasketWithFavButton />
-      </GridItem>
-    </Grid>
-  )
+	return (
+		<Grid mt={3} gap={4} templateColumns={"repeat(10,1fr)"}>
+			<GridItem colSpan={2}>
+				<Logo />
+			</GridItem>
+			<GridItem colSpan={6}>
+				<SearchBar />
+			</GridItem>
+			<GridItem colSpan={2}>
+				<BasketWithFavButton />
+			</GridItem>
+		</Grid>
+	);
 }

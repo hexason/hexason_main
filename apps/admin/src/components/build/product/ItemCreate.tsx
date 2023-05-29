@@ -68,7 +68,7 @@ export default function ItemCreate({ productId, onChange }: { productId: string,
       </Td>
       <Td>
         <Stack>
-          <Button isLoading={loading} onClick={addItem} colorScheme="green">+</Button>
+          <Button isLoading={loading} onClick={addItem}>+</Button>
         </Stack>
       </Td>
     </Tr>
@@ -79,9 +79,9 @@ const CustomPopover = ({ name, children }: any) => {
   return (
     <Popover>
       <PopoverTrigger>
-        <Button colorScheme="blackAlpha">{name}</Button>
+        <Button>{name}</Button>
       </PopoverTrigger>
-      <PopoverContent border="0" bg="black" color="white">
+      <PopoverContent>
         {children}
       </PopoverContent>
     </Popover>

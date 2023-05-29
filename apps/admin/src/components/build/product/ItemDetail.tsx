@@ -21,7 +21,7 @@ export default function ItemDetail({ itemData, onChange }: { itemData: any, onCh
         ...itemData,
         status: 1
       }
-    }).then(({data}) => onChange(data))
+    }).then(({ data }) => onChange(data))
     setLoading(false);
   }
 
@@ -62,7 +62,7 @@ export default function ItemDetail({ itemData, onChange }: { itemData: any, onCh
       </Td>
       <Td>
         <Stack>
-          <Button isLoading={loading} onClick={deleteItem} colorScheme="red"><TrashIcon height={20} fill="white" /></Button>
+          <Button isLoading={loading} onClick={deleteItem}><TrashIcon height={20} fill="white" /></Button>
         </Stack>
       </Td>
     </Tr>
@@ -73,9 +73,9 @@ const CustomPopover = ({ name, children }: any) => {
   return (
     <Popover>
       <PopoverTrigger>
-        <Button colorScheme="blackAlpha">{name}</Button>
+        <Button>{name}</Button>
       </PopoverTrigger>
-      <PopoverContent border="0" bg="black" color="white">
+      <PopoverContent>
         {children}
       </PopoverContent>
     </Popover>

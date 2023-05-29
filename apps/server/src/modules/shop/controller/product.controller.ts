@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpException, Param, Post, Request, Put } from '@nestjs/common';
+import { Body, Controller, HttpException, Param, Request, Put } from '@nestjs/common';
 import { ItemService, ProductService } from '../services';
 import { ProductI, SupabaseJWTPayload } from 'pointes';
 import { ProductAddDTO, ProductInfoUpdateDTO, ProductItemUpdateDto } from '../validation/ProductControllerDto';
@@ -11,32 +11,31 @@ export class ProductController {
   constructor(private readonly productService: ProductService, private readonly itemService: ItemService) {}
 
   @TypedRoute.Get('list')
-  async getProducts(@Request() req: any) {
-    const filter: Partial<ProductI> = {
-      supplier: req.user.supplier_id,
-    };
+  async getProducts(@Request() req: any): Promise<{ items: any[]; count: number }> {
+    const filter: Partial<ProductI> = {};
+    filter.supplier = req.user.supplier_id;
 
     const products = await this.productService.getProducts({
       filter,
     });
 
-    return products;
+    return products as any;
   }
 
-  @Get(':id')
-  async getProduct(@Param('id') id: string) {
+  @TypedRoute.Get(':id')
+  async getProduct(@Param('id') id: string): Promise<any> {
     const product = await this.productService.getOneProductById(id).catch((e) => {
       throw new HttpException(e, 400);
     });
     return product;
   }
 
-  @Post('create')
+  @TypedRoute.Post('create')
   async productAdd(
     @Body()
     { title, image, description, bgColor, brand, images }: ProductAddDTO,
     @Request() req: any,
-  ) {
+  ): Promise<any> {
     const user = req.user as SupabaseJWTPayload & { admin: any };
     const product = await this.productService.createProduct({
       title: title,

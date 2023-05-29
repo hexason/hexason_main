@@ -1,12 +1,15 @@
 import { Button, Divider, Image, Input, Stack, useToast } from "@chakra-ui/react";
-import { SupabaseClient } from "@supabase/supabase-js";
 import { useState } from "react";
+import { useSession, useSupabaseClient } from '@/lib/supabase-react'
+import { useRouter } from "next/router";
 
-export const AuthForm = ({ supabaseClient }: { supabaseClient: SupabaseClient }) => {
+export const AuthForm = () => {
+  const supabaseClient = useSupabaseClient()
   const [userInput, setUserInput] = useState({
     email: '',
     password: ''
   })
+  const router = useRouter()
   const [loading, setLoading] = useState(false);
   const toast = useToast();
   const signInWithGoogle = async () => {
@@ -39,6 +42,8 @@ export const AuthForm = ({ supabaseClient }: { supabaseClient: SupabaseClient })
         status: "error"
       })
 
+      router.reload()
+
     }
     setLoading(false);
   }
@@ -47,15 +52,11 @@ export const AuthForm = ({ supabaseClient }: { supabaseClient: SupabaseClient })
       ...prev,
       [e.target.name]: e.target.value
     }))
-
   }
 
   return (
     <Stack spacing={5} p={3}>
       <form onSubmit={signInWithPassword} >
-        <Stack>
-          <Input onChange={handleInput} type="supply" name="supply" placeholder="Supplier ID" />
-        </Stack>
         <Stack>
           <Input onChange={handleInput} type="email" name="email" placeholder="Email" />
           <Input onChange={handleInput} type="password" name="password" placeholder="Password" />

@@ -4,8 +4,6 @@ export const AuthLayout = ({ children, ...props }: any) => {
   return (
     <Box
       w="100%"
-      bg={"#28243D"}
-      color="white"
       position={"absolute"}
       zIndex={100}
       top={0}
