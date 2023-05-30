@@ -13,12 +13,15 @@
     "dev": "dotenv -- turbo run dev --parallel",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "config:env": "node packages/utils/generate.environment.js"
+    "config:env": "node packages/utils/generate.environment.js",
+    "prepare": "husky install"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "dotenv-cli": "^7.2.1"
+    "dotenv-cli": "^7.2.1",
+    "husky": "^8.0.0",
+    "turbo": "^1.9.9"
   }
 }

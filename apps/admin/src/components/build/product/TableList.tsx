@@ -8,8 +8,8 @@ import { EyeIcon, TrashIcon } from "@/assets/icons"
 import { statusViewer } from "@/lib/utils";
 import ProductCreate from "./ProductCreate";
 
-export default function TableList() {
-  const [products, setProducts] = useState<any>([]);
+export default function TableList({ products }: any) {
+  // const [products, setProducts] = useState<any>([products]);
   const [selectedProduct, setSelectedProduct] = useState<string | null>(null);
   const [checkedProducts, setCheckProducts] = useState<string[]>([]);
   const { isOpen, onClose, onOpen } = useDisclosure();
@@ -33,14 +33,14 @@ export default function TableList() {
   }
 
   useEffect(() => {
-    axios({
-      url: "product/list",
-      method: "get"
-    })
-      .then(({ data }) => setProducts(data.items))
-      .catch(e => {
-        if (e.isPermission) setProducts(null)
-      })
+    // axios({
+    //   url: "product/list",
+    //   method: "get"
+    // })
+    //   .then(({ data }) => setProducts(data.items))
+    //   .catch(e => {
+    //     if (e.isPermission) setProducts(null)
+    //   })
   }, [axios, listener])
 
   if (!products) return <>No Permission</>
@@ -85,7 +85,7 @@ export default function TableList() {
 
       <Modal isOpen={creatorModal.isOpen} onClose={() => { creatorModal.onClose(); refresh(Date.now()) }} size={"4xl"}>
         <ModalOverlay />
-        <ModalContent bg="#28243D" color="gray.200">
+        <ModalContent>
           <ModalHeader>
             Product Create
             <ModalCloseButton />
@@ -98,7 +98,7 @@ export default function TableList() {
 
       <Modal isOpen={isOpen} onClose={() => { onClose(); refresh(Date.now()) }} size={"4xl"}>
         <ModalOverlay />
-        <ModalContent bg="#28243D" color="gray.200">
+        <ModalContent>
           <ModalHeader>
             Product Detail
             <ModalCloseButton />

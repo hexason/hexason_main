@@ -66,7 +66,7 @@ export class ProductService {
     supplier, // from token
     images,
     items,
-  }: ProductI) {
+  }: Partial<ProductI> & { items: any[] }) {
     if (!Types.ObjectId.isValid(supplier as any)) throw { code: 'FORMAT', message: 'Supplier is not valid ID' };
     const product = new this.productModel({
       title,
