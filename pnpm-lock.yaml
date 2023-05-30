@@ -131,9 +131,6 @@ importers:
       admin:
         specifier: ^1.4.1
         version: 1.4.1
-      anatomy:
-        specifier: link:@types/chakra-ui/anatomy
-        version: link:@types/chakra-ui/anatomy
       axios:
         specifier: ^1.3.5
         version: 1.3.5
