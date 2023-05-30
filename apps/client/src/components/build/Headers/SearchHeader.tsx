@@ -4,7 +4,7 @@ import { BasketWithFavButton } from "../../core/header/BasketWithFavButton";
 
 export default function SearchHeader() {
 	return (
-		<Grid mt={3} gap={4} templateColumns={"repeat(10,1fr)"}>
+		<Grid mt={6} gap={4} templateColumns={"repeat(10,1fr)"}>
 			<GridItem colSpan={2}>
 				<Logo />
 			</GridItem>

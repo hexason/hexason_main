@@ -1,3 +1,4 @@
+import { ContainerStyle } from "@/theme/common";
 import {
 	Button,
 	HStack,
@@ -8,8 +9,9 @@ import {
 } from "@chakra-ui/react";
 
 export const SearchBar = () => {
+	const style = { ...ContainerStyle, borderRadius: "full" };
 	return (
-		<InputGroup size="lg" w="100%">
+		<InputGroup {...style} size="lg" w="100%">
 			<Input borderRadius="full" />
 			<InputRightElement w="100px" mr={1}>
 				<Button borderRadius="full" colorScheme="hexmain" w="100%">
