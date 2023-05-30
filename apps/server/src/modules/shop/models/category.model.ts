@@ -10,23 +10,23 @@ export class Category {
   @Field(() => ID)
   id: string;
 
-  @Field()
+  @Field({ defaultValue: 'unknown' })
   @Prop({ required: true, unique: true })
   title: string;
 
-  @Field()
+  @Field({ nullable: true })
   @Prop({ required: false })
   icon?: string;
 
-  @Field()
+  @Field({ nullable: true })
   @Prop({ type: String })
   description?: string;
 
-  @Field(() => Category)
+  @Field(() => String, { nullable: true })
   @Prop({ type: Types.ObjectId, ref: 'Category' })
   parent?: Category | Types.ObjectId;
 
-  @Field()
+  @Field({ nullable: true, defaultValue: 0 })
   @Prop({ type: Number, default: 0 })
   score?: number;
 }
