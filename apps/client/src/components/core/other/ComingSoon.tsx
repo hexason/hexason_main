@@ -4,7 +4,7 @@ import ThreeDotsWave from "../../animation/ThreeDotsWave";
 import { ArrorLeft } from "@/assets/icons";
 import { useRouter } from "next/navigation";
 
-export default function ComingSoon() {
+export const ComingSoon = () => {
   const router = useRouter();
 
   return (

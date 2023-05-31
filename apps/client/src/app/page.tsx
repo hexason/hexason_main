@@ -2,14 +2,14 @@
 import { ProductList } from "@/components/build";
 import HomeHeader from "@/components/build/Headers/HomeHeader";
 import SearchHeader from "@/components/build/Headers/SearchHeader";
-import DefaultLayout from "@/components/layout/DefaultLayout";
+import { GeneralLayout } from "@/components/layout";
 
 export default function Home() {
 	return (
-		<DefaultLayout spacing={10}>
+		<GeneralLayout spacing={10}>
 			<SearchHeader />
 			<HomeHeader />
 			<ProductList />
-		</DefaultLayout>
+		</GeneralLayout>
 	);
 }

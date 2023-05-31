@@ -1,7 +1,3 @@
-import AuthLayout from "./AuthLayout";
-import DefaultLayout from "./DefaultLayout";
-
-export {
-  AuthLayout,
-  DefaultLayout
-}
+export * from "./AuthLayout";
+export * from "./LayoutBuilder";
+export * from "./GeneralLayout";

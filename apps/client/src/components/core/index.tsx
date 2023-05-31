@@ -1,12 +1,9 @@
 export * from "./header"
-import AuthForm from "./Auth/AuthForm";
-import Navbar from "./Navbar";
+export * from "./other"
+export * from "./AuthForm";
+export * from "./Navbar"
 import ProductCard from "./cards/ProductCard";
-import ComingSoon from "./other/ComingSoon";
 
 export {
-  AuthForm,
-  ProductCard,
-  Navbar,
-  ComingSoon
+  ProductCard
 }

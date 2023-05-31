@@ -1,6 +1,5 @@
 "use client";
-import { DefaultLayout } from "@/components/layout";
-import { Box, Image } from "@chakra-ui/react";
+import { Box, Image, Container } from "@chakra-ui/react";
 
 export const TopAdBar = () => {
 	return (
@@ -15,13 +14,13 @@ export const TopAdBar = () => {
 				bgPos="center"
 				filter="blur(40px)"
 			/>
-			<DefaultLayout>
+			<Container maxW="container.lg">
 				<Image
 					h="75px"
 					w="100%"
 					src="https://gw.alicdn.com/imgextra/i3/O1CN01cYXuc924autmk1doL_!!6000000007408-2-tps-1190-80.png_.webp"
 				/>
-			</DefaultLayout>
+			</Container>
 		</Box>
 	);
 };

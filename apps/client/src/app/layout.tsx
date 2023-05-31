@@ -1,6 +1,5 @@
 import { Analytics } from "@vercel/analytics/react";
 import { Providers } from "./provider";
-import { TopAdBar, TopUpBar } from "@/components/core/Navbar";
 
 export const metadata = {
   title: 'Home',
@@ -19,8 +18,6 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning={true} >
       <body>
         <Providers>
-          <TopUpBar />
-          <TopAdBar />
           {children}
         </Providers>
         <Analytics />

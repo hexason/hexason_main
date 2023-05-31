@@ -1,6 +1,5 @@
 "use client";
-import DefaultLayout from "@/components/layout/DefaultLayout";
-import { Text, Flex, HStack, Box, useColorModeValue } from "@chakra-ui/react";
+import { Text, Flex, HStack, Box, useColorModeValue, Container } from "@chakra-ui/react";
 import Link from "next/link";
 
 const READER_PAGE_LINKS = [
@@ -19,7 +18,7 @@ const READER_PAGE_LINKS = [
 export const TopUpBar = () => {
 	return (
 		<Box w="100%">
-			<DefaultLayout>
+			<Container maxW="container.lg">
 				<Flex
 					p="2"
 					justifyContent={{ base: "center", md: "space-between" }}
@@ -48,7 +47,7 @@ export const TopUpBar = () => {
 						))}
 					</HStack>
 				</Flex>
-			</DefaultLayout>
+			</Container>
 		</Box>
 	);
 };
