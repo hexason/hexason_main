@@ -28,7 +28,7 @@ export class ProductResolver {
 
   @Query(() => Product)
   async getProductById(@Args('id') id: string) {
-    let product = await this.productService.getOneProductById(id);
+    const product = await this.productService.getOneProductById(id);
     return product;
   }
 }

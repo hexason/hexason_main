@@ -42,7 +42,7 @@ export class TaobaoService {
     });
     const dom = new JSDOM(description.OtapiItemDescription.ItemDescription);
 
-    let images: any = [];
+    const images: any = [];
     const items = dom.window.document.querySelectorAll('img');
     for (let i = 0; i < items.length; i++) {
       images.push(items.item(i).src);
