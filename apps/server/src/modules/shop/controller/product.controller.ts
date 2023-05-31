@@ -60,7 +60,7 @@ export class ProductController {
   async productUpdate(@Param('id') id: string, @Body() data: ProductInfoUpdateDTO) {
     try {
       const product = await this.productService.getOneProductById(id);
-      return await this.productService.updateProduct(product, data);
+      return await this.productService.updateProduct(product as any, data);
     } catch (e) {
       if (e.code) throw new HttpException(e, 400);
       throw e;

@@ -13,6 +13,10 @@ export class Product implements Partial<ProductI> {
   @Field(() => ID)
   id: string;
 
+  @Field({ nullable: true })
+  @Prop()
+  integratedId: string;
+
   @Field()
   @Prop({ required: true })
   title: string;

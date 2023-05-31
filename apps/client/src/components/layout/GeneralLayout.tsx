@@ -1,3 +1,4 @@
+"use client";
 import { Container, Stack } from "@chakra-ui/react";
 import { TopAdBar, TopUpBar } from "../core";
 

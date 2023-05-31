@@ -3,6 +3,7 @@ import { Product } from '../models';
 import { ProductService, ItemService } from '../services';
 import { ProductListArgs } from '../validation/ProductArgs';
 import { ProductList } from '../gql/ProductQL';
+import { HttpException, Inject, NotFoundException, Optional } from '@nestjs/common';
 
 @Resolver(() => Product)
 export class ProductResolver {
@@ -27,7 +28,7 @@ export class ProductResolver {
 
   @Query(() => Product)
   async getProductById(@Args('id') id: string) {
-    const product = await this.productService.getOneProductById(id);
+    let product = await this.productService.getOneProductById(id);
     return product;
   }
 }
