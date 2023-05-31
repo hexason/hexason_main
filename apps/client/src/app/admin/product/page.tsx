@@ -1,7 +1,6 @@
 import { TableList } from "@/components/build";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers"
-import axios from "axios";
 
 export default async function ProductPage() {
   const supabase = createServerComponentClient({ cookies })
@@ -12,15 +11,14 @@ export default async function ProductPage() {
   } = await supabase.auth.getSession()
 
   try {
-    const res = await axios({
-      baseURL: process.env.NEXT_PUBLIC_API_URL,
-      url: "product/list",
-      method: "get",
+    const res = await fetch(new URL("product/list", process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000"), {
+      method: "GET",
       headers: {
-        Authorization: "Bearer " + session?.access_token
-      }
+        authorization: "Bearer " + session?.access_token
+      },
+      cache: "no-cache"
     })
-    products = res.data
+    products = await res.json()
   } catch (e) {
     console.log(e)
   }

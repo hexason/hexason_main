@@ -6,6 +6,7 @@ import { DefaultAnimate, ThreeDotsWave } from "@/components/animation";
 import { motion } from "framer-motion";
 import { EyeIcon, TrashIcon } from "@/assets/icons"
 import { statusViewer } from "@/utils";
+import ProductEdit from "./ProductEdit";
 // import ProductCreate from "./ProductCreate";
 
 export default function TableList({ products }: any) {
@@ -91,7 +92,7 @@ export default function TableList({ products }: any) {
             <ModalCloseButton />
           </ModalHeader>
           <ModalBody>
-            {/* <ProductCreate trigger={(id) => { creatorModal.onClose(), selectProduct(id) }} /> */}
+            <ProductEdit trigger={(id) => { creatorModal.onClose(), selectProduct(id) }} />
           </ModalBody>
         </ModalContent>
       </Modal>

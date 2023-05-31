@@ -1,13 +1,9 @@
-"use client"
-import { LayoutBuilder } from "@/components/layout";
-import { Providers } from "../provider";
+import AdminProvider from "./provider";
 
 export default function AdminLayout({ children }: any) {
   return (
-    <Providers>
-      <LayoutBuilder>
-        {children}
-      </LayoutBuilder>
-    </Providers>
+    <AdminProvider>
+      {children}
+    </AdminProvider>
   )
 }

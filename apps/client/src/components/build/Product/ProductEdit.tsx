@@ -3,7 +3,7 @@ import { useState } from "react"
 import { useAxios } from "@/hooks/useAxios";
 import { ColorPicker } from "@/components/core";
 
-export default function ProductCreate({ trigger }: { trigger?: (id: string) => any }) {
+export default function ProductEdit({ trigger }: { trigger?: (id: string) => any }) {
   const [product, setProduct] = useState({
     title: "",
     description: "test e2e",

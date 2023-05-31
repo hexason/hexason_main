@@ -49,17 +49,17 @@ function SidebarContent() {
   useEffect(() => {
     setButtons([
       {
-        url: "/",
+        url: "/admin/",
         txt: "Home",
         order: 1
       },
       {
-        url: "/page/product",
+        url: "/admin/product",
         txt: "Products",
         order: 0
       },
       {
-        url: "/page/integration",
+        url: "/admin/integration",
         txt: "Integrations",
         order: 0
       },
