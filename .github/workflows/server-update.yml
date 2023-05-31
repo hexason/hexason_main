@@ -20,7 +20,7 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - uses: actions/checkout@v3        
+      - uses: actions/checkout@v3
       - name: Build the Docker image
         run: |
           echo DB_HOST: ${{secrets.DB_HOST}} >> .env.local
@@ -34,6 +34,7 @@ jobs:
           echo SUPABASE_URL=${{secrets.SUPABASE_URL}} >> .env.local
           echo SUPABASE_KEY=${{secrets.SUPABASE_KEY}} >> .env.local
           echo OPENAI_API_KEY=${{secrets.OPENAI_API_KEY}} >> .env.local
+          echo OTAPI_KEY=${{secrets.OTAPI_KEY}} >> .env.local
           echo GOOGLE_SERVICE_JSON=${{secrets.GOOGLE_SERVICE_JSON}} >> .env.local
           docker build . --file Dockerfile --tag ${{ secrets.DOCKERHUB_USERNAME }}/hexason-server:latest
       - name: Push the Docker image
