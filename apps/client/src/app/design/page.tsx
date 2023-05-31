@@ -1,14 +1,11 @@
 "use client"
 import { DefaultAnimate, ThreeDotsWave } from "@/components/animation";
-import AuthForm from "@/components/core/AuthForm";
-import { useAuth } from "@/context/AuthContext";
+import { AuthForm } from "@/components/core";
 
 export default function Design() {
-  const { supabase } = useAuth();
-
   return (
     <>
-      <AuthForm supabaseClient={supabase} />
+      <AuthForm />
       <ThreeDotsWave />
       <DefaultAnimate>
         Test
