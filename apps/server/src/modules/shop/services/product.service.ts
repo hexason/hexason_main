@@ -43,8 +43,9 @@ export class ProductService {
   }
 
   async getOneProductById(id: string | Types.ObjectId) {
-    if (!Types.ObjectId.isValid(id)) throw { code: 'FORMAT', message: 'Check product id carefully' };
-    let product = await this.productModel.findById(id).populate(['supplier', 'categories', 'items']);
+    let product: any;
+    if (Types.ObjectId.isValid(id))
+      product = await this.productModel.findById(id).populate(['supplier', 'categories', 'items']);
     if (!product) {
       if (this.TaobaoIntegration) product = await this.getIntegratedProduct(id as string);
       else throw { code: 'NOT_FOUND', message: 'Not found product' };
