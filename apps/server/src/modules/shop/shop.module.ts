@@ -6,10 +6,9 @@ import * as resolvers from './resolver';
 
 import { MongooseModule } from '@nestjs/mongoose';
 import { Product, ProductSchema } from './models/product.model';
-import { Category, CategorySchema, Item, ItemSchema } from './models';
+import { Category, CategorySchema, Item, ItemSchema, Supplier, SupplierSchema } from './models';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver } from '@nestjs/apollo';
-import { Supplier, SupplierSchema } from './models/supplier.model';
 
 @Module({
   imports: [
