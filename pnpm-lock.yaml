@@ -139,6 +139,7 @@ importers:
       jest: 29.3.1
       jsdom: ^22.1.0
       jsonwebtoken: ^9.0.0
+      moment: ^2.29.4
       mongoose: ^7.0.4
       openai: ^3.2.1
       pg: ^8.10.0
@@ -192,6 +193,7 @@ importers:
       graphql: 16.6.0
       jsdom: 22.1.0
       jsonwebtoken: 9.0.0
+      moment: 2.29.4
       mongoose: 7.2.2
       openai: 3.2.1
       pg: 8.11.0
@@ -10162,6 +10164,10 @@ packages:
     resolution: {integrity: sha512-FPUtkhtJ0efmEFGpU14x7jGbTB+s18LrzRL2KgoWz9YvcY3cPomz8tih01GbHwnGk/OmkOKfqd/RAQoc8Lm7DQ==}
     dependencies:
       obliterator: 2.0.4
+    dev: false
+
+  /moment/2.29.4:
+    resolution: {integrity: sha512-5LC9SOxjSc2HF6vO2CyuTDNivEdoz2IvyJJGj6X8DJ0eFyfszE0QiEd+iXmBvUP3WHxSjFH/vIsA0EN00cgr8w==}
     dev: false
 
   /mongodb-connection-string-url/2.6.0:

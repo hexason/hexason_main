@@ -1,8 +1,7 @@
-import { ItemI } from 'pointes';
-import { Item } from '../models';
+import { Item, Product } from '../models';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Model, Document } from 'mongoose';
 
 @Injectable()
 export class ItemService {
@@ -13,8 +12,15 @@ export class ItemService {
     return items;
   }
 
-  createItemModel(data: ItemI) {
+  async createItemModel(data: Partial<Item>) {
     const item = new this.itemModel(data);
+    await item.populate('product');
+    const product = item.product as Document & Product;
+    product.items.push(item);
+    await item.save();
+    await product.save();
+    // const productId = data.product as Types.ObjectId;
+
     return item;
   }
 }

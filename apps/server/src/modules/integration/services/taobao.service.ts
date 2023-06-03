@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { readFileSync } from 'fs';
 import { JSDOM } from 'jsdom';
 
 @Injectable()
@@ -48,9 +47,38 @@ export class TaobaoService {
       images.push(items.item(i).src);
     }
 
+    const Attributes = data.Result.Item.Attributes.reduce((att, itt) => {
+      if (!itt.IsConfigurator) return att;
+      return {
+        ...att,
+        [`${itt.Pid}${itt.Vid}]`]: itt,
+      };
+    }, {});
+
+    const Items = data.Result.Item.ConfiguredItems.map((conf) => {
+      const variations = conf.Configurators.map((el) => {
+        const asset = Attributes[`${el.Pid}${el.Vid}]`];
+        return {
+          configName: asset.PropertyName,
+          value: asset.Value,
+          icon: asset.MiniImageUrl,
+          mainImage: asset.ImageUrl,
+        };
+      });
+
+      return {
+        price: conf.Price.ConvertedPriceList.Internal.Price,
+        SKU: conf.Id,
+        UPC: null,
+        stock: conf.Quantity,
+        variations,
+      };
+    });
+
     return {
       ...data.Result.Item,
       Images: images,
+      Items,
     };
   }
 }

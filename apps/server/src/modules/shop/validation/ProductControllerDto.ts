@@ -1,9 +1,10 @@
-import { CategoryI, ItemI, ProductI, VariationI } from 'pointes';
 import { Type } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsArray, IsNotEmpty, IsNumber, IsOptional, IsString, ValidateNested } from 'class-validator';
+import { Category, Item, Product, Variation } from '../models';
+import { Types } from 'mongoose';
 
-export class ProductAddDTO implements Partial<ProductI> {
+export class ProductAddDTO implements Partial<Product> {
   @ApiProperty()
   @IsNotEmpty()
   @IsString()
@@ -35,7 +36,7 @@ export class ProductAddDTO implements Partial<ProductI> {
   supplier: string;
 }
 
-export class ProductInfoUpdateDTO implements Partial<ProductI> {
+export class ProductInfoUpdateDTO implements Partial<Product> {
   @ApiProperty()
   @IsString()
   @IsOptional()
@@ -64,7 +65,7 @@ export class ProductInfoUpdateDTO implements Partial<ProductI> {
   @ApiProperty()
   @IsArray()
   @IsOptional()
-  categories?: CategoryI[];
+  categories?: Category[];
 
   @ApiProperty()
   @IsArray()
@@ -90,7 +91,7 @@ export class ImagesDto {
   blurHash: string;
 }
 
-export class ProductItemUpdateDto implements Partial<ItemI> {
+export class ProductItemUpdateDto implements Partial<Item> {
   @ApiProperty()
   @IsString()
   @IsOptional()
@@ -113,9 +114,9 @@ export class ProductItemUpdateDto implements Partial<ItemI> {
 
   @ApiProperty()
   @IsArray()
-  variations: VariationI[];
+  variations: Variation[];
 
   SKU: string;
   status: number;
-  product: ProductI;
+  product: Product | Types.ObjectId;
 }
