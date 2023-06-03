@@ -119,7 +119,7 @@ const Varaints = ({ allVariants }: { allVariants: { [key: string]: any[] } }) =>
             <Stack key={key} alignItems={"start"}>
               <Text w="150px">{key}:</Text>
               <Wrap>
-                {allVariants[key].map(item => <Tag key={item._id} bg='hexmain.500' mr={2}>{item.altTxt}</Tag>)}
+                {allVariants[key].map(item => <Tag key={item._id} bg='hexmain.500' mr={2}>{item.icon ? <Image width={50} height={50} alt={item.value || ""} unoptimized src={item.icon || ""} /> : item.value}</Tag>)}
               </Wrap>
             </Stack>
           )
