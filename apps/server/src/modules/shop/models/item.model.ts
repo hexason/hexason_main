@@ -14,7 +14,7 @@ export class Item implements ItemI {
   @Prop({ unique: true, required: true })
   SKU: string; // stock keeping unit
 
-  @Field()
+  @Field({ nullable: true })
   @Prop({ type: String })
   UPC: string; // universal product code
 
@@ -55,7 +55,7 @@ export class Variation {
   @Field()
   value: string;
 
-  @Field()
+  @Field({ nullable: true })
   icon: string;
 }
 const ItemSchema = SchemaFactory.createForClass(Item);

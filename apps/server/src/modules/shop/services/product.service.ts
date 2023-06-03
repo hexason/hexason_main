@@ -77,7 +77,7 @@ export class ProductService {
         status: 12,
         supplier: '64364d4829aeda71de8a6fa6',
         images: taoproduct.Images.map((el: string) => ({ url: el })),
-        items: [],
+        items: taoproduct.Items,
       });
       product = await this.productModel.findById(created._id.toString()).populate(['supplier', 'categories', 'items']);
     }
@@ -128,7 +128,7 @@ export class ProductService {
       supplier,
       images,
     });
-    const newItems = items.map((item) => new this.itemModel(item));
+    const newItems = items.map((item) => new this.itemModel({ ...item, product: product._id }));
     product.items = newItems.map((it) => it._id);
 
     const session = await this.connection.startSession();
@@ -136,7 +136,7 @@ export class ProductService {
 
     try {
       await product.save({ session });
-      await this.itemModel.bulkSave(newItems, { session });
+      if (newItems.length > 0) await this.itemModel.bulkSave(newItems, { session });
       await session.commitTransaction();
     } catch (e) {
       await session.abortTransaction();
