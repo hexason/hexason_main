@@ -28,6 +28,7 @@ export default function ProductCard({ product }: any) {
             loading="lazy"
             placeholder="blur"
             fill
+            unoptimized
             style={{
               objectFit: "cover",
               transition: "0.5s"

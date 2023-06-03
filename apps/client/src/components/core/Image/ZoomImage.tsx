@@ -7,7 +7,7 @@ type PropsType = {
   width: number,
   transitionTime?: number,
 }
-const ZoomImage = (props: PropsType) => {
+export const ZoomImage = (props: PropsType) => {
   const {
     img,
     zoomScale,
@@ -87,5 +87,3 @@ const ZoomImage = (props: PropsType) => {
     </div>
   );
 };
-
-export default ZoomImage;

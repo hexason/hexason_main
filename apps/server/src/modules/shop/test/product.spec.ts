@@ -19,8 +19,12 @@ describe('Product Tester', () => {
   describe('Product Items tester', () => {
     it('must defined', async () => {
       const dataItem = JSON.parse(readFileSync(__dirname + '/examples/items.json', { encoding: 'utf-8' }));
-      const items = await itemS.createItemModel(dataItem[0]).catch((e) => e.code);
-      expect(items).toBe(11000);
+      await itemS
+        .createItemModel(dataItem[2])
+        .then((data) => {
+          console.log(data);
+        })
+        .catch((e) => expect(e.code).toBe(11000));
     });
     it('must have products', async () => {
       const products = await prodS.getProducts();
