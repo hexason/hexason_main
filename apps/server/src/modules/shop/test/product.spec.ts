@@ -1,21 +1,30 @@
 import { Test } from '@nestjs/testing';
 import { ShopModule } from '../shop.module';
 import { AuthModule } from '@/modules/auth';
-import { ProductService } from '../services';
+import { ProductService, ItemService } from '../services';
 import { CoreModule } from '@/config';
+import { readFileSync } from 'fs';
 
 describe('Product Tester', () => {
-  let service: ProductService;
+  let prodS: ProductService;
+  let itemS: ItemService;
   beforeAll(async () => {
     const moduleRef = Test.createTestingModule({
       imports: [ShopModule, AuthModule, ...CoreModule],
     });
-    service = (await moduleRef.compile()).get(ProductService);
+    prodS = (await moduleRef.compile()).get(ProductService);
+    itemS = (await moduleRef.compile()).get(ItemService);
   });
 
-  describe('Product Run', () => {
-    it('must defined', () => {
-      expect(service).toBeDefined();
+  describe('Product Items tester', () => {
+    it('must defined', async () => {
+      const dataItem = JSON.parse(readFileSync(__dirname + '/examples/items.json', { encoding: 'utf-8' }));
+      const items = await itemS.createItemModel(dataItem[0]).catch((e) => e.code);
+      expect(items).toBe(11000);
+    });
+    it('must have products', async () => {
+      const products = await prodS.getProducts();
+      expect(products.count).toBeGreaterThan(0);
     });
   });
 });

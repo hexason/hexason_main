@@ -20,11 +20,13 @@ export class Item implements ItemI {
 
   @Field(() => [Variation])
   @Prop({
-    type: {
-      configName: { type: String, required: true },
-      value: { type: String, required: true },
-      icon: String,
-    },
+    type: [
+      {
+        configName: { type: String, required: true },
+        value: { type: String, required: true },
+        icon: String,
+      },
+    ],
   })
   variations: Variation[];
 
@@ -42,11 +44,11 @@ export class Item implements ItemI {
 
   @Field(() => Product)
   @Prop({ type: Types.ObjectId, ref: 'Product', required: true })
-  product: Product | Types.ObjectId;
+  product: Product | Types.ObjectId | unknown;
 }
 
 @ObjectType()
-class Variation {
+export class Variation {
   @Field()
   configName: string;
 
