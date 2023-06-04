@@ -25,6 +25,7 @@ export class Item implements ItemI {
         configName: { type: String, required: true },
         value: { type: String, required: true },
         icon: String,
+        mainImage: String,
       },
     ],
   })
@@ -57,6 +58,9 @@ export class Variation {
 
   @Field({ nullable: true })
   icon: string;
+
+  @Field({ nullable: true })
+  mainImage: string;
 }
 const ItemSchema = SchemaFactory.createForClass(Item);
 ItemSchema.set('toJSON', {
