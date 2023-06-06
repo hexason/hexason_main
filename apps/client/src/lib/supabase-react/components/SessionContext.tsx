@@ -87,6 +87,7 @@ export const SessionContextProvider = ({
 						Authorization: "Bearer " + session?.access_token
 					}
 				}).then(({ data }) => { setUser(data ? { ...data, ...session?.user } : null) }).catch(console.log)
+				localStorage.setItem("utk", session?.access_token || "")
 				setSession(session);
 				setIsLoading(false);
 			}
@@ -112,6 +113,7 @@ export const SessionContextProvider = ({
 						Authorization: "Bearer " + session?.access_token
 					}
 				}).then(({ data }) => { setUser({ ...data, ...session.user }) }).catch(console.log)
+				localStorage.setItem("utk", session?.access_token || "")
 				setSession(session);
 			}
 
