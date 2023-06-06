@@ -1,17 +1,17 @@
 "use client";
 import { useCurrencyFormat } from '@/hooks/userCurrencyFormatter'
-import { AspectRatio, Avatar, Box, Button, Container, Divider, Grid, GridItem, HStack, Input, InputGroup, InputLeftAddon, InputRightAddon, Stack, Tag, Text, Wrap } from '@chakra-ui/react'
+import { AspectRatio, Avatar, Box, Button, Container, Divider, Grid, GridItem, HStack, Stack, Tag, Text, Wrap } from '@chakra-ui/react'
 import Image from 'next/image'
 import { ProductI } from 'pointes'
-import { useState } from 'react';
-import ZoomImage from "../../core/Image/ZoomImage"
+import { useEffect, useState } from 'react';
 import { gql, useQuery } from '@apollo/client';
-import { ThreeDotsWave } from '@/components/animation';
 import { useParams } from 'next/navigation';
+import { ThreeDotsWave } from '@/components/animation';
+import { QuantityController, ZoomImage } from '@/components/core';
 
 export default function ProductDetail() {
   const formatter = useCurrencyFormat();
-  const [configs] = useState<{ [key: string]: any[] }>({});
+  const [allVariants, setAllVariants] = useState<{ [key: string]: any[] }>({});
   const { id } = useParams();
   const { loading, data } = useQuery<{ getProductById: ProductI }>(gql`
     {
@@ -25,13 +25,34 @@ export default function ProductDetail() {
         images {
           url
         },
-        image
+        image,
+        items {
+          id,
+          price,
+          variations {
+            configName,
+            icon,
+            value
+          }
+        }
       }
     }
   `)
 
-  if (loading) return <ThreeDotsWave />
+  // HashMaping all variants 
+  useEffect(() => {
+    const variations = data?.getProductById.items.reduce((variants, item) => {
+      for (const conf of item.variations) {
+        const configure = variants[conf.configName] || [];
+        configure.push(conf);
+        variants[conf.configName] = configure;
+      }
+      return variants;
+    }, {});
+    setAllVariants(variations);
+  }, [data])
 
+  if (loading) return <ThreeDotsWave />
   return (
     <Container maxW="container.xl" my={3}>
       <Stack spacing={6} bg="#ffffffAB" p="3" borderRadius={"20px"}>
@@ -58,43 +79,29 @@ export default function ProductDetail() {
                   {data?.getProductById.supplier.name}
                 </Tag>
                 <HStack spacing={"10px"}>
-                  <Text fontSize={"1.5rem"} color='green'>{formatter(data?.getProductById.price || 0, "short")} ₮</Text>
-                  <Tag fontSize={"1.2rem"} colorScheme='teal'>Гишүүн: {formatter((data?.getProductById.price || 0) * 0.9, "short")}</Tag>
+                  <Text fontSize={"1.5rem"} color='hexmain.800'>{formatter(data?.getProductById.price || 0, "short")} ₮</Text>
                 </HStack>
               </Stack>
-              <Stack color={"gray.600"}>
-                {
-                  Object.keys(configs).map(key => {
-                    return (
-                      <Stack key={key} alignItems={"start"}>
-                        <Text w="150px">{key}:</Text>
-                        <Wrap>
-                          {configs[key].map(item => <Tag key={item._id} colorScheme='teal' mr={2}>{item.altTxt}</Tag>)}
-                        </Wrap>
-                      </Stack>
-                    )
-                  })
-                }
+              <Stack>
+                <Varaints allVariants={allVariants} />
                 <Stack>
-                  <Text w="150px">Тоо ширхэг:</Text>
+                  <Text>Тоо ширхэг:</Text>
                   <QuantityController />
                 </Stack>
               </Stack>
-              <Box borderRadius="20px" overflow={"hidden"} w={["100%", "300px"]}>
-                <Button w="50%" colorScheme='teal' borderRadius={"0"}>Сагслах</Button>
-                <Button w="50%" colorScheme='green' borderRadius={"0"}>Шууд захиалах</Button>
-              </Box>
+              <HStack>
+                <Button>Сагслах</Button>
+                <Button>Шууд захиалах</Button>
+              </HStack>
             </Stack>
           </GridItem>
           <GridItem colSpan={1}>
             <Stack h="100%" borderRadius={"5px"} bg="gray.200">
-
+              {/* Supplier information here */}
             </Stack>
           </GridItem>
         </Grid>
-
         <Divider />
-
         <Stack alignItems={"center"} spacing={"0"}>
           {data?.getProductById.images.map((img: any) => <Image width={600} height={400} unoptimized key={img._id} src={img.url} alt={data?.getProductById.title + img._id} />)}
         </Stack>
@@ -103,27 +110,21 @@ export default function ProductDetail() {
   )
 }
 
-const QuantityController = (props: any) => {
-  const [quant, setQuant] = useState(0);
-  const handleInputChanger = (e: any) => {
-    let value = e.target.value;
-    if (value.length > 0) {
-      value = value.replace(/[^0-9]/g, '');
-      setQuant(parseInt(value) > 0 ? parseInt(value) : 1);
-      return;
-    } else {
-      setQuant(1);
-    }
-  }
-  const addRemoveHandler = (indicator: number) => {
-    setQuant(prev => (prev + indicator > 0 ? prev + indicator : 1));
-  }
-
+const Varaints = ({ allVariants }: { allVariants: { [key: string]: any[] } }) => {
   return (
-    <InputGroup {...props}>
-      <InputLeftAddon color="white" onClick={() => addRemoveHandler(-1)} as={Button} bg="#000" >-</InputLeftAddon>
-      <Input onChange={handleInputChanger} value={quant} w="50px" _focus={{ w: "100px" }} />
-      <InputRightAddon color="white" onClick={() => addRemoveHandler(1)} bg="#000" as={Button}>+</InputRightAddon>
-    </InputGroup>
+    <Box>
+      {
+        Object.keys(allVariants || {}).map(key => {
+          return (
+            <Stack key={key} alignItems={"start"}>
+              <Text w="150px">{key}:</Text>
+              <Wrap>
+                {allVariants[key].map(item => <Tag key={item._id} bg='hexmain.500' mr={2}>{item.icon ? <Image width={50} height={50} alt={item.value || ""} unoptimized src={item.icon || ""} /> : item.value}</Tag>)}
+              </Wrap>
+            </Stack>
+          )
+        })
+      }
+    </Box>
   )
 }

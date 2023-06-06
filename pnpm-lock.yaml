@@ -26,6 +26,7 @@ importers:
       '@supabase/auth-helpers-nextjs': ^0.7.0
       '@supabase/supabase-js': ^2.20.0
       '@svgr/webpack': ^8.0.1
+      '@types/js-cookie': ^3.0.3
       '@types/node': 18.11.18
       '@types/qrcode': ^1.5.0
       '@types/react': 18.0.26
@@ -39,6 +40,7 @@ importers:
       eslint-plugin-react: ^7.32.2
       framer-motion: ^8.5.5
       graphql: ^16.6.0
+      js-cookie: ^3.0.5
       next: 13.4.4
       next-seo: ^6.0.0
       nextjs-progressbar: ^0.0.16
@@ -72,6 +74,7 @@ importers:
       eslint-plugin-react: 7.32.2_eslint@8.31.0
       framer-motion: 8.5.5_biqbaboplfbrettd7655fr4n2y
       graphql: 16.6.0
+      js-cookie: 3.0.5
       next: 13.4.4_gxeylg6mfvtzvytsvwl7cjkzse
       next-seo: 6.0.0_z4pol2qj2yv3um3jqqobs4b3eu
       nextjs-progressbar: 0.0.16_next@13.4.4+react@18.2.0
@@ -84,6 +87,7 @@ importers:
       typescript: 4.9.4
     devDependencies:
       '@svgr/webpack': 8.0.1
+      '@types/js-cookie': 3.0.3
       '@types/qrcode': 1.5.0
       '@types/three': 0.148.1
 
@@ -139,6 +143,7 @@ importers:
       jest: 29.3.1
       jsdom: ^22.1.0
       jsonwebtoken: ^9.0.0
+      moment: ^2.29.4
       mongoose: ^7.0.4
       openai: ^3.2.1
       pg: ^8.10.0
@@ -192,6 +197,7 @@ importers:
       graphql: 16.6.0
       jsdom: 22.1.0
       jsonwebtoken: 9.0.0
+      moment: 2.29.4
       mongoose: 7.2.2
       openai: 3.2.1
       pg: 8.11.0
@@ -5061,6 +5067,10 @@ packages:
       pretty-format: 29.5.0
     dev: true
 
+  /@types/js-cookie/3.0.3:
+    resolution: {integrity: sha512-Xe7IImK09HP1sv2M/aI+48a20VX+TdRJucfq4vfRVy6nWN8PYPOEnlMRSgxJAgYQIXJVL8dZ4/ilAM7dWNaOww==}
+    dev: true
+
   /@types/jsdom/21.1.1:
     resolution: {integrity: sha512-cZFuoVLtzKP3gmq9eNosUL1R50U+USkbLtUQ1bYVgl/lKp0FZM7Cq4aIHAL8oIvQ17uSHi7jXPtfDOdjPwBE7A==}
     dependencies:
@@ -9575,6 +9585,11 @@ packages:
     resolution: {integrity: sha512-j8GhLiKmUAh+dsFXlX1aJCbt5KMibuKb+d7j1JaOJG6s2UjX1PQlW+OKB/sD4a/5ZYF4RcmYmLSndOoU3Lt/3g==}
     dev: false
 
+  /js-cookie/3.0.5:
+    resolution: {integrity: sha512-cEiJEAEoIbWfCZYKWhVwFuvPX1gETRYPw6LlaTKoxD3s2AkXzkCjnp6h0V77ozyqj0jakteJ4YqDJT830+lVGw==}
+    engines: {node: '>=14'}
+    dev: false
+
   /js-sdsl/4.4.0:
     resolution: {integrity: sha512-FfVSdx6pJ41Oa+CF7RDaFmTnCaFhua+SNYQX74riGOpl96x+2jQCqEfQ2bnXu/5DPCqlRuiqyvTJM0Qjz26IVg==}
     dev: false
@@ -10162,6 +10177,10 @@ packages:
     resolution: {integrity: sha512-FPUtkhtJ0efmEFGpU14x7jGbTB+s18LrzRL2KgoWz9YvcY3cPomz8tih01GbHwnGk/OmkOKfqd/RAQoc8Lm7DQ==}
     dependencies:
       obliterator: 2.0.4
+    dev: false
+
+  /moment/2.29.4:
+    resolution: {integrity: sha512-5LC9SOxjSc2HF6vO2CyuTDNivEdoz2IvyJJGj6X8DJ0eFyfszE0QiEd+iXmBvUP3WHxSjFH/vIsA0EN00cgr8w==}
     dev: false
 
   /mongodb-connection-string-url/2.6.0:

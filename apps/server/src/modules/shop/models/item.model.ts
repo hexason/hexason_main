@@ -14,17 +14,20 @@ export class Item implements ItemI {
   @Prop({ unique: true, required: true })
   SKU: string; // stock keeping unit
 
-  @Field()
+  @Field({ nullable: true })
   @Prop({ type: String })
   UPC: string; // universal product code
 
   @Field(() => [Variation])
   @Prop({
-    type: {
-      configName: { type: String, required: true },
-      value: { type: String, required: true },
-      icon: String,
-    },
+    type: [
+      {
+        configName: { type: String, required: true },
+        value: { type: String, required: true },
+        icon: String,
+        mainImage: String,
+      },
+    ],
   })
   variations: Variation[];
 
@@ -42,19 +45,22 @@ export class Item implements ItemI {
 
   @Field(() => Product)
   @Prop({ type: Types.ObjectId, ref: 'Product', required: true })
-  product: Product | Types.ObjectId;
+  product: Product | Types.ObjectId | unknown;
 }
 
 @ObjectType()
-class Variation {
+export class Variation {
   @Field()
   configName: string;
 
   @Field()
   value: string;
 
-  @Field()
+  @Field({ nullable: true })
   icon: string;
+
+  @Field({ nullable: true })
+  mainImage: string;
 }
 const ItemSchema = SchemaFactory.createForClass(Item);
 ItemSchema.set('toJSON', {

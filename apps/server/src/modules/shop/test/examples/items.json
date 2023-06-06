@@ -1,0 +1,62 @@
+[
+  {
+    "SKU": "ABC123",
+    "UPC": "123456789012",
+    "variations": [
+      {
+        "configName": "Color",
+        "value": "Red",
+        "icon": "red-icon.png"
+      },
+      {
+        "configName": "Size",
+        "value": "Medium",
+        "icon": "medium-icon.png"
+      }
+    ],
+    "price": 19.99,
+    "stock": 50,
+    "status": 12,
+    "product": "643f7f05dcf40582212334f4"
+  },
+  {
+    "SKU": "DEF456",
+    "UPC": "987654321098",
+    "variations": [
+      {
+        "configName": "Color",
+        "value": "Blue",
+        "icon": "blue-icon.png"
+      },
+      {
+        "configName": "Size",
+        "value": "Large",
+        "icon": "large-icon.png"
+      }
+    ],
+    "price": 29.99,
+    "stock": 20,
+    "status": 12,
+    "product": "643f7f05dcf40582212334f4"
+  },
+  {
+    "SKU": "GHI789",
+    "UPC": "654321098765",
+    "variations": [
+      {
+        "configName": "Color",
+        "value": "Green",
+        "icon": "green-icon.png"
+      },
+      {
+        "configName": "Size",
+        "value": "Small",
+        "icon": "small-icon.png"
+      }
+    ],
+    "price": 9.99,
+    "stock": 100,
+    "status": 12,
+    "product": "643f7f05dcf40582212334f4"
+  }
+]

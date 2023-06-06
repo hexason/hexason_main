@@ -73,7 +73,7 @@ export class ProductController {
     if (!product) throw new HttpException({ code: 'NOT_FOUND_DATA', message: 'Product not found' }, 404);
     const items = await this.itemService.getItemsByProductId(id);
 
-    let item = items.find((i) => i._id.toString() === data._id);
+    let item: any = items.find((i) => i._id.toString() === data._id);
     if (!item && !data._id) {
       item = this.itemService.createItemModel(data);
       product.items.push(item._id as any);
