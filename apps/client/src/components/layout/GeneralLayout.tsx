@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 
 export const GeneralLayout = ({ children, ...props }: any) => {
 	const pathname = usePathname();
+	if (pathname.startsWith("/admin")) return <>{children}</>
 	return (
 		<>
 			<TopUpBar />
