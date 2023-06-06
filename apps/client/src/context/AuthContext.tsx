@@ -1,3 +1,6 @@
+/**
+ * @deprecated now use useSession useSupabaseClient from @/lib/Supabase
+ */
 "use client";
 import DefaultAnimate from '@/components/animation/DefaultAnimate';
 import { SupabaseAuthSession } from '@/lib/types';

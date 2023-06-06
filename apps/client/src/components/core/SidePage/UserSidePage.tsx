@@ -1,5 +1,5 @@
-import { useAuth } from "@/context/AuthContext";
 import { useCurrencyFormat } from "@/hooks";
+import { useSessionContext, useSupabaseClient } from "@/lib/supabase-react";
 import {
 	Avatar,
 	Box,
@@ -7,12 +7,10 @@ import {
 	Divider,
 	Grid,
 	HStack,
-	Image,
 	Stack,
 	Tag,
 	Text,
 } from "@chakra-ui/react";
-import Link from "next/link";
 
 const data = [
 	{
@@ -33,7 +31,8 @@ const data = [
 ];
 export const UserSidePage = () => {
 	const formatter = useCurrencyFormat();
-	const { supabase, session } = useAuth();
+	const { isLoading, session, user } = useSessionContext()
+	const supabase = useSupabaseClient();
 
 	const loginAction = () => {
 		supabase.auth.signInWithOAuth({
@@ -60,18 +59,20 @@ export const UserSidePage = () => {
 				></Box>
 				<Avatar />
 				<Tag colorScheme="hexmain" zIndex={"1"} fontWeight={"bold"}>
-					{formatter(1000, "short")}₮
+					{JSON.stringify(user || {})[0]}
+					{session ? formatter(1000, "short") + "₮" : ""}
 				</Tag>
 			</Stack>
 			{session?.user ? (
-				<HStack textAlign={"center"}>
-					<Tag colorScheme="purple">Хүргэлтэнд гарсан</Tag>
-					<Tag colorScheme="green">Хүлээж авсан</Tag>
-					<Tag colorScheme="blue">Төлбөр хийх</Tag>
-				</HStack>
+				// <HStack textAlign={"center"}>
+				// 	<Tag colorScheme="purple">Хүргэлтэнд гарсан</Tag>
+				// 	<Tag colorScheme="green">Хүлээж авсан</Tag>
+				// 	<Tag colorScheme="blue">Төлбөр хийх</Tag>
+				// </HStack>
+				<Button onClick={() => supabase.auth.signOut()}>Logout</Button>
 			) : (
 				<HStack>
-					<Button onClick={loginAction}>Login with Google</Button>
+					<Button isLoading={isLoading} onClick={loginAction}>Login with Google</Button>
 				</HStack>
 			)}
 			<Stack justifyContent={"end"} h="100%" w="100%">
@@ -85,12 +86,12 @@ export const UserSidePage = () => {
 					w="100%"
 					alignItems={"start"}
 				>
-					{data.map((el) => (
+					{/* {data.map((el) => (
 						<Link href={el.url} key={el.text}>
 							<Image h="40px  " w="100%" src={el.src} />
 							<Text fontSize={"14px"}>{el.text}</Text>
 						</Link>
-					))}
+					))} */}
 				</Grid>
 			</Stack>
 		</Stack>
