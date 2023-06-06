@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { AuthError, Session, SupabaseClient } from '@supabase/supabase-js';
+import axios from 'axios';
 import React, {
 	createContext,
 	PropsWithChildren,
@@ -15,24 +16,28 @@ export type SessionContext =
 		session: null;
 		error: null;
 		supabaseClient: SupabaseClient;
+		user?: any
 	}
 	| {
 		isLoading: false;
 		session: Session;
 		error: null;
 		supabaseClient: SupabaseClient;
+		user?: any
 	}
 	| {
 		isLoading: false;
 		session: null;
 		error: AuthError;
 		supabaseClient: SupabaseClient;
+		user?: any
 	}
 	| {
 		isLoading: false;
 		session: null;
 		error: null;
 		supabaseClient: SupabaseClient;
+		user?: any
 	};
 
 const SessionContext = createContext<SessionContext>({
@@ -45,6 +50,7 @@ const SessionContext = createContext<SessionContext>({
 export interface SessionContextProviderProps {
 	supabaseClient: SupabaseClient;
 	initialSession?: Session | null;
+	user?: any
 }
 
 export const SessionContextProvider = ({
@@ -53,6 +59,7 @@ export const SessionContextProvider = ({
 	children
 }: PropsWithChildren<SessionContextProviderProps>) => {
 	const [session, setSession] = useState<Session | null>(initialSession);
+	const [user, setUser] = useState<any | null>(null);
 	const [isLoading, setIsLoading] = useState<boolean>(!initialSession);
 	const [error, setError] = useState<AuthError>();
 
@@ -72,7 +79,14 @@ export const SessionContextProvider = ({
 					setIsLoading(false);
 					return;
 				}
-
+				await axios({
+					baseURL: process.env.NEXT_PUBLIC_API_URL,
+					url: "admin/me",
+					method: "GET",
+					headers: {
+						Authorization: "Bearer " + session?.access_token
+					}
+				}).then(({ data }) => { setUser(data ? { ...data, ...session?.user } : null) }).catch(console.log)
 				setSession(session);
 				setIsLoading(false);
 			}
@@ -88,12 +102,21 @@ export const SessionContextProvider = ({
 	useEffect(() => {
 		const {
 			data: { subscription }
-		} = supabaseClient.auth.onAuthStateChange((event, session) => {
+		} = supabaseClient.auth.onAuthStateChange(async (event, session) => {
 			if (session && (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED')) {
+				await axios({
+					baseURL: process.env.NEXT_PUBLIC_API_URL,
+					url: "admin/me",
+					method: "GET",
+					headers: {
+						Authorization: "Bearer " + session?.access_token
+					}
+				}).then(({ data }) => { setUser({ ...data, ...session.user }) }).catch(console.log)
 				setSession(session);
 			}
 
 			if (event === 'SIGNED_OUT') {
+				setUser(null);
 				setSession(null);
 			}
 		});
@@ -109,6 +132,7 @@ export const SessionContextProvider = ({
 				isLoading: true,
 				session: null,
 				error: null,
+				user,
 				supabaseClient
 			};
 		}
@@ -118,6 +142,7 @@ export const SessionContextProvider = ({
 				isLoading: false,
 				session: null,
 				error,
+				user,
 				supabaseClient
 			};
 		}
@@ -126,6 +151,7 @@ export const SessionContextProvider = ({
 			isLoading: false,
 			session,
 			error: null,
+			user,
 			supabaseClient
 		};
 	}, [isLoading, session, error]);
@@ -171,5 +197,5 @@ export const useUser = () => {
 		throw new Error(`useUser must be used within a SessionContextProvider.`);
 	}
 
-	return context.session?.user ?? null;
+	return context?.user ?? null;
 };
