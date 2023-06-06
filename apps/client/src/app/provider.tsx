@@ -8,6 +8,7 @@ import { ApolloProvider } from "@apollo/client";
 import { CacheProvider } from "@chakra-ui/next-js";
 import { ChakraProvider } from "@chakra-ui/react";
 import { useState } from "react";
+import { GeneralLayout } from "@/components/layout";
 
 export function Providers({ children }: { children: React.ReactNode }) {
 	const [supabaseClient] = useState(() => createPagesBrowserClient())
@@ -16,7 +17,11 @@ export function Providers({ children }: { children: React.ReactNode }) {
 		<CacheProvider>
 			<ChakraProvider theme={theme}>
 				<SessionContextProvider supabaseClient={supabaseClient}>
-					<ApolloProvider client={apollo}>{children}</ApolloProvider>
+					<ApolloProvider client={apollo}>
+						<GeneralLayout>
+							{children}
+						</GeneralLayout>
+					</ApolloProvider>
 				</SessionContextProvider>
 			</ChakraProvider>
 		</CacheProvider>
