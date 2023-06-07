@@ -52,6 +52,27 @@ export class ProductService {
       else throw { code: 'NOT_FOUND', message: 'Not found product' };
       if (!product) throw { code: 'NOT_FOUND', message: 'Not found product' };
     }
+    // Product update item information
+    if (product.integratedId && moment().add(-24, 'hour').isAfter(product.updatedAt)) {
+      const taoproduct = await this.TaobaoIntegration.getItemByTaoId(product.integratedId);
+      if (!taoproduct) {
+        product.status = 0;
+        await product.save();
+        throw { code: 'NOT_FOUND', message: 'Not found product' };
+      }
+      product.items = product.items.map((item) => {
+        const newItem = taoproduct.Items.find((i) => item.SKU === i.SKU);
+        if (!newItem) return item;
+        item.price = newItem.price;
+        item.stock = newItem.stock;
+        item.variations = newItem.variations;
+        return item;
+      });
+      await this.itemModel.bulkSave(product.items);
+      product.price = taoproduct.Price.ConvertedPriceList.Internal.Price;
+      await product.save();
+      await product.populate(['supplier', 'categories', 'items']);
+    }
     return product;
   }
 
@@ -61,20 +82,6 @@ export class ProductService {
       product = await this.getOneProductBy({
         integratedId: id,
       });
-      if (moment().add(-24, 'hour').isAfter(product.updatedAt)) {
-        const taoproduct = await this.TaobaoIntegration.getItemByTaoId(id);
-        if (!taoproduct) return null;
-        product.items = product.items.map((item) => {
-          const newItem = taoproduct.Items.find((i) => item.SKU === i.SKU);
-          if (!newItem) return item;
-          item.price = newItem.price;
-          item.stock = newItem.stock;
-          item.variations = newItem.variations;
-          return item;
-        });
-        await this.itemModel.bulkSave(product.items);
-        await product.populate(['supplier', 'categories', 'items']);
-      }
     } catch (e) {
       const taoproduct = await this.TaobaoIntegration.getItemByTaoId(id);
       if (!taoproduct) throw { code: 'NOT_FOUND', message: 'Not found product' };
