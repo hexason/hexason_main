@@ -32,7 +32,7 @@ describe('Product Tester', () => {
       expect(products.count).toBeGreaterThan(0);
     });
     it('integrated product check', async () => {
-      const product = await prodS.getOneProductById('647b30c57cb0ff16fe758deb');
+      const product = await prodS.getOneProductById('6479a0345446ee3dc5d80509');
       console.log(product);
       expect(product).toBeDefined();
     });

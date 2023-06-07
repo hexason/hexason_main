@@ -60,16 +60,17 @@ export class ProductService {
         await product.save();
         throw { code: 'NOT_FOUND', message: 'Not found product' };
       }
-      product.items = product.items.map((item) => {
-        const newItem = taoproduct.Items.find((i) => item.SKU === i.SKU);
-        if (!newItem) return item;
+      const items = taoproduct.Items.map((newItem) => {
+        const item = product.items.find((i) => newItem.SKU === i.SKU);
+        if (!item) return new this.itemModel({ ...newItem, product: product._id });
         item.price = newItem.price;
         item.stock = newItem.stock;
         item.variations = newItem.variations;
         return item;
       });
-      await this.itemModel.bulkSave(product.items);
+      await this.itemModel.bulkSave(items);
       product.price = taoproduct.Price.ConvertedPriceList.Internal.Price;
+      product.items = items;
       await product.save();
       await product.populate(['supplier', 'categories', 'items']);
     }
