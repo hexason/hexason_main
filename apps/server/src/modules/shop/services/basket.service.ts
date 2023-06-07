@@ -17,9 +17,11 @@ export class BasketService {
   async updateBasket(userId: string, { product, quantity }: { product: Product; quantity: number }) {
     const inBasket = (await this.BPModel.findOne({ userId })) || new this.BPModel({ basket: [], favorite: [] });
     const newBasket = inBasket.basket.filter((el) => el.info.toString() !== product.id);
-    newBasket.push({ info: product.id, quantity, price: product.price, totalPrice: product.price * quantity });
+    if (quantity > 0)
+      newBasket.push({ info: product.id, quantity, price: product.price, totalPrice: product.price * quantity });
     inBasket.basket = newBasket;
     await inBasket.save();
+    await inBasket.populate('basket.info');
     return inBasket.basket;
   }
 

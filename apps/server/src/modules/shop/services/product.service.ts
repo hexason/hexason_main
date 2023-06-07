@@ -61,9 +61,7 @@ export class ProductService {
       });
     } catch (e) {
       const taoproduct = await this.TaobaoIntegration.getItemByTaoId(id);
-      console.log(taoproduct.Id);
       if (!taoproduct) throw { code: 'NOT_FOUND', message: 'Not found product' };
-      console.log(taoproduct.Price.ConvertedPriceList.Internal.Price);
       const created = await this.createProduct({
         title: taoproduct.Title,
         integratedId: id,

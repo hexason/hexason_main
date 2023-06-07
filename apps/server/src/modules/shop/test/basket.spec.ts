@@ -2,7 +2,6 @@ import { Test } from '@nestjs/testing';
 import { AuthModule } from '@/modules/auth';
 import { CoreModule } from '@/config';
 import { BasketService } from '../services';
-import { UserModule } from '../user.module';
 import { ShopModule } from '@/modules/shop/shop.module';
 import { ProductService } from '@/modules/shop/services';
 
@@ -11,7 +10,7 @@ describe('Basket Tester', () => {
   let productService: ProductService;
   beforeAll(async () => {
     const moduleRef = Test.createTestingModule({
-      imports: [ShopModule, UserModule, AuthModule, ...CoreModule],
+      imports: [ShopModule, AuthModule, ...CoreModule],
     });
     service = (await moduleRef.compile()).get(BasketService);
     productService = (await moduleRef.compile()).get(ProductService);
