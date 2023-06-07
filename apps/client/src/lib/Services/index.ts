@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 
 export const getProduct = gql`
-	query {
+	{
 		getProducts {
 			items {
 				title
@@ -45,6 +45,26 @@ export const getProducts = gql`
 				price
 				sold
 				image
+			}
+		}
+	}
+`;
+
+export const getCategoryTree = gql`
+	{
+		getCategoryTree {
+			id
+			icon
+			title
+			children {
+				id
+				icon
+				title
+				children {
+					id
+					icon
+					title
+				}
 			}
 		}
 	}

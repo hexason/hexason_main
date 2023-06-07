@@ -1,107 +1,107 @@
-import { Category, CategoryItem, SubCategory } from "./type";
+import { CategoryItem } from "./type";
 
 const categoryItem1: CategoryItem = {
 	id: "1",
-	name: "Category Item 1",
+	title: "Category Item 1",
 };
 
 const categoryItem2: CategoryItem = {
 	id: "2",
-	name: "Category Item 2",
+	title: "Category Item 2",
 };
 
-const subCategory1: SubCategory = {
+const subCategory1: CategoryItem = {
 	id: "1",
-	name: "Sub Category 1",
-	CategoryItems: [categoryItem1, categoryItem2],
+	title: "Sub Category 1",
+	children: [categoryItem1, categoryItem2],
 };
 
-const subCategory2: SubCategory = {
+const subCategory2: CategoryItem = {
 	id: "2",
-	name: "Sub Category 2",
-	CategoryItems: [categoryItem1],
+	title: "Sub Category 2",
+	children: [categoryItem1],
 };
 
-const category1: Category = {
+const category1: CategoryItem = {
 	id: "1",
-	name: "Category 1",
-	SubCategories: [subCategory1, subCategory2],
+	title: "Category 1",
+	children: [subCategory1, subCategory2],
 };
 
-const category2: Category = {
+const category2: CategoryItem = {
 	id: "2",
-	name: "Category 2",
-	SubCategories: [subCategory1],
+	title: "Category 2",
+	children: [subCategory1],
 };
 
-const category3: Category = {
+const category3: CategoryItem = {
 	id: "3",
-	name: "Category 3",
-	SubCategories: [subCategory1, subCategory2],
+	title: "Category 3",
+	children: [subCategory1, subCategory2],
 };
-const category4: Category = {
+const category4: CategoryItem = {
 	id: "4",
-	name: "Category 4",
-	SubCategories: [subCategory1, subCategory2],
+	title: "Category 4",
+	children: [subCategory1, subCategory2],
 };
-const category5: Category = {
+const category5: CategoryItem = {
 	id: "5",
-	name: "Category 5",
-	SubCategories: [subCategory1, subCategory2],
+	title: "Category 5",
+	children: [subCategory1, subCategory2],
 };
-const category6: Category = {
+const category6: CategoryItem = {
 	id: "6",
-	name: "Category 6",
-	SubCategories: [subCategory1, subCategory2],
+	title: "Category 6",
+	children: [subCategory1, subCategory2],
 };
-const category7: Category = {
+const category7: CategoryItem = {
 	id: "7",
-	name: "Category 7",
-	SubCategories: [subCategory1, subCategory2],
+	title: "Category 7",
+	children: [subCategory1, subCategory2],
 };
-const category8: Category = {
+const category8: CategoryItem = {
 	id: "8",
-	name: "Category 8",
-	SubCategories: [subCategory1, subCategory2],
+	title: "Category 8",
+	children: [subCategory1, subCategory2],
 };
-const category9: Category = {
+const category9: CategoryItem = {
 	id: "9",
-	name: "Category 9",
-	SubCategories: [subCategory1, subCategory2],
+	title: "Category 9",
+	children: [subCategory1, subCategory2],
 };
-const category10: Category = {
+const category10: CategoryItem = {
 	id: "10",
-	name: "Category 10",
-	SubCategories: [subCategory1, subCategory2],
+	title: "Category 10",
+	children: [subCategory1, subCategory2],
 };
 
-const category11: Category = {
+const category11: CategoryItem = {
 	id: "11",
-	name: "Category 11",
-	SubCategories: [subCategory1, subCategory2],
+	title: "Category 11",
+	children: [subCategory1, subCategory2],
 };
-const category12: Category = {
+const category12: CategoryItem = {
 	id: "12",
-	name: "Category 12",
-	SubCategories: [subCategory1, subCategory2],
+	title: "Category 12",
+	children: [subCategory1, subCategory2],
 };
-const category13: Category = {
+const category13: CategoryItem = {
 	id: "13",
-	name: "Category 13",
-	SubCategories: [subCategory1, subCategory2],
+	title: "Category 13",
+	children: [subCategory1, subCategory2],
 };
-const category14: Category = {
+const category14: CategoryItem = {
 	id: "14",
-	name: "Category 14",
-	SubCategories: [subCategory1, subCategory2],
+	title: "Category 14",
+	children: [subCategory1, subCategory2],
 };
-const category15: Category = {
+const category15: CategoryItem = {
 	id: "15",
-	name: "Category 15",
-	SubCategories: [subCategory1, subCategory2],
+	title: "Category 15",
+	children: [subCategory1, subCategory2],
 };
 
-export const testCategories: Category[] = [
+export const testCategories: CategoryItem[] = [
 	category1,
 	category2,
 	category3,
