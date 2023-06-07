@@ -5,7 +5,7 @@ import { Types } from 'mongoose';
 
 @Schema({ timestamps: true })
 export class Backpack {
-  @Prop()
+  @Prop({ required: true })
   userId: string;
 
   @Prop({
