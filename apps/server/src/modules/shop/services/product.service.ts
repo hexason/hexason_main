@@ -4,6 +4,7 @@ import { ItemI, ProductI } from 'pointes';
 import { Item, Product } from '../models';
 import { SortArgs } from '../validation/ProductArgs';
 import { Inject, Optional } from '@nestjs/common';
+import * as moment from 'moment';
 
 type getProductType = { filter?: Partial<ProductI>; skip?: number; take?: number; sort?: SortArgs[] };
 export class ProductService {
@@ -26,7 +27,7 @@ export class ProductService {
           sort: option?.sort?.reduce((att, itt) => ({ ...att, [itt.key]: itt.value }), {}),
         },
       )
-      .sort({ status: 'asc', createdAt: 'desc' })
+      .sort({ status: 'asc', updatedAt: 'desc' })
       .populate(['supplier', 'categories']);
 
     const count = await this.productModel.count(option?.filter);
@@ -49,6 +50,7 @@ export class ProductService {
     if (!product) {
       if (this.TaobaoIntegration) product = await this.getIntegratedProduct(id as string);
       else throw { code: 'NOT_FOUND', message: 'Not found product' };
+      if (!product) throw { code: 'NOT_FOUND', message: 'Not found product' };
     }
     return product;
   }
@@ -59,9 +61,22 @@ export class ProductService {
       product = await this.getOneProductBy({
         integratedId: id,
       });
+      if (moment().add(-24, 'hour').isAfter(product.updatedAt)) {
+        const taoproduct = await this.TaobaoIntegration.getItemByTaoId(id);
+        if (!taoproduct) return null;
+        product.items = product.items.map((item) => {
+          const newItem = taoproduct.Items.find((i) => item.SKU === i.SKU);
+          if (!newItem) return item;
+          item.price = newItem.price;
+          item.stock = newItem.stock;
+          item.variations = newItem.variations;
+          return item;
+        });
+        await this.itemModel.bulkSave(product.items);
+        await product.populate(['supplier', 'categories', 'items']);
+      }
     } catch (e) {
       const taoproduct = await this.TaobaoIntegration.getItemByTaoId(id);
-      console.log(taoproduct.Id);
       if (!taoproduct) throw { code: 'NOT_FOUND', message: 'Not found product' };
       console.log(taoproduct.Price.ConvertedPriceList.Internal.Price);
       const created = await this.createProduct({
