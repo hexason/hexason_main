@@ -8,3 +8,9 @@ export class BackpackBasketProductAdd {
   @Field()
   quantity: number;
 }
+
+@InputType()
+export class BackpackFavoriteProductUpdate {
+  @Field(() => [String])
+  ids: string[];
+}
