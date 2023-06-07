@@ -4,13 +4,14 @@ import { AuthModule } from '@/modules/auth';
 import { ProductService, ItemService } from '../services';
 import { CoreModule } from '@/config';
 import { readFileSync } from 'fs';
+import { IntegrationModule } from '@/modules/integration/integration.module';
 
 describe('Product Tester', () => {
   let prodS: ProductService;
   let itemS: ItemService;
   beforeAll(async () => {
     const moduleRef = Test.createTestingModule({
-      imports: [ShopModule, AuthModule, ...CoreModule],
+      imports: [ShopModule, IntegrationModule, AuthModule, ...CoreModule],
     });
     prodS = (await moduleRef.compile()).get(ProductService);
     itemS = (await moduleRef.compile()).get(ItemService);
@@ -29,6 +30,11 @@ describe('Product Tester', () => {
     it('must have products', async () => {
       const products = await prodS.getProducts();
       expect(products.count).toBeGreaterThan(0);
+    });
+    it('integrated product check', async () => {
+      const product = await prodS.getIntegratedProduct('710437073997');
+      console.log(product);
+      expect(product).toBeDefined();
     });
   });
 });
