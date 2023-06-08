@@ -12,6 +12,16 @@ export class ItemService {
     return items;
   }
 
+  async getItemBySKU(sku: string) {
+    const item = await this.itemModel.findOne({ SKU: sku }).populate('product');
+    return item;
+  }
+
+  async getItemsBySKU(skus: string[]) {
+    const items = await this.itemModel.find({ SKU: { $in: skus } }).populate('product');
+    return items;
+  }
+
   async createItemModel(data: Partial<Item>) {
     const item = new this.itemModel(data);
     await item.populate('product');
