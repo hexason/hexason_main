@@ -27,9 +27,13 @@ export class ItemService {
     await item.populate('product');
     const product = item.product as Document & Product;
     product.items.push(item);
+    const variationHash = item.variations.reduce((acc, itt) => {
+      acc[`${itt.configId}${itt.valueId}`] = itt;
+      return acc;
+    }, {});
+    product.variations = Object.values(variationHash);
     await item.save();
     await product.save();
-    // const productId = data.product as Types.ObjectId;
 
     return item;
   }
