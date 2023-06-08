@@ -4,3 +4,4 @@ export * from './auth/auth.module';
 export * from './support/support.module';
 export * from './order/order.module';
 export * from './integration/integration.module';
+export * from './QR/qr.module';
