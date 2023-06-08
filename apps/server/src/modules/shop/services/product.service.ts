@@ -53,7 +53,7 @@ export class ProductService {
       if (!product) throw { code: 'NOT_FOUND', message: 'Not found product' };
     }
     // Product update item information
-    if (product.integratedId && moment().add(-24, 'hour').isAfter(product.updatedAt)) {
+    if (product.integratedId && moment().add(-1, 'minute').isAfter(product.updatedAt)) {
       const taoproduct = await this.TaobaoIntegration.getItemByTaoId(product.integratedId);
       if (!taoproduct) {
         product.status = 0;
@@ -70,6 +70,7 @@ export class ProductService {
       });
       await this.itemModel.bulkSave(items);
       product.price = taoproduct.Price.ConvertedPriceList.Internal.Price;
+      product.variations = taoproduct.Variations;
       product.items = items;
       await product.save();
       await product.populate(['supplier', 'categories', 'items']);
@@ -92,6 +93,7 @@ export class ProductService {
         integratedId: id,
         image: taoproduct.MainPictureUrl,
         description: taoproduct.Description,
+        variations: taoproduct.Variations,
         bgColor: '#f57c00',
         categories: [],
         brand: 'taobao',

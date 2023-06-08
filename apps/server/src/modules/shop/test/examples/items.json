@@ -4,6 +4,8 @@
     "UPC": "123456789012",
     "variations": [
       {
+        "configId": "123",
+        "valueId": "c1",
         "configName": "Color",
         "value": "Red",
         "icon": "red-icon.png"
@@ -24,11 +26,15 @@
     "UPC": "987654321098",
     "variations": [
       {
+        "configId": "123",
+        "valueId": "c2",
         "configName": "Color",
         "value": "Blue",
         "icon": "blue-icon.png"
       },
       {
+        "configId": "1234",
+        "valueId": "s1",
         "configName": "Size",
         "value": "Large",
         "icon": "large-icon.png"
@@ -44,14 +50,18 @@
     "UPC": "654321098765",
     "variations": [
       {
+        "configId": "123",
+        "valueId": "c1",
         "configName": "Color",
         "value": "Green",
         "icon": "green-icon.png"
       },
       {
+        "configId": "1234",
+        "valueId": "s2",
         "configName": "Size",
-        "value": "Small",
-        "icon": "small-icon.png"
+        "value": "Large",
+        "icon": "large-icon.png"
       }
     ],
     "price": 9.99,
