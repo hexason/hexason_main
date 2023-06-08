@@ -1,74 +1,95 @@
 import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 import { Goods } from './goods';
+import { Field, ID, ObjectType } from '@nestjs/graphql';
 
+@ObjectType()
 @Entity()
 export class Order {
+  @Field(() => ID)
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
+  @Field()
   @Column({ unique: true })
   shortId: string;
 
+  @Field()
   @Column()
   userId: string;
 
+  @Field()
   @Column()
   username: string;
 
+  @Field()
   @Column()
   address_city: string;
 
+  @Field()
   @Column()
   address_district: string;
 
+  @Field()
   @Column()
   address_street: string;
 
+  @Field()
   @Column()
   address_info: string;
 
+  @Field()
   @Column()
   contact_phone: string;
 
+  @Field()
   @Column()
   contact_email: string;
 
-  @Column()
-  additional_info: string;
-
+  @Field({ nullable: true })
   @Column({ nullable: true })
-  supplierId?: string;
+  additional_info?: string;
 
-  @Column({ nullable: true })
-  supplier_info?: string;
-
+  @Field({ nullable: true })
   @Column({ nullable: true })
   description?: string;
 
+  @Field()
   @Column()
-  status: number;
+  status: number; // 0 - pending, 1 - verified, 2 - ordered, 3 -on delivery, 4 - Arrived, 5 - delivered, 10 - closed, 20 - cancel
 
+  @Field()
   @Column({ type: 'numeric' })
   totalProductPrice: number;
 
+  @Field()
   @Column({ type: 'numeric' })
   totalDeliveryPrice: number;
 
+  @Field()
   @Column({ type: 'numeric' })
   totalPrice: number;
 
-  @Column({ type: 'numeric' })
-  paymentStatus: number;
-
+  @Field()
   @Column()
-  paidAt: string;
+  paymentStatus: number; // 0 - checking, 1 - pending, 2 - paid, 20 - cancel
 
+  @Field(() => String, { nullable: true })
+  @Column({ type: 'varchar', nullable: true })
+  paidAt?: string | null;
+
+  @Field()
   @CreateDateColumn()
   createdAt: string;
 
+  @Field()
   @UpdateDateColumn()
   updatedAt: string;
 
-  @OneToMany(() => Goods, (type) => type.order)
-  goods: Goods;
+  @Field(() => [Goods])
+  @OneToMany(() => Goods, (type) => type.order, {
+    cascade: true,
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+  })
+  goods: Goods[];
 }
