@@ -1,13 +1,13 @@
 import { gql } from "@apollo/client";
 
 export const getProduct = gql`
-	{
-		getProducts {
-			items {
-				title
-			}
-		}
-	}
+  {
+    getProducts {
+      items {
+        title
+      }
+    }
+  }
 `;
 
 export const getProductById = (id: string) => gql`
@@ -23,10 +23,19 @@ export const getProductById = (id: string) => gql`
           url
         },
         image,
+				variations {
+					configId,
+          valueId,
+          configName,
+					icon,
+					value
+				},
         items {
           id,
           price,
           variations {
+            configId,
+            valueId,
             configName,
             icon,
             value
@@ -37,35 +46,35 @@ export const getProductById = (id: string) => gql`
   `;
 
 export const getProducts = gql`
-	{
-		getProducts {
-			items {
-				id
-				title
-				price
-				sold
-				image
-			}
-		}
-	}
+  {
+    getProducts {
+      items {
+        id
+        title
+        price
+        sold
+        image
+      }
+    }
+  }
 `;
 
 export const getCategoryTree = gql`
-	{
-		getCategoryTree {
-			id
-			icon
-			title
-			children {
-				id
-				icon
-				title
-				children {
-					id
-					icon
-					title
-				}
-			}
-		}
-	}
+  {
+    getCategoryTree {
+      id
+      icon
+      title
+      children {
+        id
+        icon
+        title
+        children {
+          id
+          icon
+          title
+        }
+      }
+    }
+  }
 `;

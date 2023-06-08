@@ -16,7 +16,6 @@ import {
 	Wrap,
 } from "@chakra-ui/react";
 import Image from "next/image";
-import { ProductI } from "pointes";
 import { useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
 import { useParams } from "next/navigation";
@@ -28,18 +27,16 @@ export default function ProductDetail() {
 	const formatter = useCurrencyFormat();
 	const [allVariants, setAllVariants] = useState<{ [key: string]: any[] }>({});
 	const { id } = useParams();
-	const { loading, data } = useQuery<{ getProductById: ProductI }>(
+	const { loading, data } = useQuery<{ getProductById: any }>(
 		getProductById(id)
 	);
 
 	// HashMaping all variants
 	useEffect(() => {
-		const variations = data?.getProductById.items.reduce((variants, item) => {
-			for (const conf of item.variations) {
-				const configure = variants[conf.configName] || [];
-				configure.push(conf);
-				variants[conf.configName] = configure;
-			}
+		const variations = data?.getProductById.variations.reduce((variants: any, variant: any) => {
+			const configure = variants[variant.configName] || [];
+			configure.push(variant)
+			variants[variant.configName] = configure;
 			return variants;
 		}, {});
 		setAllVariants(variations);
