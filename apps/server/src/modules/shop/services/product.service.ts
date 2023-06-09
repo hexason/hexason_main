@@ -53,7 +53,7 @@ export class ProductService {
       if (!product) throw { code: 'NOT_FOUND', message: 'Not found product' };
     }
     // Product update item information
-    if (product.integratedId && moment().add(-1, 'minute').isAfter(product.updatedAt)) {
+    if (product.integratedId && moment().add(-24, 'hour').isAfter(product.updatedAt)) {
       const taoproduct = await this.TaobaoIntegration.getItemByTaoId(product.integratedId);
       if (!taoproduct) {
         product.status = 0;
