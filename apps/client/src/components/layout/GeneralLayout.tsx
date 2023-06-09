@@ -2,6 +2,7 @@
 import { Container, Stack } from "@chakra-ui/react";
 import { TopAdBar, TopUpBar } from "../core";
 import { usePathname } from "next/navigation";
+import { BottomBar } from "../mobile/BottomBar";
 
 export const GeneralLayout = ({ children, ...props }: any) => {
 	const pathname = usePathname();
@@ -13,6 +14,7 @@ export const GeneralLayout = ({ children, ...props }: any) => {
 			<Container as={Stack} maxW="container.xl" {...props}>
 				{children}
 			</Container>
+			<BottomBar />
 		</>
 	);
 }
