@@ -1,5 +1,5 @@
 "use client";
-import { useCurrencyFormat } from "@/hooks/userCurrencyFormatter";
+import { useCurrencyFormat, useSelectedVariations } from "@/hooks";
 import {
 	AspectRatio,
 	Avatar,
@@ -16,33 +16,24 @@ import {
 	Wrap,
 } from "@chakra-ui/react";
 import Image from "next/image";
-import { useEffect, useState } from "react";
-import { useQuery } from "@apollo/client";
-import { useParams } from "next/navigation";
-import { ThreeDotsWave } from "@/components/animation";
 import { QuantityController, ZoomImage } from "@/components/core";
-import { getProductById } from "@/lib/Services";
+import { useEffect, useState } from "react";
 
-export default function ProductDetail() {
+export default function ProductDetail({ product }: { product: any }) {
+	const { selectedVariations, handleVariationSelect } = useSelectedVariations(product.items[0].variations);
 	const formatter = useCurrencyFormat();
-	const [allVariants, setAllVariants] = useState<{ [key: string]: any[] }>({});
-	const { id } = useParams();
-	const { loading, data } = useQuery<{ getProductById: any }>(
-		getProductById(id)
-	);
+	const getMatchingItem = () => {
+		return product.items.find((item: any) => {
+			return item.variations.every((itemVariation: any) =>
+				selectedVariations.some(
+					selectedVariation =>
+						selectedVariation.configId === itemVariation.configId &&
+						selectedVariation.valueId === itemVariation.valueId
+				)
+			);
+		});
+	};
 
-	// HashMaping all variants
-	useEffect(() => {
-		const variations = data?.getProductById.variations.reduce((variants: any, variant: any) => {
-			const configure = variants[variant.configName] || [];
-			configure.push(variant)
-			variants[variant.configName] = configure;
-			return variants;
-		}, {});
-		setAllVariants(variations);
-	}, [data]);
-
-	if (loading) return <ThreeDotsWave />;
 	return (
 		<Container maxW="container.xl" my={3}>
 			<Stack spacing={6} bg="#ffffffAB" p="3" borderRadius={"20px"}>
@@ -56,7 +47,7 @@ export default function ProductDetail() {
 						>
 							<Box position={"absolute"} w="100%">
 								<ZoomImage
-									img={data?.getProductById.image}
+									img={product.image}
 									zoomScale={3}
 									width={379}
 									height={379}
@@ -68,29 +59,29 @@ export default function ProductDetail() {
 						<Stack h="100%" spacing={6}>
 							<Stack>
 								<Text color="black" fontSize={"1.5rem"} fontWeight={"bold"}>
-									{data?.getProductById.title}
+									{product.title}
 								</Text>
-								{data?.getProductById.sold && (
+								{product.sold && (
 									<Text fontSize={"1rem"} opacity={"0.5"}>
-										{formatter(data?.getProductById.sold, "short")} зарагдсан
+										{formatter(product.sold, "short")} зарагдсан
 									</Text>
 								)}
 								<Tag fontWeight={"bold"} textTransform={"uppercase"} p={3}>
 									<Avatar
 										mr={3}
-										src={data?.getProductById.supplier.logo}
+										src={product.supplier.logo}
 										size={"sm"}
 									/>
-									{data?.getProductById.supplier.name}
+									{product.supplier.name}
 								</Tag>
 								<HStack spacing={"10px"}>
 									<Text fontSize={"1.5rem"} color="hexmain.800">
-										{formatter(data?.getProductById.price || 0, "short")} ₮
+										{formatter(getMatchingItem().price || product.price, "short")} ₮
 									</Text>
 								</HStack>
 							</Stack>
 							<Stack>
-								<Varaints allVariants={allVariants} />
+								<Varaints selectedVariations={selectedVariations} handleVariationSelect={handleVariationSelect} product={product} />
 								<Stack>
 									<Text>Тоо ширхэг:</Text>
 									<QuantityController />
@@ -110,14 +101,14 @@ export default function ProductDetail() {
 				</Grid>
 				<Divider />
 				<Stack alignItems={"center"} spacing={"0"}>
-					{data?.getProductById.images.map((img: any) => (
+					{product.images.map((img: any) => (
 						<Image
 							width={600}
 							height={400}
 							unoptimized
 							key={img._id}
 							src={img.url}
-							alt={data?.getProductById.title + img._id}
+							alt={product.title + img._id}
 						/>
 					))}
 				</Stack>
@@ -127,19 +118,42 @@ export default function ProductDetail() {
 }
 
 const Varaints = ({
-	allVariants,
-}: {
-	allVariants: { [key: string]: any[] };
-}) => {
+	selectedVariations,
+	handleVariationSelect,
+	product,
+}: any) => {
+	const [allVariants, setAllVariants] = useState<any>({})
+	// HashMaping all variants
+	useEffect(() => {
+		const variations = product.variations.reduce((variants: any, variant: any) => {
+			const configure = variants[variant.configName] || [];
+			configure.push(variant)
+			variants[variant.configName] = configure;
+			return variants;
+		}, {});
+		setAllVariants(variations);
+	}, [product]);
+
+	if (!product) return null;
 	return (
 		<Box>
-			{Object.keys(allVariants || {}).map((key) => {
+			{Object.keys(allVariants || {}).map((key: string) => {
 				return (
 					<Stack key={key} alignItems={"start"}>
 						<Text w="150px">{key}:</Text>
 						<Wrap>
-							{allVariants[key].map((item) => (
-								<Tag key={item._id} bg="hexmain.500" mr={2}>
+							{allVariants[key].map((item: any) => (
+								<Tag
+									key={item._id}
+									cursor={"pointer"}
+									bg="hexmain.500"
+									mr={2}
+									opacity={
+										selectedVariations.some(
+											(v: any) => v.configId === item.configId && v.valueId === item.valueId
+										) ? 1 : 0.5}
+									onClick={() => handleVariationSelect(item)}
+								>
 									{item.icon ? (
 										<Image
 											width={50}
