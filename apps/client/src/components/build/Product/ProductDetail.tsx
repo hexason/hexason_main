@@ -20,7 +20,7 @@ import { QuantityController, ZoomImage } from "@/components/core";
 import { useEffect, useState } from "react";
 
 export default function ProductDetail({ product }: { product: any }) {
-	const { selectedVariations, handleVariationSelect } = useSelectedVariations(product.items[0].variations);
+	const { selectedVariations, handleVariationSelect } = useSelectedVariations(product.items.length > 0 ? product.items[0].variations : []);
 	const formatter = useCurrencyFormat();
 	const getMatchingItem = () => {
 		return product.items.find((item: any) => {
@@ -31,7 +31,7 @@ export default function ProductDetail({ product }: { product: any }) {
 						selectedVariation.valueId === itemVariation.valueId
 				)
 			);
-		});
+		}) || {};
 	};
 
 	return (
