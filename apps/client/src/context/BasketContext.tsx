@@ -2,18 +2,21 @@ import { createContext, useContext, useReducer } from "react";
 
 type BasketProviderProps = { children: React.ReactNode };
 type Product = {
-	access_token: string | undefined;
-	id_token: string | undefined;
-	id: string | undefined;
+	info: {
+		id: string;
+		title: string;
+	};
+	price: string;
+	quantity: number;
 };
 type Action = {
-	type: "login" | "logout";
-	product?: Product;
+	type: "update";
+	products: Product[];
 };
 type Dispatch = (action: Action) => void;
 
 interface BasketContextInterface {
-	product: Product;
+	products: Product[];
 	dispatch: Dispatch;
 }
 
@@ -21,18 +24,12 @@ const UserContext = createContext<BasketContextInterface | undefined>(
 	undefined
 );
 
-function BasketReducer(product: Product, action: Action) {
+function BasketReducer(products: Product[], action: Action) {
 	switch (action.type) {
-		case "login": {
-			return {
-				access_token: action.product?.access_token,
-				id_token: action.product?.id_token,
-				id: action.product?.id,
-			};
+		case "update": {
+			return action.products;
 		}
-		case "logout": {
-			return { access_token: undefined, id_token: undefined, id: undefined };
-		}
+
 		default: {
 			throw new Error(`Unhandled action: ${action}`);
 		}
@@ -40,13 +37,9 @@ function BasketReducer(product: Product, action: Action) {
 }
 
 function BasketProvider({ children }: BasketProviderProps) {
-	const [product, dispatch] = useReducer(BasketReducer, {
-		access_token: undefined,
-		id_token: undefined,
-		id: undefined,
-	});
+	const [products, dispatch] = useReducer(BasketReducer, []);
 
-	const value = { product, dispatch };
+	const value = { products, dispatch };
 	return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 }
 
