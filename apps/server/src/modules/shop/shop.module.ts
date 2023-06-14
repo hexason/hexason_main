@@ -8,12 +8,16 @@ import * as models from './models';
 import { MongooseModule } from '@nestjs/mongoose';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver } from '@nestjs/apollo';
+import { join } from 'path';
 
 @Module({
   imports: [
     GraphQLModule.forRoot({
       driver: ApolloDriver,
       playground: true,
+      definitions: {
+        path: join(process.cwd(), 'src/graphql.ts'),
+      },
       autoSchemaFile: true,
     }),
     MongooseModule.forFeature(
