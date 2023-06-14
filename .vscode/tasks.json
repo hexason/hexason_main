@@ -1,0 +1,14 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "npm",
+			"script": "start:debug",
+			"path": "apps/server",
+			"group": "rebuild",
+			"problemMatcher": [],
+			"label": "npm: start:debug - apps/server",
+			"detail": "nest start --debug --watch"
+		}
+	]
+}

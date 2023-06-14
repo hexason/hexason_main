@@ -24,5 +24,6 @@ import { ApolloDriver } from '@nestjs/apollo';
   ],
   controllers: Object.values(controllers),
   providers: [...Object.values(services), ...Object.values(resolvers)],
+  exports: [...Object.values(services)],
 })
 export class ShopModule {}

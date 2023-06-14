@@ -56,10 +56,21 @@ export class TaobaoService {
       };
     }, {});
 
+    const Variations = Object.keys(Attributes).map((key) => ({
+      configId: Attributes[key].Pid,
+      valueId: Attributes[key].Vid,
+      configName: Attributes[key].PropertyName,
+      value: Attributes[key].Value,
+      icon: Attributes[key].MiniImageUrl,
+      mainImage: Attributes[key].ImageUrl,
+    }));
+
     const Items = data.Result.Item.ConfiguredItems.map((conf) => {
       const variations = conf.Configurators.map((el) => {
         const asset = Attributes[`${el.Pid}${el.Vid}]`];
         return {
+          configId: el.Pid,
+          valueId: el.Vid,
           configName: asset.PropertyName,
           value: asset.Value,
           icon: asset.MiniImageUrl,
@@ -80,6 +91,7 @@ export class TaobaoService {
       ...data.Result.Item,
       Images: images,
       Items,
+      Variations,
     };
   }
 }

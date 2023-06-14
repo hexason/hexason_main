@@ -4,3 +4,6 @@ export * from './category.model';
 export * from './supplier.model';
 export * from './product_view.model';
 export * from './backpack.model';
+
+// Not collection sub document
+export * from './variation.sub';

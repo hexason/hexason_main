@@ -5,6 +5,7 @@ import { ProductI } from 'pointes';
 import { Field, ID, ObjectType } from '@nestjs/graphql';
 import { Item } from './item.model';
 import { Category } from './category.model';
+import { Variation } from './variation.sub';
 
 export type ProductDocument = Product & Document;
 @ObjectType({ description: 'product' })
@@ -72,6 +73,10 @@ export class Product implements Partial<ProductI> {
   @Field(() => [Item])
   @Prop({ type: [{ type: Types.ObjectId, ref: 'Item' }] })
   items: any[];
+
+  @Field(() => [Variation])
+  @Prop({ type: [new Variation().getSchema()] })
+  variations: Variation[];
 
   @Field()
   createdAt: string;

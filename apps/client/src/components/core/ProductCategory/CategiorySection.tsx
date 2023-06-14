@@ -1,11 +1,16 @@
 import { Box, Stack, Text } from "@chakra-ui/react";
-import { testCategories } from "./mocks";
 import { ContainerStyle } from "@/theme/common";
 import { useState } from "react";
 import SubCategory from "./Category";
+import { getCategoryTree } from "@/lib/Services";
+import { useQuery } from "@apollo/client";
+import { ThreeDotsWave } from "@/components/animation";
+import { CategoryItem } from "./type";
 
 const CategiorySection = () => {
+	const { data, loading } = useQuery(getCategoryTree);
 	const [isHover, setHover] = useState(false);
+	const [localHaveChild, setLocalHaveChild] = useState(false);
 	const [isOuterHover, setOuterHover] = useState(false);
 	const MouseIn = () => {
 		setHover(true);
@@ -21,6 +26,8 @@ const CategiorySection = () => {
 		setOuterHover(false);
 	};
 
+	if (loading) return <ThreeDotsWave />;
+
 	return (
 		<Box
 			onMouseEnter={MouseIn}
@@ -31,13 +38,15 @@ const CategiorySection = () => {
 		>
 			<Box
 				pos="absolute"
-				w={isOuterHover ? "600px" : "250px"}
+				w={isOuterHover && localHaveChild ? "600px" : "250px"}
+				minH="100%"
 				zIndex={100}
 				{...(() => (isHover ? ContainerStyle : {}))()}
 			>
 				<Stack w="250px" p={4} pr={0} spacing={0}>
-					{testCategories.map((e) => (
+					{data.getCategoryTree.map((e: CategoryItem) => (
 						<SubCategory
+							setLocalHaveChild={setLocalHaveChild}
 							setOuterIn={OuterMouseIn}
 							setOuterOut={OuterMouseOut}
 							key={e.id}
