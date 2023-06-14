@@ -3,6 +3,7 @@ import { Types } from 'mongoose';
 import { ItemI } from 'pointes';
 import { Product } from './product.model';
 import { Field, ID, ObjectType } from '@nestjs/graphql';
+import { Variation } from './variation.sub';
 
 @ObjectType()
 @Schema({ timestamps: true })
@@ -20,14 +21,7 @@ export class Item implements ItemI {
 
   @Field(() => [Variation])
   @Prop({
-    type: [
-      {
-        configName: { type: String, required: true },
-        value: { type: String, required: true },
-        icon: String,
-        mainImage: String,
-      },
-    ],
+    type: [new Variation().getSchema()],
   })
   variations: Variation[];
 
@@ -48,20 +42,6 @@ export class Item implements ItemI {
   product: Product | Types.ObjectId | unknown;
 }
 
-@ObjectType()
-export class Variation {
-  @Field()
-  configName: string;
-
-  @Field()
-  value: string;
-
-  @Field({ nullable: true })
-  icon: string;
-
-  @Field({ nullable: true })
-  mainImage: string;
-}
 const ItemSchema = SchemaFactory.createForClass(Item);
 ItemSchema.set('toJSON', {
   virtuals: true,

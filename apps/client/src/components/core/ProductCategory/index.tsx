@@ -1,4 +1,4 @@
-import { Box, GridItem, SimpleGrid } from "@chakra-ui/react";
+import { GridItem, SimpleGrid } from "@chakra-ui/react";
 import Highlight from "./Highlight";
 import { HighlightCard, HomeHighlightType } from "./type";
 import CategiorySection from "./CategiorySection";

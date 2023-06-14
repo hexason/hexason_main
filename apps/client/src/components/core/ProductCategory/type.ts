@@ -15,13 +15,7 @@ export type HighlightCard = {
 
 export type CategoryItem = {
 	id: string;
-	name: string;
-};
-
-export type SubCategory = CategoryItem & {
-	CategoryItems: Array<CategoryItem>;
-};
-
-export type Category = CategoryItem & {
-	SubCategories: Array<SubCategory>;
+	title: string;
+	icon?: string;
+	children?: Array<CategoryItem>;
 };

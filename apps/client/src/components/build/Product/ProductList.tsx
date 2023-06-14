@@ -1,24 +1,13 @@
 "use client";
 import { ThreeDotsWave } from "@/components/animation";
 import { ProductCard } from "@/components/core";
+import { getProducts } from "@/lib/Services";
 import { ContainerStyle } from "@/theme/common";
-import { gql, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { Container, Grid, Tag } from "@chakra-ui/react";
 
 export default function ProductList() {
-	const { loading, data } = useQuery(gql`
-		{
-			getProducts {
-				items {
-					id
-					title
-					price
-					sold
-					image
-				}
-			}
-		}
-	`);
+	const { loading, data } = useQuery(getProducts);
 
 	if (loading)
 		return (

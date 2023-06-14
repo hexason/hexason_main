@@ -4,6 +4,7 @@ import { ItemI, ProductI } from 'pointes';
 import { Item, Product } from '../models';
 import { SortArgs } from '../validation/ProductArgs';
 import { Inject, Optional } from '@nestjs/common';
+import * as moment from 'moment';
 
 type getProductType = { filter?: Partial<ProductI>; skip?: number; take?: number; sort?: SortArgs[] };
 export class ProductService {
@@ -26,7 +27,7 @@ export class ProductService {
           sort: option?.sort?.reduce((att, itt) => ({ ...att, [itt.key]: itt.value }), {}),
         },
       )
-      .sort({ status: 'asc', createdAt: 'desc' })
+      .sort({ status: 'asc', updatedAt: 'desc' })
       .populate(['supplier', 'categories']);
 
     const count = await this.productModel.count(option?.filter);
@@ -49,6 +50,30 @@ export class ProductService {
     if (!product) {
       if (this.TaobaoIntegration) product = await this.getIntegratedProduct(id as string);
       else throw { code: 'NOT_FOUND', message: 'Not found product' };
+      if (!product) throw { code: 'NOT_FOUND', message: 'Not found product' };
+    }
+    // Product update item information
+    if (product.integratedId && moment().add(-24, 'hour').isAfter(product.updatedAt)) {
+      const taoproduct = await this.TaobaoIntegration.getItemByTaoId(product.integratedId);
+      if (!taoproduct) {
+        product.status = 0;
+        await product.save();
+        throw { code: 'NOT_FOUND', message: 'Not found product' };
+      }
+      const items = taoproduct.Items.map((newItem) => {
+        const item = product.items.find((i) => newItem.SKU === i.SKU);
+        if (!item) return new this.itemModel({ ...newItem, product: product._id });
+        item.price = newItem.price;
+        item.stock = newItem.stock;
+        item.variations = newItem.variations;
+        return item;
+      });
+      await this.itemModel.bulkSave(items);
+      product.price = taoproduct.Price.ConvertedPriceList.Internal.Price;
+      product.variations = taoproduct.Variations;
+      product.items = items;
+      await product.save();
+      await product.populate(['supplier', 'categories', 'items']);
     }
     return product;
   }
@@ -67,6 +92,7 @@ export class ProductService {
         integratedId: id,
         image: taoproduct.MainPictureUrl,
         description: taoproduct.Description,
+        variations: taoproduct.Variations,
         bgColor: '#f57c00',
         categories: [],
         brand: 'taobao',
