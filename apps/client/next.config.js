@@ -36,9 +36,6 @@ const nextConfig = {
     return config
   },
   reactStrictMode: true,
-  images: {
-    domains: ['img.alicdn.com', "i.ibb.co", "file.firebat.com.cn"],
-  },
   experimental: {
     appDir: true,
   }
