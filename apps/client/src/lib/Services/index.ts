@@ -23,6 +23,25 @@ export const getBasketProducts = gql`
 	}
 `;
 
+export const addToBasket = ({
+	productId,
+	quantity,
+}: {
+	productId: string;
+	quantity: number;
+}) => gql`
+	mutation {
+		addToBasket(data: { productId: ${productId}, quantity: ${quantity} }) {
+			info {
+				id
+				title
+			}
+			price
+			quantity
+		}
+	}
+`;
+
 export const getProductById = (id: string) => gql`
     {
       getProductById (id: "${id}"){
