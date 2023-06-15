@@ -1,6 +1,9 @@
-import { createContext, useContext, useReducer } from "react";
+import { getBasketProducts } from "@/lib/Services";
+import { useLazyQuery } from "@apollo/client";
+import { createContext, useContext, useEffect, useReducer } from "react";
 
 type BasketProviderProps = { children: React.ReactNode };
+
 type Product = {
 	info: {
 		id: string;
@@ -9,27 +12,40 @@ type Product = {
 	price: string;
 	quantity: number;
 };
+
 type Action = {
-	type: "update";
-	products: Product[];
+	type: "update" | "open" | "close";
+	products?: Array<Product>;
 };
+
 type Dispatch = (action: Action) => void;
 
+type Basket = {
+	products: Array<Product>;
+	isOpen: boolean;
+};
+
 interface BasketContextInterface {
-	products: Product[];
-	dispatch: Dispatch;
+	basket: Basket;
+	basketController: (action: Action) => void;
+	isLoading: boolean;
 }
 
 const UserContext = createContext<BasketContextInterface | undefined>(
 	undefined
 );
 
-function BasketReducer(products: Product[], action: Action) {
+function BasketReducer(basket: Basket, action: Action) {
 	switch (action.type) {
 		case "update": {
-			return action.products;
+			return { ...basket, products: action.products! };
 		}
-
+		case "open": {
+			return { ...basket, isOpen: true };
+		}
+		case "close": {
+			return { ...basket, isOpen: false };
+		}
 		default: {
 			throw new Error(`Unhandled action: ${action}`);
 		}
@@ -37,9 +53,31 @@ function BasketReducer(products: Product[], action: Action) {
 }
 
 function BasketProvider({ children }: BasketProviderProps) {
-	const [products, dispatch] = useReducer(BasketReducer, []);
+	const [GetBasketProducts, { loading }] = useLazyQuery(getBasketProducts);
+	const [basket, dispatch] = useReducer(BasketReducer, {
+		products: [],
+		isOpen: false,
+	});
 
-	const value = { products, dispatch };
+	const init = async () => {
+		const res = await GetBasketProducts();
+		console.log(res);
+	};
+
+	useEffect(() => {
+		init();
+	}, []);
+
+	const basketController = async (action: Action) => {
+		switch (action.type) {
+			case "update":
+				break;
+			default:
+				dispatch(action);
+		}
+	};
+
+	const value = { basket, basketController, isLoading: loading };
 	return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 }
 
