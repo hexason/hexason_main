@@ -71,7 +71,7 @@
   "devDependencies": {
     "@nestia/e2e": "^0.2.3",
     "@nestia/sdk": "^1.2.8",
-    "@nestjs/cli": "^9.4.1",
+    "@nestjs/cli": "^9.5.0",
     "@nestjs/schematics": "^9.1.0",
     "@nestjs/testing": "^9.4.0",
     "@types/bcrypt": "^5.0.0",
