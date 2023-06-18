@@ -16,6 +16,7 @@ export const getBasketProducts = gql`
 			info {
 				id
 				title
+				image
 			}
 			price
 			quantity
@@ -23,18 +24,13 @@ export const getBasketProducts = gql`
 	}
 `;
 
-export const addToBasket = ({
-	productId,
-	quantity,
-}: {
-	productId: string;
-	quantity: number;
-}) => gql`
-	mutation {
-		addToBasket(data: { productId: ${productId}, quantity: ${quantity} }) {
+export const addToBasket = gql`
+	mutation AddToBasket($productId: String!, $quantity: Float!) {
+		addToBasket(data: { productId: $productId, quantity: $quantity }) {
 			info {
 				id
 				title
+				image
 			}
 			price
 			quantity

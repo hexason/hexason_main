@@ -18,20 +18,26 @@ import {
 import Image from "next/image";
 import { QuantityController, ZoomImage } from "@/components/core";
 import { useEffect, useState } from "react";
+import { useBasket } from "@/context/BasketContext";
 
 export default function ProductDetail({ product }: { product: any }) {
-	const { selectedVariations, handleVariationSelect } = useSelectedVariations(product.items.length > 0 ? product.items[0].variations : []);
+	const { updateProduct, updateLoading } = useBasket();
+	const { selectedVariations, handleVariationSelect } = useSelectedVariations(
+		product.items.length > 0 ? product.items[0].variations : []
+	);
 	const formatter = useCurrencyFormat();
 	const getMatchingItem = () => {
-		return product.items.find((item: any) => {
-			return item.variations.every((itemVariation: any) =>
-				selectedVariations.some(
-					selectedVariation =>
-						selectedVariation.configId === itemVariation.configId &&
-						selectedVariation.valueId === itemVariation.valueId
-				)
-			);
-		}) || {};
+		return (
+			product.items.find((item: any) => {
+				return item.variations.every((itemVariation: any) =>
+					selectedVariations.some(
+						(selectedVariation) =>
+							selectedVariation.configId === itemVariation.configId &&
+							selectedVariation.valueId === itemVariation.valueId
+					)
+				);
+			}) || {}
+		);
 	};
 
 	return (
@@ -67,27 +73,42 @@ export default function ProductDetail({ product }: { product: any }) {
 									</Text>
 								)}
 								<Tag fontWeight={"bold"} textTransform={"uppercase"} p={3}>
-									<Avatar
-										mr={3}
-										src={product.supplier.logo}
-										size={"sm"}
-									/>
+									<Avatar mr={3} src={product.supplier.logo} size={"sm"} />
 									{product.supplier.name}
 								</Tag>
 								<HStack spacing={"10px"}>
 									<Text fontSize={"1.5rem"} color="hexmain.800">
-										{formatter(getMatchingItem().price || product.price, "short")} ₮
+										{formatter(
+											getMatchingItem().price || product.price,
+											"short"
+										)}{" "}
+										₮
 									</Text>
 								</HStack>
 							</Stack>
 							<Stack>
-								<Varaints selectedVariations={selectedVariations} handleVariationSelect={handleVariationSelect} product={product} />
+								<Varaints
+									selectedVariations={selectedVariations}
+									handleVariationSelect={handleVariationSelect}
+									product={product}
+								/>
 								<Stack>
 									<Text>Тоо ширхэг:</Text>
 									<QuantityController />
 								</Stack>
 							</Stack>
 							<HStack>
+								<Button
+									isLoading={updateLoading}
+									onClick={() => {
+										updateProduct({
+											productId: product.id,
+											quantity: 1,
+										});
+									}}
+								>
+									Fav
+								</Button>
 								<Button>Сагслах</Button>
 								<Button>Шууд захиалах</Button>
 							</HStack>
@@ -122,15 +143,18 @@ const Varaints = ({
 	handleVariationSelect,
 	product,
 }: any) => {
-	const [allVariants, setAllVariants] = useState<any>({})
+	const [allVariants, setAllVariants] = useState<any>({});
 	// HashMaping all variants
 	useEffect(() => {
-		const variations = product.variations.reduce((variants: any, variant: any) => {
-			const configure = variants[variant.configName] || [];
-			configure.push(variant)
-			variants[variant.configName] = configure;
-			return variants;
-		}, {});
+		const variations = product.variations.reduce(
+			(variants: any, variant: any) => {
+				const configure = variants[variant.configName] || [];
+				configure.push(variant);
+				variants[variant.configName] = configure;
+				return variants;
+			},
+			{}
+		);
 		setAllVariants(variations);
 	}, [product]);
 
@@ -150,8 +174,13 @@ const Varaints = ({
 									mr={2}
 									opacity={
 										selectedVariations.some(
-											(v: any) => v.configId === item.configId && v.valueId === item.valueId
-										) ? 1 : 0.5}
+											(v: any) =>
+												v.configId === item.configId &&
+												v.valueId === item.valueId
+										)
+											? 1
+											: 0.5
+									}
 									onClick={() => handleVariationSelect(item)}
 								>
 									{item.icon ? (

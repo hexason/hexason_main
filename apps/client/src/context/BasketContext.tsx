@@ -1,35 +1,15 @@
-import { getBasketProducts } from "@/lib/Services";
-import { useLazyQuery } from "@apollo/client";
+import BasketDrawer from "@/components/core/BasketDrawer";
+import { addToBasket, getBasketProducts } from "@/lib/Services";
+import { useLazyQuery, useMutation } from "@apollo/client";
 import { createContext, useContext, useEffect, useReducer } from "react";
-
-type BasketProviderProps = { children: React.ReactNode };
-
-type Product = {
-	info: {
-		id: string;
-		title: string;
-	};
-	price: string;
-	quantity: number;
-};
-
-type Action = {
-	type: "update" | "open" | "close";
-	products?: Array<Product>;
-};
-
-type Dispatch = (action: Action) => void;
-
-type Basket = {
-	products: Array<Product>;
-	isOpen: boolean;
-};
-
-interface BasketContextInterface {
-	basket: Basket;
-	basketController: (action: Action) => void;
-	isLoading: boolean;
-}
+import {
+	Action,
+	Actions,
+	Basket,
+	BasketContextInterface,
+	BasketProviderProps,
+	UpdateProduct,
+} from "./Basket.types";
 
 const UserContext = createContext<BasketContextInterface | undefined>(
 	undefined
@@ -54,31 +34,85 @@ function BasketReducer(basket: Basket, action: Action) {
 
 function BasketProvider({ children }: BasketProviderProps) {
 	const [GetBasketProducts, { loading }] = useLazyQuery(getBasketProducts);
+	const [UpdateBasketProducts, { loading: updateLoading }] =
+		useMutation(addToBasket);
 	const [basket, dispatch] = useReducer(BasketReducer, {
 		products: [],
 		isOpen: false,
 	});
 
 	const init = async () => {
-		const res = await GetBasketProducts();
-		console.log(res);
+		const { data } = await GetBasketProducts();
+		if (data) {
+			dispatch({ type: "update", products: data.getBasketProducts });
+		}
 	};
+
+	//#region Thigs that will deleted in prod
+	useEffect(() => {
+		console.log(basket);
+	}, [basket]);
+	//#endregion
 
 	useEffect(() => {
 		init();
 	}, []);
 
-	const basketController = async (action: Action) => {
-		switch (action.type) {
+	const basketController = async (action: Actions, product?: UpdateProduct) => {
+		switch (action) {
 			case "update":
+				const { productId, quantity } = product!;
+				const res = await UpdateBasketProducts({
+					variables: { productId, quantity },
+				});
+				if (res.data) {
+					dispatch({
+						type: "update",
+						products: res.data.addToBasket,
+					});
+					dispatch({ type: "open" });
+				}
+				if (res.errors) {
+				}
 				break;
 			default:
-				dispatch(action);
+				dispatch({ type: action });
 		}
 	};
 
-	const value = { basket, basketController, isLoading: loading };
-	return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
+	//#region Common functions
+	const onClose = () => basketController("close");
+	const onOpen = () => basketController("open");
+	const updateProduct = (product: UpdateProduct) =>
+		basketController("update", product);
+	//#endregion
+
+	//#region Component props
+	const drawerProp = {
+		onClose,
+		isOpen: basket.isOpen,
+		data: basket.products,
+		updateProduct,
+		updateLoading,
+	};
+	const value = {
+		basket,
+		loading,
+		updateLoading,
+		count: basket.products.length,
+		basketController,
+		updateProduct,
+		onClose,
+		onOpen,
+	};
+	//#endregion
+
+	return (
+		<>
+			<UserContext.Provider value={value}>{children}</UserContext.Provider>
+			<BasketDrawer {...drawerProp} />
+		</>
+	);
 }
 
 function useBasket() {
