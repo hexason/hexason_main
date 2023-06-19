@@ -28,6 +28,7 @@ export class TaobaoService {
   }
 
   async getItemByTaoId(id: string) {
+    if (isNaN(+id)) throw { code: '404', message: 'NOT_VALID_ID' };
     const data = await this.fetchApi('BatchGetItemFullInfo', {
       params: {
         itemId: id,

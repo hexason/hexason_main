@@ -6,21 +6,12 @@
   "configurations": [
     {
       "type": "node",
-      "request": "launch",
-      "name": "Debug Nest Framework",
-      "cwd": "${workspaceFolder}/apps/server",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": [
-        "run",
-        "start:debug",
-        "--",
-        "--inspect-brk"
-      ],
-      "autoAttachChildProcesses": true,
+      "request": "attach",
+      "name": "Attach NestJS WS",
+      "port": 9229,
       "restart": true,
-      "sourceMaps": true,
       "stopOnEntry": false,
-      "console": "integratedTerminal",
+      "protocol": "inspector"
     }
   ]
 }
