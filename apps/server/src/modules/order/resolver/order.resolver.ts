@@ -16,12 +16,15 @@ export class OrderResolver {
     const order = await this.orderService.getOrders(user.sub);
     return order;
   }
-  
+
   @Query(() => [Goods])
   async getGoods(@CurrentUserGQL() user: any) {
     if (user.sub === 'unknown') return [];
     const orders = await this.orderService.getOrders(user.sub);
-    const goods = orders.reduce((goods, order) => goods.concat(order.goods.map(good=> ({...good, order: order}))), [] as Goods[])
+    const goods = orders.reduce(
+      (goods, order) => goods.concat(order.goods.map((good) => ({ ...good, order: order }))),
+      [] as Goods[],
+    );
     return goods;
   }
 
