@@ -1,5 +1,5 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
-import { Order } from '../models';
+import { Goods, Order } from '../models';
 import { OrderService } from '../services/OrderService.service';
 import { CurrentUserGQL, CustomerAuth } from '@/modules/auth';
 import { ItemOrderCreate, OrderCreateArgument } from '../gql/OrderQL';
@@ -15,6 +15,14 @@ export class OrderResolver {
     if (user.sub === 'unknown') return [];
     const order = await this.orderService.getOrders(user.sub);
     return order;
+  }
+  
+  @Query(() => [Goods])
+  async getGoods(@CurrentUserGQL() user: any) {
+    if (user.sub === 'unknown') return [];
+    const orders = await this.orderService.getOrders(user.sub);
+    const goods = orders.reduce((goods, order) => goods.concat(order.goods.map(good=> ({...good, order: order}))), [] as Goods[])
+    return goods;
   }
 
   @Mutation(() => Order)
