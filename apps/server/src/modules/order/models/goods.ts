@@ -44,9 +44,9 @@ export class Goods {
   @Column({ nullable: true })
   productUrl: string;
 
-  @Field()
+  @Field(() => Number)
   @Column()
-  totalPrice: string;
+  totalPrice: number;
 
   @Field()
   @Column()
