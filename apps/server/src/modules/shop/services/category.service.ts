@@ -1,26 +1,22 @@
 import { Category } from '../models';
-import { CategoryCreateType } from 'pointes';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
+import { CategoryCreateDto } from '../validation/CategoryControllerDto';
 
 export class CategoryService {
   constructor(@InjectModel(Category.name) private readonly categoryModel: Model<Category>) {}
 
-  async createCategory({ name, description, parent }: CategoryCreateType) {
-    if (await this.categoryModel.findOne({ name })) throw { code: 'DUPLICABLE_DATA', message: 'Category exist' };
-    const category = new this.categoryModel({
-      name,
-      description,
-      parent,
-    });
+  async createCategory({ title, icon, parent, slug }: CategoryCreateDto) {
+    let category = await this.categoryModel.findOne({ slug: (slug || '').toLocaleLowerCase() });
+    const countCategory = await this.categoryModel.count({});
+    if (!category) category = new this.categoryModel({ title, icon, slug: slug || `category-${countCategory}` });
+    category.title = title;
+    category.icon = icon;
+    const parentCategory = await this.categoryModel.findById(parent).catch(() => null);
+    category.parent = parentCategory;
 
+    await category.populate('parent');
     await category.save();
-    if (parent) {
-      const parentCategory = await this.categoryModel.findById(parent);
-      if (!parentCategory) throw { code: 'NOT_FOUND_DATA', message: 'Category not found' };
-      await parentCategory.save();
-    }
-
     return category;
   }
 
