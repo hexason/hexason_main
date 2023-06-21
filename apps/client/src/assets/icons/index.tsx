@@ -7,11 +7,11 @@ import HeartIcon from "./heart-svgrepo-com.svg";
 import ShopCartIcon from "./shopping-cart-outline-svgrepo-com.svg";
 
 export {
-	TrashIcon,
-	EyeIcon,
-	SendIcon,
-	GTransIcon,
-	ArrorLeft,
-	ShopCartIcon,
-	HeartIcon,
+  TrashIcon,
+  EyeIcon,
+  SendIcon,
+  GTransIcon,
+  ArrorLeft,
+  ShopCartIcon,
+  HeartIcon,
 };

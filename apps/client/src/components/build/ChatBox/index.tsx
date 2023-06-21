@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -10,19 +10,22 @@ const ChatBox = () => {
   const [messages, setMessages] = useState<any>([
     { role: "assistant", content: "Hello. I'm Hexy. I'm here to help you." },
   ]);
-  const [session, setSession] = useState(Date.now().toString(32) + Math.random())
+  const [session, setSession] = useState(
+    Date.now().toString(32) + Math.random()
+  );
   const [loading, setLoading] = useState(false);
   const [translate, setTranslate] = useState(true);
 
   useEffect(() => {
-    if (localStorage.getItem('p_chat')) setSession(localStorage.getItem('p_chat') as string);
-    else localStorage.setItem('p_chat', session);
+    if (localStorage.getItem("p_chat"))
+      setSession(localStorage.getItem("p_chat") as string);
+    else localStorage.setItem("p_chat", session);
   }, [session]);
 
   const submitted = (newMessage: any) => {
     if (loading) return;
     setLoading(true);
-    setMessages([...messages, { role: "user", content: newMessage }])
+    setMessages([...messages, { role: "user", content: newMessage }]);
     if (newMessage !== "") {
       axios({
         baseURL: process.env.NEXT_PUBLIC_API_URL,
@@ -31,9 +34,12 @@ const ChatBox = () => {
         data: {
           session,
           message: newMessage,
-          translate: translate
-        }
-      }).then(response => setMessages(response.data)).catch(e => alert(e.message)).finally(() => setLoading(false));
+          translate: translate,
+        },
+      })
+        .then((response) => setMessages(response.data))
+        .catch((e) => alert(e.message))
+        .finally(() => setLoading(false));
     }
   };
 
@@ -46,7 +52,10 @@ const ChatBox = () => {
       borderRadius={"20px"}
     >
       <HStack px={6} pt={3}>
-        <Checkbox isChecked={translate} onChange={(e) => setTranslate(e.target.checked)} />
+        <Checkbox
+          isChecked={translate}
+          onChange={(e) => setTranslate(e.target.checked)}
+        />
         <Text fontSize={"14px"}>Google Translate ашиглах</Text>
       </HStack>
       <Divider />

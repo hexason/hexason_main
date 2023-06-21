@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { ThreeDotsWave } from "@/components/animation";
 import { ProductDetail } from "@/components/build";
 import { NotFound } from "@/components/core/NotFound";
@@ -13,6 +13,6 @@ export default function Page() {
   );
 
   if (loading) return <ThreeDotsWave />;
-  if (!data) return <NotFound />
-  return <ProductDetail product={data?.getProductById} />
+  if (!data) return <NotFound />;
+  return <ProductDetail product={data?.getProductById} />;
 }

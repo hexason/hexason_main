@@ -4,16 +4,16 @@ import components from "./components";
 import styles from "./styles";
 
 const config = {
-	useSystemColorMode: false,
-	initialColorMode: "light",
-	cssVarPrefix: "hexason",
+  useSystemColorMode: false,
+  initialColorMode: "light",
+  cssVarPrefix: "hexason",
 };
 
 export const theme = {
-	...foundations,
-	components,
-	config,
-	styles,
+  ...foundations,
+  components,
+  config,
+  styles,
 };
 
 export default extendTheme(theme);

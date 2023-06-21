@@ -1,11 +1,22 @@
-import { Stack, Button, Box, Divider, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerOverlay, useDisclosure } from "@chakra-ui/react";
+import {
+  Stack,
+  Button,
+  Box,
+  Divider,
+  Drawer,
+  DrawerBody,
+  DrawerCloseButton,
+  DrawerContent,
+  DrawerOverlay,
+  useDisclosure,
+} from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { useEffect, useState } from "react";
-import { useSupabaseClient } from "@/lib/supabase-react"
+import { useSupabaseClient } from "@/lib/supabase-react";
 
 export const AdminSidebar = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure()
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
     <Stack>
@@ -19,8 +30,8 @@ export const AdminSidebar = () => {
         <SidebarContent />
       </Stack>
     </Stack>
-  )
-}
+  );
+};
 
 function SidebarButton({ children, isActive, onClick }: any) {
   return (
@@ -36,9 +47,8 @@ function SidebarButton({ children, isActive, onClick }: any) {
     >
       {children}
     </Button>
-  )
+  );
 }
-
 
 function SidebarContent() {
   const [active] = useState("");
@@ -51,43 +61,43 @@ function SidebarContent() {
       {
         url: "/admin/",
         txt: "Home",
-        order: 1
+        order: 1,
       },
       {
         url: "/admin/product",
         txt: "Products",
-        order: 0
+        order: 0,
       },
       {
         url: "/admin/integration",
         txt: "Integrations",
-        order: 0
+        order: 0,
       },
-    ])
-  }, [router])
+    ]);
+  }, [router]);
   return (
     <Stack minH={"600px"}>
-      <Box p={6}>
-      </Box>
+      <Box p={6}></Box>
       <Divider />
-      {buttons.map((el: any) => <SidebarButton
-        onClick={() => router.push(el.url)}
-        isActive={el.url === active} key={el.url}>{el.txt}</SidebarButton>)}
+      {buttons.map((el: any) => (
+        <SidebarButton
+          onClick={() => router.push(el.url)}
+          isActive={el.url === active}
+          key={el.url}
+        >
+          {el.txt}
+        </SidebarButton>
+      ))}
       <Divider />
       <Stack p={3}>
         <Button onClick={() => supabase.auth.signOut()}>Log Out</Button>
       </Stack>
     </Stack>
-  )
+  );
 }
 function MobileSideBar({ isOpen, onClose }: any) {
-
   return (
-    <Drawer
-      isOpen={isOpen}
-      placement='left'
-      onClose={onClose}
-    >
+    <Drawer isOpen={isOpen} placement="left" onClose={onClose}>
       <DrawerOverlay />
       <DrawerContent>
         <DrawerCloseButton />
@@ -96,5 +106,5 @@ function MobileSideBar({ isOpen, onClose }: any) {
         </DrawerBody>
       </DrawerContent>
     </Drawer>
-  )
+  );
 }

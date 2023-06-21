@@ -25,7 +25,12 @@ const ChatComposer = ({ submitted }: any) => {
             onChange={handleCompose}
             value={newMessage}
           />
-          <InputRightAddon bg="#000" as={Button} colorScheme="blackAlpha" type="submit">
+          <InputRightAddon
+            bg="#000"
+            as={Button}
+            colorScheme="blackAlpha"
+            type="submit"
+          >
             <SendIcon fill="white" height="20px" />
           </InputRightAddon>
         </InputGroup>
