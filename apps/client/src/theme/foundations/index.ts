@@ -5,11 +5,11 @@ import spacing from "./spacing";
 import typography from "./typography";
 
 const foundations = {
-	radius,
-	colors,
-	...typography,
-	shadows,
-	space: spacing,
+  radius,
+  colors,
+  ...typography,
+  shadows,
+  space: spacing,
 };
 
 export default foundations;

@@ -1,21 +1,20 @@
-"use client"
+"use client";
 import { Box, Container, Image, Stack } from "@chakra-ui/react";
 
 export const AuthLayout = ({ children, ...props }: any) => {
   return (
-    <Box
-      w="100%"
-      position={"absolute"}
-      zIndex={100}
-      top={0}
-      {...props}
-    >
+    <Box w="100%" position={"absolute"} zIndex={100} top={0} {...props}>
       <Container maxW="container.lg">
         <Stack minH="100vh" justifyContent={"center"} alignItems={"center"}>
-          <Image alt="Hexason" borderRadius={"20px"} h="75px" src="/logo-with-black-bg.png" />
+          <Image
+            alt="Hexason"
+            borderRadius={"20px"}
+            h="75px"
+            src="/logo-with-black-bg.png"
+          />
           {children}
         </Stack>
       </Container>
     </Box>
-  )
-}
+  );
+};

@@ -6,43 +6,43 @@ const LoadingDot = {
   width: "2rem",
   height: "2rem",
   backgroundColor: "#C8C8C8",
-  borderRadius: "50%"
+  borderRadius: "50%",
 };
 
 const LoadingContainer = {
   width: "10rem",
   height: "5rem",
   display: "flex",
-  justifyContent: "space-around"
+  justifyContent: "space-around",
 };
 
 const ContainerVariants = {
   initial: {
     transition: {
-      staggerChildren: 0.2
-    }
+      staggerChildren: 0.2,
+    },
   },
   animate: {
     transition: {
-      staggerChildren: 0.2
-    }
-  }
+      staggerChildren: 0.2,
+    },
+  },
 };
 
 const DotVariants = {
   initial: {
-    y: "0%"
+    y: "0%",
   },
   animate: {
-    y: "100%"
-  }
+    y: "100%",
+  },
 };
 
-const DotTransition:Transition = {
+const DotTransition: Transition = {
   duration: 1,
   repeat: Infinity,
   repeatType: "reverse",
-  ease: "easeInOut"
+  ease: "easeInOut",
 };
 
 export default function ThreeDotsWave() {
@@ -53,7 +53,7 @@ export default function ThreeDotsWave() {
         width: "100%",
         display: "flex",
         alignItems: "center",
-        justifyContent: "center"
+        justifyContent: "center",
       }}
     >
       <motion.div
@@ -61,7 +61,7 @@ export default function ThreeDotsWave() {
         variants={ContainerVariants}
         initial="initial"
         animate="animate"
-        exit={{opacity: 0}}
+        exit={{ opacity: 0 }}
       >
         <motion.span
           style={LoadingDot}

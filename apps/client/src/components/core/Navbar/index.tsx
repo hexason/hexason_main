@@ -1,3 +1,3 @@
-export * from "./TopAdBar"
-export * from "./TopUpBar"
-export * from "./Sidebar"
+export * from "./TopAdBar";
+export * from "./TopUpBar";
+export * from "./Sidebar";

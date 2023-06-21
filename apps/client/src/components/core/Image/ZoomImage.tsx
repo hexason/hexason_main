@@ -1,20 +1,14 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState } from "react";
 
 type PropsType = {
-  img?: string,
-  zoomScale: number,
-  height: number,
-  width: number,
-  transitionTime?: number,
-}
+  img?: string;
+  zoomScale: number;
+  height: number;
+  width: number;
+  transitionTime?: number;
+};
 export const ZoomImage = (props: PropsType) => {
-  const {
-    img,
-    zoomScale,
-    height,
-    width,
-    transitionTime,
-  } = props;
+  const { img, zoomScale, height, width, transitionTime } = props;
 
   const [zoom, setZoom] = useState(false);
   const [mouseX, setMouseX] = useState<number | null>(null);
@@ -23,14 +17,14 @@ export const ZoomImage = (props: PropsType) => {
   const outerDivStyle = {
     height: `${height}px`,
     width: `${width}px`,
-    overflow: 'hidden',
+    overflow: "hidden",
   };
 
   const innerDivStyle = {
     height: `${height}px`,
-    backgroundRepeat: 'no-repeat',
-    backgroundPosition: 'center',
-    backgroundSize: 'contain',
+    backgroundRepeat: "no-repeat",
+    backgroundPosition: "center",
+    backgroundSize: "contain",
     transition: `transform ${transitionTime}s ease-out`,
     backgroundImage: `url('${img}')`,
   };
@@ -46,10 +40,8 @@ export const ZoomImage = (props: PropsType) => {
   };
 
   const handleMouseMovement = (e: any) => {
-    const {
-      left: offsetLeft,
-      top: offsetTop,
-    } = imageRef.current.getBoundingClientRect();
+    const { left: offsetLeft, top: offsetTop } =
+      imageRef.current.getBoundingClientRect();
 
     const {
       current: {
@@ -80,8 +72,8 @@ export const ZoomImage = (props: PropsType) => {
         style={{
           ...transform,
           ...innerDivStyle,
-          transform: zoom ? `scale(${zoomScale})` : 'scale(1.0)',
-          willChange: "transform"
+          transform: zoom ? `scale(${zoomScale})` : "scale(1.0)",
+          willChange: "transform",
         }}
       />
     </div>

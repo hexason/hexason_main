@@ -19,7 +19,9 @@ export const ComingSoon = () => {
       alignItems={"center"}
       justifyContent={"center"}
     >
-      <Button onClick={router.back} colorScheme="whiteAlpha"><ArrorLeft fill="white" w={20} /> <Text ml={1}>Буцах</Text></Button>
+      <Button onClick={router.back} colorScheme="whiteAlpha">
+        <ArrorLeft fill="white" w={20} /> <Text ml={1}>Буцах</Text>
+      </Button>
       <Image h="75px" src="/logo.png" alt="hexason" />
       <Heading
         as={motion.div}
@@ -27,8 +29,10 @@ export const ComingSoon = () => {
         initial={{ y: 10, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         exit={{ y: -10, opacity: 0 }}
-      >Coming soon</Heading>
+      >
+        Coming soon
+      </Heading>
       <ThreeDotsWave />
     </Stack>
-  )
-}
+  );
+};

@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { DefaultAnimate, ThreeDotsWave } from "@/components/animation";
 import { AuthForm } from "@/components/core";
 
@@ -7,9 +7,7 @@ export default function Design() {
     <>
       <AuthForm />
       <ThreeDotsWave />
-      <DefaultAnimate>
-        Test
-      </DefaultAnimate>
+      <DefaultAnimate>Test</DefaultAnimate>
     </>
   );
 }
