@@ -23,7 +23,7 @@ export default function ProductList() {
 		);
 
 	return (
-		<Container my={4} maxW="container.xl" {...ContainerStyle} p={3} minH="60vh">
+		<Container maxW="container.xl" {...ContainerStyle} p={3} minH="60vh">
 			<Tag colorScheme="green" my={3} fontSize={"1.2rem"} fontWeight={"bold"}>
 				Шинэ бүтээгдэхүүн
 			</Tag>
