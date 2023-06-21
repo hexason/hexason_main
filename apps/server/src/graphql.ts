@@ -167,7 +167,7 @@ export interface Goods {
     productPrice: number;
     productQuantity: number;
     productDetail: string;
-    productUrl: string;
+    productUrl?: Nullable<string>;
     totalPrice: string;
     status: number;
 }
