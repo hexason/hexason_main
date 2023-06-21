@@ -12,7 +12,7 @@ export class CategoryService {
     if (!category) category = new this.categoryModel({ title, icon, slug: slug || `category-${countCategory}` });
     category.title = title;
     category.icon = icon;
-    const parentCategory = await this.categoryModel.findById(parent).catch(() => null);
+    const parentCategory = await this.categoryModel.findOne({ _id: { $eq: parent } }).catch(() => null);
     category.parent = parentCategory;
 
     await category.populate('parent');
