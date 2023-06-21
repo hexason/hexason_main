@@ -7,9 +7,11 @@ import {
 	Divider,
 	Grid,
 	HStack,
+	Link,
 	Stack,
 	Tag,
 	Text,
+	Image
 } from "@chakra-ui/react";
 
 const data = [
@@ -64,12 +66,11 @@ export const UserSidePage = () => {
 				</Tag>
 			</Stack>
 			{session?.user ? (
-				// <HStack textAlign={"center"}>
-				// 	<Tag colorScheme="purple">Хүргэлтэнд гарсан</Tag>
-				// 	<Tag colorScheme="green">Хүлээж авсан</Tag>
-				// 	<Tag colorScheme="blue">Төлбөр хийх</Tag>
-				// </HStack>
-				<Button onClick={() => supabase.auth.signOut()}>Logout</Button>
+				<HStack textAlign={"center"}>
+					{/* <Tag colorScheme="purple">Хүргэлтэнд гарсан</Tag>
+					<Tag colorScheme="green">Хүлээж авсан</Tag>
+					<Tag colorScheme="blue">Төлбөр хийх</Tag> */}
+				</HStack>
 			) : (
 				<HStack>
 					<Button isLoading={isLoading} onClick={loginAction}>Login with Google</Button>
@@ -86,12 +87,12 @@ export const UserSidePage = () => {
 					w="100%"
 					alignItems={"start"}
 				>
-					{/* {data.map((el) => (
+					{data.map((el) => (
 						<Link href={el.url} key={el.text}>
 							<Image h="40px  " w="100%" src={el.src} />
 							<Text fontSize={"14px"}>{el.text}</Text>
 						</Link>
-					))} */}
+					))}
 				</Grid>
 			</Stack>
 		</Stack>
