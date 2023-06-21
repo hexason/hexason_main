@@ -1,4 +1,3 @@
-
 /*
  * -------------------------------------------------------
  * THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
@@ -168,14 +167,17 @@ export interface Goods {
   productQuantity: number;
   productDetail: string;
   productUrl?: Nullable<string>;
-  totalPrice: string;
+  totalPrice: number;
   status: number;
 }
 
 export interface IQuery {
   getCategories(): Category[] | Promise<Category[]>;
   getCategoryTree(): CategoryTree[] | Promise<CategoryTree[]>;
-  getProducts(options?: Nullable<ProductOptionArgs>, filter?: Nullable<ProductFilterArgs>): ProductList | Promise<ProductList>;
+  getProducts(
+    options?: Nullable<ProductOptionArgs>,
+    filter?: Nullable<ProductFilterArgs>
+  ): ProductList | Promise<ProductList>;
   getProductById(id: string): Product | Promise<Product>;
   getHighestViewedProduct(): Product[] | Promise<Product[]>;
   recommendProducts(): Product[] | Promise<Product[]>;

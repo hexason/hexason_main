@@ -28,10 +28,14 @@ export const useCurrencyFormat = () => {
       : "0";
   }
 
-  return (num: number, type = "normal") => {
+  return (num: number, type: "normal" | "standard" | "short" = "normal") => {
     switch (type) {
       case "normal":
         return formatter.format(num);
+      case "standard":
+        return (
+          formatter.format(num).replace("MNT", "").replace(/\..*/, "") + "₮"
+        );
       case "short":
         return nFormatter(num);
       default:

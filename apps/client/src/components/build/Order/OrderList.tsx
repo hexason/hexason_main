@@ -1,44 +1,53 @@
 "use client"
+import { StatusViewer } from "@/components/core"
+import { useCurrencyFormat } from "@/hooks"
 import { Order } from "@/lib/types"
-import { TableContainer, Table, TableCaption, Thead, Tr, Th, Tbody, Td, Tfoot, Image, Button, Stack } from "@chakra-ui/react"
+import { Stack, HStack, Box, Image, Divider, Button, Tag } from "@chakra-ui/react"
+import Link from "next/link"
 
 export const OrderList = ({ data }: { data: { getOrders: Order[] } }) => {
+  const formatter = useCurrencyFormat();
   return (
-    <TableContainer>
-      <Table variant='striped' colorScheme='teal'>
-        <TableCaption>Imperial to metric conversion factors</TableCaption>
-        <Thead>
-          <Tr>
-            <Th>Захиалгын дугаар</Th>
-            <Th>Нийт барааны үнэ</Th>
-            <Th>Хүргэлтийн үнэ</Th>
-            <Th isNumeric>Нийт төлбөр</Th>
-          </Tr>
-        </Thead>
-        <Tbody>
-          {data.getOrders.map((order) => <Tr key={order.id}>
-            <Td>{order.shortId}</Td>
-            {/* <Td>{order.paymentStatus}</Td> */}
-            {/* <Td>{order.status}</Td> */}
-            <Td>{order.totalProductPrice}</Td>
-            <Td>{order.totalDeliveryPrice}</Td>
-            <Td isNumeric>{order.totalPrice}</Td>
-            <Td>
-              <Stack>
-                <Button float={"right"}>Бараанууд</Button>
-                <Button float={"right"}>Төлбөр хийх</Button>
-              </Stack>
-            </Td>
-          </Tr>)}
-        </Tbody>
-        <Tfoot>
-          <Tr>
-            <Th>To convert</Th>
-            <Th>into</Th>
-            <Th isNumeric>multiply by</Th>
-          </Tr>
-        </Tfoot>
-      </Table>
-    </TableContainer>
+    <Stack>
+      {data.getOrders.map(order => (
+        <Stack key={order.id}>
+          <HStack justifyContent={"space-between"}>
+            <HStack>
+              <Box fontWeight={"bold"}>{order.shortId}</Box>
+              <StatusViewer statusIndicator={order.status} />
+            </HStack>
+            <Box>{new Date(+order.createdAt).toISOString().replace("T", " ").replace(/\..*/, "")}</Box>
+            <Stack spacing={0}>
+              <Button>Төлөх</Button>
+              <Tag>
+                {formatter(order.totalPrice, "standard")}
+              </Tag>
+            </Stack>
+          </HStack>
+          <Stack pl={6}>
+            {order.goods.map(good => (
+              <HStack justifyContent={"space-between"} key={good.id}>
+                <Link href={`/shop/${good.productId}`}>
+                  <Image h={"100px"} src={good.productImage} />
+                </Link>
+                <Box>{JSON.parse(good.productDetail).map((conf: any) => (
+                  <HStack key={conf.configId}>
+                    <Box>{conf.configName}:</Box> {
+                      conf.icon ? <Image h="25px" src={conf.icon} /> : <Box>{conf.value}</Box>
+                    }
+                  </HStack>
+                ))}</Box>
+                <Box>{good.productTitle.substring(0, 25)}</Box>
+                <Box>{formatter(good.productPrice, "standard")}</Box>
+                <Box>{good.productQuantity}</Box>
+                <Box>{formatter(good.totalPrice, "standard")}</Box>
+
+              </HStack>
+            ))}
+          </Stack>
+          <Divider h="1px" bg="black" />
+        </Stack>
+      ))}
+    </Stack>
   )
 }
