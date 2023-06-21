@@ -11,12 +11,16 @@ export class Category {
   id: string;
 
   @Field({ defaultValue: 'unknown' })
-  @Prop({ required: true, unique: true })
+  @Prop({ required: true })
   title: string;
 
   @Field({ nullable: true })
   @Prop({ required: false })
   icon?: string;
+
+  @Field()
+  @Prop({ required: true, unique: true, lowercase: true })
+  slug: string;
 
   @Field({ nullable: true })
   @Prop({ type: String })
@@ -24,7 +28,7 @@ export class Category {
 
   @Field(() => String, { nullable: true })
   @Prop({ type: Types.ObjectId, ref: 'Category' })
-  parent?: Category | Types.ObjectId;
+  parent?: Category | Types.ObjectId | null;
 
   @Field({ nullable: true, defaultValue: 0 })
   @Prop({ type: Number, default: 0 })

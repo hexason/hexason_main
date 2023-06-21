@@ -8,5 +8,5 @@ export interface SupplierI {
   slug: string;
   state: keyof typeof SupplierState;
   score: 0;
-  comments: CommentI[]
+  comments: CommentI[];
 }

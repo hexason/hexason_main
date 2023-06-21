@@ -1,6 +1,6 @@
 import { Readable } from "stream";
 
-type QueueEvent<R> = { type: "progress", data: R } | { type: "end", data: R[] };
+type QueueEvent<R> = { type: "progress"; data: R } | { type: "end"; data: R[] };
 
 export class Queue<T, R> {
   private readonly data: T[];
@@ -23,10 +23,12 @@ export class Queue<T, R> {
     const data = this.data.shift();
     if (!data) return;
 
-    const task = this.func(data).then(result => {
-      this.result.push(result);
-      this.emit({ type: "progress", data: result });
-    }).catch(e => console.log(e));
+    const task = this.func(data)
+      .then((result) => {
+        this.result.push(result);
+        this.emit({ type: "progress", data: result });
+      })
+      .catch((e) => console.log(e));
 
     this.pending.push(task);
     await task;
@@ -43,7 +45,9 @@ export class Queue<T, R> {
     this.isRunning = true;
 
     const promises = this.pending.concat(
-      Array(this.concurrency - this.pending.length).fill(null).map(() => this.runner())
+      Array(this.concurrency - this.pending.length)
+        .fill(null)
+        .map(() => this.runner())
     );
 
     try {
@@ -58,9 +62,9 @@ export class Queue<T, R> {
   }
 
   start() {
-    this.readable._read = () => { };
+    this.readable._read = () => {};
     this.run();
-    return this.readable
+    return this.readable;
   }
 
   stop() {

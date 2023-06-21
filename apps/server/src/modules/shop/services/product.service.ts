@@ -28,7 +28,7 @@ export class ProductService {
         },
       )
       .sort({ status: 'asc', updatedAt: 'desc' })
-      .populate(['supplier', 'categories']);
+      .populate(['supplier', 'categories', 'items']);
 
     const count = await this.productModel.count(option?.filter);
     return {

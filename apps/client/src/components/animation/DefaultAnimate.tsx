@@ -1,9 +1,10 @@
 import { HTMLMotionProps, motion } from "framer-motion";
 import { ReactNode } from "react";
 
-export default function DefaultAnimate(
-  { children, ...props }: { children: ReactNode } & HTMLMotionProps<"div">
-) {
+export default function DefaultAnimate({
+  children,
+  ...props
+}: { children: ReactNode } & HTMLMotionProps<"div">) {
   return (
     <motion.div
       initial={{ y: 10, opacity: 0 }}
@@ -13,6 +14,5 @@ export default function DefaultAnimate(
     >
       {children}
     </motion.div>
-  )
-
+  );
 }

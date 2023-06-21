@@ -39,3 +39,13 @@ Before submitting a pull request, please make sure to follow the guidelines for 
 ## License
 
 Hexason is licensed under the MIT License. Please see the `LICENSE` file for more information.
+
+
+## Custom Command list
+
+```
+
+pnpm hex:renew - type schema update, with format, lint
+
+
+```

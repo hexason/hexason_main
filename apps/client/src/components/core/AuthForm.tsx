@@ -1,25 +1,33 @@
-"use client"
-import { Button, Divider, Image, Input, Stack, useToast } from "@chakra-ui/react";
+"use client";
+import {
+  Button,
+  Divider,
+  Image,
+  Input,
+  Stack,
+  useToast,
+} from "@chakra-ui/react";
 import { useState } from "react";
-import { useSessionContext, useSupabaseClient } from '@/lib/supabase-react'
+import { useSessionContext, useSupabaseClient } from "@/lib/supabase-react";
 import { useRouter } from "next/navigation";
 
 export const AuthForm = () => {
-  const supabaseClient = useSupabaseClient()
-  const { isLoading } = useSessionContext()
+  const supabaseClient = useSupabaseClient();
+  const { isLoading } = useSessionContext();
   const [userInput, setUserInput] = useState({
-    email: '',
-    password: ''
-  })
-  const router = useRouter()
+    email: "",
+    password: "",
+  });
+  const router = useRouter();
   const [loading, setLoading] = useState(false);
   const toast = useToast();
   const signInWithGoogle = async () => {
     const { error } = await supabaseClient.auth.signInWithOAuth({
-      provider: 'google',
+      provider: "google",
       options: {
-        redirectTo: process.env.NEXT_PUBLIC_REDIRECT_URL || "http://localhost:3001"
-      }
+        redirectTo:
+          process.env.NEXT_PUBLIC_REDIRECT_URL || "http://localhost:3001",
+      },
     });
     if (error) {
       toast({
@@ -27,10 +35,10 @@ export const AuthForm = () => {
         description: error.message,
         duration: 5000,
         isClosable: true,
-        status: "error"
-      })
+        status: "error",
+      });
     }
-  }
+  };
   const signInWithPassword = async (e: any) => {
     e.preventDefault();
     setLoading(true);
@@ -41,32 +49,56 @@ export const AuthForm = () => {
         description: error.message,
         duration: 5000,
         isClosable: true,
-        status: "error"
-      })
+        status: "error",
+      });
 
-      router.refresh()
+      router.refresh();
     }
-  }
+  };
   const handleInput = (e: any) => {
-    setUserInput(prev => ({
+    setUserInput((prev) => ({
       ...prev,
-      [e.target.name]: e.target.value
-    }))
-  }
+      [e.target.name]: e.target.value,
+    }));
+  };
 
   return (
     <Stack spacing={5} p={3}>
-      <form onSubmit={signInWithPassword} >
+      <form onSubmit={signInWithPassword}>
         <Stack>
-          <Input onChange={handleInput} type="email" name="email" placeholder="Email" />
-          <Input onChange={handleInput} type="password" name="password" placeholder="Password" />
-          <Button colorScheme="blue" border="1px solid #fff" isLoading={isLoading} type="submit" borderRadius={"20px"} onClick={() => { }}>Log In</Button>
+          <Input
+            onChange={handleInput}
+            type="email"
+            name="email"
+            placeholder="Email"
+          />
+          <Input
+            onChange={handleInput}
+            type="password"
+            name="password"
+            placeholder="Password"
+          />
+          <Button
+            colorScheme="blue"
+            border="1px solid #fff"
+            isLoading={isLoading}
+            type="submit"
+            borderRadius={"20px"}
+            onClick={() => {}}
+          >
+            Log In
+          </Button>
         </Stack>
       </form>
       <Divider />
-      <Button isLoading={isLoading} colorScheme="blackAlpha" borderRadius={"20px"} onClick={signInWithGoogle}>
+      <Button
+        isLoading={isLoading}
+        colorScheme="blackAlpha"
+        borderRadius={"20px"}
+        onClick={signInWithGoogle}
+      >
         <Image h="50%" src={"/icon/google.png"} mr={2} alt="Google" /> Google
       </Button>
     </Stack>
-  )
-}
+  );
+};

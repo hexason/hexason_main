@@ -1,4 +1,4 @@
-export * from "./request"
+export * from "./request";
 
 export type SupabaseJWTPayload = {
   aud: string;
@@ -28,4 +28,4 @@ export type SupabaseJWTPayload = {
     timestamp: number;
   }[];
   session_id: string;
-}
+};

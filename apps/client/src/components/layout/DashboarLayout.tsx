@@ -9,16 +9,15 @@ export default function DashboardLayout({ children }: PropsWithChildren) {
       w="100%"
       h="100vh"
       overflow={"hidden"}
-      templateColumns={{ base: "repeat(1,1fr)", md: "repeat(8, 1fr)" }} gap={12}>
+      templateColumns={{ base: "repeat(1,1fr)", md: "repeat(8, 1fr)" }}
+      gap={12}
+    >
       <GridItem colSpan={1}>
         <AdminSidebar />
       </GridItem>
       <GridItem overflow={"auto"} colSpan={7} p={1}>
-        <DefaultAnimate>
-          {children}
-        </DefaultAnimate>
+        <DefaultAnimate>{children}</DefaultAnimate>
       </GridItem>
     </Grid>
-  )
-
+  );
 }
