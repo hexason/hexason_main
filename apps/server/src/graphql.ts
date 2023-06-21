@@ -60,6 +60,7 @@ export interface Category {
     id: string;
     title: string;
     icon?: Nullable<string>;
+    slug: string;
     description?: Nullable<string>;
     parent?: Nullable<string>;
     score?: Nullable<number>;
