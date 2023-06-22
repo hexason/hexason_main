@@ -47,11 +47,11 @@ jobs:
 
       - name: "Setup environment"
         run: |
-          echo "BRANCH=$(echo $GITHUB_REF | cut -d'/' -f 3)" >> $GITHUB_ENV
-          echo "NEXT_PUBLIC_API_URL=$BRANCH-dev.hexason.com/api >> $GITHUB_ENV
-          echo "NEXT_PUBLIC_REDIRECT_URL=$BRANCH-dev.hexason.com >> $GITHUB_ENV
-          echo "NEXT_PUBLIC_SUPABASE_URL=${{secrets.SUPABASE_URL}} >> $GITHUB_ENV
-          echo "NEXT_PUBLIC_SUPABASE_KEY=${{secrets.SUPABASE_KEY}} >> $GITHUB_ENV
+          echo "BRANCH=$(echo $GITHUB_REF | cut -d'/' -f 3)" >> apps/client/.env.local
+          echo "NEXT_PUBLIC_API_URL=$BRANCH-dev.hexason.com/api >> apps/client/.env.local
+          echo "NEXT_PUBLIC_REDIRECT_URL=$BRANCH-dev.hexason.com >> apps/client/.env.local
+          echo "NEXT_PUBLIC_SUPABASE_URL=${{secrets.SUPABASE_URL}} >> apps/client/.env.local
+          echo "NEXT_PUBLIC_SUPABASE_KEY=${{secrets.SUPABASE_KEY}} >> apps/client/.env.local
       - name: Build and push Docker image
         uses: docker/build-push-action@f2a1d5e99d037542a71f64918e516c093c6f3fc4
         with:
