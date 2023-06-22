@@ -7,8 +7,10 @@
     "eslint-preset.js"
   ],
   "dependencies": {
+    "dotenv": "^16.3.1",
     "eslint-config-next": "^12.1.0",
     "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-react": "7.29.3"
+    "eslint-plugin-react": "7.29.3",
+    "yaml": "^2.3.1"
   }
 }
