@@ -41,19 +41,22 @@ async function processPayload(payload, event) {
   if (!branch === "main") return;
   if (typeof branch !== "string" || !branch || !event) return;
 
-
-  if (payload.ref_type === "branch") {
-    switch (event) {
-      case "create":
-        generateNginxConfFile(branch);
-        dockerComposeCustomize(branch);
-        await addDNSRecord(branch);
-        break;
-      case "delete":
-        removeNginxFile(branch);
-        dockerComposeCustomize(branch);
-    }
+  switch (event) {
+    case "package":
+      generateNginxConfFile(branch);
+      dockerComposeCustomize(branch);
+      await addDNSRecord(branch);
+      break;
+    case "create":
+      generateNginxConfFile(branch);
+      dockerComposeCustomize(branch);
+      await addDNSRecord(branch);
+      break;
+    case "delete":
+      removeNginxFile(branch);
+      dockerComposeCustomize(branch);
   }
+
 
   if (isProcessing) return isProcessing;
   isProcessing = true;

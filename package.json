@@ -11,6 +11,7 @@
   "scripts": {
     "build": "turbo run build --global-deps='.env.*'",
     "dev": "turbo run dev --parallel",
+    "start": "turbo run start --parallel",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "prepare": "husky install",
