@@ -11,7 +11,7 @@ const addDNSRecord = async (branchName) => {
       "type": "A",
       "proxied": true
     })
-  }).then(res => res.json()).then(console.log)
+  }).then(res => res.json()).then(console.log).catch(console.log)
 }
 
 module.exports = { addDNSRecord }

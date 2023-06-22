@@ -37,17 +37,18 @@ app.post('/webhook', (req, res) => {
 
 async function processPayload(payload, event) {
   if (!payload.ref || payload.ref_type !== "branch" || !event) return;
-  if (!payload.ref === "main") return;
+  const branch = (payload || "").replace("refs/heads/", "")
+  if (!branch === "main") return;
 
   switch (event) {
     case "create":
-      generateNginxConfFile(payload.ref);
-      dockerComposeCustomize(payload.ref);
-      await addDNSRecord(payload.ref);
+      generateNginxConfFile(branch);
+      dockerComposeCustomize(branch);
+      await addDNSRecord(branch);
       break;
     case "delete":
-      removeNginxFile(payload.ref);
-      dockerComposeCustomize(payload.ref);
+      removeNginxFile(branch);
+      dockerComposeCustomize(branch);
   }
 
   if (isProcessing) return isProcessing;
