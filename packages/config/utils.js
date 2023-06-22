@@ -9,9 +9,15 @@ const nginxConf = `server {
   server_name hexason;
 
   location / {
-      proxy_pass http://main:4000;
+      proxy_pass http://main:3000;
       proxy_set_header Host $host;
       proxy_set_header X-Real-IP $remote_addr;
+  }
+
+  location /api/ {
+    proxy_pass http://main:4000/;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
   }
 }`
 fs.writeFileSync(`./nginx/main.conf`, nginxConf)
@@ -54,8 +60,22 @@ const dockerComposeCustomize = (branchName) => {
   if (!fs.existsSync("./docker-compose.yml")) fs.writeFileSync("docker-compose.yml", dockerCompose);
   const file = fs.readFileSync('./docker-compose.yml', 'utf8');
   const doc = YAML.parseDocument(file).toJS();
-  doc.services["main"] = { image: 'nikorunikk/hexason-server', env_file: ['.env.local'] }
-  doc.services[branchName] = { image: `ghcr.io/hexason/hexason_main:${branchName}`, env_file: ['.env.local'] }
+  doc.services["main"] = {
+    image: 'nikorunikk/hexason-server',
+    env_file: ['.env.local'],
+    environment: [
+      `NEXT_PUBLIC_REDIRECT_URL=http://hexason`,
+      `NEXT_PUBLIC_REDIRECT_URL=http://hexason/api`
+    ]
+  }
+  doc.services[branchName] = {
+    image: `ghcr.io/hexason/hexason_main:${branchName}`,
+    env_file: ['.env.local'],
+    environment: [
+      `NEXT_PUBLIC_REDIRECT_URL=http://${branchName}`,
+      `NEXT_PUBLIC_REDIRECT_URL=http://${branchName}/api`
+    ]
+  }
   fs.writeFileSync("docker-compose.yml", String(new YAML.Document(doc)))
 }
 
