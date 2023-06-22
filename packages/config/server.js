@@ -64,7 +64,7 @@ async function processPayload(payload, event) {
   const dockerPull = spawn("docker", ["compose", "pull"], { stdio: 'inherit' });
   dockerPull.on("close", (code) => {
     console.log(`child process exited with code ${code}`);
-    const dockerBuildWithStart = spawn("docker", ["compose", "up", "--build", "-d"], { stdio: "inherit" })
+    const dockerBuildWithStart = spawn("docker", ["compose", "up", "--build", "--force-recreate", "-d"], { stdio: "inherit" })
     dockerBuildWithStart.on("close", () => {
       isProcessing = false;
       console.log("Finished all jobs")
