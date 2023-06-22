@@ -16,7 +16,19 @@ jobs:
           key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
           script: |
+            export DB_HOST=${{secrets.DB_HOST}}
+            export DB_USER=${{secrets.DB_USER}}
+            export DB_PASSWORD=${{secrets.DB_PASSWORD}}
+            export DB_NAME=${{secrets.DB_NAME}}
+            export DB_PORT=${{secrets.DB_PORT}}
+            export DB_SYNC=false
+            export MONGO_URL='${{secrets.MONGO_URL}}'
+            export SUPABASE_SECRET=${{secrets.SUPABASE_SECRET}}
+            export SUPABASE_URL=${{secrets.SUPABASE_URL}}
+            export SUPABASE_KEY=${{secrets.SUPABASE_KEY}}
+            export OPENAI_API_KEY=${{secrets.OPENAI_API_KEY}}
+            export REDIS_URL=${{secrets.REDIS_URL}}
+            export OTAPI_KEY=${{secrets.OTAPI_KEY}}
+            export GOOGLE_SERVICE_JSON=${{secrets.GOOGLE_SERVICE_JSON}}
             docker system prune -a -f
-            docker pull ${{ secrets.DOCKERHUB_USERNAME }}/hexason-server
-            docker stop $(docker ps -q)
-            docker run -p80:4000 -d ${{ secrets.DOCKERHUB_USERNAME }}/hexason-server
+            docker compose up -d --build
