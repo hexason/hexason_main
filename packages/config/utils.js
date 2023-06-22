@@ -55,7 +55,7 @@ const dockerComposeCustomize = (branchName) => {
   const file = fs.readFileSync('./docker-compose.yml', 'utf8');
   const doc = YAML.parseDocument(file).toJS();
   doc.services["main"] = { image: 'nikorunikk/hexason-server', env_file: ['.env.local'] }
-  doc.services[branchName] = { image: 'nikorunikk/hexason-server', env_file: ['.env.local'] }
+  doc.services[branchName] = { image: `ghcr.io/hexason/hexason_main:${branchName}`, env_file: ['.env.local'] }
   fs.writeFileSync("docker-compose.yml", String(new YAML.Document(doc)))
 }
 
