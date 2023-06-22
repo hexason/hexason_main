@@ -42,7 +42,7 @@ async function processPayload(payload, event) {
   if (typeof branch !== "string" || !branch || !event) return;
 
 
-  if (payload.ref_type !== "branch") {
+  if (payload.ref_type === "branch") {
     switch (event) {
       case "create":
         generateNginxConfFile(branch);
