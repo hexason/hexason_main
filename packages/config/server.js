@@ -37,6 +37,7 @@ app.post('/webhook', (req, res) => {
 
 async function processPayload(payload, event) {
   if (!payload.ref || payload.ref_type !== "branch" || !event) return;
+  if (!payload.ref === "main") return;
 
   switch (event) {
     case "create":
