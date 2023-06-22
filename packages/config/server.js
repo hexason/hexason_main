@@ -36,19 +36,21 @@ app.post('/webhook', (req, res) => {
 });
 
 async function processPayload(payload, event) {
-  if (!payload.ref || payload.ref_type !== "branch" || !event) return;
+  if (!payload.ref || !event) return;
   const branch = (payload || "").replace("refs/heads/", "")
   if (!branch === "main") return;
 
-  switch (event) {
-    case "create":
-      generateNginxConfFile(branch);
-      dockerComposeCustomize(branch);
-      await addDNSRecord(branch);
-      break;
-    case "delete":
-      removeNginxFile(branch);
-      dockerComposeCustomize(branch);
+  if (payload.ref_type !== "branch") {
+    switch (event) {
+      case "create":
+        generateNginxConfFile(branch);
+        dockerComposeCustomize(branch);
+        await addDNSRecord(branch);
+        break;
+      case "delete":
+        removeNginxFile(branch);
+        dockerComposeCustomize(branch);
+    }
   }
 
   if (isProcessing) return isProcessing;
