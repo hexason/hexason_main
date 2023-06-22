@@ -37,7 +37,7 @@ app.post('/webhook', (req, res) => {
 
 async function processPayload(payload, event) {
   if (!payload.ref || !event) return;
-  const branch = (payload || "").replace("refs/heads/", "")
+  const branch = (payload.ref || "").replace("refs/heads/", "")
   if (!branch === "main") return;
 
   if (payload.ref_type !== "branch") {
