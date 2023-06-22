@@ -1,0 +1,22 @@
+name: Server deployer
+
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  deliver:
+    runs-on: ubuntu-latest
+    steps:
+      - name: executing remote ssh commands using password
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          port: ${{ secrets.PORT }}
+          script: |
+            docker system prune -a -f
+            docker pull ${{ secrets.DOCKERHUB_USERNAME }}/hexason-server
+            docker stop $(docker ps -q)
+            docker run -p80:4000 -d ${{ secrets.DOCKERHUB_USERNAME }}/hexason-server
