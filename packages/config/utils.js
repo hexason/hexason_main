@@ -29,7 +29,12 @@ const generateNginxConfFile = (branchName) => {
     server_name ${branchName}-dev.${process.env.DOMAIN_SERVER};
 
     location / {
-        proxy_pass http://${branchName}:4000;
+        proxy_pass http://${branchName}:3000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+    }
+    location /api/ {
+        proxy_pass http://${branchName}:4000/;
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
     }
