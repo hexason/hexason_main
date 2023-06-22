@@ -69,16 +69,16 @@ const dockerComposeCustomize = (branchName) => {
     image: 'nikorunikk/hexason-server',
     env_file: ['.env.local'],
     environment: [
-      `NEXT_PUBLIC_API_URL=http://hexason`,
-      `NEXT_PUBLIC_REDIRECT_URL=http://hexason/api`
+      `NEXT_PUBLIC_API_URL=http://hexason/api`,
+      `NEXT_PUBLIC_REDIRECT_URL=http://hexason`
     ]
   }
   doc.services[branchName] = {
     image: `ghcr.io/hexason/hexason_main:${branchName}`,
     env_file: ['.env.local'],
     environment: [
-      `NEXT_PUBLIC_API_URL=https://${branchName}-dev.${process.env.DOMAIN_SERVER}`,
-      `NEXT_PUBLIC_REDIRECT_URL=https://${branchName}-dev.${process.env.DOMAIN_SERVER}/api`
+      `NEXT_PUBLIC_API_URL=https://${branchName}-dev.${process.env.DOMAIN_SERVER}/api`,
+      `NEXT_PUBLIC_REDIRECT_URL=https://${branchName}-dev.${process.env.DOMAIN_SERVER}`
     ]
   }
   fs.writeFileSync("docker-compose.yml", String(new YAML.Document(doc)))
