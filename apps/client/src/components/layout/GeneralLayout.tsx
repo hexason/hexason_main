@@ -5,16 +5,16 @@ import { usePathname } from "next/navigation";
 import { BottomBar } from "../mobile/BottomBar";
 
 export const GeneralLayout = ({ children, ...props }: any) => {
-	const pathname = usePathname();
-	if (pathname.startsWith("/admin")) return <>{children}</>
-	return (
-		<>
-			<TopUpBar />
-			{pathname === "/" ? <TopAdBar /> : null}
-			<Container as={Stack} maxW="container.xl" {...props}>
-				{children}
-			</Container>
-			<BottomBar />
-		</>
-	);
-}
+  const pathname = usePathname();
+  if (pathname.startsWith("/admin")) return <>{children}</>;
+  return (
+    <>
+      <TopUpBar />
+      {pathname === "/" ? <TopAdBar /> : null}
+      <Container as={Stack} maxW="container.xl" {...props}>
+        {children}
+      </Container>
+      <BottomBar />
+    </>
+  );
+};

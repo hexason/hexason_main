@@ -1,59 +1,69 @@
-name: Server deployer
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
+# GitHub recommends pinning actions to a commit SHA.
+# To get a newer version, you will need to update the SHA.
+# You can also reference a tag or branch, but the action may change without warning.
+
+name: Create and publish a Docker image
 
 on:
   push:
-    branches: ["main"]
+    paths:
+      - "apps/**"
+      - ".github/**"
+
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Environment to run tests against"
+        type: environment
+        required: true
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
 
 jobs:
-  build:
+  build-and-push-image:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./apps/server
+    permissions:
+      contents: read
+      packages: write
     steps:
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v2
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
-      - name: Login to Docker Hub
-        uses: docker/login-action@v2
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - uses: actions/checkout@v3
-      - name: Build the Docker image
-        run: |
-          echo DB_HOST: ${{secrets.DB_HOST}} >> .env.local
-          echo DB_USER=${{secrets.DB_USER}} >> .env.local
-          echo DB_PASSWORD=${{secrets.DB_PASSWORD}} >> .env.local
-          echo DB_NAME=${{secrets.DB_NAME}} >> .env.local
-          echo DB_PORT=${{secrets.DB_PORT}} >> .env.local
-          echo DB_SYNC=false >> .env.local
-          echo MONGO_URL='${{secrets.MONGO_URL}}' >> .env.local
-          echo SUPABASE_SECRET=${{secrets.SUPABASE_SECRET}} >> .env.local
-          echo SUPABASE_URL=${{secrets.SUPABASE_URL}} >> .env.local
-          echo SUPABASE_KEY=${{secrets.SUPABASE_KEY}} >> .env.local
-          echo OPENAI_API_KEY=${{secrets.OPENAI_API_KEY}} >> .env.local
-          echo REDIS_URL=${{secrets.REDIS_URL}} >> .env.local
-          echo OTAPI_KEY=${{secrets.OTAPI_KEY}} >> .env.local
-          echo GOOGLE_SERVICE_JSON=${{secrets.GOOGLE_SERVICE_JSON}} >> .env.local
-          docker build . --file Dockerfile --tag ${{ secrets.DOCKERHUB_USERNAME }}/hexason-server:latest
-      - name: Push the Docker image
-        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/hexason-server:latest
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-  deliver:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: executing remote ssh commands using password
-        uses: appleboy/ssh-action@v0.1.10
+      - name: Log in to the Container registry
+        uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
         with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          key: ${{ secrets.KEY }}
-          port: ${{ secrets.PORT }}
-          script: |
-            docker system prune -a -f
-            docker pull ${{ secrets.DOCKERHUB_USERNAME }}/hexason-server
-            docker stop $(docker ps -q)
-            docker run -p80:4000 -d ${{ secrets.DOCKERHUB_USERNAME }}/hexason-server
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: "Setup environment"
+        run: |
+          echo "NEXT_PUBLIC_API_URL=https://$(echo $GITHUB_REF | cut -d'/' -f 3)-dev.hexason.com/api" >> apps/client/.env.local
+          echo "NEXT_PUBLIC_REDIRECT_URL=https://$(echo $GITHUB_REF | cut -d'/' -f 3)-dev.hexason.com" >> apps/client/.env.local
+          echo "NEXT_PUBLIC_SUPABASE_URL=${{secrets.SUPABASE_URL}}" >> apps/client/.env.local
+          echo "NEXT_PUBLIC_SUPABASE_ANON_KEY=${{secrets.SUPABASE_KEY}}" >> apps/client/.env.local
+          cat apps/client/.env.local
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@f2a1d5e99d037542a71f64918e516c093c6f3fc4
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}

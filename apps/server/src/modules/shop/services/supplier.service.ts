@@ -14,7 +14,7 @@ export class SupplierService {
   ) {}
 
   async createSupplier({ name, description, logo, location }: SupplierCreateType) {
-    if (await this.supplierModel.findOne({ name }))
+    if (await this.supplierModel.findOne({ name: { $eq: name } }))
       throw { code: 'DUPLICAPLE_DATA', message: 'Supplier already there' };
     const supplier = new this.supplierModel({
       name,

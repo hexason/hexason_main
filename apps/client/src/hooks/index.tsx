@@ -1,7 +1,3 @@
-export * from "./userCurrencyFormatter"
-import { useAxios } from "./useAxios";
-export * from "./useSelectedVariations"
+export * from "./userCurrencyFormatter";
+export * from "./useSelectedVariations";
 
-export {
-  useAxios
-}

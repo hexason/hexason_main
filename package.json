@@ -2,7 +2,7 @@
   "name": "my-app",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "scripts",
   "private": true,
   "workspaces": [
     "apps/*",
@@ -11,9 +11,11 @@
   "scripts": {
     "build": "turbo run build --global-deps='.env.*'",
     "dev": "turbo run dev --parallel",
+    "start": "turbo run start --parallel",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "hex:renew": "node scripts/renew_type.js && npm run format && npm run lint"
   },
   "keywords": [],
   "author": "",

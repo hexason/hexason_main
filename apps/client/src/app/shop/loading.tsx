@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { ThreeDotsWave } from "@/components/animation";
 import { Stack } from "@chakra-ui/react";
 
@@ -7,5 +7,5 @@ export default function Loading() {
     <Stack>
       <ThreeDotsWave />
     </Stack>
-  )
+  );
 }

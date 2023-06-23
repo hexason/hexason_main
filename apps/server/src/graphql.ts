@@ -28,10 +28,6 @@ export interface BackpackBasketProductAdd {
     quantity: number;
 }
 
-export interface BackpackFavoriteProductUpdate {
-    ids: string[];
-}
-
 export interface OrderCreateArgument {
     username: string;
     address_city: string;
@@ -64,6 +60,7 @@ export interface Category {
     id: string;
     title: string;
     icon?: Nullable<string>;
+    slug: string;
     description?: Nullable<string>;
     parent?: Nullable<string>;
     score?: Nullable<number>;
@@ -170,8 +167,8 @@ export interface Goods {
     productPrice: number;
     productQuantity: number;
     productDetail: string;
-    productUrl: string;
-    totalPrice: string;
+    productUrl?: Nullable<string>;
+    totalPrice: number;
     status: number;
 }
 
@@ -184,13 +181,12 @@ export interface IQuery {
     recommendProducts(): Product[] | Promise<Product[]>;
     sponsorProducts(): Product[] | Promise<Product[]>;
     getBasketProducts(): Basket[] | Promise<Basket[]>;
-    getFavoriteProducts(): Product[] | Promise<Product[]>;
     getOrders(): Order[] | Promise<Order[]>;
+    getGoods(): Goods[] | Promise<Goods[]>;
 }
 
 export interface IMutation {
     addToBasket(data: BackpackBasketProductAdd): Basket[] | Promise<Basket[]>;
-    updateFavoriteProducts(data: BackpackFavoriteProductUpdate): Product[] | Promise<Product[]>;
     createOrder(data: OrderCreateArgument): Order | Promise<Order>;
 }
 

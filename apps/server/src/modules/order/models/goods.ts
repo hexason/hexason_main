@@ -40,13 +40,13 @@ export class Goods {
   @Column({ type: 'text', default: '[]' })
   productDetail: string; //JSON data will here
 
-  @Field()
+  @Field({ nullable: true })
   @Column({ nullable: true })
   productUrl: string;
 
-  @Field()
+  @Field(() => Number)
   @Column()
-  totalPrice: string;
+  totalPrice: number;
 
   @Field()
   @Column()
