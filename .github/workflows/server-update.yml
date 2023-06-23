@@ -14,6 +14,13 @@ on:
     paths:
       - "apps/**"
 
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Environment to run tests against"
+        type: environment
+        required: true
+
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
@@ -49,7 +56,7 @@ jobs:
           echo "NEXT_PUBLIC_API_URL=https://$(echo $GITHUB_REF | cut -d'/' -f 3)-dev.hexason.com/api" >> apps/client/.env.local
           echo "NEXT_PUBLIC_REDIRECT_URL=https://$(echo $GITHUB_REF | cut -d'/' -f 3)-dev.hexason.com" >> apps/client/.env.local
           echo "NEXT_PUBLIC_SUPABASE_URL=${{secrets.SUPABASE_URL}}" >> apps/client/.env.local
-          echo "NEXT_PUBLIC_SUPABASE_KEY=${{secrets.SUPABASE_KEY}}" >> apps/client/.env.local
+          echo "NEXT_PUBLIC_SUPABASE_ANON_KEY=${{secrets.SUPABASE_KEY}}" >> apps/client/.env.local
           cat apps/client/.env.local
 
       - name: Build and push Docker image
