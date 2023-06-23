@@ -66,8 +66,11 @@ async function processPayload(payload, event) {
     console.log(`child process exited with code ${code}`);
     const dockerBuildWithStart = spawn("docker", ["compose", "up", "--build", "--force-recreate", "-d"], { stdio: "inherit" })
     dockerBuildWithStart.on("close", () => {
-      isProcessing = false;
-      console.log("Finished all jobs")
+      const dockerCleanUnusedImage = spawn("docker", ["system", "prune", "-a", "-f"], { stdio: "inherit" })
+      dockerCleanUnusedImage.on("close", () => {
+        isProcessing = false;
+        console.log("Finished all jobs")
+      })
     })
   })
 
