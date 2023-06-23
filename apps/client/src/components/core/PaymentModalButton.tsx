@@ -81,7 +81,7 @@ export function PaymentModalButton({ children }: PropsWithChildren) {
                   <h2>
                     <AccordionButton>
                       <Box as="span" flex='1' textAlign='left'>
-                        Банк
+                        Банк шилжүүлэг
                       </Box>
                       <AccordionIcon />
                     </AccordionButton>
