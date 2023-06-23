@@ -25,17 +25,18 @@ import {
   FormControl,
   FormLabel,
   Divider,
+  ChakraProps,
 } from '@chakra-ui/react'
 import { PropsWithChildren } from 'react'
 
 
-export function PaymentModalButton({ children }: PropsWithChildren) {
+export function PaymentModalButton({ children, ...props }: ChakraProps & PropsWithChildren) {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const fomatter = useCurrencyFormat();
 
   return (
     <>
-      <Button onClick={onOpen}>{children}</Button>
+      <Button {...props} onClick={onOpen}>{children}</Button>
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />

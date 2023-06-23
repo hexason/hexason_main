@@ -1,4 +1,4 @@
-import { OrderList } from "@/components/build/Order";
+import { OrderListBuilder } from "@/components/build"
 
 export default function Page() {
   const dummy: any = {
@@ -85,5 +85,5 @@ export default function Page() {
       },
     ],
   };
-  return <OrderList data={dummy} />;
+  return <OrderListBuilder data={dummy} />;
 }
