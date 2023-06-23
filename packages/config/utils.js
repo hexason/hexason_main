@@ -1,6 +1,7 @@
 const YAML = require("yaml")
 const fs = require("fs")
 const { config } = require("dotenv")
+const sanitize = require("sanitize-filename")
 
 config(".env")
 
@@ -24,6 +25,7 @@ fs.writeFileSync(`./nginx/main.conf`, nginxConf)
 
 const generateNginxConfFile = (branchName) => {
   // server_name ${branchName}.dev.${process.env.DOMAIN_SERVER};
+  branchName = sanitize(branchName);
   const nginxConf = `server {
     listen 80;
     server_name ${branchName}-dev.${process.env.DOMAIN_SERVER};
@@ -44,10 +46,12 @@ const generateNginxConfFile = (branchName) => {
 }
 
 const removeNginxFile = (branchName) => {
+  branchName = sanitize(branchName);
   if (fs.existsSync(`./nginx/${branchName}.${process.env.DOMAIN_SERVER}.conf`)) fs.unlinkSync(`./nginx/${branchName}.${process.env.DOMAIN_SERVER}.conf`)
 }
 
 const dockerComposeCustomize = (branchName) => {
+  branchName = sanitize(branchName);
   const dockerCompose = `version: '3'
   services:
     nginx:
@@ -77,6 +81,7 @@ const dockerComposeCustomize = (branchName) => {
 }
 
 const removeServiceFromDockerCompose = (branchName) => {
+  branchName = sanitize(branchName);
   if (!fs.existsSync("./docker-compose.yml")) return;
   const file = fs.readFileSync('./docker-compose.yml', 'utf8');
   const doc = YAML.parseDocument(file).toJS();
