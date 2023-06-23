@@ -19,11 +19,9 @@ import {
   Th,
   Thead,
   Tr,
-  Wrap,
   useDisclosure,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { useAxios } from "@/hooks/useAxios";
 import { DefaultAnimate, ThreeDotsWave } from "@/components/animation";
 import { motion } from "framer-motion";
 import { EyeIcon, TrashIcon } from "@/assets/icons";
@@ -38,7 +36,6 @@ export default function TableList({ products }: any) {
   const { isOpen, onClose, onOpen } = useDisclosure();
   const creatorModal = useDisclosure();
   const [listener, refresh] = useState(0);
-  const axios = useAxios();
 
   const checkAllProducts = (checked: boolean) => {
     if (checked) setCheckProducts(products.map((el: any) => el.id));
@@ -56,15 +53,8 @@ export default function TableList({ products }: any) {
   };
 
   useEffect(() => {
-    // axios({
-    //   url: "product/list",
-    //   method: "get"
-    // })
-    //   .then(({ data }) => setProducts(data.items))
-    //   .catch(e => {
-    //     if (e.isPermission) setProducts(null)
-    //   })
-  }, [axios, listener]);
+
+  }, [listener]);
 
   if (!products) return <>No Permission</>;
   return (

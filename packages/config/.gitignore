@@ -1,0 +1,4 @@
+nginx/*.conf
+.env.local
+docker-compose.yml
+.env

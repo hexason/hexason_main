@@ -11,7 +11,6 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { useState } from "react";
-import { useAxios } from "@/hooks/useAxios";
 import { ColorPicker } from "@/components/core";
 
 export default function ProductEdit({
@@ -34,42 +33,11 @@ export default function ProductEdit({
   });
   const [bgColor, setBgColor] = useState("");
   const [loading, setLoading] = useState(false);
-  const axios = useAxios();
   const toast = useToast();
 
   const saveProduct = async () => {
     setLoading(true);
-    await axios({
-      method: "post",
-      url: `product/create`,
-      data: {
-        title: product.title,
-        description: product.description,
-        bgColor,
-        image: product.image,
-        brand: product.brand,
-        images: product.images,
-      },
-    })
-      .then(({ data }) => {
-        toast({
-          title: "Successfully",
-          status: "success",
-          description: "Saved successfully",
-          isClosable: true,
-          duration: 5000,
-        });
-        if (trigger) trigger(data._id);
-      })
-      .catch((e) => {
-        toast({
-          title: "Error",
-          status: "error",
-          description: e.response ? e.response.data.message : e.message,
-          isClosable: true,
-          duration: 5000,
-        });
-      });
+
     setLoading(false);
   };
 

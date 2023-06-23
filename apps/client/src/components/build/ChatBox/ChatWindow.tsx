@@ -1,6 +1,5 @@
 import { GTransIcon } from "@/assets/icons";
 import DefaultAnimate from "@/components/animation/DefaultAnimate";
-import { useAxios } from "@/hooks/useAxios";
 import {
   Avatar,
   Box,
@@ -40,30 +39,20 @@ export default function ChatWindow({ messagesList }: any) {
 
 const OneMessage = ({ oneMessage }: { oneMessage: any }) => {
   const [message, setMessage] = useState("");
-  const axios = useAxios();
   const [loading, setLoading] = useState(false);
   const toast = useToast();
 
   const translateIt = async () => {
     setLoading(true);
-    await axios
-      .post("/ai/google/translate", {
-        text: oneMessage.content,
-        target: "mn",
-        source: "en",
-      })
-      .then(({ data }) => {
-        setMessage(data.translatedText);
-      })
-      .catch((err) => {
-        toast({
-          title: "Error",
-          description: err.message,
-          status: "error",
-          duration: 5000,
-          isClosable: true,
-        });
-      });
+    // await axios
+    //   .post("/ai/google/translate", {
+    //     text: oneMessage.content,
+    //     target: "mn",
+    //     source: "en",
+    //   })
+    //   .then(({ data }) => {
+    //     setMessage(data.translatedText);
+    //   })
     setLoading(false);
   };
   return (
