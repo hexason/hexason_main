@@ -22,6 +22,9 @@ import {
   Image,
   IconButton,
   HStack,
+  FormControl,
+  FormLabel,
+  Divider,
 } from '@chakra-ui/react'
 import { PropsWithChildren } from 'react'
 
@@ -74,6 +77,38 @@ export function PaymentModalButton({ children }: PropsWithChildren) {
                     </Wrap>
                   </AccordionPanel>
                 </AccordionItem>
+                <AccordionItem>
+                  <h2>
+                    <AccordionButton>
+                      <Box as="span" flex='1' textAlign='left'>
+                        Банк
+                      </Box>
+                      <AccordionIcon />
+                    </AccordionButton>
+                  </h2>
+                  <AccordionPanel pb={4}>
+                    <Stack border="1px solid #000" borderRadius={"20px"} p={6}>
+                      <Image w="200px" src={"https://www.unepfi.org/wordpress/wp-content/uploads/2015/04/Golomt-logo-ENG.jpg"} />
+                      <Divider />
+                      <FormControl>
+                        <FormLabel fontWeight={"bold"}>Дансны дугаар</FormLabel>
+                        <Input readOnly value={2222222222} />
+                      </FormControl>
+                      <FormControl>
+                        <FormLabel fontWeight={"bold"}>Хүлээн авагч</FormLabel>
+                        <Input readOnly value={"Тест"} />
+                      </FormControl>
+                      <FormControl>
+                        <FormLabel fontWeight={"boldө"}>Шилжүүлэх дүн</FormLabel>
+                        <Input readOnly value={"2,000,000₮"} />
+                      </FormControl>
+                      <FormControl>
+                        <FormLabel fontWeight={"bold"}>Гүйлгээний утга</FormLabel>
+                        <Input readOnly value={"0114108"} />
+                      </FormControl>
+                    </Stack>
+                  </AccordionPanel>
+                </AccordionItem>
               </Accordion>
             </Stack>
           </ModalBody>
@@ -86,7 +121,7 @@ export function PaymentModalButton({ children }: PropsWithChildren) {
             </HStack>
           </ModalFooter>
         </ModalContent>
-      </Modal>
+      </Modal >
     </>
   )
 }

@@ -8,7 +8,6 @@ import {
   Box,
   Image,
   Divider,
-  Button,
   Tag,
   Tooltip,
 } from "@chakra-ui/react";
