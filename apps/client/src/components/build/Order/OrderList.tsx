@@ -1,5 +1,5 @@
 "use client";
-import { StatusViewer } from "@/components/core";
+import { PaymentModalButton, StatusViewer } from "@/components/core";
 import { useCurrencyFormat } from "@/hooks";
 import { Order } from "@/lib/types";
 import {
@@ -10,6 +10,7 @@ import {
   Divider,
   Button,
   Tag,
+  Tooltip,
 } from "@chakra-ui/react";
 import Link from "next/link";
 
@@ -31,7 +32,7 @@ export const OrderList = ({ data }: { data: { getOrders: Order[] } }) => {
                 .replace(/\..*/, "")}
             </Box>
             <Stack spacing={0}>
-              <Button>Төлөх</Button>
+              <PaymentModalButton>Төлөх</PaymentModalButton>
               <Tag>{formatter(order.totalPrice, "standard")}</Tag>
             </Stack>
           </HStack>
@@ -46,7 +47,9 @@ export const OrderList = ({ data }: { data: { getOrders: Order[] } }) => {
                     <HStack key={conf.configId}>
                       <Box>{conf.configName}:</Box>{" "}
                       {conf.icon ? (
-                        <Image h="25px" src={conf.icon} />
+                        <Tooltip label={conf.value}>
+                          <Image h="25px" src={conf.icon} />
+                        </Tooltip>
                       ) : (
                         <Box>{conf.value}</Box>
                       )}
