@@ -11,11 +11,11 @@ import { usePathname } from "next/navigation";
 
 export const OrderListBuilder = () => {
   const { loading, data, refetch } = useQuery<any>(getOrdersGQL);
-  const pathname = usePathname()
+  const pathname = usePathname();
 
   useEffect(() => {
     refetch();
-  }, [pathname])
+  }, [pathname]);
 
   if (loading) return <ThreeDotsWave />;
   if (!data) return <NotFound />;

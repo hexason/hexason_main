@@ -27,7 +27,7 @@ export default function ProductDetail({ product }: { product: Product }) {
   const { updateProduct, updateLoading } = useBasket();
   const supabase = useSupabaseClient();
   const user = useUser();
-  const { openModal } = useOrder()
+  const { openModal } = useOrder();
   const [quantity, setQuantity] = useState(1);
   const { selectedVariations, handleVariationSelect } = useSelectedVariations(
     product.items.length > 0 ? product.items[0].variations : []
@@ -64,10 +64,9 @@ export default function ProductDetail({ product }: { product: Product }) {
     openModal([
       {
         SKU: getMatchingItem().SKU,
-        quantity
-      }
+        quantity,
+      },
     ]);
-
   };
 
   return (
@@ -138,9 +137,7 @@ export default function ProductDetail({ product }: { product: Product }) {
                 >
                   Сагслах
                 </Button>
-                <Button onClick={orderQuick}>
-                  Шууд захиалах
-                </Button>
+                <Button onClick={orderQuick}>Шууд захиалах</Button>
               </HStack>
             </Stack>
           </GridItem>
