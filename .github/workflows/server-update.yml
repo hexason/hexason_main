@@ -11,9 +11,7 @@ name: Create and publish a Docker image
 
 on:
   push:
-    paths:
-      - "apps/**"
-      - ".github/**"
+    branches: ["dev"]
 
   workflow_dispatch:
     inputs:
