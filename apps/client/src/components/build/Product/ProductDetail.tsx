@@ -29,10 +29,9 @@ export default function ProductDetail({ product }: { product: Product }) {
   const { updateProduct, updateLoading } = useBasket();
   const supabase = useSupabaseClient();
   const user = useUser();
-  const router = useRouter()
-  const [createOrder, { loading: loadingOrder }] =
-    useMutation(createOrderGQL);
-  const [quantity, setQuantity] = useState(1)
+  const router = useRouter();
+  const [createOrder, { loading: loadingOrder }] = useMutation(createOrderGQL);
+  const [quantity, setQuantity] = useState(1);
   const { selectedVariations, handleVariationSelect } = useSelectedVariations(
     product.items.length > 0 ? product.items[0].variations : []
   );
@@ -47,64 +46,56 @@ export default function ProductDetail({ product }: { product: Product }) {
               selectedVariation.valueId === itemVariation.valueId
           )
         );
-      }) || {} as Record<string, any>
+      }) || ({} as Record<string, any>)
     );
   };
 
   const orderQuick = async () => {
-
     if (!user) {
       supabase.auth.signInWithOAuth({
         provider: "google",
         options: {
           redirectTo:
-            (process.env.NEXT_PUBLIC_REDIRECT_URL || "http://localhost:3000") + "/shop/" + product.id,
+            (process.env.NEXT_PUBLIC_REDIRECT_URL || "http://localhost:3000") +
+            "/shop/" +
+            product.id,
         },
       });
       return;
     }
     if (!getMatchingItem()) return;
-    console.log("test")
+    console.log("test");
     await createOrder({
       variables: {
-        "data": {
-          "additional_info": "Hello",
-          "address_city": "Ulaanbaatar",
-          "address_district": "Khan-Uul",
-          "address_info": "Khanbogd",
-          "address_street": "Khanbogd",
-          "contact_email": user.email,
-          "contact_phone": user.phone,
-          "description": "",
-          "username": user.user_metadata.name,
-          "items": [
+        data: {
+          additional_info: "Hello",
+          address_city: "Ulaanbaatar",
+          address_district: "Khan-Uul",
+          address_info: "Khanbogd",
+          address_street: "Khanbogd",
+          contact_email: user.email,
+          contact_phone: user.phone,
+          description: "",
+          username: user.user_metadata.name,
+          items: [
             {
-              "SKU": getMatchingItem().SKU,
-              "quantity": quantity
-            }
+              SKU: getMatchingItem().SKU,
+              quantity: quantity,
+            },
           ],
-        }
-      }
-    })
+        },
+      },
+    });
     router.push("/order");
-  }
+  };
 
   return (
     <Container maxW="container.xl" my={3}>
       <Stack spacing={6} bg="#ffffffAB" p="3" borderRadius={"20px"}>
         <Grid gap="3" templateColumns={["repeat(1,1fr)", "repeat(6, 1fr)"]}>
           <GridItem colSpan={2}>
-            <Stack
-              position={"sticky"}
-              top={5}
-              right={0}
-              bottom={0}
-            >
-              <AspectRatio
-                ratio={1}
-                borderRadius={"20px"}
-                overflow={"hidden"}
-              >
+            <Stack position={"sticky"} top={5} right={0} bottom={0}>
+              <AspectRatio ratio={1} borderRadius={"20px"} overflow={"hidden"}>
                 <Box w="100%">
                   <ZoomImage
                     img={product.image}
@@ -163,26 +154,31 @@ export default function ProductDetail({ product }: { product: Product }) {
                       quantity,
                     });
                   }}
-                >Сагслах</Button>
-                <Button
-                  isLoading={loadingOrder}
-                  onClick={orderQuick}
-                >Шууд захиалах</Button>
+                >
+                  Сагслах
+                </Button>
+                <Button isLoading={loadingOrder} onClick={orderQuick}>
+                  Шууд захиалах
+                </Button>
               </HStack>
             </Stack>
           </GridItem>
           <GridItem h="100%" colSpan={1}>
-            <Box position={"sticky"}
+            <Box
+              position={"sticky"}
               top={5}
               right={0}
               bottom={0}
-              h="200px" w="100%" borderRadius={"5px"} bg="gray.200"
+              h="200px"
+              w="100%"
+              borderRadius={"5px"}
+              bg="gray.200"
             >
               {/* Supplier information here */}
             </Box>
             {/* </Stack> */}
           </GridItem>
-        </Grid >
+        </Grid>
         <Divider />
         <Stack alignItems={"center"} spacing={"0"}>
           {product.images.map((img, i) => (
@@ -196,8 +192,8 @@ export default function ProductDetail({ product }: { product: Product }) {
             />
           ))}
         </Stack>
-      </Stack >
-    </Container >
+      </Stack>
+    </Container>
   );
 }
 
@@ -206,7 +202,9 @@ const Varaints = ({
   handleVariationSelect,
   product,
 }: any) => {
-  const [allVariants, setAllVariants] = useState<Record<string, Variation[]>>({});
+  const [allVariants, setAllVariants] = useState<Record<string, Variation[]>>(
+    {}
+  );
   // HashMaping all variants
   useEffect(() => {
     const variations = product.variations.reduce(

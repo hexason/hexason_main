@@ -1,14 +1,10 @@
 # Cofiguration
 
-
-
-
 ## Docker Hub
 
 ```
 docker login
 ```
-
 
 ## Github Package
 

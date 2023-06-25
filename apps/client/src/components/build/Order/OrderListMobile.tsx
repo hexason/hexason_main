@@ -1,8 +1,8 @@
 "use client";
 import { PaymentModalButton } from "@/components/core";
 import { useCurrencyFormat } from "@/hooks";
-import { Order } from "@/lib/types"
-import { Box, HStack, Image, Stack, Text } from "@chakra-ui/react"
+import { Order } from "@/lib/types";
+import { Box, HStack, Image, Stack, Text } from "@chakra-ui/react";
 
 export const OrderListMobile = ({ data }: { data: { getOrders: Order[] } }) => {
   const formatter = useCurrencyFormat();
@@ -12,7 +12,7 @@ export const OrderListMobile = ({ data }: { data: { getOrders: Order[] } }) => {
         <Stack key={order.id}>
           <Text>{order.shortId}</Text>
           <Stack>
-            {order.goods.map(good => (
+            {order.goods.map((good) => (
               <HStack key={good.id}>
                 <Image src={good.productImage} h="100px" />
                 <Stack pr={8} w="100%">
@@ -31,7 +31,6 @@ export const OrderListMobile = ({ data }: { data: { getOrders: Order[] } }) => {
           </Stack>
         </Stack>
       ))}
-
     </Stack>
-  )
-}
+  );
+};
