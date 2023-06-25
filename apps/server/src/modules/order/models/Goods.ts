@@ -1,5 +1,5 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
-import { Order } from './order';
+import { Order } from './Order';
 import { Field, ID, ObjectType } from '@nestjs/graphql';
 @ObjectType()
 @Entity()

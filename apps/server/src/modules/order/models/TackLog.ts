@@ -1,5 +1,5 @@
 import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
-import { Track } from './track';
+import { Track } from './Track';
 
 @Entity()
 export class TrackLog {
