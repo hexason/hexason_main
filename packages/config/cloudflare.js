@@ -7,7 +7,7 @@ const addDNSRecord = async (branchName) => {
     },
     body: JSON.stringify({
       "content": process.env.IP_ADDRESS,
-      "name": branchName + "-dev",
+      "name": branchName,
       "type": "A",
       "proxied": true
     })
