@@ -10,6 +10,7 @@ import { ChakraProvider } from "@chakra-ui/react";
 import { useState } from "react";
 import { GeneralLayout } from "@/components/layout";
 import { BasketProvider } from "@/context/BasketContext";
+import { AddressProvider } from "@/context/AddressContext";
 
 export function Providers({ children }: { children: React.ReactNode }) {
   const [supabaseClient] = useState(() => createPagesBrowserClient());
@@ -20,7 +21,9 @@ export function Providers({ children }: { children: React.ReactNode }) {
         <SessionContextProvider supabaseClient={supabaseClient}>
           <ApolloProvider client={apollo}>
             <BasketProvider>
-              <GeneralLayout>{children}</GeneralLayout>
+              <AddressProvider>
+                <GeneralLayout>{children}</GeneralLayout>
+              </AddressProvider>
             </BasketProvider>
           </ApolloProvider>
         </SessionContextProvider>

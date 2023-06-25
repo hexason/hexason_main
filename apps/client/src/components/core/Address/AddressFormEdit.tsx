@@ -1,3 +1,4 @@
+import { useAddress } from "@/context/AddressContext";
 import { createAddressGQL } from "@/lib/Services";
 import { useUser } from "@/lib/supabase-react";
 import { UserAddress } from "@/lib/types";
@@ -12,12 +13,13 @@ import {
 import { Field, Form, Formik, FormikHelpers } from "formik";
 
 export const AddressFormEdit = ({ data }: { data?: UserAddress }) => {
-  const user = useUser()
+  const user = useUser();
+  const { actions: { setAddress, refetch } } = useAddress();
   const [createAddress] = useMutation(createAddressGQL)
   function validateName(value?: string) {
     let error;
     if (!value) {
-      error = "Хоосон байж болохгүй ";
+      error = "Хоосон байж болохгүй шүү!";
     }
     return error;
   }
@@ -25,8 +27,20 @@ export const AddressFormEdit = ({ data }: { data?: UserAddress }) => {
   const submitHandle = async (values: UserAddress, actions: FormikHelpers<UserAddress>) => {
     await createAddress({
       variables: {
-        data: values
+        data: {
+          // "id": "7527805b-7dcb-47b7-928b-82599d8c652a",
+          "username": values.username,
+          "address_city": values.address_city,
+          "address_district": values.address_district,
+          "address_street": values.address_street,
+          "address_info": values.address_info,
+          "contact_phone": values.contact_phone,
+          "contact_email": values.contact_email
+        }
       }
+    }).then(({ data }) => {
+      setAddress(data.createAddress[0])
+      refetch()
     })
 
     actions.setSubmitting(false);

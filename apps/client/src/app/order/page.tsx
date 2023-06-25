@@ -1,7 +1,7 @@
 "use client";
 import { ThreeDotsWave } from "@/components/animation";
 import { OrderListBuilder } from "@/components/build";
-import { AddressFormEdit } from "@/components/core/AddressFormEdit";
+import { MyAddress } from "@/components/core/Address/MyAddress";
 import { NotFound } from "@/components/core/NotFound";
 import { getOrdersGQL } from "@/lib/Services";
 import { useQuery } from "@apollo/client";
@@ -13,7 +13,7 @@ export default function Page() {
   if (!data) return <NotFound />;
   return (
     <>
-      <AddressFormEdit />
+      <MyAddress />
       <OrderListBuilder data={data} />
     </>
   );

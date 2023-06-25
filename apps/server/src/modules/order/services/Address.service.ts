@@ -11,6 +11,9 @@ export class AddressService {
       where: {
         userId,
       },
+      order: {
+        createdAt: 'DESC',
+      },
     });
 
     return userAddress;
