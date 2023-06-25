@@ -5,5 +5,6 @@ export * from "./Navbar";
 export * from "./Image";
 import ProductCard from "./cards/ProductCard";
 export * from "./StatusViewer";
+export * from "./PaymentModalButton"
 
 export { ProductCard };

@@ -1,5 +1,5 @@
 "use client";
-import { StatusViewer } from "@/components/core";
+import { PaymentModalButton, StatusViewer } from "@/components/core";
 import { useCurrencyFormat } from "@/hooks";
 import { Order } from "@/lib/types";
 import {
@@ -8,15 +8,16 @@ import {
   Box,
   Image,
   Divider,
-  Button,
-  Tag,
+  Tooltip,
+  Text,
+  Badge,
 } from "@chakra-ui/react";
 import Link from "next/link";
 
 export const OrderList = ({ data }: { data: { getOrders: Order[] } }) => {
   const formatter = useCurrencyFormat();
   return (
-    <Stack>
+    <Stack w="100%">
       {data.getOrders.map((order) => (
         <Stack key={order.id}>
           <HStack justifyContent={"space-between"}>
@@ -24,39 +25,47 @@ export const OrderList = ({ data }: { data: { getOrders: Order[] } }) => {
               <Box fontWeight={"bold"}>{order.shortId}</Box>
               <StatusViewer statusIndicator={order.status} />
             </HStack>
-            <Box>
+            <Box fontSize={"xs"} fontWeight={"bold"}>
               {new Date(+order.createdAt)
                 .toISOString()
                 .replace("T", " ")
                 .replace(/\..*/, "")}
             </Box>
-            <Stack spacing={0}>
-              <Button>Төлөх</Button>
-              <Tag>{formatter(order.totalPrice, "standard")}</Tag>
-            </Stack>
           </HStack>
           <Stack pl={6}>
             {order.goods.map((good) => (
               <HStack justifyContent={"space-between"} key={good.id}>
-                <Link href={`/shop/${good.productId}`}>
-                  <Image h={"100px"} src={good.productImage} />
-                </Link>
-                <Box>
-                  {JSON.parse(good.productDetail).map((conf: any) => (
-                    <HStack key={conf.configId}>
-                      <Box>{conf.configName}:</Box>{" "}
-                      {conf.icon ? (
-                        <Image h="25px" src={conf.icon} />
-                      ) : (
-                        <Box>{conf.value}</Box>
-                      )}
-                    </HStack>
-                  ))}
-                </Box>
-                <Box>{good.productTitle.substring(0, 25)}</Box>
-                <Box>{formatter(good.productPrice, "standard")}</Box>
-                <Box>{good.productQuantity}</Box>
-                <Box>{formatter(good.totalPrice, "standard")}</Box>
+                <HStack>
+                  <Link href={`/shop/${good.productId}`}>
+                    <Image h={"100px"} src={good.productImage} />
+                  </Link>
+                  <Stack w="350px" overflow={"hidden"}>
+                    {JSON.parse(good.productDetail).map((conf: any) => (
+                      <HStack as={Badge} key={conf.configId}>
+                        <Box>{conf.configName}:</Box>{" "}
+                        {conf.icon ? (
+                          <Tooltip label={conf.value}>
+                            <Image h="25px" src={conf.icon} />
+                          </Tooltip>
+                        ) : (
+                          <Box>{conf.value}</Box>
+                        )}
+                      </HStack>
+                    ))}
+                  </Stack>
+                </HStack>
+                <Stack alignItems={"center"}>
+                  <Text>Барааны үнэ</Text>
+                  <Text>{formatter(good.productPrice, "standard")}</Text>
+                </Stack>
+                <Stack alignItems={"center"}>
+                  <Text>Тоо ширхэг</Text>
+                  <Text>{good.productQuantity}</Text>
+                </Stack>
+                <Stack alignItems={"center"}>
+                  <Box>{formatter(good.totalPrice, "standard")}</Box>
+                  <PaymentModalButton>Төлөх</PaymentModalButton>
+                </Stack>
               </HStack>
             ))}
           </Stack>
