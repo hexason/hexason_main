@@ -8,7 +8,11 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 
-export const QuantityController = ({ value, onChange, ...props }: InputGroupProps & { value?: number, onChange?: (value: number) => any }) => {
+export const QuantityController = ({
+  value,
+  onChange,
+  ...props
+}: InputGroupProps & { value?: number; onChange?: (value: number) => any }) => {
   const [quant, setQuant] = useState(value || 1);
   const handleInputChanger = (e: any) => {
     let value = e.target.value;

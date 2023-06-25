@@ -12,33 +12,33 @@ import React, {
 
 export type SessionContext =
   | {
-    isLoading: true;
-    session: null;
-    error: null;
-    supabaseClient: SupabaseClient;
-    user?: any;
-  }
+      isLoading: true;
+      session: null;
+      error: null;
+      supabaseClient: SupabaseClient;
+      user?: any;
+    }
   | {
-    isLoading: false;
-    session: Session;
-    error: null;
-    supabaseClient: SupabaseClient;
-    user?: any;
-  }
+      isLoading: false;
+      session: Session;
+      error: null;
+      supabaseClient: SupabaseClient;
+      user?: any;
+    }
   | {
-    isLoading: false;
-    session: null;
-    error: AuthError;
-    supabaseClient: SupabaseClient;
-    user?: any;
-  }
+      isLoading: false;
+      session: null;
+      error: AuthError;
+      supabaseClient: SupabaseClient;
+      user?: any;
+    }
   | {
-    isLoading: false;
-    session: null;
-    error: null;
-    supabaseClient: SupabaseClient;
-    user?: any;
-  };
+      isLoading: false;
+      session: null;
+      error: null;
+      supabaseClient: SupabaseClient;
+      user?: any;
+    };
 
 const SessionContext = createContext<SessionContext>({
   isLoading: true,
@@ -185,8 +185,8 @@ export const useSessionContext = () => {
 export function useSupabaseClient<
   Database = any,
   SchemaName extends string & keyof Database = "public" extends keyof Database
-  ? "public"
-  : string & keyof Database
+    ? "public"
+    : string & keyof Database
 >() {
   const context = useContext(SessionContext);
   if (context === undefined) {
