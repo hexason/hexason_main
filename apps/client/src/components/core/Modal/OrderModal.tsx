@@ -28,19 +28,19 @@ export function OrderModal({
   data,
   ...props
 }: Omit<ModalProps, "children"> & {
-  data: any
+  data: any;
 }) {
   const router = useRouter();
   const { address } = useAddress();
   const [createOrder, { loading: loadingOrder }] = useMutation(createOrderGQL);
-  const [state, setState] = useState<"create" | "select">("select")
+  const [state, setState] = useState<"create" | "select">("select");
   const switcher = () => {
-    setState(prev => prev === "select" ? 'create' : "select")
-  }
+    setState((prev) => (prev === "select" ? "create" : "select"));
+  };
 
   useEffect(() => {
-    setState("select")
-  }, [address])
+    setState("select");
+  }, [address]);
 
   const acceptHandle = async () => {
     if (!address) return;
@@ -62,7 +62,7 @@ export function OrderModal({
     });
     onClose();
     router.push("/order");
-  }
+  };
   return (
     <Modal isOpen={isOpen} onClose={onClose} {...props}>
       <ModalOverlay />
@@ -71,24 +71,30 @@ export function OrderModal({
         <ModalCloseButton />
         <ModalBody>
           <Stack>
-            {
-              state === "select" ? (
-                <>
-                  <AddressList />
-                  <Button colorScheme="blue" onClick={switcher}>Хаяг үүсгэх</Button>
-                  <Button onClick={acceptHandle} isDisabled={!address} isLoading={loadingOrder} variant="solid">Захиалга үүсгэх</Button>
-                </>
-              ) : (
-                <>
-                  <Button onClick={() => setState("select")}>Буцах</Button>
-                  <AddressFormEdit />
-                </>
-              )
-            }
+            {state === "select" ? (
+              <>
+                <AddressList />
+                <Button colorScheme="blue" onClick={switcher}>
+                  Хаяг үүсгэх
+                </Button>
+                <Button
+                  onClick={acceptHandle}
+                  isDisabled={!address}
+                  isLoading={loadingOrder}
+                  variant="solid"
+                >
+                  Захиалга үүсгэх
+                </Button>
+              </>
+            ) : (
+              <>
+                <Button onClick={() => setState("select")}>Буцах</Button>
+                <AddressFormEdit />
+              </>
+            )}
           </Stack>
           {JSON.stringify(data || {})}
         </ModalBody>
-
       </ModalContent>
     </Modal>
   );

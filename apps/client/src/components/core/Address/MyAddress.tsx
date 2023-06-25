@@ -1,5 +1,5 @@
-import { AddressList } from "./AddressList"
-import { AddressFormEdit } from "./AddressFormEdit"
+import { AddressList } from "./AddressList";
+import { AddressFormEdit } from "./AddressFormEdit";
 
 export const MyAddress = () => {
   return (
@@ -7,5 +7,5 @@ export const MyAddress = () => {
       <AddressList />
       <AddressFormEdit />
     </>
-  )
-}
+  );
+};
