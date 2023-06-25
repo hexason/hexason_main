@@ -53,13 +53,14 @@ export class ProductService {
       if (!product) throw { code: 'NOT_FOUND', message: 'Not found product' };
     }
     // Product update item information
-    if (product.integratedId && moment().add(-24, 'hour').isAfter(product.updatedAt)) {
+    if (this.TaobaoIntegration && product.integratedId && moment().add(-24, 'hour').isAfter(product.updatedAt)) {
       const taoproduct = await this.TaobaoIntegration.getItemByTaoId(product.integratedId);
       if (!taoproduct) {
-        product.status = 0;
+        product.updatedAt = new Date();
         await product.save();
-        throw { code: 'NOT_FOUND', message: 'Not found product' };
+        return product;
       }
+
       const items = taoproduct.Items.map((newItem) => {
         const item = product.items.find((i) => newItem.SKU === i.SKU);
         if (!item) return new this.itemModel({ ...newItem, product: product._id });

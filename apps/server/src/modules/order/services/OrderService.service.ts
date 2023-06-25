@@ -19,6 +19,9 @@ export class OrderService {
       relations: {
         goods: true,
       },
+      order: {
+        createdAt: 'DESC',
+      },
     });
     return orders;
   }
