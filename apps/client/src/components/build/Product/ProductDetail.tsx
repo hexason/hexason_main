@@ -21,16 +21,13 @@ import { useEffect, useState } from "react";
 import { useBasket } from "@/context/BasketContext";
 import { Product, Variation } from "@/lib/types";
 import { useSupabaseClient, useUser } from "@/lib/supabase-react";
-import { useMutation } from "@apollo/client";
-import { createOrderGQL } from "@/lib/Services";
-import { useRouter } from "next/navigation";
+import { useOrder } from "@/context/OrderContext";
 
 export default function ProductDetail({ product }: { product: Product }) {
   const { updateProduct, updateLoading } = useBasket();
   const supabase = useSupabaseClient();
   const user = useUser();
-  const router = useRouter();
-  const [createOrder, { loading: loadingOrder }] = useMutation(createOrderGQL);
+  const { openModal } = useOrder()
   const [quantity, setQuantity] = useState(1);
   const { selectedVariations, handleVariationSelect } = useSelectedVariations(
     product.items.length > 0 ? product.items[0].variations : []
@@ -64,29 +61,13 @@ export default function ProductDetail({ product }: { product: Product }) {
       return;
     }
     if (!getMatchingItem()) return;
-    console.log("test");
-    await createOrder({
-      variables: {
-        data: {
-          additional_info: "Hello",
-          address_city: "Ulaanbaatar",
-          address_district: "Khan-Uul",
-          address_info: "Khanbogd",
-          address_street: "Khanbogd",
-          contact_email: user.email,
-          contact_phone: user.phone,
-          description: "",
-          username: user.user_metadata.name,
-          items: [
-            {
-              SKU: getMatchingItem().SKU,
-              quantity: quantity,
-            },
-          ],
-        },
-      },
-    });
-    router.push("/order");
+    openModal([
+      {
+        SKU: getMatchingItem().SKU,
+        quantity
+      }
+    ]);
+
   };
 
   return (
@@ -157,7 +138,7 @@ export default function ProductDetail({ product }: { product: Product }) {
                 >
                   Сагслах
                 </Button>
-                <Button isLoading={loadingOrder} onClick={orderQuick}>
+                <Button onClick={orderQuick}>
                   Шууд захиалах
                 </Button>
               </HStack>
