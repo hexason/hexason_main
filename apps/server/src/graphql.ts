@@ -46,6 +46,16 @@ export interface ItemOrderCreate {
     quantity: number;
 }
 
+export interface AddressInputQL {
+    username: string;
+    address_city: string;
+    address_district: string;
+    address_street: string;
+    address_info: string;
+    contact_phone: string;
+    contact_email: string;
+}
+
 export interface Supplier {
     id: string;
     name: string;
@@ -172,6 +182,19 @@ export interface Goods {
     status: number;
 }
 
+export interface UserAddress {
+    id: string;
+    username: string;
+    address_city: string;
+    address_district: string;
+    address_street: string;
+    address_info: string;
+    contact_phone: string;
+    contact_email: string;
+    createdAt: string;
+    updatedAt: string;
+}
+
 export interface IQuery {
     getCategories(): Category[] | Promise<Category[]>;
     getCategoryTree(): CategoryTree[] | Promise<CategoryTree[]>;
@@ -183,11 +206,14 @@ export interface IQuery {
     getBasketProducts(): Basket[] | Promise<Basket[]>;
     getOrders(): Order[] | Promise<Order[]>;
     getGoods(): Goods[] | Promise<Goods[]>;
+    getAllAddress(): UserAddress[] | Promise<UserAddress[]>;
 }
 
 export interface IMutation {
     addToBasket(data: BackpackBasketProductAdd): Basket[] | Promise<Basket[]>;
     createOrder(data: OrderCreateArgument): Order | Promise<Order>;
+    createAddress(data: AddressInputQL): UserAddress[] | Promise<UserAddress[]>;
+    updateAddress(id: string, data: AddressInputQL): UserAddress[] | Promise<UserAddress[]>;
 }
 
 type Nullable<T> = T | null;
