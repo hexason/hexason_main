@@ -9,7 +9,7 @@ const generateNginxConfFile = (branchName) => {
   branchName = sanitize(branchName);
   const nginxConf = `server {
     listen 80;
-    server_name ${branchName}-dev.${process.env.DOMAIN_SERVER};
+    server_name ${branchName}.${process.env.DOMAIN_SERVER};
 
     location / {
         proxy_pass http://${branchName}:3000;
