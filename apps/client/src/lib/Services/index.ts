@@ -1,5 +1,22 @@
 import { gql } from "@apollo/client";
 
+export const getAllAdressGQL = gql`
+  query Query {
+    getAllAddress {
+      id
+      username
+      address_city
+      address_district
+      address_street
+      address_info
+      contact_phone
+      contact_email
+      createdAt
+      updatedAt
+    }
+  }
+`;
+
 export const createAddressGQL = gql`
   mutation CreateAddress($data: AddressInputQL!) {
     createAddress(data: $data) {
