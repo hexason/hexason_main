@@ -19,6 +19,11 @@ import Image from "next/image";
 import { QuantityController, ZoomImage } from "@/components/core";
 import { useEffect, useState } from "react";
 import { useBasket } from "@/context/BasketContext";
+import { Product, Variation } from "@/lib/types";
+import { useSupabaseClient, useUser } from "@/lib/supabase-react";
+import { useMutation } from "@apollo/client";
+import { createOrderGQL } from "@/lib/Services";
+import { useRouter } from "next/navigation";
 
 export default function ProductDetail({ product }: { product: any }) {
 	const { updateProduct, updateLoading } = useBasket();

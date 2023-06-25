@@ -10,6 +10,58 @@ export const getProduct = gql`
 	}
 `;
 
+export const createOrderGQL = gql`
+  mutation CreateOrder($data: OrderCreateArgument!) {
+    createOrder(data: $data) {
+      additional_info
+      id
+      goods {
+        id
+        SKU
+      }
+    }
+  }
+`;
+
+export const getOrdersGQL = gql`
+  {
+    getOrders {
+      id
+      shortId
+      userId
+      username
+      address_city
+      address_district
+      address_street
+      address_info
+      contact_phone
+      contact_email
+      additional_info
+      description
+      status
+      totalProductPrice
+      totalDeliveryPrice
+      totalPrice
+      paymentStatus
+      paidAt
+      createdAt
+      updatedAt
+      goods {
+        id
+        productId
+        productImage
+        SKU
+        productTitle
+        productPrice
+        productQuantity
+        productDetail
+        productUrl
+        totalPrice
+        status
+      }
+    }
+  }
+`;
 export const getProductById = (id: string) => gql`
     {
       getProductById (id: "${id}"){
@@ -33,6 +85,7 @@ export const getProductById = (id: string) => gql`
         items {
           id,
           price,
+          SKU,
           variations {
             configId,
             valueId,
