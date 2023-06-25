@@ -21,50 +21,71 @@ import { useEffect, useState } from "react";
 import { useBasket } from "@/context/BasketContext";
 import { Product, Variation } from "@/lib/types";
 import { useSupabaseClient, useUser } from "@/lib/supabase-react";
-import { useMutation } from "@apollo/client";
-import { createOrderGQL } from "@/lib/Services";
-import { useRouter } from "next/navigation";
+import { useOrder } from "@/context/OrderContext";
 
-export default function ProductDetail({ product }: { product: any }) {
+export default function ProductDetail({ product }: { product: Product }) {
 	const { updateProduct, updateLoading } = useBasket();
+	const supabase = useSupabaseClient();
+	const user = useUser();
+	const { openModal } = useOrder();
+	const [quantity, setQuantity] = useState(1);
 	const { selectedVariations, handleVariationSelect } = useSelectedVariations(
 		product.items.length > 0 ? product.items[0].variations : []
 	);
 	const formatter = useCurrencyFormat();
 	const getMatchingItem = () => {
 		return (
-			product.items.find((item: any) => {
-				return item.variations.every((itemVariation: any) =>
+			product.items.find((item) => {
+				return item.variations.every((itemVariation) =>
 					selectedVariations.some(
 						(selectedVariation) =>
 							selectedVariation.configId === itemVariation.configId &&
 							selectedVariation.valueId === itemVariation.valueId
 					)
 				);
-			}) || {}
+			}) || ({} as Record<string, any>)
 		);
+	};
+
+	const orderQuick = async () => {
+		if (!user) {
+			supabase.auth.signInWithOAuth({
+				provider: "google",
+				options: {
+					redirectTo:
+						(process.env.NEXT_PUBLIC_REDIRECT_URL || "http://localhost:3000") +
+						"/shop/" +
+						product.id,
+				},
+			});
+			return;
+		}
+		if (!getMatchingItem()) return;
+		openModal([
+			{
+				SKU: getMatchingItem().SKU,
+				quantity,
+			},
+		]);
 	};
 
 	return (
 		<Container maxW="container.xl" my={3}>
 			<Stack spacing={6} bg="#ffffffAB" p="3" borderRadius={"20px"}>
 				<Grid gap="3" templateColumns={["repeat(1,1fr)", "repeat(6, 1fr)"]}>
-					<GridItem colSpan={2} as={Stack}>
-						<AspectRatio
-							position={"relative"}
-							ratio={1}
-							borderRadius={"20px"}
-							overflow={"hidden"}
-						>
-							<Box position={"absolute"} w="100%">
-								<ZoomImage
-									img={product.image}
-									zoomScale={3}
-									width={379}
-									height={379}
-								/>
-							</Box>
-						</AspectRatio>
+					<GridItem colSpan={2}>
+						<Stack position={"sticky"} top={5} right={0} bottom={0}>
+							<AspectRatio ratio={1} borderRadius={"20px"} overflow={"hidden"}>
+								<Box w="100%">
+									<ZoomImage
+										img={product.image}
+										zoomScale={3}
+										width={379}
+										height={379}
+									/>
+								</Box>
+							</AspectRatio>
+						</Stack>
 					</GridItem>
 					<GridItem as={Stack} p={3} colSpan={3}>
 						<Stack h="100%" spacing={6}>
@@ -84,7 +105,7 @@ export default function ProductDetail({ product }: { product: any }) {
 								<HStack spacing={"10px"}>
 									<Text fontSize={"1.5rem"} color="hexmain.800">
 										{formatter(
-											getMatchingItem().price || product.price,
+											getMatchingItem()?.price || product.price,
 											"short"
 										)}{" "}
 										₮
@@ -99,42 +120,53 @@ export default function ProductDetail({ product }: { product: any }) {
 								/>
 								<Stack>
 									<Text>Тоо ширхэг:</Text>
-									<QuantityController />
+									<QuantityController
+										value={quantity}
+										onChange={(value) => setQuantity(value as number)}
+									/>
 								</Stack>
 							</Stack>
 							<HStack>
-								<Button>Fav</Button>
 								<Button
-									isLoading={updateLoading}
 									onClick={() => {
 										updateProduct({
 											productId: product.id,
-											quantity: 1,
+											quantity,
 										});
 									}}
 								>
 									Сагслах
 								</Button>
-								<Button>Шууд захиалах</Button>
+								<Button onClick={orderQuick}>Шууд захиалах</Button>
 							</HStack>
 						</Stack>
 					</GridItem>
-					<GridItem colSpan={1}>
-						<Stack h="100%" borderRadius={"5px"} bg="gray.200">
+					<GridItem h="100%" colSpan={1}>
+						<Box
+							position={"sticky"}
+							top={5}
+							right={0}
+							bottom={0}
+							h="200px"
+							w="100%"
+							borderRadius={"5px"}
+							bg="gray.200"
+						>
 							{/* Supplier information here */}
-						</Stack>
+						</Box>
+						{/* </Stack> */}
 					</GridItem>
 				</Grid>
 				<Divider />
 				<Stack alignItems={"center"} spacing={"0"}>
-					{product.images.map((img: any) => (
+					{product.images.map((img, i) => (
 						<Image
 							width={600}
 							height={400}
 							unoptimized
-							key={img._id}
+							key={img.url + i}
 							src={img.url}
-							alt={product.title + img._id}
+							alt={product.title + `desc-${i}`}
 						/>
 					))}
 				</Stack>

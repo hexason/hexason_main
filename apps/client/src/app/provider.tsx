@@ -12,6 +12,7 @@ import { GeneralLayout } from "@/components/layout";
 import { BasketProvider } from "@/context/BasketContext";
 import { FavoriteProvider } from "@/context/FavoriteContext";
 import { AddressProvider } from "@/context/AddressContext";
+import { OrderProvider } from "@/context/OrderContext";
 
 export function Providers({ children }: { children: React.ReactNode }) {
 	const [supabaseClient] = useState(() => createPagesBrowserClient());
@@ -24,7 +25,9 @@ export function Providers({ children }: { children: React.ReactNode }) {
 						<BasketProvider>
 							<FavoriteProvider>
 								<AddressProvider>
-									<GeneralLayout>{children}</GeneralLayout>
+									<OrderProvider>
+										<GeneralLayout>{children}</GeneralLayout>
+									</OrderProvider>
 								</AddressProvider>
 							</FavoriteProvider>
 						</BasketProvider>
