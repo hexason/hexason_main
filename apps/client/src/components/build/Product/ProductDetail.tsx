@@ -24,77 +24,46 @@ import { useSupabaseClient, useUser } from "@/lib/supabase-react";
 import { useOrder } from "@/context/OrderContext";
 import { VendorScore } from "@/components/core/VendorScore";
 
-export default function ProductDetail({ product }: { product: Product }) {
+export default function ProductDetail({ product }: { product: any }) {
 	const { updateProduct, updateLoading } = useBasket();
-	const supabase = useSupabaseClient();
-	const user = useUser();
-	const { openModal } = useOrder();
-	const [quantity, setQuantity] = useState(1);
-	const [selectedImage, setSelectedImage] = useState<string | null | undefined>(
-		null
-	);
 	const { selectedVariations, handleVariationSelect } = useSelectedVariations(
 		product.items.length > 0 ? product.items[0].variations : []
 	);
 	const formatter = useCurrencyFormat();
 	const getMatchingItem = () => {
 		return (
-			product.items.find((item) => {
-				return item.variations.every((itemVariation) =>
+			product.items.find((item: any) => {
+				return item.variations.every((itemVariation: any) =>
 					selectedVariations.some(
 						(selectedVariation) =>
 							selectedVariation.configId === itemVariation.configId &&
 							selectedVariation.valueId === itemVariation.valueId
 					)
 				);
-			}) || ({} as Record<string, any>)
+			}) || {}
 		);
-	};
-
-	const customHandleVariant = (variation: Variation) => {
-		setSelectedImage(variation?.mainImage);
-		handleVariationSelect(variation);
-	};
-
-	const orderQuick = async () => {
-		if (!user) {
-			supabase.auth.signInWithOAuth({
-				provider: "google",
-				options: {
-					redirectTo:
-						(process.env.NEXT_PUBLIC_REDIRECT_URL || "http://localhost:3000") +
-						"/shop/" +
-						product.id,
-				},
-			});
-			return;
-		}
-		if (!getMatchingItem()) return;
-		openModal([
-			{
-				SKU: getMatchingItem().SKU,
-				quantity,
-			},
-		]);
 	};
 
 	return (
 		<Container maxW="container.xl" my={3}>
 			<Stack spacing={6} bg="#ffffffAB" p="3" borderRadius={"20px"}>
 				<Grid gap="3" templateColumns={["repeat(1,1fr)", "repeat(6, 1fr)"]}>
-					<GridItem colSpan={2}>
-						<Stack position={"sticky"} top={5} right={0} bottom={0}>
-							<AspectRatio ratio={1} borderRadius={"20px"} overflow={"hidden"}>
-								<Box w="100%">
-									<ZoomImage
-										img={selectedImage || product.image}
-										zoomScale={3}
-										width={379}
-										height={379}
-									/>
-								</Box>
-							</AspectRatio>
-						</Stack>
+					<GridItem colSpan={2} as={Stack}>
+						<AspectRatio
+							position={"relative"}
+							ratio={1}
+							borderRadius={"20px"}
+							overflow={"hidden"}
+						>
+							<Box position={"absolute"} w="100%">
+								<ZoomImage
+									img={product.image}
+									zoomScale={3}
+									width={379}
+									height={379}
+								/>
+							</Box>
+						</AspectRatio>
 					</GridItem>
 					<GridItem as={Stack} p={3} colSpan={3}>
 						<Stack h="100%" spacing={6}>
@@ -114,7 +83,7 @@ export default function ProductDetail({ product }: { product: Product }) {
 								<HStack spacing={"10px"}>
 									<Text fontSize={"1.5rem"} color="hexmain.800">
 										{formatter(
-											getMatchingItem()?.price || product.price,
+											getMatchingItem().price || product.price,
 											"short"
 										)}{" "}
 										₮
@@ -124,63 +93,47 @@ export default function ProductDetail({ product }: { product: Product }) {
 							<Stack>
 								<Varaints
 									selectedVariations={selectedVariations}
-									handleVariationSelect={customHandleVariant}
+									handleVariationSelect={handleVariationSelect}
 									product={product}
 								/>
 								<Stack>
 									<Text>Тоо ширхэг:</Text>
-									<QuantityController
-										value={quantity}
-										onChange={(value) => setQuantity(value as number)}
-									/>
+									<QuantityController />
 								</Stack>
 							</Stack>
 							<HStack>
+								<Button>Fav</Button>
 								<Button
+									isLoading={updateLoading}
 									onClick={() => {
 										updateProduct({
 											productId: product.id,
-											quantity,
+											quantity: 1,
 										});
 									}}
 								>
 									Сагслах
 								</Button>
-								<Button onClick={orderQuick}>Шууд захиалах</Button>
+								<Button>Шууд захиалах</Button>
 							</HStack>
 						</Stack>
 					</GridItem>
-					<GridItem h="100%" colSpan={1}>
-						<Box
-							position={"sticky"}
-							top={5}
-							right={0}
-							bottom={0}
-							h="200px"
-							w="100%"
-							borderRadius={"5px"}
-							bg="gray.200"
-						>
-							<Stack p={3}>
-								<Box>{product.vendorDisplayName}</Box>
-								<VendorScore
-									score={parseInt((product?.vendorScore as any) || 1)}
-								/>
-							</Stack>
-						</Box>
-						{/* </Stack> */}
+					<GridItem colSpan={1}>
+						<Stack h="100%" borderRadius={"5px"} bg="gray.200">
+							{/* Supplier information here */}
+						</Stack>
 					</GridItem>
 				</Grid>
 				<Divider />
 				<Stack alignItems={"center"} spacing={"0"}>
-					{product.images.map((img, i) => (
+					{product.images.map((img: any) => (
 						<Image
 							width={600}
 							height={400}
 							unoptimized
-							key={img.url + i}
+							key={img._id}
 							src={img.url}
-							alt={product.title + `desc-${i}`}
+							alt={product.title + img._id}
 						/>
 					))}
 				</Stack>
