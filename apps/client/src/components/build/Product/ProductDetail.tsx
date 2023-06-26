@@ -22,6 +22,7 @@ import { useBasket } from "@/context/BasketContext";
 import { Product, Variation } from "@/lib/types";
 import { useSupabaseClient, useUser } from "@/lib/supabase-react";
 import { useOrder } from "@/context/OrderContext";
+import { VendorScore } from "@/components/core/VendorScore";
 
 export default function ProductDetail({ product }: { product: Product }) {
 	const { updateProduct, updateLoading } = useBasket();
@@ -29,6 +30,9 @@ export default function ProductDetail({ product }: { product: Product }) {
 	const user = useUser();
 	const { openModal } = useOrder();
 	const [quantity, setQuantity] = useState(1);
+	const [selectedImage, setSelectedImage] = useState<string | null | undefined>(
+		null
+	);
 	const { selectedVariations, handleVariationSelect } = useSelectedVariations(
 		product.items.length > 0 ? product.items[0].variations : []
 	);
@@ -45,6 +49,11 @@ export default function ProductDetail({ product }: { product: Product }) {
 				);
 			}) || ({} as Record<string, any>)
 		);
+	};
+
+	const customHandleVariant = (variation: Variation) => {
+		setSelectedImage(variation?.mainImage);
+		handleVariationSelect(variation);
 	};
 
 	const orderQuick = async () => {
@@ -78,7 +87,7 @@ export default function ProductDetail({ product }: { product: Product }) {
 							<AspectRatio ratio={1} borderRadius={"20px"} overflow={"hidden"}>
 								<Box w="100%">
 									<ZoomImage
-										img={product.image}
+										img={selectedImage || product.image}
 										zoomScale={3}
 										width={379}
 										height={379}
@@ -115,7 +124,7 @@ export default function ProductDetail({ product }: { product: Product }) {
 							<Stack>
 								<Varaints
 									selectedVariations={selectedVariations}
-									handleVariationSelect={handleVariationSelect}
+									handleVariationSelect={customHandleVariant}
 									product={product}
 								/>
 								<Stack>
@@ -152,7 +161,12 @@ export default function ProductDetail({ product }: { product: Product }) {
 							borderRadius={"5px"}
 							bg="gray.200"
 						>
-							{/* Supplier information here */}
+							<Stack p={3}>
+								<Box>{product.vendorDisplayName}</Box>
+								<VendorScore
+									score={parseInt((product?.vendorScore as any) || 1)}
+								/>
+							</Stack>
 						</Box>
 						{/* </Stack> */}
 					</GridItem>

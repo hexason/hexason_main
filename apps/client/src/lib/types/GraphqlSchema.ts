@@ -99,6 +99,10 @@ export interface Product {
   quantity?: Nullable<number>;
   status?: Nullable<number>;
   supplier: Supplier;
+  vendorId?: Nullable<string>;
+  vendorName?: Nullable<string>;
+  vendorDisplayName?: Nullable<string>;
+  vendorScore?: Nullable<number>;
   images: ProductImages[];
   items: Item[];
   variations: Variation[];

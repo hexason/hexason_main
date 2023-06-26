@@ -118,6 +118,7 @@ export const getProductById = (id: string) => gql`
           valueId,
           configName,
 					icon,
+          mainImage,
 					value
 				},
         items {
