@@ -130,6 +130,10 @@ export const getProductById = (id: string) => gql`
         id,
         title,
         price,
+        vendorId,
+        vendorName,
+        vendorDisplayName,
+        vendorScore,
         supplier {
           logo
         },
