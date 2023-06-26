@@ -13,16 +13,17 @@ export class ObservingService {
 
   async observeProductById({ productId, userId }: { productId: string | Types.ObjectId; userId: string }) {
     try {
-      const check = await this.prodVModel.findOne({
+      let model = await this.prodVModel.findOne({
         product: productId,
         userId,
       });
-      if (check) return;
-      const model = new this.prodVModel({
-        product: productId,
-        userId,
-      });
-      await model.save();
+      if (!model) {
+        model = new this.prodVModel({
+          product: productId,
+          userId,
+        });
+        await model.save();
+      }
 
       const highestView = await this.prodVModel.aggregate([
         {
