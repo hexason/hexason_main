@@ -66,6 +66,22 @@ export class Product implements Partial<ProductI> {
   @Prop({ type: Types.ObjectId, ref: 'Supplier', required: true })
   supplier: Supplier | string;
 
+  @Field({ nullable: true })
+  @Prop()
+  vendorId?: string;
+
+  @Field({ nullable: true })
+  @Prop()
+  vendorName?: string;
+
+  @Field({ nullable: true })
+  @Prop()
+  vendorDisplayName?: string;
+
+  @Field({ nullable: true })
+  @Prop()
+  vendorScore?: number;
+
   @Field(() => [ProductImages])
   @Prop({ type: [{ type: { url: String, blurHash: String } }] })
   images: { url: string; blurHash: string }[];

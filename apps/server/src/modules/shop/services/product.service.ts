@@ -52,6 +52,7 @@ export class ProductService {
       else throw { code: 'NOT_FOUND', message: 'Not found product' };
       if (!product) throw { code: 'NOT_FOUND', message: 'Not found product' };
     }
+
     // Product update item information
     if (this.TaobaoIntegration && product.integratedId && moment().add(-24, 'hour').isAfter(product.updatedAt)) {
       const taoproduct = await this.TaobaoIntegration.getItemByTaoId(product.integratedId);
@@ -72,7 +73,12 @@ export class ProductService {
       await this.itemModel.bulkSave(items);
       product.price = taoproduct.Price.ConvertedPriceList.Internal.Price;
       product.variations = taoproduct.Variations;
+      product.vendorId = taoproduct.VendorId;
+      product.vendorName = taoproduct.VendorName;
+      product.vendorDisplayName = taoproduct.VendorDisplayName;
+      product.vendorScore = taoproduct.VendorScore;
       product.items = items;
+
       await product.save();
       await product.populate(['supplier', 'categories', 'items']);
     }
@@ -98,6 +104,10 @@ export class ProductService {
         categories: [],
         brand: 'taobao',
         price: taoproduct.Price.ConvertedPriceList.Internal.Price,
+        vendorId: taoproduct.VendorId,
+        vendorName: taoproduct.VendorName,
+        vendorDisplayName: taoproduct.VendorDisplayName,
+        vendorScore: taoproduct.VendorScore,
         discount: 0,
         status: 12,
         supplier: '64364d4829aeda71de8a6fa6',
@@ -123,35 +133,12 @@ export class ProductService {
     return product;
   }
 
-  async createProduct({
-    title,
-    image,
-    description,
-    bgColor,
-    integratedId,
-    categories,
-    brand,
-    price,
-    discount,
-    status,
-    supplier, // from token
-    images,
-    items,
-  }: Partial<Product> & { items: any[] }) {
+  async createProduct({ items, supplier, ...data }: Partial<Product> & { items: any[] }) {
     if (!Types.ObjectId.isValid(supplier as any)) throw { code: 'FORMAT', message: 'Supplier is not valid ID' };
     const product = new this.productModel({
-      title,
-      image,
-      description,
-      bgColor,
-      categories,
-      integratedId,
-      brand,
-      price,
-      discount,
-      status,
+      ...data,
       supplier,
-      images,
+      items,
     });
     const newItems = items.map((item) => new this.itemModel({ ...item, product: product._id }));
     product.items = newItems.map((it) => it._id);
