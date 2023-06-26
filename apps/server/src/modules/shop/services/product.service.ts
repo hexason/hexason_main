@@ -54,7 +54,7 @@ export class ProductService {
     }
 
     // Product update item information
-    if (this.TaobaoIntegration && product.integratedId) {
+    if (this.TaobaoIntegration && product.integratedId && moment().add(-24, 'hour').isAfter(product.updatedAt)) {
       const taoproduct = await this.TaobaoIntegration.getItemByTaoId(product.integratedId);
       if (!taoproduct) {
         product.updatedAt = new Date();
