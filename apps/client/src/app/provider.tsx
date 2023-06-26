@@ -13,7 +13,6 @@ import { BasketProvider } from "@/context/BasketContext";
 import { FavoriteProvider } from "@/context/FavoriteContext";
 import { AddressProvider } from "@/context/AddressContext";
 import { OrderProvider } from "@/context/OrderContext";
-import { FavoriteProvider } from "@/context/FavoriteContext";
 
 export function Providers({ children }: { children: React.ReactNode }) {
 	const [supabaseClient] = useState(() => createPagesBrowserClient());
