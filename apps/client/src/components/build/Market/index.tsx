@@ -1,15 +1,15 @@
-"use client"
+"use client";
 import { ProductCard } from "@/components/core";
 import { getProducts } from "@/lib/Services";
-import { ContainerStyle } from "@/theme/common"
-import { Container, Grid } from "@chakra-ui/react"
+import { ContainerStyle } from "@/theme/common";
+import { Container, Grid } from "@chakra-ui/react";
 import { useQuery } from "@apollo/client";
 import { ThreeDotsWave } from "@/components/animation";
 
 export const MarketPlace = () => {
   const { loading, data } = useQuery(getProducts);
 
-  if (loading) return <ThreeDotsWave />
+  if (loading) return <ThreeDotsWave />;
   return (
     <Container maxW="container.xl" {...ContainerStyle} p={3} minH="60vh">
       <Grid
@@ -21,5 +21,5 @@ export const MarketPlace = () => {
         ))}
       </Grid>
     </Container>
-  )
-}
+  );
+};

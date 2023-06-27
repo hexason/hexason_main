@@ -30,7 +30,9 @@ export default function ProductDetail({ product }: { product: Product }) {
   const user = useUser();
   const { openModal } = useOrder();
   const [quantity, setQuantity] = useState(1);
-  const [selectedImage, setSelectedImage] = useState<string | null | undefined>(null);
+  const [selectedImage, setSelectedImage] = useState<string | null | undefined>(
+    null
+  );
   const { selectedVariations, handleVariationSelect } = useSelectedVariations(
     product.items.length > 0 ? product.items[0].variations : []
   );
@@ -52,7 +54,7 @@ export default function ProductDetail({ product }: { product: Product }) {
   const customHandleVariant = (variation: Variation) => {
     setSelectedImage(variation?.mainImage);
     handleVariationSelect(variation);
-  }
+  };
 
   const orderQuick = async () => {
     if (!user) {
@@ -161,7 +163,9 @@ export default function ProductDetail({ product }: { product: Product }) {
             >
               <Stack p={3}>
                 <Box>{product.vendorDisplayName}</Box>
-                <VendorScore score={parseInt(product?.vendorScore as any || 1)} />
+                <VendorScore
+                  score={parseInt((product?.vendorScore as any) || 1)}
+                />
               </Stack>
             </Box>
             {/* </Stack> */}
