@@ -11,15 +11,15 @@ import KingIcon from "./king.svg";
 import QueenIcon from "./queen.svg";
 
 export {
-  TrashIcon,
-  EyeIcon,
-  SendIcon,
-  GTransIcon,
-  ArrorLeft,
-  ShopCartIcon,
-  SmallHeartIcon,
-  HeartIcon,
-  DiamondIcon,
-  KingIcon,
-  QueenIcon,
+	TrashIcon,
+	EyeIcon,
+	SendIcon,
+	GTransIcon,
+	ArrorLeft,
+	ShopCartIcon,
+	SmallHeartIcon,
+	HeartIcon,
+	DiamondIcon,
+	KingIcon,
+	QueenIcon,
 };

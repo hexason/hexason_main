@@ -5,12 +5,12 @@ import SearchHeader from "@/components/build/Headers/SearchHeader";
 import { MobileCategory } from "@/components/core/MobileCategory";
 
 export default function Home() {
-  return (
-    <>
-      <SearchHeader />
-      <HomeHeader />
-      <MobileCategory />
-      <ProductList />
-    </>
-  );
+	return (
+		<>
+			<SearchHeader />
+			<HomeHeader />
+			<MobileCategory />
+			<ProductList />
+		</>
+	);
 }

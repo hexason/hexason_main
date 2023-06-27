@@ -1,5 +1,5 @@
 import { TrashIcon } from "@/assets/icons";
-import { Product, UpdateProduct } from "@/context/BasketContext/types";
+import { Product, UpdateProduct } from "@/context/FavoriteContext/types";
 import {
 	Drawer,
 	DrawerBody,
@@ -16,7 +16,7 @@ import {
 	Text,
 } from "@chakra-ui/react";
 
-function BasketDrawer({
+function FavoriteDrawer({
 	isOpen,
 	onClose,
 	data,
@@ -37,11 +37,11 @@ function BasketDrawer({
 			<DrawerOverlay />
 			<DrawerContent>
 				<DrawerCloseButton />
-				<DrawerHeader>Basket preview</DrawerHeader>
+				<DrawerHeader>Favorite</DrawerHeader>
 				<DrawerBody>
 					<Stack>
 						{data.map((e) => (
-							<BasketCard key={e.info.id} data={e} {...props} />
+							<BasketCard key={e.id} data={e} {...props} />
 						))}
 					</Stack>
 				</DrawerBody>
@@ -61,16 +61,16 @@ const BasketCard = ({
 }) => {
 	const remove = () => {
 		updateProduct({
-			productId: data.info.id,
-			quantity: 0,
+			productId: data.id,
+			type: "remove",
 		});
 	};
 	return (
 		<HStack>
-			<Image w="40%" src={data.info.image} alt={data.info.title} />
+			<Image w="40%" src={data.image} alt={data.title} />
 			<Stack>
 				<Text variant="body" noOfLines={2}>
-					{data.info.title}
+					{data.title}
 				</Text>
 				<HStack>
 					<Spacer />
@@ -88,4 +88,4 @@ const BasketCard = ({
 	);
 };
 
-export default BasketDrawer;
+export default FavoriteDrawer;
