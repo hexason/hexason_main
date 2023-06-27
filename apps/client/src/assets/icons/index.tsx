@@ -6,9 +6,9 @@ import ArrorLeft from "./iconmonstr-arrow-left-thin.svg";
 import HeartIcon from "./heart-svgrepo-com.svg";
 import ShopCartIcon from "./shopping-cart-outline-svgrepo-com.svg";
 import SmallHeartIcon from "./small-heart.svg";
-import DiamondIcon from "./diamond.svg"
-import KingIcon from "./king.svg"
-import QueenIcon from "./queen.svg"
+import DiamondIcon from "./diamond.svg";
+import KingIcon from "./king.svg";
+import QueenIcon from "./queen.svg";
 
 export {
   TrashIcon,
@@ -21,5 +21,5 @@ export {
   HeartIcon,
   DiamondIcon,
   KingIcon,
-  QueenIcon
+  QueenIcon,
 };

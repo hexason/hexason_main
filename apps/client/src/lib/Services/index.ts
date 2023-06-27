@@ -1,5 +1,20 @@
 import { gql } from "@apollo/client";
 
+export const searchProducts = gql`
+  query GetHighestViewedProduct($data: SearchArg!) {
+    searchProducts(data: $data) {
+      count
+      items {
+        id
+        image
+        discount
+        price
+        sold
+        title
+      }
+    }
+  }
+`;
 export const getHighestViewedProductGQL = gql`
   query GetHighestViewedProduct {
     getHighestViewedProduct {

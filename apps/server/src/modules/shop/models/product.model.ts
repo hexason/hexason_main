@@ -19,7 +19,7 @@ export class Product implements Partial<ProductI> {
   integratedId: string;
 
   @Field()
-  @Prop({ required: true })
+  @Prop({ required: true, index: 'text' })
   title: string;
 
   @Field()
