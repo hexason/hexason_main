@@ -1,11 +1,13 @@
 import Input from "./Input";
 import Button from "./Button";
+import Drawer from "./Drawer";
 import Text from "./Text";
 
 const components = {
-  Input,
-  Button,
-  Text,
+	Button,
+	Drawer,
+	Input,
+	Text,
 };
 
 export default components;
