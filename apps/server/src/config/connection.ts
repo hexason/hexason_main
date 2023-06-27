@@ -11,8 +11,9 @@ export const CacheModuleConnection = CacheModule.registerAsync<RedisClientOption
       url: process.env.REDIS_URL,
       socket: {
         keepAlive: 20,
+        reconnectStrategy: 10,
       },
-    })) as unknown as CacheStore,
+    }).catch(console.log)) as unknown as CacheStore,
   }),
   isGlobal: true,
 });
