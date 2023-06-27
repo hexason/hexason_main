@@ -61,7 +61,7 @@ export const UserSidePage = () => {
         ></Box>
         <Avatar />
         <Tag colorScheme="hexmain" zIndex={"1"} fontWeight={"bold"}>
-          {JSON.stringify(user || {})[0]}
+          {user ? user.user_metadata.name : "Сайн уу?"}
           {session ? formatter(1000, "short") + "₮" : ""}
         </Tag>
       </Stack>
@@ -74,7 +74,7 @@ export const UserSidePage = () => {
       ) : (
         <HStack>
           <Button isLoading={isLoading} onClick={loginAction}>
-            Login with Google
+            Нэвтрэх /Google/
           </Button>
         </HStack>
       )}
