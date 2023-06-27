@@ -4,7 +4,6 @@ import { HighlightCard, HomeHighlightType } from "./type";
 import CategiorySection from "./CategiorySection";
 import { useQuery } from "@apollo/client";
 import { getHighestViewedProductGQL } from "@/lib/Services";
-import { ThreeDotsWave } from "@/components/animation";
 import { Product } from "@/lib/types";
 
 const array: Array<HighlightCard> = [
