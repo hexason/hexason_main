@@ -8,7 +8,7 @@ export type HomeHighlightType = {
   data: Array<HighlightCard>;
 };
 export type HighlightCard = {
-  id: number;
+  id: string;
   name: string;
   imgUrl: string;
 };

@@ -9,7 +9,11 @@ export const CacheModuleConnection = CacheModule.registerAsync<RedisClientOption
   useFactory: async () => ({
     store: (await redisStore({
       url: process.env.REDIS_URL,
-    })) as unknown as CacheStore,
+      socket: {
+        keepAlive: 20,
+        reconnectStrategy: 10,
+      },
+    }).catch(console.log)) as unknown as CacheStore,
   }),
   isGlobal: true,
 });

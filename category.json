@@ -1,0 +1,130 @@
+[
+  {
+    "_id": {
+      "$oid": "64924e25de421d2f293cdf57"
+    },
+    "title": "Shoes",
+    "slug": "category-0",
+    "score": 0,
+    "createdAt": {
+      "$date": "2023-06-21T01:11:01.978Z"
+    },
+    "updatedAt": {
+      "$date": "2023-06-21T01:11:01.978Z"
+    },
+    "__v": 0,
+    "icon": "https://i.ibb.co/0y7GM0C/Layer-1.png"
+  },
+  {
+    "_id": {
+      "$oid": "6492509c1d3820b645a8534e"
+    },
+    "title": "Electonic",
+    "slug": "string",
+    "score": 0,
+    "createdAt": {
+      "$date": "2023-06-21T01:21:32.106Z"
+    },
+    "updatedAt": {
+      "$date": "2023-06-21T01:33:58.140Z"
+    },
+    "__v": 0,
+    "icon": "https://i.ibb.co/DYFkv9B/row-1-column-2.png"
+  },
+  {
+    "_id": {
+      "$oid": "649251e28dc4b0b6831a6e72"
+    },
+    "title": "Books",
+    "slug": "category-2",
+    "score": 0,
+    "createdAt": {
+      "$date": "2023-06-21T01:55:17.828Z"
+    },
+    "updatedAt": {
+      "$date": "2023-06-21T01:55:17.828Z"
+    },
+    "__v": 0,
+    "icon": "https://i.ibb.co/R24F3MK/row-1-column-3.png"
+  },
+  {
+    "_id": {
+      "$oid": "6492521790e5b1f94d49321a"
+    },
+    "title": "Clothing",
+    "slug": "category-3",
+    "score": 0,
+    "createdAt": {
+      "$date": "2023-06-21T02:02:47.503Z"
+    },
+    "updatedAt": {
+      "$date": "2023-06-21T02:02:47.503Z"
+    },
+    "__v": 0,
+    "icon": "https://i.ibb.co/pJb6Gkn/row-1-column-4.png"
+  },
+  {
+    "_id": {
+      "$oid": "64925284ab983cc860b7d645"
+    },
+    "title": "Furniture",
+    "slug": "category-4",
+    "score": 0,
+    "createdAt": {
+      "$date": "2023-06-21T02:05:56.596Z"
+    },
+    "updatedAt": {
+      "$date": "2023-06-21T02:05:56.596Z"
+    },
+    "__v": 0,
+    "icon": "https://i.ibb.co/YWZMnDh/row-2-column-1.png"
+  },
+  {
+    "_id": {
+      "$oid": "649252e4fcba8e52a479d9c7"
+    },
+    "title": "Appliances",
+    "slug": "category-5",
+    "score": 0,
+    "createdAt": {
+      "$date": "2023-06-21T02:08:20.481Z"
+    },
+    "updatedAt": {
+      "$date": "2023-06-21T02:08:20.481Z"
+    },
+    "__v": 0,
+    "icon": "https://i.ibb.co/fn2jdGJ/row-2-column-2.png"
+  },
+  {
+    "_id": {
+      "$oid": "6492539a7f50dc30a8e0eef9"
+    },
+    "title": "Toys",
+    "slug": "category-6",
+    "score": 0,
+    "createdAt": {
+      "$date": "2023-06-21T02:11:46.023Z"
+    },
+    "updatedAt": {
+      "$date": "2023-06-21T02:11:46.023Z"
+    },
+    "__v": 0,
+    "icon": "https://i.ibb.co/Lp2kd76/row-2-column-3.png"
+  },
+  {
+    "_id": {
+      "$oid": "649253d5b5dd19dd1edfa449"
+    },
+    "title": "Sports",
+    "slug": "category-7",
+    "score": 0,
+    "createdAt": {
+      "$date": "2023-06-21T02:12:53.161Z"
+    },
+    "updatedAt": {
+      "$date": "2023-06-21T02:12:53.161Z"
+    },
+    "__v": 0,
+    "icon": "https://i.ibb.co/JjLmxcj/row-2-column-4.png"
+  }
+]

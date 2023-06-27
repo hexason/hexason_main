@@ -19,7 +19,7 @@ export class Product implements Partial<ProductI> {
   integratedId: string;
 
   @Field()
-  @Prop({ required: true })
+  @Prop({ required: true, index: 'text' })
   title: string;
 
   @Field()
@@ -65,6 +65,22 @@ export class Product implements Partial<ProductI> {
   @Field(() => Supplier)
   @Prop({ type: Types.ObjectId, ref: 'Supplier', required: true })
   supplier: Supplier | string;
+
+  @Field({ nullable: true })
+  @Prop()
+  vendorId?: string;
+
+  @Field({ nullable: true })
+  @Prop()
+  vendorName?: string;
+
+  @Field({ nullable: true })
+  @Prop()
+  vendorDisplayName?: string;
+
+  @Field({ nullable: true })
+  @Prop()
+  vendorScore?: number;
 
   @Field(() => [ProductImages])
   @Prop({ type: [{ type: { url: String, blurHash: String } }] })

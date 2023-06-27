@@ -52,9 +52,7 @@ export default function TableList({ products }: any) {
     onOpen();
   };
 
-  useEffect(() => {
-
-  }, [listener]);
+  useEffect(() => {}, [listener]);
 
   if (!products) return <>No Permission</>;
   return (

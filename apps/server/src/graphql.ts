@@ -23,6 +23,17 @@ export interface ProductFilterArgs {
     status?: Nullable<number>;
 }
 
+export interface SearchArg {
+    query: string;
+    page: number;
+    limit: number;
+    provider: string;
+}
+
+export interface BackpackFavoriteProductUpdate {
+    ids: string[];
+}
+
 export interface BackpackBasketProductAdd {
     productId: string;
     quantity: number;
@@ -44,6 +55,16 @@ export interface OrderCreateArgument {
 export interface ItemOrderCreate {
     SKU: string;
     quantity: number;
+}
+
+export interface AddressInputQL {
+    username: string;
+    address_city: string;
+    address_district: string;
+    address_street: string;
+    address_info: string;
+    contact_phone: string;
+    contact_email: string;
 }
 
 export interface Supplier {
@@ -90,6 +111,10 @@ export interface Product {
     quantity?: Nullable<number>;
     status?: Nullable<number>;
     supplier: Supplier;
+    vendorId?: Nullable<string>;
+    vendorName?: Nullable<string>;
+    vendorDisplayName?: Nullable<string>;
+    vendorScore?: Nullable<number>;
     images: ProductImages[];
     items: Item[];
     variations: Variation[];
@@ -133,6 +158,20 @@ export interface ProductList {
     items: Product[];
 }
 
+export interface SearchProductResult {
+    count: number;
+    items: SearchProduct[];
+}
+
+export interface SearchProduct {
+    id: string;
+    title: string;
+    image: string;
+    price: number;
+    sold: number;
+    discount: number;
+}
+
 export interface Order {
     id: string;
     shortId: string;
@@ -172,6 +211,19 @@ export interface Goods {
     status: number;
 }
 
+export interface UserAddress {
+    id: string;
+    username: string;
+    address_city: string;
+    address_district: string;
+    address_street: string;
+    address_info: string;
+    contact_phone: string;
+    contact_email: string;
+    createdAt: string;
+    updatedAt: string;
+}
+
 export interface IQuery {
     getCategories(): Category[] | Promise<Category[]>;
     getCategoryTree(): CategoryTree[] | Promise<CategoryTree[]>;
@@ -180,14 +232,20 @@ export interface IQuery {
     getHighestViewedProduct(): Product[] | Promise<Product[]>;
     recommendProducts(): Product[] | Promise<Product[]>;
     sponsorProducts(): Product[] | Promise<Product[]>;
+    getFavoriteProducts(): Product[] | Promise<Product[]>;
     getBasketProducts(): Basket[] | Promise<Basket[]>;
+    searchProducts(data: SearchArg): SearchProductResult | Promise<SearchProductResult>;
     getOrders(): Order[] | Promise<Order[]>;
     getGoods(): Goods[] | Promise<Goods[]>;
+    getAllAddress(): UserAddress[] | Promise<UserAddress[]>;
 }
 
 export interface IMutation {
+    updateFavoriteProducts(data: BackpackFavoriteProductUpdate): Product[] | Promise<Product[]>;
     addToBasket(data: BackpackBasketProductAdd): Basket[] | Promise<Basket[]>;
     createOrder(data: OrderCreateArgument): Order | Promise<Order>;
+    createAddress(data: AddressInputQL): UserAddress[] | Promise<UserAddress[]>;
+    updateAddress(id: string, data: AddressInputQL): UserAddress[] | Promise<UserAddress[]>;
 }
 
 type Nullable<T> = T | null;

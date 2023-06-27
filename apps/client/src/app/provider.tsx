@@ -10,21 +10,30 @@ import { ChakraProvider } from "@chakra-ui/react";
 import { useState } from "react";
 import { GeneralLayout } from "@/components/layout";
 import { BasketProvider } from "@/context/BasketContext";
+import { FavoriteProvider } from "@/context/FavoriteContext";
+import { AddressProvider } from "@/context/AddressContext";
+import { OrderProvider } from "@/context/OrderContext";
 
 export function Providers({ children }: { children: React.ReactNode }) {
-  const [supabaseClient] = useState(() => createPagesBrowserClient());
+	const [supabaseClient] = useState(() => createPagesBrowserClient());
 
-  return (
-    <CacheProvider>
-      <ChakraProvider theme={theme}>
-        <SessionContextProvider supabaseClient={supabaseClient}>
-          <ApolloProvider client={apollo}>
-            <BasketProvider>
-              <GeneralLayout>{children}</GeneralLayout>
-            </BasketProvider>
-          </ApolloProvider>
-        </SessionContextProvider>
-      </ChakraProvider>
-    </CacheProvider>
-  );
+	return (
+		<CacheProvider>
+			<ChakraProvider theme={theme}>
+				<SessionContextProvider supabaseClient={supabaseClient}>
+					<ApolloProvider client={apollo}>
+						<BasketProvider>
+							<FavoriteProvider>
+								<AddressProvider>
+									<OrderProvider>
+										<GeneralLayout>{children}</GeneralLayout>
+									</OrderProvider>
+								</AddressProvider>
+							</FavoriteProvider>
+						</BasketProvider>
+					</ApolloProvider>
+				</SessionContextProvider>
+			</ChakraProvider>
+		</CacheProvider>
+	);
 }

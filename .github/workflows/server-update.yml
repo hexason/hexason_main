@@ -11,9 +11,7 @@ name: Create and publish a Docker image
 
 on:
   push:
-    paths:
-      - "apps/**"
-      - ".github/**"
+    branches: ["dev"]
 
   workflow_dispatch:
     inputs:
@@ -54,8 +52,8 @@ jobs:
 
       - name: "Setup environment"
         run: |
-          echo "NEXT_PUBLIC_API_URL=https://$(echo $GITHUB_REF | cut -d'/' -f 3)-dev.hexason.com/api" >> apps/client/.env.local
-          echo "NEXT_PUBLIC_REDIRECT_URL=https://$(echo $GITHUB_REF | cut -d'/' -f 3)-dev.hexason.com" >> apps/client/.env.local
+          echo "NEXT_PUBLIC_API_URL=https://$(echo $GITHUB_REF | cut -d'/' -f 3).hexason.com/api" >> apps/client/.env.local
+          echo "NEXT_PUBLIC_REDIRECT_URL=https://$(echo $GITHUB_REF | cut -d'/' -f 3).hexason.com" >> apps/client/.env.local
           echo "NEXT_PUBLIC_SUPABASE_URL=${{secrets.SUPABASE_URL}}" >> apps/client/.env.local
           echo "NEXT_PUBLIC_SUPABASE_ANON_KEY=${{secrets.SUPABASE_KEY}}" >> apps/client/.env.local
           cat apps/client/.env.local
