@@ -1,5 +1,14 @@
 import { gql } from "@apollo/client";
 
+export const getHighestViewedProductGQL = gql`
+  query GetHighestViewedProduct {
+    getHighestViewedProduct {
+      id
+      image
+    }
+  }
+`;
+
 export const getAllAdressGQL = gql`
   query Query {
     getAllAddress {
@@ -130,6 +139,10 @@ export const getProductById = (id: string) => gql`
         id,
         title,
         price,
+        vendorId,
+        vendorName,
+        vendorDisplayName,
+        vendorScore,
         supplier {
           logo
         },
@@ -142,6 +155,7 @@ export const getProductById = (id: string) => gql`
           valueId,
           configName,
 					icon,
+          mainImage,
 					value
 				},
         items {
