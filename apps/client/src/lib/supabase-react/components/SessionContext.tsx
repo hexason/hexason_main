@@ -9,6 +9,7 @@ import React, {
   useMemo,
   useState,
 } from "react";
+import { AdminType, UserType } from "./type";
 
 export type SessionContext =
   | {
@@ -16,28 +17,32 @@ export type SessionContext =
     session: null;
     error: null;
     supabaseClient: SupabaseClient;
-    user?: any;
+    user?: UserType;
+    admin?: AdminType;
   }
   | {
     isLoading: false;
     session: Session;
     error: null;
     supabaseClient: SupabaseClient;
-    user?: any;
+    user?: UserType;
+    admin?: AdminType;
   }
   | {
     isLoading: false;
     session: null;
     error: AuthError;
     supabaseClient: SupabaseClient;
-    user?: any;
+    user?: UserType;
+    admin?: AdminType;
   }
   | {
     isLoading: false;
     session: null;
     error: null;
     supabaseClient: SupabaseClient;
-    user?: any;
+    user?: UserType;
+    admin?: AdminType;
   };
 
 const SessionContext = createContext<SessionContext>({
@@ -197,6 +202,16 @@ export function useSupabaseClient<
 
   return context.supabaseClient as SupabaseClient<Database, SchemaName>;
 }
+
+export const useAdmin = () => {
+  const context = useContext(SessionContext);
+  if (context === undefined) {
+    throw new Error(`useUser must be used within a SessionContextProvider.`);
+  }
+
+  return context?.admin ?? null;
+}
+
 
 export const useSession = () => {
   const context = useContext(SessionContext);
