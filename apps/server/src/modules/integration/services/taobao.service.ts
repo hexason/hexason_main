@@ -11,7 +11,7 @@ export class TaobaoService {
       params,
     }: {
       params: {
-        [x: string]: string;
+        [x: string]: string | number | boolean;
       };
     },
   ) {
@@ -25,6 +25,17 @@ export class TaobaoService {
     });
     const data = await res.json();
     return data;
+  }
+
+  async batchSearchItems(query: string, { page, limit }: { page: number; limit: number }) {
+    const search = await this.fetchApi('SearchItemsFrame', {
+      params: {
+        xmlParameters: `<?xml version="1.0" encoding="UTF-8"?><SearchItemsParameters><Provider>Taobao</Provider><ItemTitle>${query}</ItemTitle></SearchItemsParameters>`,
+        framePosition: page,
+        frameSize: limit,
+      },
+    });
+    return search.Result;
   }
 
   async getItemByTaoId(id: string) {

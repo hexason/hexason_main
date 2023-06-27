@@ -4,4 +4,4 @@ export * from './supplier.service';
 export * from './category.service';
 export * from './observing.service';
 export * from './basket.service';
-export * from './favorite.service';
+export * from './search.service';
