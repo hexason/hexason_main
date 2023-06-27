@@ -3,6 +3,8 @@ import { Badge, Divider, HStack, Stack, Text } from "@chakra-ui/react"
 import Image from "next/image";
 import { Frame } from "./Frame";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
+
 const dummy = [
   {
     provider: "taobao",
@@ -15,6 +17,7 @@ const dummy = [
 ]
 
 export const SearchFrame = () => {
+  const searchParams = useSearchParams();
   return (
     <Stack>
       {
@@ -25,7 +28,7 @@ export const SearchFrame = () => {
               <Divider h="1px" bg="black" />
               <Badge as={Link} href="/shop" w="100px">See more</Badge>
             </HStack>
-            <Frame />
+            <Frame provider={supplier.provider} query={searchParams.get("s") || ""} />
           </Stack>
         ))
       }
