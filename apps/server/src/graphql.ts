@@ -23,6 +23,13 @@ export interface ProductFilterArgs {
     status?: Nullable<number>;
 }
 
+export interface SearchArg {
+    query: string;
+    page: number;
+    limit: number;
+    provider: string;
+}
+
 export interface BackpackBasketProductAdd {
     productId: string;
     quantity: number;
@@ -147,6 +154,20 @@ export interface ProductList {
     items: Product[];
 }
 
+export interface SearchProductResult {
+    count: number;
+    items: SearchProduct[];
+}
+
+export interface SearchProduct {
+    id: string;
+    title: string;
+    image: string;
+    price: number;
+    sold: number;
+    discount: number;
+}
+
 export interface Order {
     id: string;
     shortId: string;
@@ -208,6 +229,7 @@ export interface IQuery {
     recommendProducts(): Product[] | Promise<Product[]>;
     sponsorProducts(): Product[] | Promise<Product[]>;
     getBasketProducts(): Basket[] | Promise<Basket[]>;
+    searchProducts(data: SearchArg): SearchProductResult | Promise<SearchProductResult>;
     getOrders(): Order[] | Promise<Order[]>;
     getGoods(): Goods[] | Promise<Goods[]>;
     getAllAddress(): UserAddress[] | Promise<UserAddress[]>;

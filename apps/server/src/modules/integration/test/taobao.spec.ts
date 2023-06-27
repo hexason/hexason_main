@@ -19,4 +19,12 @@ describe('Taobao Tester', () => {
       expect(data).toBeDefined();
     });
   });
+
+  describe('SearchItems', () => {
+    it('must defined', async () => {
+      const data = await service.batchSearchItems('laptop', { page: 0, limit: 2 });
+      console.log(data.Items.Content);
+      expect(data).toBeDefined();
+    });
+  });
 });
