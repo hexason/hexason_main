@@ -9,6 +9,7 @@ import {
 	FavoriteProviderProps,
 	UpdateProduct,
 } from "./types";
+import FavoriteDrawer from "@/components/core/FavoriteDrawer";
 
 const Context = createContext<FavoriteContextInterface | undefined>(undefined);
 
@@ -63,10 +64,10 @@ function FavoriteProvider({ children }: FavoriteProviderProps) {
 			case "update":
 				const { productId, type } = product!;
 				let ids = favorite.products.map((e) => e.id);
-				if (type === "add") {
+				if (type === "add" && !ids.includes(productId)) {
 					ids.push(productId);
 				} else {
-					ids.filter((e) => e !== productId);
+					ids = ids.filter((e) => e !== productId);
 				}
 				const res = await UpdateFavoriteProducts({
 					variables: { ids },
@@ -116,6 +117,7 @@ function FavoriteProvider({ children }: FavoriteProviderProps) {
 	return (
 		<>
 			<Context.Provider value={value}>{children}</Context.Provider>
+			<FavoriteDrawer {...drawerProp} />
 		</>
 	);
 }

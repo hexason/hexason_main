@@ -1,46 +1,46 @@
 import { gql } from "@apollo/client";
 
 export const getHighestViewedProductGQL = gql`
-  query GetHighestViewedProduct {
-    getHighestViewedProduct {
-      id
-      image
-    }
-  }
+	query GetHighestViewedProduct {
+		getHighestViewedProduct {
+			id
+			image
+		}
+	}
 `;
 
 export const getAllAdressGQL = gql`
-  query Query {
-    getAllAddress {
-      id
-      username
-      address_city
-      address_district
-      address_street
-      address_info
-      contact_phone
-      contact_email
-      createdAt
-      updatedAt
-    }
-  }
+	query Query {
+		getAllAddress {
+			id
+			username
+			address_city
+			address_district
+			address_street
+			address_info
+			contact_phone
+			contact_email
+			createdAt
+			updatedAt
+		}
+	}
 `;
 
 export const createAddressGQL = gql`
-  mutation CreateAddress($data: AddressInputQL!) {
-    createAddress(data: $data) {
-      address_city
-      address_district
-      address_info
-      contact_email
-      contact_phone
-      id
-      createdAt
-      updatedAt
-      username
-      address_street
-    }
-  }
+	mutation CreateAddress($data: AddressInputQL!) {
+		createAddress(data: $data) {
+			address_city
+			address_district
+			address_info
+			contact_email
+			contact_phone
+			id
+			createdAt
+			updatedAt
+			username
+			address_street
+		}
+	}
 `;
 
 export const getProduct = gql`
@@ -54,56 +54,56 @@ export const getProduct = gql`
 `;
 
 export const createOrderGQL = gql`
-  mutation CreateOrder($data: OrderCreateArgument!) {
-    createOrder(data: $data) {
-      additional_info
-      id
-      goods {
-        id
-        SKU
-      }
-    }
-  }
+	mutation CreateOrder($data: OrderCreateArgument!) {
+		createOrder(data: $data) {
+			additional_info
+			id
+			goods {
+				id
+				SKU
+			}
+		}
+	}
 `;
 
 export const getOrdersGQL = gql`
-  {
-    getOrders {
-      id
-      shortId
-      userId
-      username
-      address_city
-      address_district
-      address_street
-      address_info
-      contact_phone
-      contact_email
-      additional_info
-      description
-      status
-      totalProductPrice
-      totalDeliveryPrice
-      totalPrice
-      paymentStatus
-      paidAt
-      createdAt
-      updatedAt
-      goods {
-        id
-        productId
-        productImage
-        SKU
-        productTitle
-        productPrice
-        productQuantity
-        productDetail
-        productUrl
-        totalPrice
-        status
-      }
-    }
-  }
+	{
+		getOrders {
+			id
+			shortId
+			userId
+			username
+			address_city
+			address_district
+			address_street
+			address_info
+			contact_phone
+			contact_email
+			additional_info
+			description
+			status
+			totalProductPrice
+			totalDeliveryPrice
+			totalPrice
+			paymentStatus
+			paidAt
+			createdAt
+			updatedAt
+			goods {
+				id
+				productId
+				productImage
+				SKU
+				productTitle
+				productPrice
+				productQuantity
+				productDetail
+				productUrl
+				totalPrice
+				status
+			}
+		}
+	}
 `;
 export const getProductById = (id: string) => gql`
     {
@@ -220,7 +220,7 @@ export const getFavProducts = gql`
 `;
 
 export const addToFav = gql`
-	mutation UpdateFavoriteProducts($ids: [String]!) {
+	mutation UpdateFavoriteProducts($ids: [String!]!) {
 		updateFavoriteProducts(data: { ids: $ids }) {
 			id
 			image

@@ -1,9 +1,10 @@
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { FavoriteService } from '../services';
 import { Product } from '../models';
-import { CurrentUserGQL } from '@/modules/auth';
+import { CurrentUserGQL, CustomerAuth } from '@/modules/auth';
 import { BackpackFavoriteProductUpdate } from '../gql/BackpackQL';
 
+@CustomerAuth()
 @Resolver()
 export class FavoriteResolver {
   constructor(private readonly favoriteService: FavoriteService) {}

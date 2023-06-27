@@ -19,13 +19,11 @@ import Image from "next/image";
 import { QuantityController, ZoomImage } from "@/components/core";
 import { useEffect, useState } from "react";
 import { useBasket } from "@/context/BasketContext";
-import { Product, Variation } from "@/lib/types";
-import { useSupabaseClient, useUser } from "@/lib/supabase-react";
-import { useOrder } from "@/context/OrderContext";
-import { VendorScore } from "@/components/core/VendorScore";
+import { useFavorite } from "@/context/FavoriteContext";
 
 export default function ProductDetail({ product }: { product: any }) {
 	const { updateProduct, updateLoading } = useBasket();
+	const { updateProduct: favUpdate, updateLoading: favLoading } = useFavorite();
 	const { selectedVariations, handleVariationSelect } = useSelectedVariations(
 		product.items.length > 0 ? product.items[0].variations : []
 	);
@@ -102,7 +100,17 @@ export default function ProductDetail({ product }: { product: any }) {
 								</Stack>
 							</Stack>
 							<HStack>
-								<Button>Fav</Button>
+								<Button
+									isLoading={favLoading}
+									onClick={() => {
+										favUpdate({
+											productId: product.id,
+											type: "add",
+										});
+									}}
+								>
+									Fav
+								</Button>
 								<Button
 									isLoading={updateLoading}
 									onClick={() => {
