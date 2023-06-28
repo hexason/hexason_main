@@ -30,7 +30,7 @@ export class OrderResolver {
 
   @Mutation(() => Order)
   async createOrder(@Args('data') data: OrderCreateArgument, @CurrentUserGQL() user: any) {
-    if (user.sub === 'unknow') throw { code: '4444', message: 'NOT_ABLE_TO_ORDER' };
+    if (user.sub === 'unknown') throw { code: '4444', message: 'NOT_ABLE_TO_ORDER' };
 
     const itemsHash = data.items.reduce((acc, itt) => {
       acc[itt.SKU] = itt;

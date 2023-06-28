@@ -11,21 +11,21 @@ export class AddressResolver {
 
   @Query(() => [UserAddress])
   async getAllAddress(@CurrentUserGQL() user: any) {
-    if (user.sub === 'unknow') return [];
+    if (user.sub === 'unknown') return [];
     const address = await this.addressService.getAllAddress(user.sub);
     return address;
   }
 
   @Mutation(() => [UserAddress])
   async createAddress(@CurrentUserGQL() user: any, @Args('data') data: AddressInputQL) {
-    if (user.sub === 'unknow') return [];
+    if (user.sub === 'unknown') return [];
     await this.addressService.createAddress(user.sub, data);
     return await this.addressService.getAllAddress(user.sub);
   }
 
   @Mutation(() => [UserAddress])
   async updateAddress(@CurrentUserGQL() user: any, @Args('id') id: string, @Args('data') data: AddressInputQL) {
-    if (user.sub === 'unknow') return [];
+    if (user.sub === 'unknown') return [];
     await this.addressService.updateAddress(id, data);
     return await this.addressService.getAllAddress(user.sub);
   }
