@@ -27,7 +27,7 @@ export const OrderListMobile = ({ data }: { data: { getOrders: Order[] } }) => {
                     <Text>Тоо ширхэг</Text>
                     <Text>{good.productQuantity}</Text>
                   </HStack>
-                  <PaymentModalButton w="100%">Төлөх</PaymentModalButton>
+                  <PaymentModalButton orderId={order.shortId} price={order.totalPrice} w="100%">Төлөх</PaymentModalButton>
                 </Stack>
               </HStack>
             ))}
