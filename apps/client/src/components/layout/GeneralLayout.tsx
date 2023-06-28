@@ -10,9 +10,6 @@ export const GeneralLayout = ({ children, ...props }: any) => {
     <>
       <TopUpBar />
       {/* {pathname === "/" ? <TopAdBar /> : null} */}
-      <Stack display={{ base: 'flex', md: "none" }}>
-        <SearchBar />
-      </Stack>
       <Container as={Stack} maxW="container.xl" {...props}>
         {children}
       </Container>
