@@ -16,16 +16,15 @@ import {
   AccordionItem,
   AccordionPanel,
   Box,
-  Avatar,
   Input,
   Wrap,
   Image,
-  IconButton,
   HStack,
   FormControl,
   FormLabel,
   Divider,
   ChakraProps,
+  Badge,
 } from "@chakra-ui/react";
 import { PropsWithChildren } from "react";
 
@@ -50,49 +49,6 @@ export function PaymentModalButton({
           <ModalBody>
             <Stack>
               <Accordion defaultIndex={[0]}>
-                <AccordionItem>
-                  <h2>
-                    <AccordionButton>
-                      <Box as="span" flex="1" textAlign="left">
-                        Данснаас төлөх
-                      </Box>
-                      <AccordionIcon />
-                    </AccordionButton>
-                  </h2>
-                  <AccordionPanel pb={4}>
-                    <Stack justifyContent={"center"} alignItems={"center"}>
-                      <Avatar />
-                      <Input
-                        readOnly
-                        value={"Үлдэгдэл:" + fomatter(10000, "standard")}
-                        textAlign={"center"}
-                      />
-                    </Stack>
-                  </AccordionPanel>
-                </AccordionItem>
-
-                <AccordionItem>
-                  <h2>
-                    <AccordionButton>
-                      <Box as="span" flex="1" textAlign="left">
-                        Автомат төлбөрийн хэрэгсэл
-                      </Box>
-                      <AccordionIcon />
-                    </AccordionButton>
-                  </h2>
-                  <AccordionPanel pb={4}>
-                    <Wrap>
-                      {[
-                        "/pocketpay.jpg",
-                        "/socialpay.png",
-                        "qpay.jpg",
-                        "https://pngimg.com/uploads/plus/plus_PNG45.png",
-                      ].map((link) => (
-                        <PaymentOptionCard src={link} key={link} />
-                      ))}
-                    </Wrap>
-                  </AccordionPanel>
-                </AccordionItem>
                 <AccordionItem>
                   <h2>
                     <AccordionButton>
@@ -132,6 +88,49 @@ export function PaymentModalButton({
                         <Input readOnly value={"0114108"} />
                       </FormControl>
                     </Stack>
+                  </AccordionPanel>
+                </AccordionItem>
+                {/* <AccordionItem>
+                  <h2>
+                    <AccordionButton>
+                      <Box as="span" flex="1" textAlign="left">
+                        Данснаас төлөх
+                      </Box>
+                      <AccordionIcon />
+                    </AccordionButton>
+                  </h2>
+                  <AccordionPanel pb={4}>
+                    <Stack justifyContent={"center"} alignItems={"center"}>
+                      <Avatar />
+                      <Input
+                        readOnly
+                        value={"Үлдэгдэл:" + fomatter(10000, "standard")}
+                        textAlign={"center"}
+                      />
+                    </Stack>
+                  </AccordionPanel>
+                </AccordionItem> */}
+
+                <AccordionItem opacity="0.5">
+                  <h2>
+                    <AccordionButton>
+                      <Box as="span" flex="1" textAlign="left">
+                        Автомат төлбөрийн хэрэгсэл <Badge>Тун удахгүй</Badge>
+                      </Box>
+                      <AccordionIcon />
+                    </AccordionButton>
+                  </h2>
+                  <AccordionPanel pb={4}>
+                    <Wrap>
+                      {[
+                        "/pocketpay.jpg",
+                        "/socialpay.png",
+                        "qpay.jpg",
+                        "https://pngimg.com/uploads/plus/plus_PNG45.png",
+                      ].map((link) => (
+                        <PaymentOptionCard src={link} key={link} />
+                      ))}
+                    </Wrap>
                   </AccordionPanel>
                 </AccordionItem>
               </Accordion>
