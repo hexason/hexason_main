@@ -1,8 +1,7 @@
 "use client";
 import { Container, Stack } from "@chakra-ui/react";
-import { TopAdBar, TopUpBar } from "../core";
+import { SearchBar, TopUpBar } from "../core";
 import { usePathname } from "next/navigation";
-import { BottomBar } from "../mobile/BottomBar";
 
 export const GeneralLayout = ({ children, ...props }: any) => {
   const pathname = usePathname();
@@ -10,11 +9,13 @@ export const GeneralLayout = ({ children, ...props }: any) => {
   return (
     <>
       <TopUpBar />
-      {pathname === "/" ? <TopAdBar /> : null}
+      {/* {pathname === "/" ? <TopAdBar /> : null} */}
+      <Stack display={{ base: 'flex', md: "none" }}>
+        <SearchBar />
+      </Stack>
       <Container as={Stack} maxW="container.xl" {...props}>
         {children}
       </Container>
-      <BottomBar />
     </>
   );
 };

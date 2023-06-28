@@ -62,7 +62,7 @@ export const Frame = ({
         hasMore={true}
         loader={<ThreeDotsWave />}
       >
-        <Grid templateColumns={"repeat(5, 1fr)"}>
+        <Grid templateColumns={{ base: "repeat(2, 1fr)", md: "repeat(5, 1fr)" }}>
           {products.map((product: any) => (
             <ProductCard key={product.id + Date.now()} product={product} />
           ))}
