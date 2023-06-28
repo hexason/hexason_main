@@ -2,6 +2,7 @@ import { Box, Stack, Text } from "@chakra-ui/react";
 import { CategoryItem } from "./type";
 import { useState } from "react";
 import SubCategory from "./SubCategory";
+import { useRouter } from "next/navigation";
 
 const Category = ({
   data,
@@ -15,6 +16,7 @@ const Category = ({
   setLocalHaveChild: (flag: boolean) => void;
 }) => {
   const [isHover, setHover] = useState(false);
+  const router = useRouter()
   const MouseIn = () => {
     setHover(true);
     setOuterIn();
@@ -32,8 +34,14 @@ const Category = ({
       else return false;
     } else return false;
   };
+
+  const redirectPage = () => {
+    if (Havechild()) return;
+    router.push("/shop?provider=taobao&s=" + data.title)
+  }
+
   return (
-    <Box onMouseEnter={MouseIn} onMouseLeave={MouseOut} py={3}>
+    <Box onClick={redirectPage} onMouseEnter={MouseIn} onMouseLeave={MouseOut} py={3}>
       <Text variant="title2" cursor="pointer">
         {data.title}
       </Text>

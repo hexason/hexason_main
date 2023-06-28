@@ -38,7 +38,8 @@ app.post('/webhook', (req, res) => {
 async function processPayload(payload, event) {
   let branch = (payload.ref || "").replace("refs/heads/", "")
   if (event === "package") branch = payload.package.package_version.container_metadata.tag.name
-  if (!branch === "main") return;
+  if (branch === "main") return;
+  if (branch !== "dev") return;
   if (typeof branch !== "string" || !branch || !event) return;
 
   switch (event) {

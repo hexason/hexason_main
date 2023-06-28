@@ -9,36 +9,41 @@ import React, {
   useMemo,
   useState,
 } from "react";
+import { AdminType, UserType } from "./type";
 
 export type SessionContext =
   | {
-      isLoading: true;
-      session: null;
-      error: null;
-      supabaseClient: SupabaseClient;
-      user?: any;
-    }
+    isLoading: true;
+    session: null;
+    error: null;
+    supabaseClient: SupabaseClient;
+    user?: UserType;
+    admin?: AdminType;
+  }
   | {
-      isLoading: false;
-      session: Session;
-      error: null;
-      supabaseClient: SupabaseClient;
-      user?: any;
-    }
+    isLoading: false;
+    session: Session;
+    error: null;
+    supabaseClient: SupabaseClient;
+    user?: UserType;
+    admin?: AdminType;
+  }
   | {
-      isLoading: false;
-      session: null;
-      error: AuthError;
-      supabaseClient: SupabaseClient;
-      user?: any;
-    }
+    isLoading: false;
+    session: null;
+    error: AuthError;
+    supabaseClient: SupabaseClient;
+    user?: UserType;
+    admin?: AdminType;
+  }
   | {
-      isLoading: false;
-      session: null;
-      error: null;
-      supabaseClient: SupabaseClient;
-      user?: any;
-    };
+    isLoading: false;
+    session: null;
+    error: null;
+    supabaseClient: SupabaseClient;
+    user?: UserType;
+    admin?: AdminType;
+  };
 
 const SessionContext = createContext<SessionContext>({
   isLoading: true,
@@ -120,7 +125,7 @@ export const SessionContextProvider = ({
           .then(({ data }) => {
             setUser({ ...data, ...session.user });
           })
-          .catch(console.log);
+          .catch(() => setUser(session.user));
         localStorage.setItem("utk", session?.access_token || "");
         setSession(session);
       }
@@ -185,8 +190,8 @@ export const useSessionContext = () => {
 export function useSupabaseClient<
   Database = any,
   SchemaName extends string & keyof Database = "public" extends keyof Database
-    ? "public"
-    : string & keyof Database
+  ? "public"
+  : string & keyof Database
 >() {
   const context = useContext(SessionContext);
   if (context === undefined) {
@@ -197,6 +202,16 @@ export function useSupabaseClient<
 
   return context.supabaseClient as SupabaseClient<Database, SchemaName>;
 }
+
+export const useAdmin = () => {
+  const context = useContext(SessionContext);
+  if (context === undefined) {
+    throw new Error(`useUser must be used within a SessionContextProvider.`);
+  }
+
+  return context?.admin ?? null;
+}
+
 
 export const useSession = () => {
   const context = useContext(SessionContext);

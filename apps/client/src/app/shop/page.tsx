@@ -1,5 +1,5 @@
-import { ProductList } from "@/components/build";
+import { MarketPlace } from "@/components/build/Market";
 
 export default function Page() {
-  return <ProductList />;
+  return <MarketPlace />;
 }

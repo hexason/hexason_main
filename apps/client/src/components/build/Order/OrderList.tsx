@@ -64,7 +64,7 @@ export const OrderList = ({ data }: { data: { getOrders: Order[] } }) => {
                 </Stack>
                 <Stack alignItems={"center"}>
                   <Box>{formatter(good.totalPrice, "standard")}</Box>
-                  <PaymentModalButton>Төлөх</PaymentModalButton>
+                  <PaymentModalButton orderId={order.shortId} price={order.totalPrice}>Төлөх</PaymentModalButton>
                 </Stack>
               </HStack>
             ))}
