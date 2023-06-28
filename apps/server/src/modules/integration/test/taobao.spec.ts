@@ -22,8 +22,8 @@ describe('Taobao Tester', () => {
 
   describe('SearchItems', () => {
     it('must defined', async () => {
-      const data = await service.batchSearchItems('laptop', { page: 0, limit: 2 });
-      console.log(data.Items.Content);
+      const data = await service.batchSearchItems('laptop', { page: 0, limit: 200 });
+      console.log(data.Items.Content.length);
       expect(data).toBeDefined();
     });
   });
