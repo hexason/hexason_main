@@ -15,17 +15,17 @@ import {
 
 const data = [
 	{
-		url: "/",
+		url: "/coming-soon",
 		src: "/icons/logistic.svg",
 		text: "Хүргэлт, ложистик",
 	},
 	{
-		url: "/",
+		url: "/coming-soon",
 		src: "/icons/online_payment.svg",
 		text: "Төлбөрийн систем",
 	},
 	{
-		url: "/shop",
+		url: "/coming-soon",
 		src: "/icons/tourist_map.svg",
 		text: "Худалдаа, Заавар",
 	},
