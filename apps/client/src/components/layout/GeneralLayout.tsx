@@ -1,6 +1,6 @@
 "use client";
 import { Container, Stack } from "@chakra-ui/react";
-import { SearchBar, TopUpBar } from "../core";
+import { TopUpBar } from "../core";
 import { usePathname } from "next/navigation";
 
 export const GeneralLayout = ({ children, ...props }: any) => {
