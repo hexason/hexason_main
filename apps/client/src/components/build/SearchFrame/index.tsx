@@ -13,7 +13,7 @@ const dummy = [
   },
   {
     provider: "imex",
-    providerIcon: "https://i.ibb.co/W6bGZff/imelogo.png",
+    // providerIcon: "https://i.ibb.co/W6bGZff/imelogo.png",
   },
 ];
 
@@ -24,13 +24,15 @@ export const SearchFrame = () => {
       {dummy.map((supplier) => (
         <Stack key={supplier.provider}>
           <HStack>
-            <Image
-              alt={supplier.provider}
-              unoptimized
-              width={100}
-              height={25}
-              src={supplier.providerIcon}
-            />
+            {supplier.providerIcon
+              && <Image
+                alt={supplier.provider}
+                unoptimized
+                width={100}
+                height={25}
+                src={supplier.providerIcon}
+              />
+            }
             <Divider h="1px" bg="black" />
             <Badge as={Link} href={`/shop?provider=${supplier.provider}&s=${searchParams.get("s") || ""}`} w="100px">
               See more

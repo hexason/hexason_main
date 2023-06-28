@@ -44,11 +44,14 @@ export const Frame = ({
   if (!infinite) {
     if (loading) return <ThreeDotsWave />
     return (
-      <Grid templateColumns={"repeat(5, 1fr)"}>
-        {products.map((product: any) => (
-          <ProductCard key={product.id + Date.now()} product={product} />
-        ))}
-      </Grid>
+      <>
+        <Grid templateColumns={"repeat(5, 1fr)"}>
+          {products.map((product: any) => (
+            <ProductCard key={product.id + Date.now()} product={product} />
+          ))}
+        </Grid>
+        {products.length === 0 && <>Бараа олдсонгүй</>}
+      </>
     )
   }
   return (
@@ -67,6 +70,7 @@ export const Frame = ({
             <ProductCard key={product.id + Date.now()} product={product} />
           ))}
         </Grid>
+        {products.length === 0 && <>Бараа олдсонгүй</>}
       </InfiniteScroll>
     </Box>
   );
