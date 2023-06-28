@@ -66,7 +66,7 @@ const CategiorySection = () => {
           left="50%"
           transform="translateX(-50%)"
         >
-          <Text variant="body3">Hover to see more</Text>
+          {/* <Text variant="body3">Hover to see more</Text> */}
         </Box>
       )}
     </Box>

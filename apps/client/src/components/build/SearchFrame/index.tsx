@@ -32,12 +32,13 @@ export const SearchFrame = () => {
               src={supplier.providerIcon}
             />
             <Divider h="1px" bg="black" />
-            <Badge as={Link} href="/shop" w="100px">
+            <Badge as={Link} href={`/shop?provider=${supplier.provider}&s=${searchParams.get("s") || ""}`} w="100px">
               See more
             </Badge>
           </HStack>
           <Frame
             provider={supplier.provider}
+            limit={5}
             query={searchParams.get("s") || ""}
           />
         </Stack>

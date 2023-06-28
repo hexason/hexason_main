@@ -1,4 +1,3 @@
-import { useCurrencyFormat } from "@/hooks";
 import { useSessionContext, useSupabaseClient } from "@/lib/supabase-react";
 import {
 	Avatar,
@@ -32,8 +31,7 @@ const data = [
 	},
 ];
 export const UserSidePage = () => {
-	const formatter = useCurrencyFormat();
-	const { isLoading, session, user } = useSessionContext();
+	const { isLoading, session } = useSessionContext();
 	const supabase = useSupabaseClient();
 
 	const loginAction = () => {
@@ -61,8 +59,7 @@ export const UserSidePage = () => {
 				></Box>
 				<Avatar />
 				<Tag colorScheme="hexmain" zIndex={"1"} fontWeight={"bold"}>
-					{user ? user.user_metadata.name : "Сайн уу?"}
-					{session ? formatter(1000, "short") + "₮" : ""}
+					{session ? session.user.user_metadata.name : "Сайн уу?"}
 				</Tag>
 			</Stack>
 			{session?.user ? (

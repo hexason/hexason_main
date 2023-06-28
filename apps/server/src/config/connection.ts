@@ -6,15 +6,20 @@ import { RedisClientOptions } from 'redis';
 
 // In-Memory DB connection
 export const CacheModuleConnection = CacheModule.registerAsync<RedisClientOptions>({
-  useFactory: async () => ({
-    store: (await redisStore({
+  useFactory: async () => {
+    const store = await redisStore({
       url: process.env.REDIS_URL,
       socket: {
         keepAlive: 20,
         reconnectStrategy: 10,
       },
-    }).catch(console.log)) as unknown as CacheStore,
-  }),
+    });
+    const client = store.getClient();
+    client.on('error', (err) => console.log(err));
+    return {
+      store: store as unknown as CacheStore,
+    };
+  },
   isGlobal: true,
 });
 

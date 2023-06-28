@@ -15,11 +15,6 @@ const READER_PAGE_LINKS = [
     url: "/",
     label: "Нүүр",
   },
-  {
-    id: "rp-2",
-    url: "/shop",
-    label: "Дэлгүүр",
-  },
 ];
 
 export const TopUpBar = () => {
@@ -28,11 +23,10 @@ export const TopUpBar = () => {
       <Container maxW="container.lg">
         <Flex
           p="2"
-          justifyContent={{ base: "center", md: "space-between" }}
+          justifyContent={{ base: "center" }}
           w="100%"
         >
           <HStack
-            display={{ base: "none", md: "flex" }}
             fontSize={"12px"}
             color={useColorModeValue("gray.600", "gray.100")}
           >
@@ -47,11 +41,11 @@ export const TopUpBar = () => {
             fontSize={"12px"}
             color={useColorModeValue("gray.600", "gray.100")}
           >
-            {READER_PAGE_LINKS.map((el) => (
+            {/* {READER_PAGE_LINKS.map((el) => (
               <Link href={el.url} key={el.id}>
                 <Text cursor={"pointer"}>{el.label}</Text>
               </Link>
-            ))}
+            ))} */}
           </HStack>
         </Flex>
       </Container>
