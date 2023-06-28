@@ -15,6 +15,7 @@ import { join } from 'path';
     GraphQLModule.forRoot({
       driver: ApolloDriver,
       playground: true,
+      introspection: true,
       definitions: {
         path: join(process.cwd(), 'src/graphql.ts'),
       },

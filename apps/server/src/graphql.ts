@@ -224,6 +224,15 @@ export interface UserAddress {
     updatedAt: string;
 }
 
+export interface PaymentMethod {
+    id: string;
+    method?: Nullable<string>;
+    bank_name?: Nullable<string>;
+    image?: Nullable<string>;
+    bank_account?: Nullable<string>;
+    bank_reciver?: Nullable<string>;
+}
+
 export interface IQuery {
     getCategories(): Category[] | Promise<Category[]>;
     getCategoryTree(): CategoryTree[] | Promise<CategoryTree[]>;
@@ -237,6 +246,7 @@ export interface IQuery {
     searchProducts(data: SearchArg): SearchProductResult | Promise<SearchProductResult>;
     getOrders(): Order[] | Promise<Order[]>;
     getGoods(): Goods[] | Promise<Goods[]>;
+    getPaymentMethods(): PaymentMethod[] | Promise<PaymentMethod[]>;
     getAllAddress(): UserAddress[] | Promise<UserAddress[]>;
 }
 
