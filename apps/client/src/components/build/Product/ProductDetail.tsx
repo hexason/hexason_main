@@ -20,7 +20,7 @@ import { QuantityController, ZoomImage } from "@/components/core";
 import { useEffect, useState } from "react";
 import { useBasket } from "@/context/BasketContext";
 import { Product, Variation } from "@/lib/types";
-import { useSupabaseClient, useSession } from "@/lib/supabase-react";
+import { useSupabaseClient, useUser } from "@/lib/supabase-react";
 import { useOrder } from "@/context/OrderContext";
 import { VendorScore } from "@/components/core/VendorScore";
 import { useFavorite } from "@/context/FavoriteContext";
@@ -29,7 +29,7 @@ export default function ProductDetail({ product }: { product: Product }) {
 	const { updateProduct, updateLoading } = useBasket();
 	const { updateProduct: favUpdate, updateLoading: favLoading } = useFavorite();
 	const supabase = useSupabaseClient();
-	const user = useSession();
+	const user = useUser();
 	const { openModal } = useOrder();
 	const [quantity, setQuantity] = useState(1);
 	const [selectedImage, setSelectedImage] = useState<string | null | undefined>(
