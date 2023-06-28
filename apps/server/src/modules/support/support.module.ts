@@ -1,9 +1,10 @@
-import { Module } from '@nestjs/common';
+import { Global, Module } from '@nestjs/common';
 import { AiCcontroller } from './controller/ai.controller';
 import { GoogleService, OpenAIService } from './services';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Chat, ChatSchema, TrainGpt, TrainGptSchema } from './models';
 
+@Global()
 @Module({
   imports: [
     MongooseModule.forFeature([
@@ -13,5 +14,6 @@ import { Chat, ChatSchema, TrainGpt, TrainGptSchema } from './models';
   ],
   providers: [GoogleService, OpenAIService],
   controllers: [AiCcontroller],
+  exports: [GoogleService],
 })
 export class SupportModule {}

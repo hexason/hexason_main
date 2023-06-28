@@ -4,12 +4,14 @@ import { CacheProd, Product } from '../models';
 import { Model } from 'mongoose';
 import { SearchArg } from '../gql/SearchQL';
 import * as moment from 'moment';
+import { GoogleService } from '@/modules/support/services';
 
 export class SearchService {
   constructor(
     @Optional() @Inject('TAOBAO_INTEGRAION') private readonly TaobaoIntegration: any,
     @InjectModel(Product.name) private readonly productModel: Model<Product>,
     @InjectModel(CacheProd.name) private readonly cacheProd: Model<CacheProd>,
+    private readonly glService: GoogleService,
   ) {}
 
   async cleanCacheProds() {
@@ -44,14 +46,19 @@ export class SearchService {
     let prods;
     await this.cleanCacheProds();
 
-    let count = await this.cacheProd.count({ slug: { $eq: query } });
+    let slug = query;
+    const translated = await this.glService.translate(query, 'en').catch(() => null);
+    if (translated && translated.translations && translated.translations[0])
+      slug = translated.translations[0].translatedText as string;
+
+    let count = await this.cacheProd.count({ slug: { $eq: slug } });
     if (count === page * 200) {
-      const extraProds = await this.cacheThirdPartyProds(query, page);
+      const extraProds = await this.cacheThirdPartyProds(slug, page);
       count = extraProds.count;
       prods = extraProds.items;
     } else {
       prods = await this.cacheProd
-        .find({ slug: { $eq: query } })
+        .find({ slug: { $eq: slug } })
         .skip(page * limit)
         .limit(limit);
     }
