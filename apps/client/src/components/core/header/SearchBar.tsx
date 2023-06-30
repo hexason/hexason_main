@@ -3,13 +3,23 @@ import { Button, Input, InputGroup, InputRightElement } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-export const SearchBar = ({ value }: { value?: string }) => {
+export const SearchBar = ({
+	provider,
+	value,
+}: {
+	value?: string;
+	provider?: string;
+}) => {
 	const style = { ...ContainerStyle, borderRadius: "full" };
 	const [s, setS] = useState(value || "");
 	const router = useRouter();
 
 	const submitHandle = () => {
-		router.push(`/search?s=${s}`);
+		if (provider) {
+			router.push(`/shop?provider=${provider}&s=${s}`);
+		} else {
+			router.push(`/search?s=${s}`);
+		}
 	};
 	return (
 		<InputGroup {...style} size="lg" w="100%">

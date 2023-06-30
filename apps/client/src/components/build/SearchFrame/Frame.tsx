@@ -4,6 +4,7 @@ import { ProductCard } from "@/components/core";
 import { searchProducts } from "@/lib/Services";
 import { useQuery } from "@apollo/client";
 import { Box, Grid } from "@chakra-ui/react";
+import { useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 
@@ -18,7 +19,9 @@ export const Frame = ({
 	limit?: number;
 	infinite?: boolean;
 }) => {
+	const searchParams = useSearchParams().get("s");
 	const [page, setPage] = useState(0);
+	const [total, setTotal] = useState(1);
 	const [products, setProducts] = useState<any>([]);
 	const { loading, data, refetch } = useQuery(searchProducts, {
 		variables: {
@@ -34,11 +37,21 @@ export const Frame = ({
 		console.log("data===>", data);
 		if (data?.searchProducts.items)
 			if (limit) {
-				setProducts((prev: any) => [...prev, ...data?.searchProducts.items]);
+				const ids = products.map((e: any) => e.id);
+				const newProds = data.searchProducts.items.filter(
+					(e: any) => !ids.includes(e.id)
+				);
+				setProducts((prev: any) => [...prev, ...newProds]);
+				setTotal(data.searchProducts.count);
 			} else {
-				setProducts(data?.searchProducts.items);
+				setProducts(data.searchProducts.items);
+				setTotal(data.searchProducts.count);
 			}
 	}, [data]);
+
+	useEffect(() => {
+		setProducts([]);
+	}, [searchParams]);
 
 	const loadMoreItems = async () => {
 		if (!limit) return;
@@ -53,7 +66,7 @@ export const Frame = ({
 			<>
 				<Grid templateColumns={"repeat(5, 1fr)"}>
 					{products.map((product: any) => (
-						<ProductCard key={product.id + Date.now()} product={product} />
+						<ProductCard key={product.id} product={product} />
 					))}
 				</Grid>
 				{products.length === 0 && <>Бараа олдсонгүй</>}
@@ -68,14 +81,14 @@ export const Frame = ({
 				refreshFunction={loadMoreItems}
 				pullDownToRefresh
 				pullDownToRefreshThreshold={100}
-				hasMore={limit ? true : false}
+				hasMore={products.length < total}
 				loader={<ThreeDotsWave />}
 			>
 				<Grid
 					templateColumns={{ base: "repeat(2, 1fr)", md: "repeat(5, 1fr)" }}
 				>
 					{products.map((product: any) => (
-						<ProductCard key={product.id + Date.now()} product={product} />
+						<ProductCard key={product.id} product={product} />
 					))}
 				</Grid>
 				{products.length === 0 && <>Бараа олдсонгүй</>}
