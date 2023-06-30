@@ -55,7 +55,7 @@ export class SearchService {
     if (count === page * 200) {
       const extraProds = await this.cacheThirdPartyProds(slug, page);
       count = extraProds.count;
-      prods = extraProds.items;
+      prods = extraProds.items.slice(0, limit);
     } else {
       prods = await this.cacheProd
         .find({ slug: { $eq: slug } })
