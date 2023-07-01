@@ -34,15 +34,14 @@ export const Frame = ({
 		},
 	});
 	useEffect(() => {
-		console.log("data===>", data);
 		if (data?.searchProducts.items)
 			if (limit) {
 				const ids = products.map((e: any) => e.id);
 				const newProds = data.searchProducts.items.filter(
 					(e: any) => !ids.includes(e.id)
 				);
-				setProducts((prev: any) => [...prev, ...newProds]);
 				setTotal(data.searchProducts.count);
+				setProducts((prev: any) => [...prev, ...newProds]);
 			} else {
 				setProducts(data.searchProducts.items);
 				setTotal(data.searchProducts.count);
@@ -64,6 +63,10 @@ export const Frame = ({
 		refetch();
 	}, [page]);
 
+	useEffect(() => {
+		console.log(products);
+	}, [products]);
+
 	if (!infinite) {
 		if (loading) return <ThreeDotsWave />;
 		return (
@@ -83,7 +86,7 @@ export const Frame = ({
 				dataLength={products.length}
 				next={loadMoreItems}
 				scrollThreshold="200px"
-				hasMore={products.length < total}
+				hasMore={products.length % limit! === 0}
 				loader={<ThreeDotsWave />}
 			>
 				<Grid
