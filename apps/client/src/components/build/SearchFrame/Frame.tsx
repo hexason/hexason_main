@@ -51,14 +51,18 @@ export const Frame = ({
 
 	useEffect(() => {
 		setProducts([]);
+		setPage(0);
 	}, [searchParams]);
 
 	const loadMoreItems = async () => {
 		if (!limit) return;
 		if (loading) return;
 		setPage((prev) => prev + 1);
-		refetch();
 	};
+
+	useEffect(() => {
+		refetch();
+	}, [page]);
 
 	if (!infinite) {
 		if (loading) return <ThreeDotsWave />;
@@ -78,9 +82,7 @@ export const Frame = ({
 			<InfiniteScroll
 				dataLength={products.length}
 				next={loadMoreItems}
-				refreshFunction={loadMoreItems}
-				pullDownToRefresh
-				pullDownToRefreshThreshold={100}
+				scrollThreshold="200px"
 				hasMore={products.length < total}
 				loader={<ThreeDotsWave />}
 			>
