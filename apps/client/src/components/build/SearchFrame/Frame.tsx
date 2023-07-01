@@ -34,15 +34,14 @@ export const Frame = ({
 		},
 	});
 	useEffect(() => {
-		console.log("data===>", data);
 		if (data?.searchProducts.items)
 			if (limit) {
 				const ids = products.map((e: any) => e.id);
 				const newProds = data.searchProducts.items.filter(
 					(e: any) => !ids.includes(e.id)
 				);
-				setProducts((prev: any) => [...prev, ...newProds]);
 				setTotal(data.searchProducts.count);
+				setProducts((prev: any) => [...prev, ...newProds]);
 			} else {
 				setProducts(data.searchProducts.items);
 				setTotal(data.searchProducts.count);
@@ -51,14 +50,18 @@ export const Frame = ({
 
 	useEffect(() => {
 		setProducts([]);
+		setPage(0);
 	}, [searchParams]);
 
 	const loadMoreItems = async () => {
 		if (!limit) return;
 		if (loading) return;
 		setPage((prev) => prev + 1);
-		refetch();
 	};
+
+	useEffect(() => {
+		refetch();
+	}, [page]);
 
 	if (!infinite) {
 		if (loading) return <ThreeDotsWave />;
@@ -78,10 +81,8 @@ export const Frame = ({
 			<InfiniteScroll
 				dataLength={products.length}
 				next={loadMoreItems}
-				refreshFunction={loadMoreItems}
-				pullDownToRefresh
-				pullDownToRefreshThreshold={100}
-				hasMore={products.length < total}
+				scrollThreshold="200px"
+				hasMore={products.length % limit! === 0}
 				loader={<ThreeDotsWave />}
 			>
 				<Grid
