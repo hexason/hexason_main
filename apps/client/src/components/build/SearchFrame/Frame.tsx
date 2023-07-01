@@ -63,10 +63,6 @@ export const Frame = ({
 		refetch();
 	}, [page]);
 
-	useEffect(() => {
-		console.log(products);
-	}, [products]);
-
 	if (!infinite) {
 		if (loading) return <ThreeDotsWave />;
 		return (
