@@ -190,11 +190,11 @@ importers:
   apps/server:
     dependencies:
       '@apollo/server':
-        specifier: ^4.7.4
-        version: 4.7.4(graphql@16.6.0)
+        specifier: ^4.9.3
+        version: 4.9.3(graphql@16.6.0)
       '@as-integrations/fastify':
         specifier: ^2.0.0
-        version: 2.0.0(@apollo/server@4.7.4)(fastify@4.17.0)
+        version: 2.0.0(@apollo/server@4.9.3)(fastify@4.17.0)
       '@fastify/static':
         specifier: ^6.10.1
         version: 6.10.2
@@ -206,7 +206,7 @@ importers:
         version: 1.2.4(@fastify/static@6.10.2)(@nestjs/websockets@9.4.2)(cache-manager@5.2.1)(class-transformer@0.5.1)(class-validator@0.14.0)(typescript@4.9.5)
       '@nestjs/apollo':
         specifier: ^11.0.5
-        version: 11.0.6(@apollo/server@4.7.4)(@as-integrations/fastify@2.0.0)(@nestjs/common@9.4.2)(@nestjs/core@9.4.2)(@nestjs/graphql@11.0.6)(graphql@16.6.0)
+        version: 11.0.6(@apollo/server@4.9.3)(@as-integrations/fastify@2.0.0)(@nestjs/common@9.4.2)(@nestjs/core@9.4.2)(@nestjs/graphql@11.0.6)(graphql@16.6.0)
       '@nestjs/cache-manager':
         specifier: ^1.0.0
         version: 1.0.0(@nestjs/common@9.4.2)(cache-manager@5.2.1)(reflect-metadata@0.1.13)(rxjs@7.8.1)
@@ -507,8 +507,8 @@ packages:
       - chokidar
     dev: true
 
-  /@apollo/cache-control-types@1.0.2(graphql@16.6.0):
-    resolution: {integrity: sha512-Por80co1eUm4ATsvjCOoS/tIR8PHxqVjsA6z76I6Vw0rFn4cgyVElQcmQDIZiYsy41k8e5xkrMRECkM2WR8pNw==}
+  /@apollo/cache-control-types@1.0.3(graphql@16.6.0):
+    resolution: {integrity: sha512-F17/vCp7QVwom9eG7ToauIKdAxpSoadsJnqIfyryLFSkLSOEqu+eC5Z3N8OXcUVStuOMcNHlyraRsA6rRICu4g==}
     peerDependencies:
       graphql: 14.x || 15.x || 16.x
     dependencies:
@@ -570,38 +570,38 @@ packages:
       long: 4.0.0
     dev: false
 
-  /@apollo/server-gateway-interface@1.1.0(graphql@16.6.0):
-    resolution: {integrity: sha512-0rhG++QtGfr4YhhIHgxZ9BdMFthaPY6LbhI9Au90osbfLMiZ7f8dmZsEX1mp7O1h8MJwCu6Dp0I/KcGbSvfUGA==}
+  /@apollo/server-gateway-interface@1.1.1(graphql@16.6.0):
+    resolution: {integrity: sha512-pGwCl/po6+rxRmDMFgozKQo2pbsSwE91TpsDBAOgf74CRDPXHHtM88wbwjab0wMMZh95QfR45GGyDIdhY24bkQ==}
     peerDependencies:
       graphql: 14.x || 15.x || 16.x
     dependencies:
-      '@apollo/usage-reporting-protobuf': 4.1.0
+      '@apollo/usage-reporting-protobuf': 4.1.1
       '@apollo/utils.fetcher': 2.0.1
       '@apollo/utils.keyvaluecache': 2.1.1
       '@apollo/utils.logger': 2.0.1
       graphql: 16.6.0
     dev: false
 
-  /@apollo/server-plugin-landing-page-graphql-playground@4.0.0(@apollo/server@4.7.4):
+  /@apollo/server-plugin-landing-page-graphql-playground@4.0.0(@apollo/server@4.9.3):
     resolution: {integrity: sha512-PBDtKI/chJ+hHeoJUUH9Kuqu58txQl00vUGuxqiC9XcReulIg7RjsyD0G1u3drX4V709bxkL5S0nTeXfRHD0qA==}
     engines: {node: '>=14.0'}
     deprecated: The use of GraphQL Playground in Apollo Server was supported in previous versions, but this is no longer the case as of December 31, 2022. This package exists for v4 migration purposes only. We do not intend to resolve security issues or other bugs with this package if they arise, so please migrate away from this to [Apollo Server's default Explorer](https://www.apollographql.com/docs/apollo-server/api/plugin/landing-pages) as soon as possible.
     peerDependencies:
       '@apollo/server': ^4.0.0
     dependencies:
-      '@apollo/server': 4.7.4(graphql@16.6.0)
+      '@apollo/server': 4.9.3(graphql@16.6.0)
       '@apollographql/graphql-playground-html': 1.6.29
     dev: false
 
-  /@apollo/server@4.7.4(graphql@16.6.0):
-    resolution: {integrity: sha512-7MwEsBR+4JRfjAzrFIOP0m/NdzNCyVOlRWCO/86zs73CC+trr08FklTD7JD0yx5BJDfyzjdhF2BZ1sEYvp/Waw==}
+  /@apollo/server@4.9.3(graphql@16.6.0):
+    resolution: {integrity: sha512-U56Sx/UmzR3Es344hQ/Ptf2EJrH+kV4ZPoLmgGjWoiwf2wYQ/pRSvkSXgjOvoyE34wSa8Gh7f92ljfLfY+6q1w==}
     engines: {node: '>=14.16.0'}
     peerDependencies:
       graphql: ^16.6.0
     dependencies:
-      '@apollo/cache-control-types': 1.0.2(graphql@16.6.0)
-      '@apollo/server-gateway-interface': 1.1.0(graphql@16.6.0)
-      '@apollo/usage-reporting-protobuf': 4.1.0
+      '@apollo/cache-control-types': 1.0.3(graphql@16.6.0)
+      '@apollo/server-gateway-interface': 1.1.1(graphql@16.6.0)
+      '@apollo/usage-reporting-protobuf': 4.1.1
       '@apollo/utils.createhash': 2.0.1
       '@apollo/utils.fetcher': 2.0.1
       '@apollo/utils.isnodelike': 2.0.1
@@ -631,8 +631,8 @@ packages:
       - supports-color
     dev: false
 
-  /@apollo/usage-reporting-protobuf@4.1.0:
-    resolution: {integrity: sha512-hXouMuw5pQVkzi8dgMybmr6Y11+eRmMQVoB5TF0HyTwAg9SOq/v3OCuiYqcVUKdBcskU9Msp+XvjAk0GKpWCwQ==}
+  /@apollo/usage-reporting-protobuf@4.1.1:
+    resolution: {integrity: sha512-u40dIUePHaSKVshcedO7Wp+mPiZsaU6xjv9J+VyxpoU/zL6Jle+9zWeG98tr/+SZ0nZ4OXhrbb8SNr0rAPpIDA==}
     dependencies:
       '@apollo/protobufjs': 1.2.7
     dev: false
@@ -720,7 +720,7 @@ packages:
     peerDependencies:
       graphql: 14.x || 15.x || 16.x
     dependencies:
-      '@apollo/usage-reporting-protobuf': 4.1.0
+      '@apollo/usage-reporting-protobuf': 4.1.1
       '@apollo/utils.dropunuseddefinitions': 2.0.1(graphql@16.6.0)
       '@apollo/utils.printwithreducedwhitespace': 2.0.1(graphql@16.6.0)
       '@apollo/utils.removealiases': 2.0.1(graphql@16.6.0)
@@ -740,14 +740,14 @@ packages:
       xss: 1.0.14
     dev: false
 
-  /@as-integrations/fastify@2.0.0(@apollo/server@4.7.4)(fastify@4.17.0):
+  /@as-integrations/fastify@2.0.0(@apollo/server@4.9.3)(fastify@4.17.0):
     resolution: {integrity: sha512-LlZUbPcE5KJWJL2zujXpmdNEl5Yal3NZTzOZWU+1euWGYPcfG9HSmQg7kWyULQNeH4T4i2+VDrsRBfyOybFeJg==}
     engines: {node: '>=16'}
     peerDependencies:
       '@apollo/server': ^4.0.0
       fastify: ^4.4.0
     dependencies:
-      '@apollo/server': 4.7.4(graphql@16.6.0)
+      '@apollo/server': 4.9.3(graphql@16.6.0)
       fastify: 4.17.0
       fastify-plugin: 4.5.0
     dev: false
@@ -4520,6 +4520,7 @@ packages:
 
   /@emotion/memoize@0.7.4:
     resolution: {integrity: sha512-Ja/Vfqe3HpuzRsG1oBtWTHk2PGZ7GR+2Vz5iYGelAw8dx32K0y7PjVuxK6z1nMpZOqAFsRUPCkK1YjJ56qJlgw==}
+    requiresBuild: true
     optional: true
 
   /@emotion/memoize@0.8.1:
@@ -5533,7 +5534,7 @@ packages:
       - utf-8-validate
     dev: true
 
-  /@nestjs/apollo@11.0.6(@apollo/server@4.7.4)(@as-integrations/fastify@2.0.0)(@nestjs/common@9.4.2)(@nestjs/core@9.4.2)(@nestjs/graphql@11.0.6)(graphql@16.6.0):
+  /@nestjs/apollo@11.0.6(@apollo/server@4.9.3)(@as-integrations/fastify@2.0.0)(@nestjs/common@9.4.2)(@nestjs/core@9.4.2)(@nestjs/graphql@11.0.6)(graphql@16.6.0):
     resolution: {integrity: sha512-w9I8oZHkHcBdR2sXoag4USe5nCOqWVdINYZTAnsLq8tafIolkGQAI9O+o1cGLyyV+9wwh4GAty5b9+jx/x1sbA==}
     peerDependencies:
       '@apollo/gateway': ^2.0.0
@@ -5552,9 +5553,9 @@ packages:
       '@as-integrations/fastify':
         optional: true
     dependencies:
-      '@apollo/server': 4.7.4(graphql@16.6.0)
-      '@apollo/server-plugin-landing-page-graphql-playground': 4.0.0(@apollo/server@4.7.4)
-      '@as-integrations/fastify': 2.0.0(@apollo/server@4.7.4)(fastify@4.17.0)
+      '@apollo/server': 4.9.3(graphql@16.6.0)
+      '@apollo/server-plugin-landing-page-graphql-playground': 4.0.0(@apollo/server@4.9.3)
+      '@as-integrations/fastify': 2.0.0(@apollo/server@4.9.3)(fastify@4.17.0)
       '@nestjs/common': 9.4.2(cache-manager@5.2.1)(class-transformer@0.5.1)(class-validator@0.14.0)(reflect-metadata@0.1.13)(rxjs@7.8.1)
       '@nestjs/core': 9.4.2(@nestjs/common@9.4.2)(@nestjs/platform-express@9.4.2)(@nestjs/websockets@9.4.2)(reflect-metadata@0.1.13)(rxjs@7.8.1)
       '@nestjs/graphql': 11.0.6(@nestjs/common@9.4.2)(@nestjs/core@9.4.2)(class-transformer@0.5.1)(class-validator@0.14.0)(graphql@16.6.0)(reflect-metadata@0.1.13)(ts-morph@18.0.0)
@@ -14197,6 +14198,7 @@ packages:
 
   /memory-pager@1.5.0:
     resolution: {integrity: sha512-ZS4Bp4r/Zoeq6+NLJpP+0Zzm0pR8whtGPf1XExKLJBAczGMnSi3It14OiNCStjQjM6NU1okjQGSxgEZN8eBYKg==}
+    requiresBuild: true
     dev: false
     optional: true
 
@@ -16656,6 +16658,7 @@ packages:
 
   /sparse-bitfield@3.0.3:
     resolution: {integrity: sha512-kvzhi7vqKTfkh0PZU+2D2PIllw2ymqJKujUcyPMd9Y75Nv4nPbGJZXNhxsgdQab2BmlDct1YnfQCguEvHr7VsQ==}
+    requiresBuild: true
     dependencies:
       memory-pager: 1.5.0
     dev: false
